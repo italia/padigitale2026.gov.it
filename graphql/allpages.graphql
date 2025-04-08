@@ -22,6 +22,9 @@ query AllPages {
         __typename
         title
         text
+        textstr {
+          value
+        }
       }
     }
   }

@@ -23,6 +23,9 @@ query Page($slug: String) {
         __typename
         title
         text
+        textstr {
+          value
+        }
       }
     }
   }
