@@ -1,0 +1,31 @@
+query AllPages {
+  allPages(first: 100) {
+    title
+    slug
+    body {
+      ... on AlertRecord {
+        __typename
+        text
+        color
+      }
+      ... on ButtonRecord {
+        __typename
+        text
+        href
+        cmsPage {
+          slug
+        }
+        color
+        target
+      }
+      ... on HeroRecord {
+        __typename
+        title
+        text
+      }
+    }
+  }
+  _allPagesMeta {
+    count
+  }
+}

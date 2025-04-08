@@ -1,0 +1,6 @@
+query SitemapPages {
+  allPages (first: 100) {
+    slug
+    _updatedAt
+  }
+}

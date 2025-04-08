@@ -6,13 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@datocms/cda-client": "^0.2.7",
     "bootstrap-italia": "2.14.0",
     "design-react-kit": "5.7.0",
+    "dotenv": "^16.4.7",
+    "graphql": "^16.10.0",
     "next": "15.2.4",
+    "next-sitemap": "^4.2.3",
     "react": "19.1.0",
+    "react-datocms": "^7.2.2",
     "react-dom": "19.1.0",
     "typeface-lora": "1.1.13",
     "typeface-roboto-mono": "1.1.13",
@@ -20,6 +26,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
+    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.0",
+    "@graphql-codegen/typescript-resolvers": "^4.5.0",
+    "@graphql-codegen/typed-document-node": "^5.1.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@types/node": "22.14.0",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",

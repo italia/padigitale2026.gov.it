@@ -1,0 +1,29 @@
+query Page($slug: String) {
+  page(filter: { slug: { eq: $slug } }) {
+    title
+    slug
+    body {
+      ... on AlertRecord {
+        __typename
+        text
+        color
+      }
+      ... on ButtonRecord {
+        __typename
+        text
+        href
+        cmsPage {
+          slug
+        }
+        color
+        target
+        size
+      }
+      ... on HeroRecord {
+        __typename
+        title
+        text
+      }
+    }
+  }
+}
