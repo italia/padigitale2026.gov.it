@@ -1,8 +1,12 @@
 .wrapper {
-    font-family: var(--font-geist-sans), 'Lora', serif;
-    border: 1px solid red;
+  border: 1px solid lime;
 
-    a {
-        color: red;
-    }
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.breadcrumbs a,
+.breadcrumbs span,
+.breadcrumbs li {
+  color: white !important;
 }

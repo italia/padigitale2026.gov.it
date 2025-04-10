@@ -21,9 +21,17 @@ query AllPages {
       ... on HeroRecord {
         __typename
         title
-        text
-        textstr {
-          value
+        description
+        hideBreadcrumbs
+        background {
+          responsiveImage {
+            __typename
+            src
+            alt
+            aspectRatio
+            width
+            height
+          }
         }
       }
     }
