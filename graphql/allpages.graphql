@@ -20,10 +20,8 @@ query AllPages {
       }
       ... on HeroRecord {
         __typename
-        title
-        description
-        hideBreadcrumbs
-        background {
+        temaChiaro
+        image {
           responsiveImage {
             __typename
             src
@@ -33,6 +31,10 @@ query AllPages {
             height
           }
         }
+        hideBreadcrumbs
+        title
+        description
+        dataDiAggiornamento
       }
     }
   }

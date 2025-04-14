@@ -21,10 +21,8 @@ query Page($slug: String) {
       }
       ... on HeroRecord {
         __typename
-        title
-        description
-        hideBreadcrumbs
-        background {
+        temaChiaro
+        image {
           responsiveImage {
             __typename
             src
@@ -34,6 +32,10 @@ query Page($slug: String) {
             height
           }
         }
+        hideBreadcrumbs
+        title
+        description
+        dataDiAggiornamento
       }
     }
   }

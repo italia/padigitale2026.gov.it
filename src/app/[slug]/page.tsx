@@ -27,8 +27,8 @@ export default async function Page({
     <main>
       <div className="container">
         <h1>{page.title}</h1>
-        <ModularContent content={{ page }} />
       </div>
+      <ModularContent content={{ page }} />
     </main>
   );
 }
