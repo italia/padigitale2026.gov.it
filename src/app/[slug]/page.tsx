@@ -1,7 +1,9 @@
 import { getAllPages } from "@/lib/datocms";
 import { AllPagesQuery } from "@/graphql/generated";
 import { notFound } from "next/navigation";
-import { ModularContent } from "../../components/ModularContent";
+import { ModularContent } from "@/src/components/ModularContent";
+import Header from "@/src/components/header";
+import Footer from "@/src/components/footer";
 
 export async function generateStaticParams() {
   const pages = (await getAllPages()) as AllPagesQuery;
@@ -25,10 +27,12 @@ export default async function Page({
 
   return (
     <main>
+      <Header />
       <div className="container">
         <h1>{page.title}</h1>
       </div>
       <ModularContent content={{ page }} />
+      <Footer />
     </main>
   );
 }

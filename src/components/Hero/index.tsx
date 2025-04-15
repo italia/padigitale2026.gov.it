@@ -17,15 +17,15 @@ const cn = classNames.bind(styles);
 
 export function Hero({ props }: { props: HeroRecord }) {
   const {
-    temaChiaro = false,
+    lightTheme = false,
     title,
     description,
     hideBreadcrumbs = false,
     image,
-    dataDiAggiornamento,
+    updateDate,
   } = props;
   return (
-    <HeroComponent className={cn("wrapper", { "light-theme": temaChiaro })}>
+    <HeroComponent className={cn("wrapper", { "light-theme": lightTheme })}>
       <div className={"row container px-0 mx-auto position-relative"}>
         <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
           {/* Breadcrumbs */}
@@ -38,14 +38,14 @@ export function Hero({ props }: { props: HeroRecord }) {
                 <BreadcrumbItem>
                   <a
                     href="#"
-                    className={temaChiaro ? "text-secondary" : "text-white"}
+                    className={lightTheme ? "text-secondary" : "text-white"}
                   >
                     Home
                   </a>
                   <span
                     className={cn("separator mb-0", {
-                      "text-secondary": temaChiaro,
-                      "text-white": !temaChiaro,
+                      "text-secondary": lightTheme,
+                      "text-white": !lightTheme,
                     })}
                   >
                     /
@@ -54,14 +54,14 @@ export function Hero({ props }: { props: HeroRecord }) {
                 <BreadcrumbItem>
                   <a
                     href="#"
-                    className={temaChiaro ? "text-secondary" : "text-white"}
+                    className={lightTheme ? "text-secondary" : "text-white"}
                   >
                     Avvisi
                   </a>
                   <span
                     className={cn("separator mb-0", {
-                      "text-secondary": temaChiaro,
-                      "text-white": !temaChiaro,
+                      "text-secondary": lightTheme,
+                      "text-white": !lightTheme,
                     })}
                   >
                     /
@@ -69,7 +69,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
                   <span
-                    className={temaChiaro ? "text-secondary" : "text-white"}
+                    className={lightTheme ? "text-secondary" : "text-white"}
                   >
                     Avviso 1.2 - Abilitazione al Cloud per le PA locali
                   </span>
@@ -80,33 +80,33 @@ export function Hero({ props }: { props: HeroRecord }) {
           {/* Body */}
           <HeroBody className={"container px-lg-2 mx-lg-1"}>
             {title && (
-              <HeroTitle className={cn({ "text-secondary": temaChiaro })}>
+              <HeroTitle className={cn({ "text-secondary": lightTheme })}>
                 {title}
               </HeroTitle>
             )}
             {description && (
               <p
                 className={cn("fs-4 font-sans-serif", {
-                  "text-secondary": temaChiaro,
+                  "text-secondary": lightTheme,
                 })}
               >
                 {description}
               </p>
             )}
-            <HeroButton outline={temaChiaro} color={"primary"}>
+            <HeroButton outline={lightTheme} color={"primary"}>
               Label button
             </HeroButton>
-            {dataDiAggiornamento && dataDiAggiornamento.length > 0 && (
+            {updateDate && updateDate.length > 0 && (
               <p
                 className={cn(
                   "position-absolute bottom-0 left-0 mb-4 font-sans-serif text-body-secondary",
                   {
-                    "text-secondary": temaChiaro,
-                    "text-white": !temaChiaro,
+                    "text-secondary": lightTheme,
+                    "text-white": !lightTheme,
                   }
                 )}
               >
-                {dataDiAggiornamento}
+                {updateDate}
               </p>
             )}
           </HeroBody>

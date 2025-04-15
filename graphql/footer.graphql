@@ -1,0 +1,10 @@
+query Footer {
+  footer {
+    title
+    linkUtili {
+      id
+      slug
+      title
+    }
+  }
+}
