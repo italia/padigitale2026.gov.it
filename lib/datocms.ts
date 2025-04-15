@@ -25,7 +25,7 @@ export async function page(slug: string) {
   })
 }
 
-export async function footer() {
+export async function getFooter() {
   return executeQuery(FooterDocument, options);
 }
 

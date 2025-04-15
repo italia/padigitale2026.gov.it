@@ -31,7 +31,7 @@ export function Hero({ props }: { props: HeroRecord }) {
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section
-              className={cn("breadcrumbs-section", "pt-2 px-4 container")}
+              className={cn("breadcrumbs-section", "pt-2 px-3 container")}
             >
               {/* TODO: make breadcrumbs dynamic */}
               <Breadcrumb className={"w-100"}>
@@ -78,7 +78,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             </section>
           )}
           {/* Body */}
-          <HeroBody className={"container px-lg-2 mx-lg-1"}>
+          <div className="it-hero-text-wrapper container px-lg-2 mx-lg-1">
             {title && (
               <HeroTitle className={cn({ "text-secondary": lightTheme })}>
                 {title}
@@ -93,9 +93,21 @@ export function Hero({ props }: { props: HeroRecord }) {
                 {description}
               </p>
             )}
-            <HeroButton outline={lightTheme} color={"primary"}>
-              Label button
-            </HeroButton>
+            <div
+              className={cn("it-btn-container", {
+                "bg-dark bg-transparent": !lightTheme, // Trick to make the button with the correct color
+              })}
+            >
+              {lightTheme ? (
+                <a className="btn btn-sm btn-outline-primary" href="#">
+                  Azione primaria{" "}
+                </a>
+              ) : (
+                <a className="btn btn-sm btn-primary" href="#">
+                  Azione primaria{" "}
+                </a>
+              )}
+            </div>
             {updateDate && updateDate.length > 0 && (
               <p
                 className={cn(
@@ -109,7 +121,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                 {updateDate}
               </p>
             )}
-          </HeroBody>
+          </div>
         </div>
         <div className={cn("colonna-immagine", "col-12 col-lg-6 px-0")}>
           {/* Image */}
