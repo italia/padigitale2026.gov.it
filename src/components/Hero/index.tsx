@@ -4,9 +4,9 @@ import { SRCImage } from "react-datocms";
 import { HeroRecord } from "@/graphql/generated";
 import {
   Hero as HeroComponent,
-  HeroBody,
+  // HeroBody,
   HeroTitle,
-  HeroButton,
+  // HeroButton,
   Breadcrumb,
   BreadcrumbItem,
 } from "design-react-kit";
