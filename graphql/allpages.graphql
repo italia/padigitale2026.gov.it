@@ -42,10 +42,12 @@ query AllPages {
           text
           color
           size
+          text
         }
       }
       ... on SplitBannerRecord {
         __typename
+        id
         title
         description
         imgLeft
@@ -54,24 +56,20 @@ query AllPages {
         image {
           responsiveImage {
             __typename
-            width
-            title
             src
             alt
             aspectRatio
+            width
             height
-            bgColor
-            sizes
-            srcSet
-            webpSrcSet
           }
         }
         button {
-          color
-          href
           id
-          size
           target
+          href
+          text
+          color
+          size
           text
         }
       }

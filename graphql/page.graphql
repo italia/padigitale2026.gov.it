@@ -43,6 +43,7 @@ query Page($slug: String) {
           text
           color
           size
+          text
         }
       }
       ... on SplitBannerRecord {
@@ -55,24 +56,20 @@ query Page($slug: String) {
         links
         image {
           responsiveImage {
-            width
-            title
+            __typename
             src
             alt
             aspectRatio
+            width
             height
-            bgColor
-            sizes
-            srcSet
-            webpSrcSet
           }
         }
         button {
-          color
-          href
           id
-          size
           target
+          href
+          color
+          size
           text
         }
       }

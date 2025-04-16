@@ -93,6 +93,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                 {description}
               </p>
             )}
+            {/* TO DO: Add button properly */}
             <div
               className={cn("it-btn-container", {
                 "bg-dark bg-transparent": !lightTheme, // Trick to make the button with the correct color
