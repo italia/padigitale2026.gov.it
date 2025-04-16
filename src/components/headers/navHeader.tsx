@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   // Col,
   Collapse,
@@ -18,11 +19,28 @@ import {
   // Row,
 } from "design-react-kit";
 import { NavItem, NavLink } from "reactstrap";
+import type { HeaderQuery } from "@/graphql/generated";
 
-export default function NavHeader({ theme }: { theme?: "dark" | "light" }) {
+export default function NavHeader({
+  theme,
+  props,
+}: {
+  theme?: "dark" | "light";
+  props: HeaderQuery;
+}) {
   const [openNav, setOpenNav] = useState(false);
+  const pathname = usePathname();
   const toggle = () => {
     setOpenNav(!openNav);
+  };
+
+  const mainLinks = props.header?.mainLinks || [];
+  const secondaryLinks = props.header?.secondaryLinks || [];
+
+  const isActiveLink = (slug: string | null | undefined) => {
+    if (!slug) return false;
+    const linkPath = `/${slug}`;
+    return pathname === linkPath || pathname.startsWith(`${linkPath}/`);
   };
 
   return (
@@ -33,7 +51,7 @@ export default function NavHeader({ theme }: { theme?: "dark" | "light" }) {
         }
       `}</style>
       <Header theme={openNav ? "light" : theme} type="navbar">
-        <HeaderContent expand="lg">
+        <HeaderContent expand="lg" className="px-0">
           <HeaderToggler
             aria-controls="nav1"
             aria-expanded="false"
@@ -50,39 +68,34 @@ export default function NavHeader({ theme }: { theme?: "dark" | "light" }) {
           >
             <div className="menu-wrapper">
               <Nav navbar>
-                <NavItem active>
-                  <NavLink active href="#">
-                    <span className="fw-semibold">Avvisi </span>
-                    <span className="visually-hidden">current</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#">
-                    <span className="fw-semibold">Guide e risorse</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#">
-                    <span className="fw-semibold">Novità</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#">
-                    <span className="fw-semibold">Enti</span>
-                  </NavLink>
-                </NavItem>
+                {mainLinks.map((link) => (
+                  <NavItem key={link.id} active={isActiveLink(link.slug)}>
+                    <NavLink
+                      active={isActiveLink(link.slug)}
+                      href={`/${link.slug || "#"}`}
+                    >
+                      <span className="fw-semibold">{link.title}</span>
+                      {isActiveLink(link.slug) && (
+                        <span className="visually-hidden">current</span>
+                      )}
+                    </NavLink>
+                  </NavItem>
+                ))}
               </Nav>
               <Nav navbar>
-                <NavItem>
-                  <NavLink href="#">
-                    <span className="fw-semibold">Open data</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#">
-                    <span className="fw-semibold">Supporto</span>
-                  </NavLink>
-                </NavItem>
+                {secondaryLinks.map((link) => (
+                  <NavItem key={link.id} active={isActiveLink(link.slug)}>
+                    <NavLink
+                      active={isActiveLink(link.slug)}
+                      href={`/${link.slug || "#"}`}
+                    >
+                      <span className="fw-semibold">{link.title}</span>
+                      {isActiveLink(link.slug) && (
+                        <span className="visually-hidden">current</span>
+                      )}
+                    </NavLink>
+                  </NavItem>
+                ))}
               </Nav>
             </div>
           </Collapse>

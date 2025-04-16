@@ -13,7 +13,19 @@ import {
   // Icon,
 } from "design-react-kit";
 
-export default function CenterHeader({ theme }: { theme?: "dark" | "light" }) {
+import type { HeaderQuery } from "@/graphql/generated";
+
+export default function CenterHeader({
+  theme,
+  props,
+}: {
+  theme?: "dark" | "light";
+  props: HeaderQuery;
+}) {
+  const header = props.header;
+  const title = header?.title || "";
+  const subtitle = header?.subtitle || "";
+
   return (
     <Header theme={theme || ""} type="center">
       <HeaderContent>
@@ -29,10 +41,8 @@ export default function CenterHeader({ theme }: { theme?: "dark" | "light" }) {
             height={56}
           />
           <div className="">
-            <h3 className="mb-0 d-none d-sm-block">PA digitale 2026</h3>
-            <p className="mb-0 fs-6 d-none d-md-block">
-              Le risorse per una PA protagonista della transizione digitale
-            </p>
+            <h3 className="mb-0 d-none d-sm-block">{title}</h3>
+            <p className="mb-0 fs-6 d-none d-md-block">{subtitle}</p>
           </div>
         </Link>
         <HeaderRightZone>

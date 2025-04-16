@@ -14,7 +14,7 @@ import {
   LinkList,
   LinkListItem,
 } from "design-react-kit";
-import { FooterQuery } from "@/graphql/generated";
+import type { FooterQuery } from "@/graphql/generated";
 
 export default function Footer({ props }: { props: FooterQuery }) {
   const footerData = props.footer;

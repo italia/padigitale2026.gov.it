@@ -40,6 +40,39 @@ query AllPages {
           target
           href
           text
+          color
+          size
+        }
+      }
+      ... on SplitBannerRecord {
+        __typename
+        title
+        description
+        imgLeft
+        lightTheme
+        links
+        image {
+          responsiveImage {
+            __typename
+            width
+            title
+            src
+            alt
+            aspectRatio
+            height
+            bgColor
+            sizes
+            srcSet
+            webpSrcSet
+          }
+        }
+        button {
+          color
+          href
+          id
+          size
+          target
+          text
         }
       }
     }

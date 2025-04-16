@@ -7,8 +7,8 @@ import "typeface-titillium-web";
 import "typeface-roboto-mono";
 import "typeface-lora";
 
-import { getFooter } from "@/lib/datocms";
-import { FooterQuery } from "@/graphql/generated";
+import { getFooter, getHeader } from "@/lib/datocms";
+import type { FooterQuery, HeaderQuery } from "@/graphql/generated";
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 
@@ -23,11 +23,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const footerProps = (await getFooter()) as FooterQuery;
-
+  const headerProps = (await getHeader()) as HeaderQuery;
   return (
     <html lang="it">
       <body>
-        <Header />
+        <Header props={headerProps} />
         <main>{children}</main>
         <Footer props={footerProps} />
       </body>
