@@ -1,0 +1,25 @@
+query Footer {
+  footer {
+    title
+    linkColonna1 {
+      id
+      slug
+      title
+    }
+    linkColonna2 {
+      id
+      slug
+      title
+    }
+    linkColonna3 {
+      id
+      slug
+      title
+    }
+    linkUtili {
+      id
+      slug
+      title
+    }
+  }
+}

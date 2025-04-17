@@ -1,0 +1,25 @@
+// Breakpoint variables
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  mb: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+// Mixin per media query min-width
+// Usage:
+// Per schermi più grandi di lg
+// @include mb(lg) {
+//   // stili
+// }
+@mixin mb($breakpoint) {
+  @if map-has-key($grid-breakpoints, $breakpoint) {
+    @media (min-width: map-get($grid-breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' non esiste";
+  }
+}

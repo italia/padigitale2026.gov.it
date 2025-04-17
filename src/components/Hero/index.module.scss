@@ -1,0 +1,53 @@
+@import "../../styles/index";
+
+.wrapper {
+  flex-direction: column;
+  align-items: flex-start;
+
+  &.light-theme {
+    background-color: #f2f7fc;
+  }
+
+  .colonna-testo {
+    z-index: 2;
+  }
+  .colonna-immagine {
+    z-index: 1;
+
+    picture {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .hero-image {
+    width: 100%;
+    max-width: none !important;
+
+    @include mb(lg) {
+      height: 100% !important;
+      width: auto !important;
+      object-fit: cover;
+      object-position: center right;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .breadcrumbs-section {
+    position: relative;
+    z-index: 2;
+
+    ol {
+      margin-bottom: 0;
+    }
+
+    @include mb(lg) {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}

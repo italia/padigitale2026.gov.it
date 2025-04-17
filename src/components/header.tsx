@@ -1,15 +1,17 @@
 "use client";
 import { Headers } from "design-react-kit";
-import CenterHeader from "@/components/headers/centerHeader";
-import SlimHeader from "@/components/headers/slimHeader";
-import NavHeader from "@/components/headers/navHeader";
-export default function Footer() {
+import CenterHeader from "@/src/components/headers/centerHeader";
+import SlimHeader from "@/src/components/headers/slimHeader";
+import NavHeader from "@/src/components/headers/navHeader";
+import type { HeaderQuery } from "@/graphql/generated";
+
+export default function Header({ props }: { props: HeaderQuery }) {
   return (
     <Headers>
-      <SlimHeader theme="dark" />
+      <SlimHeader theme="light" />
       <div className="it-nav-wrapper">
-        <CenterHeader theme="dark" />
-        <NavHeader theme="dark" />
+        <CenterHeader theme="light" props={props} />
+        <NavHeader theme="light" props={props} />
       </div>
     </Headers>
   );

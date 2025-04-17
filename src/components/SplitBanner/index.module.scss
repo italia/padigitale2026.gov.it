@@ -1,0 +1,38 @@
+@import "../../styles/index";
+
+.wrapper {
+  min-height: 0;
+  background-color: #f2f7fc;
+
+  &.light-theme {
+    background-color: #fff;
+  }
+
+  .colonna-testo {
+    z-index: 2;
+  }
+  .colonna-immagine {
+    z-index: 1;
+
+    picture {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .hero-image {
+    width: 100%;
+    max-width: none !important;
+
+    @include mb(lg) {
+      height: 100% !important;
+      // width: auto !important;
+      object-fit: cover;
+      object-position: center center;
+      // position: absolute;
+      // top: 0;
+      // right: 0;
+    }
+  }
+}

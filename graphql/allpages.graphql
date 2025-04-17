@@ -1,0 +1,81 @@
+query AllPages {
+  allPages(first: 100) {
+    title
+    slug
+    body {
+      ... on AlertRecord {
+        __typename
+        text
+        color
+      }
+      ... on ButtonRecord {
+        __typename
+        text
+        href
+        cmsPage {
+          slug
+        }
+        color
+        target
+      }
+      ... on HeroRecord {
+        __typename
+        lightTheme
+        hideBreadcrumbs
+        title
+        description
+        updateDate
+        image {
+          responsiveImage {
+            __typename
+            src
+            alt
+            aspectRatio
+            width
+            height
+          }
+        }
+        button {
+          id
+          target
+          href
+          text
+          color
+          size
+          text
+        }
+      }
+      ... on SplitBannerRecord {
+        __typename
+        id
+        title
+        description
+        imgLeft
+        lightTheme
+        links
+        image {
+          responsiveImage {
+            __typename
+            src
+            alt
+            aspectRatio
+            width
+            height
+          }
+        }
+        button {
+          id
+          target
+          href
+          text
+          color
+          size
+          text
+        }
+      }
+    }
+  }
+  _allPagesMeta {
+    count
+  }
+}
