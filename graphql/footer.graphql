@@ -2,19 +2,24 @@ query Footer {
   footer {
     title
     titleColonna1
-    titleColonna2
-    titleColonna3
     linkColonna1 {
       id
       slug
       title
     }
+    titleColonna2
     linkColonna2 {
       id
       slug
       title
     }
+    titleColonna3
     linkColonna3 {
+      id
+      slug
+      title
+    }
+    linkNewsletter {
       id
       slug
       title

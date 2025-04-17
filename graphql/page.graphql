@@ -37,13 +37,16 @@ query Page($slug: String) {
           }
         }
         button {
-          id
-          target
-          href
-          text
           color
+          href
+          id
           size
+          target
           text
+          cmsPage {
+            title
+            slug
+          }
         }
       }
       ... on SplitBannerRecord {
@@ -53,7 +56,11 @@ query Page($slug: String) {
         description
         imgLeft
         lightTheme
-        links
+        links {
+          id
+          slug
+          title
+        }
         image {
           responsiveImage {
             __typename
@@ -65,12 +72,16 @@ query Page($slug: String) {
           }
         }
         button {
-          id
-          target
-          href
           color
+          href
+          id
           size
+          target
           text
+          cmsPage {
+            title
+            slug
+          }
         }
       }
     }

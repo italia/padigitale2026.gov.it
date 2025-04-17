@@ -6,10 +6,33 @@ import {
   Hero as SplitBannerComponent,
   HeroTitle as SplitBannerTitle,
 } from "design-react-kit";
+import Link from "next/link";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
+
+const getButtonHref = (button: SplitBannerRecord["button"]) => {
+  // href link > cms page
+  if (button?.href) {
+    return `${button.href}`;
+  }
+  if (button?.cmsPage?.slug) {
+    return `/${button.cmsPage.slug}`;
+  }
+  return "";
+};
+
+const getButtonTitle = (button: SplitBannerRecord["button"]) => {
+  // href link > cms page
+  if (button?.href) {
+    return button.text || "";
+  }
+  if (button?.cmsPage?.title) {
+    return `Vai alla pagina ${button.cmsPage.title}`;
+  }
+  return "";
+};
 
 export function SplitBanner({ props }: { props: SplitBannerRecord }) {
   const {
@@ -17,9 +40,9 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
     title,
     description,
     image,
-    // links,
+    links,
     imgLeft,
-    // button,
+    button,
   } = props;
   return (
     <SplitBannerComponent
@@ -48,10 +71,31 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
               <p className={"font-sans-serif text-secondary"}>{description}</p>
             )}
 
-            {/* TO DO: Add button properly */}
-            <a className="btn btn-sm btn-outline-primary mt-2" href="#">
-              Azione primaria{" "}
-            </a>
+            {button && (
+              <Link
+                className="btn btn-sm btn-outline-primary mt-2"
+                href={getButtonHref(button)}
+                target={button.target || "_self"}
+                title={getButtonTitle(button)}
+              >
+                {button.text}
+              </Link>
+            )}
+
+            {links && (
+              <div className="mt-2 d-inline-flex gap-4 flex-wrap">
+                {links.map((link) => (
+                  <Link
+                    key={link.id}
+                    href={`/${link.slug}`}
+                    className="fw-semibold"
+                    style={{ fontSize: "1.125rem" }}
+                  >
+                    {link.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div className={cn("colonna-immagine", "col-12 col-lg-6 px-0")}>

@@ -36,13 +36,16 @@ query AllPages {
           }
         }
         button {
-          id
-          target
-          href
-          text
           color
+          href
+          id
           size
+          target
           text
+          cmsPage {
+            title
+            slug
+          }
         }
       }
       ... on SplitBannerRecord {
@@ -52,7 +55,11 @@ query AllPages {
         description
         imgLeft
         lightTheme
-        links
+        links {
+          id
+          slug
+          title
+        }
         image {
           responsiveImage {
             __typename
@@ -64,13 +71,16 @@ query AllPages {
           }
         }
         button {
-          id
-          target
-          href
-          text
           color
+          href
+          id
           size
+          target
           text
+          cmsPage {
+            title
+            slug
+          }
         }
       }
     }

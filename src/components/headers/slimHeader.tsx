@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import {
   Button,
   // Dropdown,
@@ -26,25 +27,25 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
               className="list-inline-item px-4 border-end border-primary border-opacity-25 h-100 d-flex align-items-center me-0"
               style={{ fontSize: "0.875rem" }}
             >
-              <a
+              <Link
                 href="#"
                 title="Italia digitale 2026"
                 className="text-decoration-underline"
               >
                 Italia digitale 2026
-              </a>
+              </Link>
             </li>
             <li
               className="list-inline-item px-4 h-100 d-flex align-items-center"
               style={{ fontSize: "0.875rem" }}
             >
-              <a
+              <Link
                 href="#"
                 title="Italia domani - PNRR"
                 className="text-decoration-underline"
               >
                 Italia domani - PNRR
-              </a>
+              </Link>
             </li>
           </ul>
 
