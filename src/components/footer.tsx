@@ -19,6 +19,9 @@ import type { FooterQuery } from "@/graphql/generated";
 export default function Footer({ props }: { props: FooterQuery }) {
   const footerData = props.footer;
   const title = footerData?.title || "";
+  const titleColonna1 = footerData?.titleColonna1 || "";
+  const titleColonna2 = footerData?.titleColonna2 || "";
+  const titleColonna3 = footerData?.titleColonna3 || "";
   const linkUtili = footerData?.linkUtili || [];
   const linkColonna1 = footerData?.linkColonna1 || [];
   const linkColonna2 = footerData?.linkColonna2 || [];
@@ -105,7 +108,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
             <Row>
               {linkColonna1.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>ESPLORA</h4>
+                  <h4>{titleColonna1}</h4>
                   <LinkList className="footer-list clearfix">
                     {linkColonna1.map((link) => (
                       <LinkListItem
@@ -121,7 +124,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna2.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>SUPPORTO</h4>
+                  <h4>{titleColonna2}</h4>
                   <LinkList className="footer-list clearfix">
                     {linkColonna2.map((link) => (
                       <LinkListItem
@@ -137,7 +140,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna3.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>APPROFONDISCI</h4>
+                  <h4>{titleColonna3}</h4>
                   <LinkList className="footer-list clearfix">
                     {linkColonna3.map((link) => (
                       <LinkListItem

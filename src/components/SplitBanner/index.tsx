@@ -28,11 +28,11 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
         {
           "light-theme": lightTheme,
         },
-        "container p-0"
+        "p-0"
       )}
     >
       <div
-        className={cn("row w-100 h-100 mx-auto", {
+        className={cn("row w-100 h-100 mx-auto container-xxl", {
           "flex-row-reverse": imgLeft,
         })}
       >

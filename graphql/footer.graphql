@@ -1,6 +1,9 @@
 query Footer {
   footer {
     title
+    titleColonna1
+    titleColonna2
+    titleColonna3
     linkColonna1 {
       id
       slug

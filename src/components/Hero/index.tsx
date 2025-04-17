@@ -26,12 +26,12 @@ export function Hero({ props }: { props: HeroRecord }) {
   } = props;
   return (
     <HeroComponent className={cn("wrapper", { "light-theme": lightTheme })}>
-      <div className={"row container px-0 mx-auto position-relative"}>
+      <div className={"row container-xxl px-0 mx-auto position-relative"}>
         <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section
-              className={cn("breadcrumbs-section", "pt-2 px-3 container")}
+              className={cn("breadcrumbs-section", "pt-2 px-3 container-xxl")}
             >
               {/* TODO: make breadcrumbs dynamic */}
               <Breadcrumb className={"w-100"}>
