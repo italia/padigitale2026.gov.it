@@ -9,6 +9,7 @@ import {
   // HeroButton,
   Breadcrumb,
   BreadcrumbItem,
+  Icon,
 } from "design-react-kit";
 import Link from "next/link";
 
@@ -131,6 +132,17 @@ export function Hero({ props }: { props: HeroRecord }) {
                     title={getButtonTitle(button)}
                   >
                     {button.text}
+                    {button.icon && (
+                      <Icon
+                        style={{ marginBottom: "0.75rem" }}
+                        className=""
+                        color=""
+                        icon={button.icon}
+                        size="sm"
+                        title=""
+                        padding
+                      />
+                    )}
                   </Link>
                 ) : (
                   <Link
@@ -140,6 +152,17 @@ export function Hero({ props }: { props: HeroRecord }) {
                     title={getButtonTitle(button)}
                   >
                     {button.text}
+                    {button.icon && (
+                      <Icon
+                        style={{ marginBottom: "0.75rem" }}
+                        className=""
+                        color=""
+                        icon={button.icon}
+                        size="sm"
+                        title=""
+                        padding
+                      />
+                    )}
                   </Link>
                 )}
               </div>

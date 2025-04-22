@@ -5,6 +5,7 @@ import { SplitBannerRecord } from "@/graphql/generated";
 import {
   Hero as SplitBannerComponent,
   HeroTitle as SplitBannerTitle,
+  Icon,
 } from "design-react-kit";
 import Link from "next/link";
 
@@ -79,6 +80,17 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
                 title={getButtonTitle(button)}
               >
                 {button.text}
+                {button.icon && (
+                  <Icon
+                    style={{ marginBottom: "0.75rem" }}
+                    className=""
+                    color=""
+                    icon={button.icon}
+                    size="sm"
+                    title=""
+                    padding
+                  />
+                )}
               </Link>
             )}
 

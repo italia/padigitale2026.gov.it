@@ -43,6 +43,7 @@ query Page($slug: String) {
           size
           target
           text
+          icon
           cmsPage {
             title
             slug
@@ -78,6 +79,27 @@ query Page($slug: String) {
           size
           target
           text
+          icon
+          cmsPage {
+            title
+            slug
+          }
+        }
+      }
+      ... on BannerRecord {
+        __typename
+        id
+        title
+        description
+        lightTheme
+        button {
+          color
+          href
+          id
+          size
+          target
+          text
+          icon
           cmsPage {
             title
             slug

@@ -1,9 +1,15 @@
 "use client";
 
-import { PageQuery, HeroRecord, SplitBannerRecord } from "@/graphql/generated";
+import {
+  PageQuery,
+  HeroRecord,
+  SplitBannerRecord,
+  BannerRecord,
+} from "@/graphql/generated";
 import { Alert, Button } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
 import { SplitBanner } from "@/src/components/SplitBanner";
+import { Banner } from "@/src/components/Banner";
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
     <>
@@ -26,6 +32,8 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <Hero key={idx} props={el as HeroRecord} />;
           case "SplitBannerRecord":
             return <SplitBanner key={idx} props={el as SplitBannerRecord} />;
+          case "BannerRecord":
+            return <Banner key={idx} props={el as BannerRecord} />;
           default:
             return null;
         }
