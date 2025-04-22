@@ -134,8 +134,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        style={{ marginBottom: "0.75rem" }}
-                        className=""
+                        className="mb-2"
                         color=""
                         icon={button.icon}
                         size="sm"
@@ -154,8 +153,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        style={{ marginBottom: "0.75rem" }}
-                        className=""
+                        className="mb-2"
                         color=""
                         icon={button.icon}
                         size="sm"

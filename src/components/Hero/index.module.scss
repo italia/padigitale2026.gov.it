@@ -6,11 +6,17 @@
 
   &.light-theme {
     background-color: #f2f7fc;
+    min-height: 344px;
+  }
+
+  .btn svg {
+    color: inherit;
   }
 
   .colonna-testo {
     z-index: 2;
   }
+
   .colonna-immagine {
     z-index: 1;
 
