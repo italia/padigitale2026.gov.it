@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
-const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN;
+const token = process.env.DATOCMS_API_TOKEN;
 
 const config: CodegenConfig = {
   overwrite: true,
