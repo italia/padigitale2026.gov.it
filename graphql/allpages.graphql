@@ -10,13 +10,15 @@ query AllPages {
       }
       ... on ButtonRecord {
         __typename
-        text
+        id
         href
+        target
+        text
+        icon
         cmsPage {
+          title
           slug
         }
-        color
-        target
       }
       ... on HeroRecord {
         __typename
@@ -27,7 +29,6 @@ query AllPages {
         updateDate
         image {
           responsiveImage {
-            __typename
             src
             alt
             aspectRatio
@@ -36,10 +37,8 @@ query AllPages {
           }
         }
         button {
-          color
-          href
           id
-          size
+          href
           target
           text
           icon
@@ -47,6 +46,37 @@ query AllPages {
             title
             slug
           }
+        }
+      }
+      ... on DataHeroRecord {
+        __typename
+        hideBreadcrumbs
+        title
+        updateDate
+        button {
+          icon
+          href
+          target
+          text
+          cmsPage {
+            slug
+            title
+          }
+        }
+        argomento {
+          label
+          slug
+        }
+        badge {
+          label
+        }
+        beneficiari {
+          label
+        }
+        misura {
+          label
+          slug
+          basePath
         }
       }
       ... on SplitBannerRecord {
@@ -63,7 +93,6 @@ query AllPages {
         }
         image {
           responsiveImage {
-            __typename
             src
             alt
             aspectRatio
@@ -72,10 +101,8 @@ query AllPages {
           }
         }
         button {
-          color
-          href
           id
-          size
+          href
           target
           text
           icon
@@ -92,10 +119,8 @@ query AllPages {
         description
         lightTheme
         button {
-          color
-          href
           id
-          size
+          href
           target
           text
           icon

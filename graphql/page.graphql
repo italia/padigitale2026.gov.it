@@ -10,14 +10,15 @@ query Page($slug: String) {
       }
       ... on ButtonRecord {
         __typename
-        text
+        id
         href
+        target
+        text
+        icon
         cmsPage {
+          title
           slug
         }
-        color
-        target
-        size
       }
       ... on HeroRecord {
         __typename
@@ -37,10 +38,8 @@ query Page($slug: String) {
           }
         }
         button {
-          color
-          href
           id
-          size
+          href
           target
           text
           icon
@@ -48,6 +47,37 @@ query Page($slug: String) {
             title
             slug
           }
+        }
+      }
+      ... on DataHeroRecord {
+        __typename
+        hideBreadcrumbs
+        title
+        updateDate
+        button {
+          icon
+          href
+          target
+          text
+          cmsPage {
+            slug
+            title
+          }
+        }
+        argomento {
+          label
+          slug
+        }
+        badge {
+          label
+        }
+        beneficiari {
+          label
+        }
+        misura {
+          label
+          slug
+          basePath
         }
       }
       ... on SplitBannerRecord {
@@ -73,10 +103,8 @@ query Page($slug: String) {
           }
         }
         button {
-          color
-          href
           id
-          size
+          href
           target
           text
           icon
@@ -93,10 +121,8 @@ query Page($slug: String) {
         description
         lightTheme
         button {
-          color
-          href
           id
-          size
+          href
           target
           text
           icon
