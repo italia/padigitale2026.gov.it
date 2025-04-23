@@ -10,14 +10,15 @@ query Page($slug: String) {
       }
       ... on ButtonRecord {
         __typename
-        text
+        id
         href
+        target
+        text
+        icon
         cmsPage {
+          title
           slug
         }
-        color
-        target
-        size
       }
       ... on HeroRecord {
         __typename
@@ -38,12 +39,45 @@ query Page($slug: String) {
         }
         button {
           id
-          target
           href
+          target
           text
-          color
-          size
+          icon
+          cmsPage {
+            title
+            slug
+          }
+        }
+      }
+      ... on DataHeroRecord {
+        __typename
+        hideBreadcrumbs
+        title
+        updateDate
+        button {
+          icon
+          href
+          target
           text
+          cmsPage {
+            slug
+            title
+          }
+        }
+        argomento {
+          label
+          slug
+        }
+        badge {
+          label
+        }
+        beneficiari {
+          label
+        }
+        misura {
+          label
+          slug
+          basePath
         }
       }
       ... on SplitBannerRecord {
@@ -53,7 +87,11 @@ query Page($slug: String) {
         description
         imgLeft
         lightTheme
-        links
+        links {
+          id
+          slug
+          title
+        }
         image {
           responsiveImage {
             __typename
@@ -66,11 +104,32 @@ query Page($slug: String) {
         }
         button {
           id
-          target
           href
-          color
-          size
+          target
           text
+          icon
+          cmsPage {
+            title
+            slug
+          }
+        }
+      }
+      ... on BannerRecord {
+        __typename
+        id
+        title
+        description
+        lightTheme
+        button {
+          id
+          href
+          target
+          text
+          icon
+          cmsPage {
+            title
+            slug
+          }
         }
       }
     }

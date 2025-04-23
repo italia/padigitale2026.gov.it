@@ -9,39 +9,64 @@ import {
   // HeroButton,
   Breadcrumb,
   BreadcrumbItem,
+  Icon,
 } from "design-react-kit";
+import Link from "next/link";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
+
+const getButtonHref = (button: HeroRecord["button"]) => {
+  // href link > cms page
+  if (button?.href) {
+    return `${button.href}`;
+  }
+  if (button?.cmsPage?.slug) {
+    return `/${button.cmsPage.slug}`;
+  }
+  return "";
+};
+
+const getButtonTitle = (button: HeroRecord["button"]) => {
+  // href link > cms page
+  if (button?.href) {
+    return button.text || "";
+  }
+  if (button?.cmsPage?.title) {
+    return `Vai alla pagina ${button.cmsPage.title}`;
+  }
+  return "";
+};
 
 export function Hero({ props }: { props: HeroRecord }) {
   const {
     lightTheme = false,
     title,
     description,
+    button,
     hideBreadcrumbs = false,
     image,
     updateDate,
   } = props;
   return (
     <HeroComponent className={cn("wrapper", { "light-theme": lightTheme })}>
-      <div className={"row container px-0 mx-auto position-relative"}>
+      <div className={"row container-xxl px-0 mx-auto position-relative"}>
         <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section
-              className={cn("breadcrumbs-section", "pt-2 px-3 container")}
+              className={cn("breadcrumbs-section", "pt-2 px-3 container-xxl")}
             >
               {/* TODO: make breadcrumbs dynamic */}
               <Breadcrumb className={"w-100"}>
                 <BreadcrumbItem>
-                  <a
+                  <Link
                     href="#"
                     className={lightTheme ? "text-secondary" : "text-white"}
                   >
                     Home
-                  </a>
+                  </Link>
                   <span
                     className={cn("separator mb-0", {
                       "text-secondary": lightTheme,
@@ -52,12 +77,12 @@ export function Hero({ props }: { props: HeroRecord }) {
                   </span>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <a
+                  <Link
                     href="#"
                     className={lightTheme ? "text-secondary" : "text-white"}
                   >
                     Avvisi
-                  </a>
+                  </Link>
                   <span
                     className={cn("separator mb-0", {
                       "text-secondary": lightTheme,
@@ -78,7 +103,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             </section>
           )}
           {/* Body */}
-          <div className="it-hero-text-wrapper container px-lg-2 mx-lg-1">
+          <div className="it-hero-text-wrapper container-xxl px-lg-2 mx-lg-1">
             {title && (
               <HeroTitle className={cn({ "text-secondary": lightTheme })}>
                 {title}
@@ -93,22 +118,53 @@ export function Hero({ props }: { props: HeroRecord }) {
                 {description}
               </p>
             )}
-            {/* TO DO: Add button properly */}
-            <div
-              className={cn("it-btn-container", {
-                "bg-dark bg-transparent": !lightTheme, // Trick to make the button with the correct color
-              })}
-            >
-              {lightTheme ? (
-                <a className="btn btn-sm btn-outline-primary" href="#">
-                  Azione primaria{" "}
-                </a>
-              ) : (
-                <a className="btn btn-sm btn-primary" href="#">
-                  Azione primaria{" "}
-                </a>
-              )}
-            </div>
+            {button && (
+              <div
+                className={cn("it-btn-container", {
+                  "bg-dark bg-transparent": !lightTheme, // Trick to make the button with the correct color
+                })}
+              >
+                {lightTheme ? (
+                  <Link
+                    className="btn btn-sm btn-outline-primary"
+                    href={getButtonHref(button)}
+                    target={button.target || "_self"}
+                    title={getButtonTitle(button)}
+                  >
+                    {button.text}
+                    {button.icon && (
+                      <Icon
+                        className="mb-2"
+                        color={"currentColor"}
+                        icon={button.icon}
+                        size="sm"
+                        title=""
+                        padding
+                      />
+                    )}
+                  </Link>
+                ) : (
+                  <Link
+                    className="btn btn-sm btn-primary"
+                    href={getButtonHref(button)}
+                    target={button.target || "_self"}
+                    title={getButtonTitle(button)}
+                  >
+                    {button.text}
+                    {button.icon && (
+                      <Icon
+                        className="mb-2"
+                        color={"currentColor"}
+                        icon={button.icon}
+                        size="sm"
+                        title=""
+                        padding
+                      />
+                    )}
+                  </Link>
+                )}
+              </div>
+            )}
             {updateDate && updateDate.length > 0 && (
               <p
                 className={cn(

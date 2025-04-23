@@ -5,12 +5,9 @@ import Link from "next/link";
 
 import {
   Header,
-  // HeaderBrand,
   HeaderContent,
   HeaderRightZone,
   HeaderSearch,
-  // HeaderSocialsZone,
-  // Icon,
 } from "design-react-kit";
 
 import type { HeaderQuery } from "@/graphql/generated";
@@ -46,25 +43,6 @@ export default function CenterHeader({
           </div>
         </Link>
         <HeaderRightZone>
-          {/* <HeaderSocialsZone label="Seguici su">
-            <ul>
-              <li>
-                <a aria-label="Facebook" href="#" target="_blank">
-                  <Icon icon="it-facebook" />
-                </a>
-              </li>
-              <li>
-                <a aria-label="Github" href="#" target="_blank">
-                  <Icon icon="it-github" />
-                </a>
-              </li>
-              <li>
-                <a aria-label="Twitter" href="#" target="_blank">
-                  <Icon icon="it-twitter" />
-                </a>
-              </li>
-            </ul>
-          </HeaderSocialsZone> */}
           <HeaderSearch iconName="it-search" label="Cerca" />
         </HeaderRightZone>
       </HeaderContent>

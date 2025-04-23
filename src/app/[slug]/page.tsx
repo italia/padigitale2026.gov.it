@@ -25,7 +25,7 @@ export default async function Page({
 
   return (
     <>
-      <div className="container">
+      <div className="container-xxl">
         <h1>{page.title}</h1>
       </div>
       <ModularContent content={{ page }} />

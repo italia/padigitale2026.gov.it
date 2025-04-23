@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Container,
@@ -19,10 +20,14 @@ import type { FooterQuery } from "@/graphql/generated";
 export default function Footer({ props }: { props: FooterQuery }) {
   const footerData = props.footer;
   const title = footerData?.title || "";
+  const titleColonna1 = footerData?.titleColonna1 || "";
+  const titleColonna2 = footerData?.titleColonna2 || "";
+  const titleColonna3 = footerData?.titleColonna3 || "";
   const linkUtili = footerData?.linkUtili || [];
   const linkColonna1 = footerData?.linkColonna1 || [];
   const linkColonna2 = footerData?.linkColonna2 || [];
   const linkColonna3 = footerData?.linkColonna3 || [];
+  const linkNewsletter = footerData?.linkNewsletter || null;
 
   return (
     <footer className="it-footer">
@@ -105,11 +110,12 @@ export default function Footer({ props }: { props: FooterQuery }) {
             <Row>
               {linkColonna1.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>ESPLORA</h4>
+                  <h4>{titleColonna1}</h4>
                   <LinkList className="footer-list clearfix">
                     {linkColonna1.map((link) => (
                       <LinkListItem
                         key={link.id}
+                        tag={Link}
                         href={link.slug || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
@@ -121,11 +127,12 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna2.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>SUPPORTO</h4>
+                  <h4>{titleColonna2}</h4>
                   <LinkList className="footer-list clearfix">
                     {linkColonna2.map((link) => (
                       <LinkListItem
                         key={link.id}
+                        tag={Link}
                         href={link.slug || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
@@ -137,11 +144,12 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna3.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>APPROFONDISCI</h4>
+                  <h4>{titleColonna3}</h4>
                   <LinkList className="footer-list clearfix">
                     {linkColonna3.map((link) => (
                       <LinkListItem
                         key={link.id}
+                        tag={Link}
                         href={link.slug || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
@@ -151,16 +159,24 @@ export default function Footer({ props }: { props: FooterQuery }) {
                   </LinkList>
                 </Col>
               )}
-              <Col className="pb-2 bg-dark bg-transparent" lg={3} md={6}>
-                <h4 className="d-flex align-items-center gap-2">
-                  <Icon color="white" icon="it-mail" />
-                  Newsletter
-                </h4>
-                <p>Ricevi via email le novità di PA digitale 2026.</p>
-                <Button className="btn-icon" color="primary" outline>
-                  <span>Iscriviti</span>
-                </Button>
-              </Col>
+              {linkNewsletter && (
+                <Col className="pb-2 bg-dark bg-transparent" lg={3} md={6}>
+                  <h4 className="d-flex align-items-center gap-2">
+                    <Icon color="white" icon="it-mail" />
+                    Newsletter
+                  </h4>
+                  <p>Ricevi via email le novità di PA digitale 2026.</p>
+                  <Button
+                    className="btn-icon"
+                    color="primary"
+                    outline
+                    href={`${linkNewsletter.slug}` || "#"}
+                    title={`Vai alla pagina: ${linkNewsletter.title || ""}`}
+                  >
+                    <span>Iscriviti</span>
+                  </Button>
+                </Col>
+              )}
             </Row>
           </section>
         </Container>
@@ -171,9 +187,9 @@ export default function Footer({ props }: { props: FooterQuery }) {
           <ul className="it-footer-small-prints-list list-inline px-0 mb-0 d-flex flex-column flex-md-row">
             {linkUtili.map((link) => (
               <li key={link.id} className="list-inline-item">
-                <a href={link.slug || "#"} title={link.title || ""}>
+                <Link href={link.slug || "#"} title={link.title || ""}>
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
