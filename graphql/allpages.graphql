@@ -29,6 +29,7 @@ query AllPages {
         updateDate
         image {
           responsiveImage {
+            __typename
             src
             alt
             aspectRatio
@@ -37,6 +38,7 @@ query AllPages {
           }
         }
         button {
+          __typename
           id
           href
           target
@@ -54,6 +56,7 @@ query AllPages {
         title
         updateDate
         button {
+          __typename
           icon
           href
           target
@@ -93,6 +96,7 @@ query AllPages {
         }
         image {
           responsiveImage {
+            __typename
             src
             alt
             aspectRatio
@@ -101,6 +105,7 @@ query AllPages {
           }
         }
         button {
+          __typename
           id
           href
           target
@@ -119,6 +124,7 @@ query AllPages {
         description
         lightTheme
         button {
+          __typename
           id
           href
           target
