@@ -38,6 +38,7 @@ query Page($slug: String) {
           }
         }
         button {
+          __typename
           id
           href
           target
@@ -55,6 +56,7 @@ query Page($slug: String) {
         title
         updateDate
         button {
+          __typename
           icon
           href
           target
@@ -103,6 +105,7 @@ query Page($slug: String) {
           }
         }
         button {
+          __typename
           id
           href
           target
@@ -121,6 +124,7 @@ query Page($slug: String) {
         description
         lightTheme
         button {
+          __typename
           id
           href
           target
