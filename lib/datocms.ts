@@ -2,13 +2,13 @@ import { executeQuery, executeQueryWithAutoPagination } from '@datocms/cda-clien
 import { AllPagesDocument, PageDocument, SitemapPagesDocument, PageQueryVariables, FooterDocument, HeaderDocument } from '@/graphql/generated';
 
 if (!process.env.DATOCMS_API_TOKEN) {
-  throw new Error("DatoCMS API Token is not defined");
+  throw new Error("DatoCMS API Token is not defined. Please check your .env file and next.config.js");
 }
 
 const options = {
   token: process.env.DATOCMS_API_TOKEN,
   includeDrafts: process.env.DATOCMS_INCLUDE_DRAFTS === "true",
-  environment: process.env.DATOCMS_ENVIRONMENT,
+  environment: process.env.DATOCMS_ENVIRONMENT || "main",
 };
 
 export async function getAllPages() {
