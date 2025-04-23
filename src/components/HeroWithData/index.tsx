@@ -1,16 +1,9 @@
 "use client";
 
 import { DataHeroRecord } from "@/graphql/generated";
-import {
-  Hero as HeroComponent,
-  // HeroBody,
-  HeroTitle,
-  // HeroButton,
-  Breadcrumb,
-  BreadcrumbItem,
-  Icon,
-} from "design-react-kit";
+import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";
 import Link from "next/link";
+import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -56,26 +49,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section className={cn("pt-2 px-4")}>
-              {/* TODO: make breadcrumbs dynamic */}
-              <Breadcrumb className={"w-100 mb-0"}>
-                <BreadcrumbItem>
-                  <Link href="#" className="text-secondary">
-                    Home
-                  </Link>
-                  <span className={cn("separator mb-0 text-secondary")}>/</span>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <Link href="#" className={"text-secondary"}>
-                    Avvisi
-                  </Link>
-                  <span className={cn("separator mb-0 text-secondary")}>/</span>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>
-                  <span className={"text-secondary"}>
-                    Avviso 1.2 - Abilitazione al Cloud per le PA locali
-                  </span>
-                </BreadcrumbItem>
-              </Breadcrumb>
+              <Breadcrumbs lightTheme />
             </section>
           )}
           {/* Body */}

@@ -2,16 +2,9 @@
 
 import { SRCImage } from "react-datocms";
 import { HeroRecord } from "@/graphql/generated";
-import {
-  Hero as HeroComponent,
-  // HeroBody,
-  HeroTitle,
-  // HeroButton,
-  Breadcrumb,
-  BreadcrumbItem,
-  Icon,
-} from "design-react-kit";
+import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";
 import Link from "next/link";
+import { Breadcrumbs } from "../Breadcrumbs";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -58,48 +51,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             <section
               className={cn("breadcrumbs-section", "pt-2 px-3 container-xxl")}
             >
-              {/* TODO: make breadcrumbs dynamic */}
-              <Breadcrumb className={"w-100"}>
-                <BreadcrumbItem>
-                  <Link
-                    href="#"
-                    className={lightTheme ? "text-secondary" : "text-white"}
-                  >
-                    Home
-                  </Link>
-                  <span
-                    className={cn("separator mb-0", {
-                      "text-secondary": lightTheme,
-                      "text-white": !lightTheme,
-                    })}
-                  >
-                    /
-                  </span>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <Link
-                    href="#"
-                    className={lightTheme ? "text-secondary" : "text-white"}
-                  >
-                    Avvisi
-                  </Link>
-                  <span
-                    className={cn("separator mb-0", {
-                      "text-secondary": lightTheme,
-                      "text-white": !lightTheme,
-                    })}
-                  >
-                    /
-                  </span>
-                </BreadcrumbItem>
-                <BreadcrumbItem active>
-                  <span
-                    className={lightTheme ? "text-secondary" : "text-white"}
-                  >
-                    Avviso 1.2 - Abilitazione al Cloud per le PA locali
-                  </span>
-                </BreadcrumbItem>
-              </Breadcrumb>
+              <Breadcrumbs lightTheme={lightTheme} />
             </section>
           )}
           {/* Body */}
