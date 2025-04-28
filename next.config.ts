@@ -7,6 +7,19 @@ const nextConfig: NextConfig = {
     DATOCMS_INCLUDE_DRAFTS: process.env.DATOCMS_INCLUDE_DRAFTS,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://plugins-cdn.datocms.com;",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
