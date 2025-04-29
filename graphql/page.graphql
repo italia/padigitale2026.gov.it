@@ -195,6 +195,20 @@ query Page($slug: String) {
           }
         }
       }
+      ... on VideoPlayerRecord {
+        __typename
+        id
+        title
+        transcription
+        transcriptionLabel
+        videoSources {
+          sourceSrc
+          sourceType
+        }
+        poster {
+          url
+        }
+      }
     }
   }
 }

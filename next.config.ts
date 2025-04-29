@@ -31,7 +31,11 @@ const nextConfig: NextConfig = {
           {
             key: 'Access-Control-Allow-Credentials',
             value: 'true',
-          }
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=60, stale-while-revalidate=300',
+          },
         ],
       },
     ];
