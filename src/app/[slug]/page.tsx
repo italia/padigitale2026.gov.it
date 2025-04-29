@@ -1,7 +1,7 @@
 import { getAllPages } from "@/lib/datocms";
 import { AllPagesQuery } from "@/graphql/generated";
-import { notFound } from "next/navigation";
 import { ModularContent } from "@/src/components/ModularContent";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const pages = (await getAllPages()) as AllPagesQuery;

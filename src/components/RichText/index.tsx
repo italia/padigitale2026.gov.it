@@ -1,30 +1,99 @@
 "use client";
 
 // import { SRCImage } from "react-datocms";
+import Link from "next/link";
 import { StructuredText } from "react-datocms";
-import { RichTextRecord, AlertRecord, ButtonRecord } from "@/graphql/generated";
-import { Hero as RichTextComponent, Alert, Button } from "design-react-kit";
+import { RichTextRecord, ImagesGridRecord } from "@/graphql/generated";
+import { Icon } from "design-react-kit";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import { ImagesGrid } from "../ImagesGrid";
 const cn = classNames.bind(styles);
 
-export function RichText({ props }: { props: RichTextRecord }) {
-  const { content } = props;
+type BlockContext = {
+  record:
+    | ImagesGridRecord
+    | {
+        __typename?: string;
+        color?: string;
+        text?: string;
+        href?: string;
+        icon?: string;
+        cmsPage?: {
+          slug?: string;
+        };
+        id?: string;
+        images?: Array<{
+          url: string;
+          basename: string;
+          alt: string;
+          format: string;
+          width: number;
+          height: number;
+          id: string;
+          title: string;
+          responsiveImage: {
+            src: string;
+            srcSet: string;
+            title: string;
+            width: number;
+            height: number;
+            alt: string;
+            aspectRatio: number;
+          };
+        }>;
+      };
+};
 
-  const renderBlock = (context: any) => {
+export function RichText({ props }: { props: RichTextRecord }) {
+  const { content, alignment = "left" } = props;
+
+  const renderBlock = (context: BlockContext) => {
     const record = context.record;
 
     if (!record?.__typename) return null;
 
     switch (record.__typename) {
-      case "AlertRecord":
-        return <Alert color={record.color}>{record.text}</Alert>;
+      case "ImagesGridRecord":
+        return <ImagesGrid props={record as ImagesGridRecord} />;
+      case "LinkRecord":
+        return (
+          <Link
+            className="fw-bold"
+            href={record.href || `/${record.cmsPage?.slug || ""}`}
+          >
+            {record.text}
+            {record.icon && (
+              <Icon
+                className="my-0"
+                color="primary"
+                icon={record.icon}
+                size="sm"
+                title=""
+                padding
+              />
+            )}
+          </Link>
+        );
       case "ButtonRecord":
         return (
-          <Button href={record.href || `/${record.cmsPage?.slug || ""}`}>
+          <Link
+            className="btn btn-sm btn-outline-primary btn-mini"
+            href={record.href || `/${record.cmsPage?.slug || ""}`}
+          >
             {record.text}
-          </Button>
+            {record.icon && (
+              <Icon
+                className="my-0"
+                color="primary"
+                icon={record.icon}
+                size="sm"
+                title=""
+                padding
+              />
+            )}
+          </Link>
         );
       default:
         return null;
@@ -32,17 +101,19 @@ export function RichText({ props }: { props: RichTextRecord }) {
   };
 
   return (
-    <RichTextComponent className={cn("wrapper p-0")}>
-      <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
-        <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
-          {/* Body */}
-          <div className="it-hero-text-wrapper container px-4">
-            {content && (
-              <StructuredText data={content} renderBlock={renderBlock} />
-            )}
-          </div>
-        </div>
+    <div className="mx-auto container-xxl">
+      {/* Body */}
+      <div
+        className={cn("p-4 w-100", {
+          "text-center": alignment === "center",
+          "text-end": alignment === "right",
+        })}
+      >
+        {content && (
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          <StructuredText data={content as any} renderBlock={renderBlock} />
+        )}
       </div>
-    </RichTextComponent>
+    </div>
   );
 }

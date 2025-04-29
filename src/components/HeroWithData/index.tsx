@@ -113,7 +113,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        className="mb-2"
+                        className="my-0"
                         color="primary"
                         icon={button.icon}
                         size="sm"

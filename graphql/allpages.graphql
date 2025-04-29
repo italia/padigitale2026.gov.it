@@ -139,14 +139,45 @@ query AllPages {
       ... on RichTextRecord {
         __typename
         id
+        alignment
         content {
           value
           blocks {
-            ... on AlertRecord {
+            ... on ImagesGridRecord {
               __typename
               id
-              color
+              images {
+                url
+                basename
+                alt
+                format
+                width
+                height
+                id
+                title
+                responsiveImage {
+                  src
+                  srcSet
+                  title
+                  width
+                  height
+                  alt
+                  aspectRatio
+                }
+              }
+            }
+            ... on LinkRecord {
+              __typename
+              id
+              href
+              icon
+              target
               text
+              cmsPage {
+                slug
+                title
+                id
+              }
             }
             ... on ButtonRecord {
               __typename
