@@ -136,6 +136,34 @@ query AllPages {
           }
         }
       }
+      ... on RichTextRecord {
+        __typename
+        id
+        content {
+          value
+          blocks {
+            ... on AlertRecord {
+              __typename
+              id
+              color
+              text
+            }
+            ... on ButtonRecord {
+              __typename
+              id
+              href
+              icon
+              target
+              text
+              cmsPage {
+                slug
+                title
+                id
+              }
+            }
+          }
+        }
+      }
     }
   }
   _allPagesMeta {

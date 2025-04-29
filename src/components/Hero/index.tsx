@@ -86,8 +86,8 @@ export function Hero({ props }: { props: HeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        className="mb-2"
-                        color={"currentColor"}
+                        className="my-0"
+                        color="primary"
                         icon={button.icon}
                         size="sm"
                         title=""
@@ -105,8 +105,8 @@ export function Hero({ props }: { props: HeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        className="mb-2"
-                        color={"currentColor"}
+                        className="my-0"
+                        color="primary"
                         icon={button.icon}
                         size="sm"
                         title=""

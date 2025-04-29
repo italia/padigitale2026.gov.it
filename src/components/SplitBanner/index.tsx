@@ -2,11 +2,7 @@
 
 import { SRCImage } from "react-datocms";
 import { SplitBannerRecord } from "@/graphql/generated";
-import {
-  Hero as SplitBannerComponent,
-  HeroTitle as SplitBannerTitle,
-  Icon,
-} from "design-react-kit";
+import { Hero as SplitBannerComponent, Icon } from "design-react-kit";
 import Link from "next/link";
 
 import styles from "./index.module.scss";
@@ -64,9 +60,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
           {/* Body */}
           <div className="it-hero-text-wrapper container px-4">
             {title && (
-              <SplitBannerTitle className={"text-secondary mb-3 fs-1 lh-sm"}>
-                {title}
-              </SplitBannerTitle>
+              <h2 className={"text-secondary mb-3 fs-1 lh-sm"}>{title}</h2>
             )}
             {description && (
               <p className={"font-sans-serif text-secondary"}>{description}</p>
@@ -82,9 +76,8 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
                 {button.text}
                 {button.icon && (
                   <Icon
-                    style={{ marginBottom: "0.75rem" }}
-                    className=""
-                    color=""
+                    className="my-0"
+                    color="primary"
                     icon={button.icon}
                     size="sm"
                     title=""

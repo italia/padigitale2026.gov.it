@@ -1,11 +1,7 @@
 "use client";
 
 import { BannerRecord } from "@/graphql/generated";
-import {
-  Hero as BannerComponent,
-  HeroTitle as BannerTitle,
-  Icon,
-} from "design-react-kit";
+import { Icon } from "design-react-kit";
 import Link from "next/link";
 
 import styles from "./index.module.scss";
@@ -37,7 +33,7 @@ const getButtonTitle = (button: BannerRecord["button"]) => {
 export function Banner({ props }: { props: BannerRecord }) {
   const { lightTheme = false, title, description, button } = props;
   return (
-    <BannerComponent
+    <div
       className={cn(
         "wrapper",
         {
@@ -50,9 +46,7 @@ export function Banner({ props }: { props: BannerRecord }) {
         {/* Body */}
         <div className="p-4">
           {title && (
-            <BannerTitle className={"text-secondary mb-3 fs-1 lh-sm"}>
-              {title}
-            </BannerTitle>
+            <h2 className={"text-secondary mb-3 fs-2 lh-sm"}>{title}</h2>
           )}
           {description && (
             <p className={"font-sans-serif text-secondary"}>{description}</p>
@@ -68,8 +62,8 @@ export function Banner({ props }: { props: BannerRecord }) {
               {button.text}
               {button.icon && (
                 <Icon
-                  className="mb-2"
-                  color=""
+                  className="my-0"
+                  color="primary"
                   icon={button.icon}
                   size="sm"
                   title=""
@@ -80,6 +74,6 @@ export function Banner({ props }: { props: BannerRecord }) {
           )}
         </div>
       </div>
-    </BannerComponent>
+    </div>
   );
 }

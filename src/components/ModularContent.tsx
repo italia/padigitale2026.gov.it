@@ -6,12 +6,14 @@ import {
   SplitBannerRecord,
   BannerRecord,
   DataHeroRecord,
+  RichTextRecord,
 } from "@/graphql/generated";
 import { Alert, Button } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
 import { SplitBanner } from "@/src/components/SplitBanner";
 import { Banner } from "@/src/components/Banner";
+import { RichText } from "@/src/components/RichText";
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
     <>
@@ -33,6 +35,8 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <Banner key={idx} props={el as BannerRecord} />;
           case "DataHeroRecord":
             return <HeroWithData key={idx} props={el as DataHeroRecord} />;
+          case "RichTextRecord":
+            return <RichText key={idx} props={el as RichTextRecord} />;
           default:
             return null;
         }
