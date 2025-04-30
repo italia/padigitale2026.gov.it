@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 export const dynamicParams = true;
 export const dynamic = "force-static";
 export const fetchCache = "auto";
-export const revalidate: number = parseInt(process.env.REVALIDATE || "60");
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const pages = (await getAllPages()) as AllPagesQuery;
@@ -23,7 +23,6 @@ export default async function Page({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  console.log("caricato");
   const { slug } = await params;
 
   const pages = (await getAllPages()) as AllPagesQuery;
