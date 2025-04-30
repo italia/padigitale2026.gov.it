@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     DATOCMS_ENVIRONMENT: process.env.DATOCMS_ENVIRONMENT,
     DATOCMS_INCLUDE_DRAFTS: process.env.DATOCMS_INCLUDE_DRAFTS,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
+    REVALIDATE: process.env.REVALIDATE,
   },
   async headers() {
     return [
@@ -33,8 +34,16 @@ const nextConfig: NextConfig = {
             value: 'true',
           },
           {
-            key: 'Cache-Control',
-            value: 'public, s-maxage=60, stale-while-revalidate=300',
+            key: "Cache-Control",
+            value: `max-age=0, s-max-age=${process.env.REVALIDATE}, stale-while-revalidate=60`,
+          },
+          {
+            key: "CDN-Cache-Control",
+            value: `max-age=${process.env.REVALIDATE}`,
+          },
+          {
+            key: "Vercel-CDN-Cache-Control",
+            value: `max-age=${process.env.REVALIDATE}`,
           },
         ],
       },
