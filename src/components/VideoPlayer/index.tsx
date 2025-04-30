@@ -28,7 +28,7 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
             poster={poster?.url || ""}
             transcriptionLabel={transcriptionLabel || ""}
             transcription={transcription || ""}
-            fluid="true"
+            fluid
             controls
           />
         ) : (
