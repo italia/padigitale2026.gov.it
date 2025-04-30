@@ -17,7 +17,7 @@ $grid-breakpoints: (
 //   // stili
 // }
 @mixin mb($breakpoint) {
-  @if map-has-key($grid-breakpoints, $breakpoint) {
+  @if map.has-key($grid-breakpoints, $breakpoint) {
     @media (min-width: map.get($grid-breakpoints, $breakpoint)) {
       @content;
     }
