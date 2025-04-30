@@ -13,7 +13,7 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
   }, []);
 
   return (
-    <div style={{ backgroundColor: "lime" }}>
+    <div style={{ backgroundColor: "grey" }}>
       {/* Body */}
       <div className="container-xxl">
         {isClient ? (
