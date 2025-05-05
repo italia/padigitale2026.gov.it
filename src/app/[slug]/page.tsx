@@ -15,6 +15,7 @@ export async function generateStaticParams() {
 
   return pages.allPages.map((page) => ({
     slug: page.slug,
+    updateDate: page.updateDate,
   }));
 }
 
@@ -30,5 +31,18 @@ export default async function Page({
 
   if (!page) return notFound();
 
-  return <ModularContent content={{ page }} />;
+  console.log("page", page);
+
+  return (
+    <>
+      <ModularContent content={{ page }} />
+      {page.updateDate && (
+        <div className="container-xxl">
+          <p className="my-4 font-sans-serif text-body-secondary text-secondary">
+            {page.updateDate}
+          </p>
+        </div>
+      )}
+    </>
+  );
 }

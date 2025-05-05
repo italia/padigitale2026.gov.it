@@ -2,6 +2,7 @@ query AllPages {
   allPages(first: 100) {
     title
     slug
+    updateDate
     body {
       ... on AlertRecord {
         __typename
