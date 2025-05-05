@@ -3,9 +3,15 @@
 import { NavScrollRecord } from "@/graphql/generated";
 import { useEffect, useRef } from "react";
 
-declare module "bootstrap" {
-  interface NavScroll {
-    setScrollPadding: (callback: () => number) => void;
+declare global {
+  interface Window {
+    bootstrap: {
+      NavScroll: {
+        getOrCreateInstance: (element: HTMLElement) => {
+          setScrollPadding: (callback: () => number) => void;
+        };
+      };
+    };
   }
 }
 
@@ -17,7 +23,6 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
     const initializeNavScroll = () => {
       if (navscrollRef.current && window.bootstrap) {
         const navscrollElement = navscrollRef.current;
-        // @ts-expect-error NavScroll non è incluso nei tipi di Bootstrap
         const navscroll =
           window.bootstrap.NavScroll.getOrCreateInstance(navscrollElement);
 
@@ -63,9 +68,9 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
                 <div
                   className="progress-bar it-navscroll-progressbar"
                   role="progressbar"
-                  aria-valuenow="0"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
+                  aria-valuenow={0}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
                 ></div>
               </div>
               <div className="navbar-collapsable" id="navbarNav">
@@ -86,9 +91,9 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
                       <div
                         className="progress-bar it-navscroll-progressbar"
                         role="progressbar"
-                        aria-valuenow="0"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
+                        aria-valuenow={0}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
                       ></div>
                     </div>
                     <ul className="link-list">
