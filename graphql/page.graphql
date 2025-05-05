@@ -1,3 +1,5 @@
+#import "./fragments.graphql"
+
 query Page($slug: String) {
   page(filter: { slug: { eq: $slug } }) {
     title
@@ -10,16 +12,7 @@ query Page($slug: String) {
         color
       }
       ... on ButtonRecord {
-        __typename
-        id
-        href
-        target
-        text
-        icon
-        cmsPage {
-          title
-          slug
-        }
+        ...ButtonFragment
       }
       ... on HeroRecord {
         __typename
@@ -30,25 +23,11 @@ query Page($slug: String) {
         updateDate
         image {
           responsiveImage {
-            __typename
-            src
-            alt
-            aspectRatio
-            width
-            height
+            ...ImageFragment
           }
         }
         button {
-          __typename
-          id
-          href
-          target
-          text
-          icon
-          cmsPage {
-            title
-            slug
-          }
+          ...ButtonFragment
         }
       }
       ... on DataHeroRecord {
@@ -57,15 +36,7 @@ query Page($slug: String) {
         title
         updateDate
         button {
-          __typename
-          icon
-          href
-          target
-          text
-          cmsPage {
-            slug
-            title
-          }
+          ...ButtonFragment
         }
         argomento {
           label
@@ -97,25 +68,11 @@ query Page($slug: String) {
         }
         image {
           responsiveImage {
-            __typename
-            src
-            alt
-            aspectRatio
-            width
-            height
+            ...ImageFragment
           }
         }
         button {
-          __typename
-          id
-          href
-          target
-          text
-          icon
-          cmsPage {
-            title
-            slug
-          }
+          ...ButtonFragment
         }
       }
       ... on BannerRecord {
@@ -125,16 +82,7 @@ query Page($slug: String) {
         description
         lightTheme
         button {
-          __typename
-          id
-          href
-          target
-          text
-          icon
-          cmsPage {
-            title
-            slug
-          }
+          ...ButtonFragment
         }
       }
       ... on RichTextRecord {
@@ -144,55 +92,7 @@ query Page($slug: String) {
         content {
           value
           blocks {
-            ... on ImagesGridRecord {
-              __typename
-              id
-              images {
-                url
-                basename
-                alt
-                format
-                width
-                height
-                id
-                title
-                responsiveImage {
-                  src
-                  srcSet
-                  title
-                  width
-                  height
-                  alt
-                  aspectRatio
-                }
-              }
-            }
-            ... on LinkRecord {
-              __typename
-              id
-              href
-              icon
-              target
-              text
-              cmsPage {
-                slug
-                title
-                id
-              }
-            }
-            ... on ButtonRecord {
-              __typename
-              id
-              href
-              icon
-              target
-              text
-              cmsPage {
-                slug
-                title
-                id
-              }
-            }
+            ...RichTextContentFragment
           }
         }
       }

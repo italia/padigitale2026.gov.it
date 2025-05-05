@@ -1,0 +1,70 @@
+fragment ButtonFragment on ButtonRecord {
+  __typename
+  id
+  href
+  target
+  text
+  icon
+  cmsPage {
+    title
+    slug
+  }
+}
+
+fragment ImageFragment on ResponsiveImage {
+  __typename
+  src
+  alt
+  aspectRatio
+  width
+  height
+}
+
+fragment ImagesGridFragment on ImagesGridRecord {
+  __typename
+  id
+  images {
+    url
+    basename
+    alt
+    format
+    width
+    height
+    id
+    title
+    responsiveImage {
+      ...ImageFragment
+    }
+  }
+}
+
+fragment LinkFragment on LinkRecord {
+  __typename
+  id
+  href
+  icon
+  target
+  text
+  cmsPage {
+    slug
+    title
+    id
+  }
+}
+
+fragment RichTextContentFragment on RichTextModelContentBlocksField {
+  ... on ImagesGridRecord {
+    ...ImagesGridFragment
+  }
+  ... on LinkRecord {
+    ...LinkFragment
+  }
+  ... on ButtonRecord {
+    ...ButtonFragment
+    cmsPage {
+      slug
+      title
+      id
+    }
+  }
+}
