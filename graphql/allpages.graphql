@@ -89,7 +89,7 @@ query AllPages {
         __typename
         id
         alignment
-        content {
+        richTextContent: content {
           value
           blocks {
             ...RichTextContentFragment
@@ -97,23 +97,18 @@ query AllPages {
         }
       }
       ... on VideoPlayerRecord {
-        __typename
-        id
-        title
-        transcription
-        transcriptionLabel
-        videoSources {
-          sourceSrc
-          sourceType
-        }
-        poster {
-          url
-        }
+        ...VideoPlayerFragment
       }
       ... on NavScrollRecord {
         __typename
         id
         title
+        intro {
+          ...RichTextFragment
+        }
+        sectionsContent: content {
+          ...ContentSectionFragment
+        }
       }
       ... on CardServiceRecord {
         __typename

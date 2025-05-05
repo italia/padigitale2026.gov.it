@@ -48,7 +48,9 @@ export function ModularContent({ content }: { content: PageQuery }) {
           case "CardServiceRecord":
             return <CardService key={idx} props={el as CardServiceRecord} />;
           case "NavScrollRecord":
-            return <NavScroll key={idx} props={el as NavScrollRecord} />;
+            return (
+              <NavScroll key={idx} props={el as unknown as NavScrollRecord} />
+            );
           default:
             return null;
         }

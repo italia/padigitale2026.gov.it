@@ -74,7 +74,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
                 ></div>
               </div>
               <div className="navbar-collapsable" id="navbarNav">
-                <div className="overlay"></div>
+                <div className="overlay fade"></div>
                 <a className="it-back-button" href="#" role="button">
                   <svg className="icon icon-sm icon-primary align-top">
                     <use

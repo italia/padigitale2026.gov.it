@@ -61,10 +61,61 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   }
   ... on ButtonRecord {
     ...ButtonFragment
-    cmsPage {
-      slug
-      title
+  }
+}
+
+fragment RichTextFragment on RichTextRecord {
+  __typename
+  id
+  alignment
+  richTextContent: content {
+    value
+    blocks {
+      ...RichTextContentFragment
+    }
+  }
+}
+
+fragment VideoPlayerFragment on VideoPlayerRecord {
+  __typename
+  id
+  title
+  transcription
+  transcriptionLabel
+  videoSources {
+    sourceSrc
+    sourceType
+  }
+  poster {
+    url
+  }
+}
+
+fragment ContentSectionFragment on ContentSectionRecord {
+  __typename
+  id
+  title
+  components {
+    ... on RichTextRecord {
       id
+      alignment
+      richTextContent: content {
+        value
+      }
+    }
+  }
+  subSections {
+    __typename
+    id
+    title
+    components {
+      ... on RichTextRecord {
+        id
+        alignment
+        richTextContent: content {
+          value
+        }
+      }
     }
   }
 }
