@@ -8,6 +8,7 @@ import {
   DataHeroRecord,
   RichTextRecord,
   VideoPlayerRecord,
+  CardServiceRecord,
 } from "@/graphql/generated";
 import { Alert, Button } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -16,6 +17,7 @@ import { SplitBanner } from "@/src/components/SplitBanner";
 import { Banner } from "@/src/components/Banner";
 import { RichText } from "@/src/components/RichText";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
+import { CardService } from "@/src/components/CardService";
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
     <>
@@ -41,6 +43,8 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <RichText key={idx} props={el as RichTextRecord} />;
           case "VideoPlayerRecord":
             return <VideoPlayer key={idx} props={el as VideoPlayerRecord} />;
+          case "CardServiceRecord":
+            return <CardService key={idx} props={el as CardServiceRecord} />;
           default:
             return null;
         }

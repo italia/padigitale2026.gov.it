@@ -209,6 +209,16 @@ query AllPages {
           url
         }
       }
+      ... on NavScrollRecord {
+        __typename
+        id
+        title
+      }
+      ... on CardServiceRecord {
+        __typename
+        id
+        title
+      }
     }
   }
   _allPagesMeta {
