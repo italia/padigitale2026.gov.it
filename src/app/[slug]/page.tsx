@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
   return pages.allPages.map((page) => ({
     slug: page.slug,
-    updateDate: page.updateDate,
+    customUpdateDate: page.customUpdateDate,
   }));
 }
 
@@ -34,9 +34,16 @@ export default async function Page({
   return (
     <>
       <ModularContent content={{ page }} />
-      {page.updateDate && (
+      {page.customUpdateDate && (
         <div className="container-xxl">
-          <p className="my-4 fs-6 text-secondary">{page.updateDate}</p>
+          <p className="my-4 fs-6 text-secondary">
+            Aggiornato il{" "}
+            {new Intl.DateTimeFormat("it-IT", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            }).format(new Date(page.customUpdateDate))}
+          </p>
         </div>
       )}
     </>

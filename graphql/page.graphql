@@ -2,7 +2,7 @@ query Page($slug: String) {
   page(filter: { slug: { eq: $slug } }) {
     title
     slug
-    updateDate
+    customUpdateDate
     body {
       ... on AlertRecord {
         __typename

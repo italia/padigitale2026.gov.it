@@ -1,220 +1,174 @@
 "use client";
 
-import { useState, useRef } from "react";
-import {
-  Navbar,
-  Container,
-  Col,
-  Row,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-  useNavScroll,
-  Collapse,
-  Icon,
-  LinkList,
-} from "design-react-kit";
-
 import { NavScrollRecord } from "@/graphql/generated";
+import { useEffect, useRef } from "react";
+
+declare module "bootstrap" {
+  interface NavScroll {
+    setScrollPadding: (callback: () => number) => void;
+  }
+}
 
 export function NavScroll({ props }: { props: NavScrollRecord }) {
   const { title } = props;
+  const navscrollRef = useRef<HTMLDivElement>(null);
 
-  const [isOpen, toggleNavScroll] = useState(false);
-  /* Richiesto per contenuto confinato */
-  /* Nota che i componenti Col e Row non inoltrano le ref,
-      /* usare quindi tag div con classi css come nell'esempio */
-  const containerRef = useRef(null);
-  const { register, isActive, getActiveRef } = useNavScroll({
-    root: containerRef.current || undefined,
-  });
+  useEffect(() => {
+    const initializeNavScroll = () => {
+      if (navscrollRef.current && window.bootstrap) {
+        const navscrollElement = navscrollRef.current;
+        // @ts-expect-error NavScroll non è incluso nei tipi di Bootstrap
+        const navscroll =
+          window.bootstrap.NavScroll.getOrCreateInstance(navscrollElement);
 
-  const getActiveClass = (id: string) => (isActive(id) ? "active" : undefined);
+        navscroll.setScrollPadding(() => {
+          const header = document.querySelector(".it-header-wrapper");
+          return header ? header.getBoundingClientRect().height + 10 : 0;
+        });
+      }
+    };
+
+    // Se Bootstrap è già caricato, inizializza subito
+    if (window.bootstrap) {
+      initializeNavScroll();
+    } else {
+      // Altrimenti aspetta che il documento sia completamente caricato
+      window.addEventListener("load", initializeNavScroll);
+      return () => window.removeEventListener("load", initializeNavScroll);
+    }
+  }, []);
+
   return (
-    <Container>
-      <Row>
-        <Col md={12} lg={4}>
-          <Navbar
-            expand="lg"
-            className="it-navscroll-wrapper it-bottom-navscroll it-left-side affix-top"
-          >
-            <NavbarToggler
-              className={
-                isOpen
-                  ? "custom-navbar-toggler focus--mouse"
-                  : "custom-navbar-toggler"
-              }
-              data-target="#navbarNavA"
-              onClick={() => toggleNavScroll(!isOpen)}
+    <div className="container py-lg-5">
+      <div className="row">
+        <div className="col-12 col-lg-4">
+          <div data-bs-toggle="sticky" data-bs-stackable="true">
+            <nav
+              ref={navscrollRef}
+              className="navbar it-navscroll-wrapper navbar-expand-lg it-bottom-navscroll it-right-side"
+              data-bs-navscroll
             >
-              <span className="it-list"></span>
-              {getActiveRef()?.current?.textContent}
-            </NavbarToggler>
-            <Collapse isOpen={isOpen} navbar id="navbarNavA">
               <button
-                className="it-back-button btn w-100 text-start"
-                style={{ display: isOpen ? "block" : "none" }}
-                onClick={() => toggleNavScroll(!isOpen)}
+                className="custom-navbar-toggler"
+                type="button"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                data-bs-toggle="navbarcollapsible"
+                data-bs-target="#navbarNav"
               >
-                <Icon
-                  className="align-top"
-                  color="primary"
-                  icon="it-chevron-left"
-                  aria-hidden
-                  size="sm"
-                />
-                <span>Back </span>
+                <span className="it-list"></span>1. Introduzione
               </button>
-              <div className="menu-wrapper">
-                <div className="link-list-wrapper">
-                  <h3>{title}</h3>
-                  <LinkList noWrapper>
-                    <NavItem>
-                      <NavLink href="#1" className={getActiveClass("1")}>
-                        <span>1. Introduzione</span>
-                      </NavLink>
-                      <LinkList noWrapper>
-                        <NavLink tag="li" className={getActiveClass("1_1")}>
-                          <NavLink
-                            href="#1_1"
-                            className={getActiveClass("1_1")}
-                          >
-                            <span>1.1 Nested Item</span>
-                          </NavLink>
-                          <LinkList className="tertiary" noWrapper>
-                            <NavLink
-                              tag="li"
-                              className={getActiveClass("1_1_1")}
-                            >
-                              <NavLink
-                                href="#1_1_1"
-                                className={getActiveClass("1_1_1")}
-                              >
-                                <span>1.1.1 Nested Item</span>
-                              </NavLink>
-                            </NavLink>
-                            <NavLink
-                              tag="li"
-                              className={getActiveClass("1_1_2")}
-                            >
-                              <NavLink
-                                href="#1_1_2"
-                                className={getActiveClass("1_1_2")}
-                              >
-                                <span>1.1.2 Nested Item</span>
-                              </NavLink>
-                            </NavLink>
-                            <NavLink
-                              tag="li"
-                              className={getActiveClass("1_1_3")}
-                            >
-                              <NavLink
-                                href="#1_1_3"
-                                className={getActiveClass("1_1_3")}
-                              >
-                                <span>1.1.3 Nested Item</span>
-                              </NavLink>
-                            </NavLink>
-                          </LinkList>
-                        </NavLink>
-                        <NavLink tag="li" className={getActiveClass("1_2")}>
-                          <NavLink
-                            href="#1_2"
-                            className={getActiveClass("1_2")}
-                          >
-                            <span>1.2 Nested Item</span>
-                          </NavLink>
-                        </NavLink>
-                        <NavLink tag="li" className={getActiveClass("1_3")}>
-                          <NavLink
-                            href="#1_3"
-                            className={getActiveClass("1_3")}
-                          >
-                            <span>1.3 Nested Item</span>
-                          </NavLink>
-                        </NavLink>
-                      </LinkList>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink href="#2" className={getActiveClass("2")}>
-                        <span>2. List item</span>
-                      </NavLink>
-                      <LinkList noWrapper>
-                        <NavLink
-                          active
-                          tag="li"
-                          className={getActiveClass("2_1")}
-                        >
-                          <NavLink
-                            href="#2_1"
-                            className={getActiveClass("2_1")}
-                          >
-                            <span>2.1 Nested Item</span>
-                          </NavLink>
-                          <LinkList className="tertiary" noWrapper>
-                            <NavLink
-                              tag="li"
-                              className={getActiveClass("2_1_1")}
-                            >
-                              <NavLink
-                                href="#2_1_1"
-                                className={getActiveClass("2_1_1")}
-                              >
-                                <span>2.1.1 Nested Item</span>
-                              </NavLink>
-                            </NavLink>
-                            <NavLink
-                              tag="li"
-                              className={getActiveClass("2_1_2")}
-                            >
-                              <NavLink
-                                href="#2_1_2"
-                                className={getActiveClass("2_1_2")}
-                              >
-                                <span>2.1.2 Nested Item</span>
-                              </NavLink>
-                            </NavLink>
-                            <NavLink
-                              tag="li"
-                              className={getActiveClass("2_1_3")}
-                            >
-                              <NavLink
-                                href="#2_1_3"
-                                className={getActiveClass("2_1_3")}
-                              >
-                                <span>2.1.3 Nested Item</span>
-                              </NavLink>
-                            </NavLink>
-                          </LinkList>
-                        </NavLink>
-                        <NavLink tag="li" className={getActiveClass("2_2")}>
-                          <NavLink
-                            href="#2_2"
-                            className={getActiveClass("2_2")}
-                          >
-                            <span>2.2 Nested Item</span>
-                          </NavLink>
-                        </NavLink>
-                        <NavLink tag="li" className={getActiveClass("2_3")}>
-                          <NavLink
-                            href="#2_3"
-                            className={getActiveClass("2_3")}
-                          >
-                            <span>2.3 Nested Item</span>
-                          </NavLink>
-                        </NavLink>
-                      </LinkList>
-                    </NavItem>
-                  </LinkList>
+              <div className="progress custom-navbar-progressbar">
+                <div
+                  className="progress-bar it-navscroll-progressbar"
+                  role="progressbar"
+                  aria-valuenow="0"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+              <div className="navbar-collapsable" id="navbarNav">
+                <div className="overlay"></div>
+                <a className="it-back-button" href="#" role="button">
+                  <svg className="icon icon-sm icon-primary align-top">
+                    <use
+                      href="{{site.baseurl}}/dist/svg/sprites.svg#it-chevron-left"
+                      xlinkHref="{{site.baseurl}}/dist/svg/sprites.svg#it-chevron-left"
+                    ></use>
+                  </svg>
+                  <span>Indietro</span>
+                </a>
+                <div className="menu-wrapper">
+                  <div className="link-list-wrapper">
+                    <h3>{title}</h3>
+                    <div className="progress">
+                      <div
+                        className="progress-bar it-navscroll-progressbar"
+                        role="progressbar"
+                        aria-valuenow="0"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                    <ul className="link-list">
+                      <li className="nav-item">
+                        <a className="nav-link active" href="#p1">
+                          <span>1. Introduzione </span>
+                        </a>
+                        <ul className="link-list">
+                          <li className="nav-link">
+                            <a className="nav-link" href="#p1_1">
+                              <span>1.1 Elemento annidato </span>
+                            </a>
+                            <ul className="tertiary link-list">
+                              <li className="nav-link">
+                                <a className="nav-link" href="#p1_1_1">
+                                  <span>1.1.1 Elemento annidato </span>
+                                </a>
+                              </li>
+                              <li className="nav-link">
+                                <a className="nav-link" href="#p1_1_2">
+                                  <span>1.1.2 Elemento annidato </span>
+                                </a>
+                              </li>
+                              <li className="nav-link">
+                                <a className="nav-link" href="#p1_1_3">
+                                  <span>1.1.3 Elemento annidato </span>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li className="nav-link">
+                            <a className="nav-link" href="#p1_2">
+                              <span>1.2 Elemento annidato </span>
+                            </a>
+                          </li>
+                          <li className="nav-link">
+                            <a className="nav-link" href="#p1_3">
+                              <span>1.3 Elemento annidato </span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li className="nav-item">
+                        <a className="nav-link" href="#p2">
+                          <span>2. Seconda sezione </span>
+                        </a>
+                        <ul className="link-list">
+                          <li className="nav-link">
+                            <a className="nav-link" href="#p2_1">
+                              <span>2.1 Elemento annidato </span>
+                            </a>
+                            <ul className="tertiary link-list">
+                              <li className="nav-link">
+                                <a className="nav-link" href="#p2_1_1">
+                                  <span>2.1.1 Elemento annidato </span>
+                                </a>
+                              </li>
+                              <li className="nav-link">
+                                <a className="nav-link" href="#p2_1_2">
+                                  <span>2.1.2 Elemento annidato </span>
+                                </a>
+                              </li>
+                              <li className="nav-link">
+                                <a className="nav-link" href="#p2_1_3">
+                                  <span>2.1.3 Elemento annidato </span>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </Collapse>
-          </Navbar>
-        </Col>
-        <div
-          className="it-page-sections-container col-12 col-lg-8"
-          ref={containerRef}
-        >
+            </nav>
+          </div>
+        </div>
+        <div className="col-12 col-lg-8 it-page-sections-container">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec
             congue eros. Maecenas sagittis commodo libero nec porta. Nunc semper
@@ -242,10 +196,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             accumsan magna ac risus ultricies, vel condimentum ipsum accumsan.
             Proin blandit mauris sed sodales sollicitudin.
           </p>
-          <h2
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1")}
-          >
+          <h2 className="it-page-section" id="p1">
             Introduzione
           </h2>
           <p>
@@ -261,11 +212,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h3
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1_1", { parent: "1" })}
-          >
-            Nested item 1.1
+          <h3 className="it-page-section" id="p1_1">
+            Elemento annidato 1.1
           </h3>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -280,11 +228,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h4
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1_1_1", { parent: "1_1" })}
-          >
-            Nested item 1.1.1
+          <h4 className="it-page-section" id="p1_1_1">
+            Elemento annidato 1.1.1
           </h4>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -299,11 +244,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h4
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1_1_2", { parent: "1_1" })}
-          >
-            Nested item 1.1.2
+          <h4 className="it-page-section" id="p1_1_2">
+            Elemento annidato 1.1.2
           </h4>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -318,11 +260,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h4
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1_1_3", { parent: "1_1" })}
-          >
-            Nested item 1.1.3
+          <h4 className="it-page-section" id="p1_1_3">
+            Elemento annidato 1.1.3
           </h4>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -337,11 +276,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h3
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1_2", { parent: "1" })}
-          >
-            Nested item 1.2
+          <h3 className="it-page-section" id="p1_2">
+            Elemento annidato 1.2
           </h3>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -356,11 +292,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h3
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("1_3", { parent: "1" })}
-          >
-            Nested item 1.3
+          <h3 className="it-page-section" id="p1_3">
+            Elemento annidato 1.3
           </h3>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -375,11 +308,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h2
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2")}
-          >
-            Introduzione 2
+          <h2 className="it-page-section" id="p2">
+            Seconda sezione
           </h2>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -394,11 +324,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h3
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2_1", { parent: "2" })}
-          >
-            Nested item 2.1
+          <h3 className="it-page-section" id="p2_1">
+            Elemento annidato 2.1
           </h3>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -413,11 +340,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h4
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2_1_1", { parent: "2_1" })}
-          >
-            Nested item 2.1.1
+          <h4 className="it-page-section" id="p2_1_1">
+            Elemento annidato 2.1.1
           </h4>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -432,11 +356,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h4
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2_1_2", { parent: "2_1" })}
-          >
-            Nested item 2.1.2
+          <h4 className="it-page-section" id="p2_1_2">
+            Elemento annidato 2.1.2
           </h4>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
@@ -451,50 +372,9 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             natoque penatibus et magnis dis parturient montes, nascetur
             ridiculus mus.
           </p>
-          <h4
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2_1_3", { parent: "2_1" })}
-          >
-            Nested item 2.1.3
+          <h4 className="it-page-section" id="p2_1_3">
+            Elemento annidato 2.1.3
           </h4>
-          <p>
-            Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
-            augue,sodales ac rhoncus in, ultricies a neque. Morbi non semper
-            felis, at lacinia nibh. Nam quis elit massa. Interdum et malesuada
-            fames ac ante ipsum primis in faucibus. Aliquam laoreet, diam quis
-            blandit porttitor, leo erat semper sem, vel sagittis dolor quam eu
-            magna. Nunc feugiat pretium tempor. Nam eget augue quis tellus
-            viverra malesuada vel ut quam. Cras vehicula rutrum vehicula.
-            Suspendisse efficitur eget purus vitae convallis. Integer euismod
-            pharetra lorem, non ullamcorper lorem euismod vel. Orci varius
-            natoque penatibus et magnis dis parturient montes, nascetur
-            ridiculus mus.
-          </p>
-          <h3
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2_2", { parent: "2" })}
-          >
-            Nested item 2.2
-          </h3>
-          <p>
-            Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
-            augue,sodales ac rhoncus in, ultricies a neque. Morbi non semper
-            felis, at lacinia nibh. Nam quis elit massa. Interdum et malesuada
-            fames ac ante ipsum primis in faucibus. Aliquam laoreet, diam quis
-            blandit porttitor, leo erat semper sem, vel sagittis dolor quam eu
-            magna. Nunc feugiat pretium tempor. Nam eget augue quis tellus
-            viverra malesuada vel ut quam. Cras vehicula rutrum vehicula.
-            Suspendisse efficitur eget purus vitae convallis. Integer euismod
-            pharetra lorem, non ullamcorper lorem euismod vel. Orci varius
-            natoque penatibus et magnis dis parturient montes, nascetur
-            ridiculus mus.
-          </p>
-          <h3
-            className="it-page-section"
-            {...register<HTMLHeadingElement>("2_3", { parent: "2" })}
-          >
-            Nested item 2.3
-          </h3>
           <p>
             Proin placerat ipsum massa, ac commodo velit tempor quis. In ante
             augue,sodales ac rhoncus in, ultricies a neque. Morbi non semper
@@ -509,7 +389,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
             ridiculus mus.
           </p>
         </div>
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 }
