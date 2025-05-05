@@ -38,9 +38,7 @@ export default async function Page({
       <ModularContent content={{ page }} />
       {page.updateDate && (
         <div className="container-xxl">
-          <p className="my-4 font-sans-serif text-body-secondary text-secondary">
-            {page.updateDate}
-          </p>
+          <p className="my-4 fs-6 text-secondary">{page.updateDate}</p>
         </div>
       )}
     </>
