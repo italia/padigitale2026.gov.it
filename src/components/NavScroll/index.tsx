@@ -2,7 +2,6 @@
 
 import { NavScrollRecord } from "@/graphql/generated";
 import { useEffect, useRef } from "react";
-import { StructuredText } from "react-datocms";
 
 declare global {
   interface Window {
@@ -15,6 +14,64 @@ declare global {
     };
   }
 }
+
+type DASTNode = {
+  type: string;
+  children?: DASTNode[];
+  value?: string;
+  url?: string;
+  style?: string;
+};
+
+type DASTDocument = {
+  type: string;
+  children: DASTNode[];
+};
+
+type DASTValue = {
+  schema: string;
+  document: DASTDocument;
+};
+
+const renderNavList = (items: DASTNode[]) => {
+  return (
+    <ul className="link-list">
+      {items.map((item, index) => {
+        if (item.type === "listItem") {
+          const linkItem = item.children?.find(
+            (child) =>
+              child.type === "paragraph" && child.children?.[0]?.type === "link"
+          );
+
+          if (linkItem) {
+            const link = linkItem.children?.[0];
+            const text = link?.children?.[0]?.value;
+            const url = link?.url;
+
+            if (text && url) {
+              return (
+                <li key={index} className="nav-item">
+                  <a className="nav-link" href={url}>
+                    <span>{text}</span>
+                  </a>
+                  {item.children?.find((child) => child.type === "list") && (
+                    <ul className="link-list">
+                      {renderNavList(
+                        item.children.find((child) => child.type === "list")
+                          ?.children || []
+                      )}
+                    </ul>
+                  )}
+                </li>
+              );
+            }
+          }
+        }
+        return null;
+      })}
+    </ul>
+  );
+};
 
 export function NavScroll({ props }: { props: NavScrollRecord }) {
   const { title, content } = props;
@@ -44,6 +101,9 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
     }
   }, []);
 
+  const navItems =
+    (content?.value as DASTValue)?.document?.children?.[0]?.children || [];
+
   return (
     <nav
       ref={navscrollRef}
@@ -59,7 +119,9 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
         data-bs-toggle="navbarcollapsible"
         data-bs-target="#navbarNav"
       >
-        <span className="it-list"></span>1. Introduzione
+        <span className="it-list"></span>
+        {navItems[0]?.children?.[0]?.children?.[0]?.children?.[0]?.value ||
+          "Menu"}
       </button>
       <div className="progress custom-navbar-progressbar">
         <div
@@ -93,79 +155,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
                 aria-valuemax={100}
               ></div>
             </div>
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <StructuredText data={content as any} />
-            <ul className="link-list">
-              <li className="nav-item">
-                <a className="nav-link active" href="#p1">
-                  <span>1. Introduzione </span>
-                </a>
-                <ul className="link-list">
-                  <li className="nav-link">
-                    <a className="nav-link" href="#p1_1">
-                      <span>1.1 Elemento annidato </span>
-                    </a>
-                    <ul className="tertiary link-list">
-                      <li className="nav-link">
-                        <a className="nav-link" href="#p1_1_1">
-                          <span>1.1.1 Elemento annidato </span>
-                        </a>
-                      </li>
-                      <li className="nav-link">
-                        <a className="nav-link" href="#p1_1_2">
-                          <span>1.1.2 Elemento annidato </span>
-                        </a>
-                      </li>
-                      <li className="nav-link">
-                        <a className="nav-link" href="#p1_1_3">
-                          <span>1.1.3 Elemento annidato </span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="nav-link">
-                    <a className="nav-link" href="#p1_2">
-                      <span>1.2 Elemento annidato </span>
-                    </a>
-                  </li>
-                  <li className="nav-link">
-                    <a className="nav-link" href="#p1_3">
-                      <span>1.3 Elemento annidato </span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li className="nav-item">
-                <a className="nav-link" href="#p2">
-                  <span>2. Seconda sezione </span>
-                </a>
-                <ul className="link-list">
-                  <li className="nav-link">
-                    <a className="nav-link" href="#p2_1">
-                      <span>2.1 Elemento annidato </span>
-                    </a>
-                    <ul className="tertiary link-list">
-                      <li className="nav-link">
-                        <a className="nav-link" href="#p2_1_1">
-                          <span>2.1.1 Elemento annidato </span>
-                        </a>
-                      </li>
-                      <li className="nav-link">
-                        <a className="nav-link" href="#p2_1_2">
-                          <span>2.1.2 Elemento annidato </span>
-                        </a>
-                      </li>
-                      <li className="nav-link">
-                        <a className="nav-link" href="#p2_1_3">
-                          <span>2.1.3 Elemento annidato </span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            {renderNavList(navItems)}
           </div>
         </div>
       </div>
