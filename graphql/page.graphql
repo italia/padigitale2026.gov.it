@@ -98,10 +98,8 @@ query Page($slug: String) {
       }
       ... on LayoutSidebarRecord {
         __typename
-        title
         sidebar {
-          title
-          id
+          ...NavScrollFragment
         }
         content {
           alignment

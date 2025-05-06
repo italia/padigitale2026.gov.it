@@ -90,3 +90,11 @@ fragment VideoPlayerFragment on VideoPlayerRecord {
     url
   }
 }
+
+fragment NavScrollFragment on NavScrollRecord {
+  __typename
+  title
+  content {
+    value
+  }
+}
