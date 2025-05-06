@@ -62,6 +62,12 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on ButtonRecord {
     ...ButtonFragment
   }
+  ... on VideoPlayerRecord {
+    ...VideoPlayerFragment
+  }
+  ... on CardsGridRecord {
+    ...CardsGridFragment
+  }
 }
 
 fragment RichTextFragment on RichTextRecord {
