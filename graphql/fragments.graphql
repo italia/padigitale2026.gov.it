@@ -52,18 +52,6 @@ fragment LinkFragment on LinkRecord {
   }
 }
 
-fragment RichTextContentFragment on RichTextModelContentBlocksField {
-  ... on ImagesGridRecord {
-    ...ImagesGridFragment
-  }
-  ... on LinkRecord {
-    ...LinkFragment
-  }
-  ... on ButtonRecord {
-    ...ButtonFragment
-  }
-}
-
 fragment RichTextFragment on RichTextRecord {
   __typename
   alignment
@@ -96,5 +84,35 @@ fragment NavScrollFragment on NavScrollRecord {
   title
   content {
     value
+  }
+}
+
+fragment CardsGridFragment on CardsGridRecord {
+  __typename
+  id
+  title
+  description
+  alignment
+  columns
+  risorse {
+    __typename
+    id
+    slug
+    title
+    summary
+    badge
+    data
+  }
+  news {
+    __typename
+    id
+    slug
+    title
+    summary
+    category
+    data
+  }
+  button {
+    ...ButtonFragment
   }
 }

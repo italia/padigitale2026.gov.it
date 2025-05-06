@@ -96,6 +96,9 @@ query AllPages {
         id
         title
       }
+      ... on CardsGridRecord {
+        ... CardsGridFragment
+      }
       ... on LayoutSidebarRecord {
         __typename
         sidebar {

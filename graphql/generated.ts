@@ -322,6 +322,7 @@ export type CardsGridRecord = RecordInterface & {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ItemId']['output'];
   news: Array<NewsRecord>;
+  news: Array<NewsRecord>;
   risorse: Array<ResourceRecord>;
   title?: Maybe<Scalars['String']['output']>;
 };
