@@ -68,3 +68,33 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
     }
   }
 }
+
+fragment CardsGridFragment on CardsGridRecord {
+  __typename
+  id
+  title
+  description
+  alignment
+  columns
+  risorse {
+    __typename
+    id
+    slug
+    title
+    summary
+    badge
+    data
+  }
+  news {
+    __typename
+    id
+    slug
+    title
+    summary
+    category
+    data
+  }
+  button {
+    ...ButtonFragment
+  }
+}

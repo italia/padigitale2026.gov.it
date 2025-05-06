@@ -6,14 +6,6 @@ query AllPages {
     slug
     customUpdateDate
     body {
-      ... on AlertRecord {
-        __typename
-        text
-        color
-      }
-      ... on ButtonRecord {
-        ...ButtonFragment
-      }
       ... on HeroRecord {
         __typename
         lightTheme
@@ -110,15 +102,13 @@ query AllPages {
           url
         }
       }
-      ... on NavScrollRecord {
-        __typename
-        id
-        title
-      }
       ... on CardServiceRecord {
         __typename
         id
         title
+      }
+      ... on CardsGridRecord {
+        ... CardsGridFragment
       }
     }
   }

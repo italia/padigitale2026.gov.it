@@ -1,19 +1,11 @@
 #import "./fragments.graphql"
 
 query Page($slug: String) {
-  page(filter: { slug: { eq: $slug } }) {
+  page(filter: {slug: {eq: $slug}}) {
     title
     slug
     customUpdateDate
     body {
-      ... on AlertRecord {
-        __typename
-        text
-        color
-      }
-      ... on ButtonRecord {
-        ...ButtonFragment
-      }
       ... on HeroRecord {
         __typename
         lightTheme
@@ -110,15 +102,13 @@ query Page($slug: String) {
           url
         }
       }
-      ... on NavScrollRecord {
-        __typename
-        id
-        title
-      }
       ... on CardServiceRecord {
         __typename
         id
         title
+      }
+      ... on CardsGridRecord {
+        ... CardsGridFragment
       }
     }
   }
