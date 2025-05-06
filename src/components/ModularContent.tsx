@@ -9,9 +9,8 @@ import {
   RichTextRecord,
   VideoPlayerRecord,
   CardServiceRecord,
-  NavScrollRecord,
+  LayoutSidebarRecord,
 } from "@/graphql/generated";
-import { Alert, Button } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
 import { SplitBanner } from "@/src/components/SplitBanner";
@@ -19,20 +18,13 @@ import { Banner } from "@/src/components/Banner";
 import { RichText } from "@/src/components/RichText";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
 import { CardService } from "@/src/components/CardService";
-import { NavScroll } from "@/src/components/NavScroll";
+import { LayoutSidebar } from "@/src/components/LayoutSidebar";
+
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
     <>
       {content.page?.body.map((el, idx) => {
         switch (el.__typename) {
-          case "AlertRecord":
-            return <Alert key={idx}>{el.text}</Alert>;
-          case "ButtonRecord":
-            return (
-              <Button key={idx} href={el.href ? el.href : ""}>
-                {el.text}
-              </Button>
-            );
           case "HeroRecord":
             return <Hero key={idx} props={el as HeroRecord} />;
           case "SplitBannerRecord":
@@ -47,9 +39,9 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <VideoPlayer key={idx} props={el as VideoPlayerRecord} />;
           case "CardServiceRecord":
             return <CardService key={idx} props={el as CardServiceRecord} />;
-          case "NavScrollRecord":
+          case "LayoutSidebarRecord":
             return (
-              <NavScroll key={idx} props={el as unknown as NavScrollRecord} />
+              <LayoutSidebar key={idx} props={el as LayoutSidebarRecord} />
             );
           default:
             return null;

@@ -66,8 +66,8 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
 
 fragment RichTextFragment on RichTextRecord {
   __typename
-  id
   alignment
+  anchorId
   richTextContent: content {
     value
     blocks {
@@ -88,34 +88,5 @@ fragment VideoPlayerFragment on VideoPlayerRecord {
   }
   poster {
     url
-  }
-}
-
-fragment ContentSectionFragment on ContentSectionRecord {
-  __typename
-  id
-  title
-  components {
-    ... on RichTextRecord {
-      id
-      alignment
-      richTextContent: content {
-        value
-      }
-    }
-  }
-  subSections {
-    __typename
-    id
-    title
-    components {
-      ... on RichTextRecord {
-        id
-        alignment
-        richTextContent: content {
-          value
-        }
-      }
-    }
   }
 }

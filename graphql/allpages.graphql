@@ -6,14 +6,6 @@ query AllPages {
     slug
     customUpdateDate
     body {
-      ... on AlertRecord {
-        __typename
-        text
-        color
-      }
-      ... on ButtonRecord {
-        ...ButtonFragment
-      }
       ... on HeroRecord {
         __typename
         lightTheme
@@ -87,8 +79,8 @@ query AllPages {
       }
       ... on RichTextRecord {
         __typename
-        id
         alignment
+        anchorId
         richTextContent: content {
           value
           blocks {
@@ -99,21 +91,28 @@ query AllPages {
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment
       }
-      ... on NavScrollRecord {
-        __typename
-        id
-        title
-        intro {
-          ...RichTextFragment
-        }
-        sectionsContent: content {
-          ...ContentSectionFragment
-        }
-      }
       ... on CardServiceRecord {
         __typename
         id
         title
+      }
+      ... on LayoutSidebarRecord {
+        __typename
+        title
+        sidebar {
+          title
+          id
+        }
+        content {
+          alignment
+          anchorId
+          content {
+            value
+            blocks {
+              ...RichTextContentFragment
+            }
+          }
+        }
       }
     }
   }

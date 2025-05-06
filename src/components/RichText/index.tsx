@@ -47,7 +47,7 @@ type BlockContext = {
 };
 
 export function RichText({ props }: { props: RichTextRecord }) {
-  const { content, alignment = "left" } = props;
+  const { content, alignment = "left", anchorId } = props;
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
@@ -101,7 +101,7 @@ export function RichText({ props }: { props: RichTextRecord }) {
   };
 
   return (
-    <div className="mx-auto container-xxl">
+    <div className="mx-auto container-xxl" id={anchorId || undefined}>
       {/* Body */}
       <div
         className={cn("p-4 w-100", {
