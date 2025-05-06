@@ -52,6 +52,18 @@ fragment LinkFragment on LinkRecord {
   }
 }
 
+fragment RichTextContentFragment on RichTextModelContentBlocksField {
+  ... on ImagesGridRecord {
+    ...ImagesGridFragment
+  }
+  ... on LinkRecord {
+    ...LinkFragment
+  }
+  ... on ButtonRecord {
+    ...ButtonFragment
+  }
+}
+
 fragment RichTextFragment on RichTextRecord {
   __typename
   alignment
