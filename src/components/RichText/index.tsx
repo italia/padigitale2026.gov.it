@@ -53,7 +53,7 @@ export function RichText({
   props: RichTextRecord;
   padding?: boolean;
 }) {
-  const { content, alignment = "left", anchorId } = props;
+  const { content, alignment = "left" } = props;
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
@@ -107,7 +107,7 @@ export function RichText({
   };
 
   return (
-    <div className="mx-auto container-xxl" id={anchorId || undefined}>
+    <div className="mx-auto container-xxl">
       {/* Body */}
       <div
         className={cn("w-100", {

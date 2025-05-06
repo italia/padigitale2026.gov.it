@@ -17,7 +17,13 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
         </div>
         <div className="col-12 col-lg-8 it-page-sections-container">
           {content.map((item, index) => (
-            <RichText key={index} props={item} padding={false} />
+            <div
+              key={index}
+              className="it-page-section"
+              id={item.anchorId || undefined}
+            >
+              <RichText props={item} padding={false} />
+            </div>
           ))}
         </div>
       </div>
