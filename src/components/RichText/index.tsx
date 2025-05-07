@@ -3,7 +3,11 @@
 // import { SRCImage } from "react-datocms";
 import Link from "next/link";
 import { StructuredText } from "react-datocms";
-import { RichTextRecord, ImagesGridRecord } from "@/graphql/generated";
+import {
+  RichTextRecord,
+  ImagesGridRecord,
+  RichTextModelContentField,
+} from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 
@@ -46,6 +50,10 @@ type BlockContext = {
       };
 };
 
+interface RichTextProps extends RichTextRecord {
+  richTextContent?: RichTextModelContentField;
+}
+
 export function RichText({
   props,
   padding = true,
@@ -53,7 +61,8 @@ export function RichText({
   props: RichTextRecord;
   padding?: boolean;
 }) {
-  const { richTextContent: content, alignment = "left" } = props;
+  const { richTextContent: content, alignment = "left" } =
+    props as RichTextProps;
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;

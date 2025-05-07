@@ -7,86 +7,19 @@ query AllNews {
     customUpdateDate
     body {
       ... on HeroRecord {
-        __typename
-        lightTheme
-        hideBreadcrumbs
-        title
-        description
-        updateDate
-        image {
-          responsiveImage {
-            ...ImageFragment
-          }
-        }
-        button {
-          ...ButtonFragment
-        }
+        ...HeroFragment
       }
       ... on DataHeroRecord {
-        __typename
-        hideBreadcrumbs
-        title
-        updateDate
-        button {
-          ...ButtonFragment
-        }
-        argomento {
-          label
-          slug
-        }
-        badge {
-          label
-        }
-        beneficiari {
-          label
-        }
-        misura {
-          label
-          slug
-          basePath
-        }
+        ...DataHeroFragment
       }
       ... on SplitBannerRecord {
-        __typename
-        id
-        title
-        description
-        imgLeft
-        lightTheme
-        links {
-          id
-          slug
-          title
-        }
-        image {
-          responsiveImage {
-            ...ImageFragment
-          }
-        }
-        button {
-          ...ButtonFragment
-        }
+        ...SplitBannerFragment
       }
       ... on BannerRecord {
-        __typename
-        id
-        title
-        description
-        lightTheme
-        button {
-          ...ButtonFragment
-        }
+        ...BannerFragment
       }
       ... on RichTextRecord {
-        __typename
-        alignment
-        anchorId
-        richTextContent: content {
-          value
-          blocks {
-            ...RichTextContentFragment
-          }
-        }
+        ...RichTextFragment
       }
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment

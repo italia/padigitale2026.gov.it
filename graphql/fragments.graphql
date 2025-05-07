@@ -151,3 +151,78 @@ fragment CardsGridFragment on CardsGridRecord {
     ...ButtonFragment
   }
 }
+
+fragment HeroFragment on HeroRecord {
+  __typename
+  lightTheme
+  hideBreadcrumbs
+  title
+  description
+  updateDate
+  image {
+    responsiveImage {
+      ...ImageFragment
+    }
+  }
+  button {
+    ...ButtonFragment
+  }
+}
+
+fragment DataHeroFragment on DataHeroRecord {
+  __typename
+  hideBreadcrumbs
+  title
+  updateDate
+  button {
+    ...ButtonFragment
+  }
+  argomento {
+    label
+    slug
+  }
+  badge {
+    label
+  }
+  beneficiari {
+    label
+  }
+  misura {
+    label
+    slug
+    basePath
+  }
+}
+
+fragment SplitBannerFragment on SplitBannerRecord {
+  __typename
+  id
+  title
+  description
+  imgLeft
+  lightTheme
+  links {
+    id
+    slug
+    title
+  }
+  image {
+    responsiveImage {
+      ...ImageFragment
+    }
+  }
+  button {
+    ...ButtonFragment
+  }
+}
+
+fragment BannerFragment on BannerRecord {
+  __typename
+  id
+  title
+  description
+  lightTheme
+  button {
+    ...ButtonFragment
+  }
+}
