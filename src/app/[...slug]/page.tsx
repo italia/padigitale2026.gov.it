@@ -1,5 +1,5 @@
-import { getAllPages, getAllFaqs } from "@/lib/datocms";
-import { AllPagesQuery, AllFaqsQuery } from "@/graphql/generated";
+import { getAllPages, getAllFaqs, getAllNews } from "@/lib/datocms";
+import { AllPagesQuery, AllFaqsQuery, AllNewsQuery } from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 
@@ -29,13 +29,16 @@ export default async function Page({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let page: any;
-  let pages: AllPagesQuery | AllFaqsQuery;
+  let pages: AllPagesQuery | AllFaqsQuery | AllNewsQuery;
 
   switch (true) {
     case fullSlug.includes("domande-frequenti"):
-      console.log("Pagina domande frequenti rilevata");
       pages = (await getAllFaqs()) as AllFaqsQuery;
       page = pages.allFaqs.find((p) => p.slug === fullSlug);
+      break;
+    case fullSlug.includes("notizie"):
+      pages = (await getAllNews()) as AllNewsQuery;
+      page = pages.allNews.find((p) => p.slug === fullSlug);
       break;
     default:
       pages = (await getAllPages()) as AllPagesQuery;

@@ -1,5 +1,5 @@
 import { executeQuery, executeQueryWithAutoPagination } from '@datocms/cda-client';
-import { AllPagesDocument, AllFaqsDocument, PageDocument, SitemapPagesDocument, PageQueryVariables, FooterDocument, HeaderDocument } from '@/graphql/generated';
+import { AllPagesDocument, AllFaqsDocument, PageDocument, SitemapPagesDocument, PageQueryVariables, FooterDocument, HeaderDocument, AllNewsDocument } from '@/graphql/generated';
 
 if (!process.env.DATOCMS_API_TOKEN) {
   throw new Error("DatoCMS API Token is not defined. Please check your .env file and next.config.js");
@@ -27,6 +27,10 @@ export async function page(slug: string) {
 
 export async function getAllFaqs() {
   return executeQueryWithAutoPagination(AllFaqsDocument, options);
+}
+
+export async function getAllNews() {
+  return executeQueryWithAutoPagination(AllNewsDocument, options);
 }
 
 export async function getFooter() {
