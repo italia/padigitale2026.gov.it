@@ -95,20 +95,7 @@ query AllFaqs {
         ...CardsGridFragment
       }
       ... on LayoutSidebarRecord {
-        __typename
-        sidebar {
-          ...NavScrollFragment
-        }
-        content {
-          alignment
-          anchorId
-          content {
-            value
-            blocks {
-              ...RichTextContentFragment
-            }
-          }
-        }
+        ...LayoutSidebarFragment
       }
     }
   }

@@ -82,6 +82,23 @@ fragment RichTextFragment on RichTextRecord {
   }
 }
 
+fragment LayoutSidebarFragment on LayoutSidebarRecord {
+  __typename
+  sidebar {
+    ...NavScrollFragment
+  }
+  content {
+    alignment
+    anchorId
+    richTextContent: content {
+      value
+      blocks {
+        ...RichTextContentFragment
+      }
+    }
+  }
+}
+
 fragment VideoPlayerFragment on VideoPlayerRecord {
   __typename
   id

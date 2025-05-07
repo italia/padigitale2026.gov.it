@@ -78,15 +78,7 @@ query AllPages {
         }
       }
       ... on RichTextRecord {
-        __typename
-        alignment
-        anchorId
-        richTextContent: content {
-          value
-          blocks {
-            ...RichTextContentFragment
-          }
-        }
+        ...RichTextFragment
       }
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment
@@ -97,23 +89,10 @@ query AllPages {
         title
       }
       ... on CardsGridRecord {
-        ... CardsGridFragment
+        ...CardsGridFragment
       }
       ... on LayoutSidebarRecord {
-        __typename
-        sidebar {
-          ...NavScrollFragment
-        }
-        content {
-          alignment
-          anchorId
-          content {
-            value
-            blocks {
-              ...RichTextContentFragment
-            }
-          }
-        }
+        ...LayoutSidebarFragment
       }
     }
   }

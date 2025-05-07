@@ -53,7 +53,7 @@ export function RichText({
   props: RichTextRecord;
   padding?: boolean;
 }) {
-  const { content, alignment = "left" } = props;
+  const { richTextContent: content, alignment = "left" } = props;
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;

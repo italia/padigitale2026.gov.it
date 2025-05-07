@@ -1,7 +1,7 @@
 #import "./fragments.graphql"
 
 query Page($slug: String) {
-  page(filter: {slug: {eq: $slug}}) {
+  page(filter: { slug: { eq: $slug } }) {
     title
     slug
     customUpdateDate
@@ -97,23 +97,10 @@ query Page($slug: String) {
         title
       }
       ... on CardsGridRecord {
-        ... CardsGridFragment
+        ...CardsGridFragment
       }
       ... on LayoutSidebarRecord {
-        __typename
-        sidebar {
-          ...NavScrollFragment
-        }
-        content {
-          alignment
-          anchorId
-          content {
-            value
-            blocks {
-              ...RichTextContentFragment
-            }
-          }
-        }
+        ...LayoutSidebarFragment
       }
     }
   }
