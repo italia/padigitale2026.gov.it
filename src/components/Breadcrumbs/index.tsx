@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import { Breadcrumb } from "design-react-kit";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getAllPages } from "@/lib/datocms";
-import { AllPagesQuery } from "@/graphql/generated";
+import { getAllPages, getAllFaqs, getAllNews } from "@/lib/datocms";
+import { AllPagesQuery, AllFaqsQuery, AllNewsQuery } from "@/graphql/generated";
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 
@@ -32,6 +32,8 @@ export function Breadcrumbs({
   useEffect(() => {
     const generateBreadcrumbs = async () => {
       const pages = (await getAllPages()) as AllPagesQuery;
+      const faqs = (await getAllFaqs()) as AllFaqsQuery;
+      const news = (await getAllNews()) as AllNewsQuery;
       const pathSegments = pathname.split("/").filter(Boolean);
 
       const items: BreadcrumbItem[] = [
@@ -41,10 +43,28 @@ export function Breadcrumbs({
       let currentPath = "";
       for (const segment of pathSegments) {
         currentPath += `/${segment}`;
-        const page = pages.allPages.find((p) => p.slug === segment);
-        if (page && page.title) {
+
+        // Cerca la pagina in base al tipo di contenuto
+        let pageTitle: string | undefined;
+
+        if (currentPath.includes("domande-frequenti/")) {
+          const page = faqs.allFaqs.find(
+            (p) => p.slug === currentPath.slice(1)
+          );
+          pageTitle = page?.title || undefined;
+        } else if (currentPath.includes("notizie/")) {
+          const page = news.allNews.find(
+            (p) => p.slug === currentPath.slice(1)
+          );
+          pageTitle = page?.title || undefined;
+        } else {
+          const page = pages.allPages.find((p) => p.slug === segment);
+          pageTitle = page?.title || undefined;
+        }
+
+        if (pageTitle) {
           items.push({
-            title: page.title,
+            title: pageTitle,
             href: currentPath,
             isActive: currentPath === pathname,
           });
