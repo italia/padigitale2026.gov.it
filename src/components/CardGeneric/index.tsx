@@ -4,7 +4,6 @@ import {NewsRecord, CardGenericRecord} from "@/graphql/generated";
 import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import {width} from "dom-helpers";
 
 const cn = classNames.bind(styles);
 
@@ -27,7 +26,7 @@ export function CardGeneric({props, cardAspect = cardAspectEnum.borderBottom, Ti
         month: 'long',
         year: 'numeric'
       }).format(Date.parse(props.date));
-    } catch (exception) {
+    } catch {
 
     }
   }

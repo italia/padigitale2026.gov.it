@@ -47,7 +47,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
             }
             return (
               <div key={idx} className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                <CardResource props={resource} />
+                <CardResource TitleTag={cardTitleTag || 'h3'} props={resource} />
               </div>
             );
           })}
@@ -69,7 +69,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
             }
             return (
               <div key={idx} className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                <CardGeneric cardAspect={cardAspectEnum.clean} props={record} />
+                <CardGeneric TitleTag={cardTitleTag || 'h3'} cardAspect={cardAspectEnum.clean} props={record} />
               </div>
             );
           })}
@@ -92,7 +92,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
 
             return (
               <div key={idx} className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                <CardGeneric cardAspect={cardAspectEnum[(customCards.cardLayout ?? 'bordered')]} props={card} />
+                <CardGeneric TitleTag={cardTitleTag || 'h3'} cardAspect={cardAspectEnum[(customCards.cardLayout ?? 'bordered')]} props={card} />
               </div>
             );
           })}
