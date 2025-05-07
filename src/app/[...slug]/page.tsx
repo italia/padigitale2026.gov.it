@@ -1,5 +1,15 @@
-import { getAllPages, getAllFaqs, getAllNews } from "@/lib/datocms";
-import { AllPagesQuery, AllFaqsQuery, AllNewsQuery } from "@/graphql/generated";
+import {
+  getAllPages,
+  getAllFaqs,
+  getAllNews,
+  getAllResources,
+} from "@/lib/datocms";
+import {
+  AllPagesQuery,
+  AllFaqsQuery,
+  AllNewsQuery,
+  AllResourcesQuery,
+} from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 
@@ -27,11 +37,9 @@ export default async function Page({
   const { slug } = await params;
   const fullSlug = slug.join("/");
 
-  console.log("fullSlug", fullSlug);
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let page: any;
-  let pages: AllPagesQuery | AllFaqsQuery | AllNewsQuery;
+  let pages: AllPagesQuery | AllFaqsQuery | AllNewsQuery | AllResourcesQuery;
 
   switch (true) {
     case fullSlug.includes("domande-frequenti/"):
@@ -41,6 +49,10 @@ export default async function Page({
     case fullSlug.includes("notizie/"):
       pages = (await getAllNews()) as AllNewsQuery;
       page = pages.allNews.find((p) => p.slug === fullSlug);
+      break;
+    case fullSlug.includes("guide-e-risorse/"):
+      pages = (await getAllResources()) as AllResourcesQuery;
+      page = pages.allResources.find((p) => p.slug === fullSlug);
       break;
     default:
       pages = (await getAllPages()) as AllPagesQuery;

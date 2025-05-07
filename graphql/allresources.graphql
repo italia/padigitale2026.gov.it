@@ -1,0 +1,118 @@
+#import "./fragments.graphql"
+
+query AllResources {
+  allResources(first: 100) {
+    title
+    slug
+    customUpdateDate
+    body {
+      ... on HeroRecord {
+        __typename
+        lightTheme
+        hideBreadcrumbs
+        title
+        description
+        updateDate
+        image {
+          responsiveImage {
+            ...ImageFragment
+          }
+        }
+        button {
+          ...ButtonFragment
+        }
+      }
+      ... on DataHeroRecord {
+        __typename
+        hideBreadcrumbs
+        title
+        updateDate
+        button {
+          ...ButtonFragment
+        }
+        argomento {
+          label
+          slug
+        }
+        badge {
+          label
+        }
+        beneficiari {
+          label
+        }
+        misura {
+          label
+          slug
+          basePath
+        }
+      }
+      ... on SplitBannerRecord {
+        __typename
+        id
+        title
+        description
+        imgLeft
+        lightTheme
+        links {
+          id
+          slug
+          title
+        }
+        image {
+          responsiveImage {
+            ...ImageFragment
+          }
+        }
+        button {
+          ...ButtonFragment
+        }
+      }
+      ... on BannerRecord {
+        __typename
+        id
+        title
+        description
+        lightTheme
+        button {
+          ...ButtonFragment
+        }
+      }
+      ... on RichTextRecord {
+        __typename
+        alignment
+        anchorId
+        richTextContent: content {
+          value
+          blocks {
+            ...RichTextContentFragment
+          }
+        }
+      }
+      ... on VideoPlayerRecord {
+        ...VideoPlayerFragment
+      }
+      ... on CardsGridRecord {
+        ...CardsGridFragment
+      }
+      ... on LayoutSidebarRecord {
+        __typename
+        sidebar {
+          ...NavScrollFragment
+        }
+        content {
+          alignment
+          anchorId
+          content {
+            value
+            blocks {
+              ...RichTextContentFragment
+            }
+          }
+        }
+      }
+    }
+  }
+  _allResourcesMeta {
+    count
+  }
+}

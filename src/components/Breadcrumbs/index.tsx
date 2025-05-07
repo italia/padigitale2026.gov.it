@@ -4,8 +4,18 @@ import { usePathname } from "next/navigation";
 import { Breadcrumb } from "design-react-kit";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getAllPages, getAllFaqs, getAllNews } from "@/lib/datocms";
-import { AllPagesQuery, AllFaqsQuery, AllNewsQuery } from "@/graphql/generated";
+import {
+  getAllPages,
+  getAllFaqs,
+  getAllNews,
+  getAllResources,
+} from "@/lib/datocms";
+import {
+  AllPagesQuery,
+  AllFaqsQuery,
+  AllNewsQuery,
+  AllResourcesQuery,
+} from "@/graphql/generated";
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 
@@ -34,12 +44,8 @@ export function Breadcrumbs({
       const pages = (await getAllPages()) as AllPagesQuery;
       const faqs = (await getAllFaqs()) as AllFaqsQuery;
       const news = (await getAllNews()) as AllNewsQuery;
+      const resources = (await getAllResources()) as AllResourcesQuery;
       const pathSegments = pathname.split("/").filter(Boolean);
-
-      console.log(
-        "Tutte le pagine disponibili:",
-        pages.allPages.map((p) => ({ slug: p.slug, title: p.title }))
-      );
 
       const items: BreadcrumbItem[] = [
         { title: "Home", href: "/", isActive: pathname === "/" },
@@ -52,13 +58,6 @@ export function Breadcrumbs({
         // Cerca la pagina in base al tipo di contenuto
         let pageTitle: string | undefined;
 
-        console.log("Segmento corrente:", segment);
-        console.log("Path corrente:", currentPath);
-        console.log(
-          "È l'ultimo segmento?",
-          segment === pathSegments[pathSegments.length - 1]
-        );
-
         // Se è l'ultimo segmento (pagina foglia), usa la logica specifica per il tipo di contenuto
         if (segment === pathSegments[pathSegments.length - 1]) {
           switch (true) {
@@ -66,8 +65,6 @@ export function Breadcrumbs({
               const page = faqs.allFaqs.find(
                 (p) => p.slug === currentPath.slice(1)
               );
-              console.log("Cercando FAQ con slug:", currentPath.slice(1));
-              console.log("FAQ trovata:", page);
               pageTitle = page?.title || undefined;
               break;
 
@@ -76,6 +73,13 @@ export function Breadcrumbs({
                 (p) => p.slug === currentPath.slice(1)
               );
               pageTitle = newsPage?.title || undefined;
+              break;
+
+            case currentPath.includes("guide-e-risorse/"):
+              const resourcePage = resources.allResources.find(
+                (p) => p.slug === currentPath.slice(1)
+              );
+              pageTitle = resourcePage?.title || undefined;
               break;
 
             default:
@@ -93,8 +97,6 @@ export function Breadcrumbs({
             page = pages.allPages.find((p) => p.slug?.endsWith(`/${segment}`));
           }
 
-          console.log("Cercando pagina normale con slug:", segment);
-          console.log("Pagina trovata:", page);
           pageTitle = page?.title || undefined;
         }
 
