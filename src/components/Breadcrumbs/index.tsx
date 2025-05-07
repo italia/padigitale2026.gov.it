@@ -36,6 +36,11 @@ export function Breadcrumbs({
       const news = (await getAllNews()) as AllNewsQuery;
       const pathSegments = pathname.split("/").filter(Boolean);
 
+      console.log(
+        "Tutte le pagine disponibili:",
+        pages.allPages.map((p) => ({ slug: p.slug, title: p.title }))
+      );
+
       const items: BreadcrumbItem[] = [
         { title: "Home", href: "/", isActive: pathname === "/" },
       ];
@@ -47,18 +52,49 @@ export function Breadcrumbs({
         // Cerca la pagina in base al tipo di contenuto
         let pageTitle: string | undefined;
 
-        if (currentPath.includes("domande-frequenti/")) {
-          const page = faqs.allFaqs.find(
-            (p) => p.slug === currentPath.slice(1)
-          );
-          pageTitle = page?.title || undefined;
-        } else if (currentPath.includes("notizie/")) {
-          const page = news.allNews.find(
-            (p) => p.slug === currentPath.slice(1)
-          );
-          pageTitle = page?.title || undefined;
+        console.log("Segmento corrente:", segment);
+        console.log("Path corrente:", currentPath);
+        console.log(
+          "È l'ultimo segmento?",
+          segment === pathSegments[pathSegments.length - 1]
+        );
+
+        // Se è l'ultimo segmento (pagina foglia), usa la logica specifica per il tipo di contenuto
+        if (segment === pathSegments[pathSegments.length - 1]) {
+          switch (true) {
+            case currentPath.includes("domande-frequenti/"):
+              const page = faqs.allFaqs.find(
+                (p) => p.slug === currentPath.slice(1)
+              );
+              console.log("Cercando FAQ con slug:", currentPath.slice(1));
+              console.log("FAQ trovata:", page);
+              pageTitle = page?.title || undefined;
+              break;
+
+            case currentPath.includes("notizie/"):
+              const newsPage = news.allNews.find(
+                (p) => p.slug === currentPath.slice(1)
+              );
+              pageTitle = newsPage?.title || undefined;
+              break;
+
+            default:
+              const normalPage = pages.allPages.find((p) => p.slug === segment);
+              pageTitle = normalPage?.title || undefined;
+              break;
+          }
         } else {
-          const page = pages.allPages.find((p) => p.slug === segment);
+          // Per le pagine intermedie, usa sempre getAllPages
+          // Prima cerca una corrispondenza esatta
+          let page = pages.allPages.find((p) => p.slug === segment);
+
+          // Se non trova una corrispondenza esatta, cerca una corrispondenza parziale
+          if (!page) {
+            page = pages.allPages.find((p) => p.slug?.endsWith(`/${segment}`));
+          }
+
+          console.log("Cercando pagina normale con slug:", segment);
+          console.log("Pagina trovata:", page);
           pageTitle = page?.title || undefined;
         }
 
