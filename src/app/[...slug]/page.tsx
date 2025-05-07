@@ -27,16 +27,18 @@ export default async function Page({
   const { slug } = await params;
   const fullSlug = slug.join("/");
 
+  console.log("fullSlug", fullSlug);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let page: any;
   let pages: AllPagesQuery | AllFaqsQuery | AllNewsQuery;
 
   switch (true) {
-    case fullSlug.includes("domande-frequenti"):
+    case fullSlug.includes("domande-frequenti/"):
       pages = (await getAllFaqs()) as AllFaqsQuery;
       page = pages.allFaqs.find((p) => p.slug === fullSlug);
       break;
-    case fullSlug.includes("notizie"):
+    case fullSlug.includes("notizie/"):
       pages = (await getAllNews()) as AllNewsQuery;
       page = pages.allNews.find((p) => p.slug === fullSlug);
       break;
