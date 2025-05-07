@@ -25,33 +25,6 @@ export type Scalars = {
   UploadId: { input: string; output: string; }
 };
 
-/** Block of type ⚠️ Alert (alert) */
-export type AlertRecord = RecordInterface & {
-  __typename?: 'AlertRecord';
-  _createdAt: Scalars['DateTime']['output'];
-  /** Editing URL */
-  _editingUrl?: Maybe<Scalars['String']['output']>;
-  _firstPublishedAt: Scalars['DateTime']['output'];
-  _isValid: Scalars['BooleanType']['output'];
-  _modelApiKey: Scalars['String']['output'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
-  _publishedAt: Scalars['DateTime']['output'];
-  /** Generates SEO and Social card meta tags to be used in your frontend */
-  _seoMetaTags: Array<Tag>;
-  _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
-  _updatedAt: Scalars['DateTime']['output'];
-  color?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ItemId']['output'];
-  text?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Block of type ⚠️ Alert (alert) */
-export type AlertRecord_SeoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
 export type ArgomentoModelFilter = {
   AND?: InputMaybe<Array<InputMaybe<ArgomentoModelFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ArgomentoModelFilter>>>;
