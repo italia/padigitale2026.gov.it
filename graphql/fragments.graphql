@@ -226,3 +226,42 @@ fragment BannerFragment on BannerRecord {
     ...ButtonFragment
   }
 }
+
+fragment TableListItemFragment on TableListItemRecord {
+  __typename
+  date
+  title
+  link {
+    ...LinkFragment
+  }
+}
+
+fragment TableListLinkItemFragment on TableListLinkItemRecord {
+  __typename
+  category {
+    label
+    slug
+  }
+  link {
+    ...LinkFragment
+  }
+}
+
+fragment TableListFragment on TableListRecord {
+  __typename
+  id
+  title
+  showTableHead
+  alignment
+  cta {
+    ...ButtonFragment
+  }
+  items {
+    ... on TableListItemRecord {
+      ...TableListItemFragment
+    }
+    ... on TableListLinkItemRecord {
+      ...TableListLinkItemFragment
+    }
+  }
+}

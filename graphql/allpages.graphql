@@ -35,6 +35,9 @@ query AllPages {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
     }
   }
   _allPagesMeta {

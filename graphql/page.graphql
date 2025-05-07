@@ -35,6 +35,9 @@ query Page($slug: String) {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
     }
   }
 }
