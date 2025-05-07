@@ -1,6 +1,7 @@
 "use client";
 
 import { NavScrollRecord } from "@/graphql/generated";
+import { Icon } from "design-react-kit";
 import { useEffect, useRef } from "react";
 
 declare global {
@@ -135,17 +136,18 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
       <div className="navbar-collapsable" id="navbarNav">
         <div className="overlay fade"></div>
         <a className="it-back-button" href="#" role="button">
-          <svg className="icon icon-sm icon-primary align-top">
-            <use
-              href="{{site.baseurl}}/dist/svg/sprites.svg#it-chevron-left"
-              xlinkHref="{{site.baseurl}}/dist/svg/sprites.svg#it-chevron-left"
-            ></use>
-          </svg>
+          <Icon
+            className="icon icon-sm icon-primary align-top"
+            color="primary"
+            icon="it-chevron-left"
+            size="sm"
+            title="Indietro"
+          />
           <span>Indietro</span>
         </a>
         <div className="menu-wrapper">
           <div className="link-list-wrapper">
-            <h3>{title}</h3>
+            {title && <h3>{title}</h3>}
             <div className="progress">
               <div
                 className="progress-bar it-navscroll-progressbar"
