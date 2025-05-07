@@ -6,14 +6,14 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
-export function CardResource({ props }: { props: ResourceRecord }) {
+export function CardResource({ props, TitleTag = 'div'}: { props: ResourceRecord, TitleTag?: string }) {
   const { title, summary, badge, data, slug } = props;
   return (
     <article className="it-card pb-0 bg-white flex-grow-1">
       {title && (
-        <h3 className="it-card-title px-0 fs-3 fw-semibold lh-sm">
+        <TitleTag className="it-card-title px-0 fs-3 fw-semibold lh-sm">
           <Link href={`/${slug}`} className={cn('decoration-1')}>{title}</Link>
-        </h3>
+        </TitleTag>
       )}
       <div className="it-card-body px-0 pb-2 d-flex flex-column pt-3 pb-3 border-bottom border-neutral-1-bg-a3">
         {summary && (

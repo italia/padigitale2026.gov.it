@@ -7,14 +7,14 @@ import classNames from "classnames/bind";
 import {CardResource} from "@/src/components/CardResource";
 import Link from "next/link";
 import {Icon} from "design-react-kit";
-import {cardAspectEnum, CardNews} from "@/src/components/CardNews";
+import {cardAspectEnum, CardGeneric} from "@/src/components/CardGeneric";
 
 const cn = classNames.bind(styles);
 
 export function CardsGrid({ props }: { props: CardsGridRecord }) {
-  const { title, description, alignment, risorse, news, columns, button } = props;
+  const { title, description, alignment, risorse, news, columns, button, background, cardTitleTag, customCards } = props;
   return (
-    <div className={cn("wrapper", "p-0")}>
+    <div className={`wrapper py-5 ${background}`}>
       <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
         <div className="col-12 pb-3">
           {title && (
@@ -69,7 +69,30 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
             }
             return (
               <div key={idx} className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                <CardNews cardAspect={cardAspectEnum.bordered} props={record} />
+                <CardGeneric cardAspect={cardAspectEnum.clean} props={record} />
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {customCards && customCards.cards && (
+        <div className={'row w-100 h-100 mx-auto container-xxl'}>
+          {customCards.cards.map((card, idx) => {
+            let colClasses = "";
+            const intColumns = (columns && parseInt(columns)) ?? 1;
+            if (intColumns  === 1) {
+              colClasses = "col-12";
+            } else if (intColumns === 2) {
+              colClasses = "col-12 col-md-6";
+            } else if (intColumns === 3) {
+              colClasses = "col-12 col-lg-4";
+            } else if (intColumns === 4) {
+              colClasses = "col-12 col-lg-3";
+            }
+
+            return (
+              <div key={idx} className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                <CardGeneric cardAspect={cardAspectEnum[(customCards.cardLayout ?? 'bordered')]} props={card} />
               </div>
             );
           })}
@@ -77,7 +100,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
       )}
       {(button && (
         <div className={'row w-100 h-100 mx-auto container-xxl'}>
-          <div className={cn("col-12 py-5", alignment === "center" ? "text-center" : "text-start")}>
+          <div className={cn("col-12 pt-5", alignment === "center" ? "text-center" : "text-start")}>
             <Link
               href={button.href || `/${button.cmsPage?.slug || ""}`}
               className={'btn btn-outline-primary btn-lg'}>
