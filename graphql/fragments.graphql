@@ -125,10 +125,26 @@ fragment NavScrollFragment on NavScrollRecord {
 fragment CardsGridFragment on CardsGridRecord {
   __typename
   id
+  background
   title
   description
   alignment
   columns
+  cardTitleTag
+  customCards {
+    __typename
+    id
+    cardLayout
+    cards {
+      __typename
+      id
+      title
+      description
+      date
+      label
+      iconBeforeTitle
+    }
+  }
   risorse {
     __typename
     id

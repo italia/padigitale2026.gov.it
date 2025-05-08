@@ -2,19 +2,6 @@
 
 import { NavScrollRecord } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
-import { useEffect, useRef } from "react";
-
-declare global {
-  interface Window {
-    bootstrap: {
-      NavScroll: {
-        getOrCreateInstance: (element: HTMLElement) => {
-          setScrollPadding: (callback: () => number) => void;
-        };
-      };
-    };
-  }
-}
 
 type DASTNode = {
   type: string;
@@ -76,38 +63,12 @@ const renderNavList = (items: DASTNode[]) => {
 
 export function NavScroll({ props }: { props: NavScrollRecord }) {
   const { title, content } = props;
-  const navscrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const initializeNavScroll = () => {
-      if (navscrollRef.current && window.bootstrap) {
-        const navscrollElement = navscrollRef.current;
-        const navscroll =
-          window.bootstrap.NavScroll.getOrCreateInstance(navscrollElement);
-
-        navscroll.setScrollPadding(() => {
-          const header = document.querySelector(".it-header-wrapper");
-          return header ? header.getBoundingClientRect().height + 10 : 0;
-        });
-      }
-    };
-
-    // Se Bootstrap è già caricato, inizializza subito
-    if (window.bootstrap) {
-      initializeNavScroll();
-    } else {
-      // Altrimenti aspetta che il documento sia completamente caricato
-      window.addEventListener("load", initializeNavScroll);
-      return () => window.removeEventListener("load", initializeNavScroll);
-    }
-  }, []);
 
   const navItems =
     (content?.value as DASTValue)?.document?.children?.[0]?.children || [];
 
   return (
     <nav
-      ref={navscrollRef}
       className="navbar it-navscroll-wrapper navbar-expand-lg it-bottom-navscroll it-right-side"
       data-bs-navscroll
     >
