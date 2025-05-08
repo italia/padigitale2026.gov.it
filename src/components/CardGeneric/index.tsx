@@ -1,108 +1,108 @@
 "use client";
 
-import { NewsRecord, CardGenericRecord } from "@/graphql/generated";
+import {CardGenericRecord} from "@/graphql/generated";
 import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import { ElementType } from "react";
+import {ElementType} from "react";
 
 const cn = classNames.bind(styles);
 
-export enum cardAspectEnum {
+export enum genericCardLayoutEnum {
   borderBottom = "borderBottom",
   bordered = "bordered",
   clean = "clean",
 }
 
 export function CardGeneric({
-  props,
-  cardAspect = cardAspectEnum.borderBottom,
-  TitleTag = "div",
-}: {
-  props: NewsRecord | CardGenericRecord;
-  cardAspect?: cardAspectEnum;
+                              props,
+                              cardLayout = genericCardLayoutEnum.borderBottom,
+                              TitleTag = "div",
+                            }: {
+  props: CardGenericRecord;
+  cardLayout?: genericCardLayoutEnum;
   TitleTag?: ElementType;
 }) {
-  const isNewsRecord = (
-    props: NewsRecord | CardGenericRecord
-  ): props is NewsRecord => {
-    return "summary" in props;
-  };
 
-  const isCardGenericRecord = (
-    props: NewsRecord | CardGenericRecord
-  ): props is CardGenericRecord => {
-    return "date" in props;
-  };
+  const {iconBeforeTitle, title, description, label, date, href, cmsPage, target} = props;
 
   let formattedDate: string | undefined;
-  if (isCardGenericRecord(props) && props.date) {
-    try {
+
+  try {
+    if (date) {
       formattedDate = new Intl.DateTimeFormat("it-IT", {
         timeZone: "Europe/Rome",
         day: "2-digit",
         month: "long",
         year: "numeric",
-      }).format(Date.parse(props.date));
-    } catch {}
+      }).format(Date.parse(date));
+    }
+  } catch {
   }
 
-  const summary = isNewsRecord(props) ? props.summary : props.description;
-  const category = isNewsRecord(props) ? props.category : undefined;
-  const label = !isNewsRecord(props) ? props.label : undefined;
-  const data = isNewsRecord(props) ? props.data : undefined;
-  const iconBeforeTitle = isCardGenericRecord(props)
-    ? props.iconBeforeTitle
-    : undefined;
-  const slug = isNewsRecord(props) ? props.slug : undefined;
+  let targetLink = '_self';
+  if (typeof target !== 'undefined' && target !== null) {
+    targetLink = target;
+  }
 
   return (
     <article
       className={cn("it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
-          cardAspect && cardAspect === "bordered",
+          cardLayout && cardLayout === "bordered",
         "bg-transparent border-bottom border-neutral-1-bg-a3":
-          cardAspect && cardAspect === "borderBottom",
-      })}
-    >
-      {props.title && (
+          cardLayout && cardLayout === "borderBottom",
+      })}>
+      {title && (
         <TitleTag
           className={cn("it-card-title fw-semibold pb-3 lh-sm", {
             "fs-3":
-              cardAspect && ["borderBottom", "clean"].includes(cardAspect),
-            "fs-4": cardAspect && cardAspect === "bordered",
-            "px-0": cardAspect && cardAspect === "borderBottom",
-          })}
-        >
+              cardLayout && ["borderBottom", "clean"].includes(cardLayout),
+            "fs-4": cardLayout && cardLayout === "bordered",
+            "px-0": cardLayout && cardLayout === "borderBottom",
+          })}>
           {iconBeforeTitle && (
             <div
               className={cn("d-inline-block me-3", "title_icon")}
-              dangerouslySetInnerHTML={{ __html: iconBeforeTitle }}
+              dangerouslySetInnerHTML={{__html: iconBeforeTitle}}
             />
           )}
-          <Link href={`/${slug}`} className={cn("decoration-1")}>
-            {props.title}
-          </Link>
+          {(href || cmsPage?.slug) && (
+            <Link
+              href={href || cmsPage?.slug || ""}
+              target={targetLink}
+              className={cn("decoration-1")}>
+              {title}
+            </Link>
+          )}
+          {(!href && !cmsPage?.slug) && (
+            <span
+              className={cn(
+                "decoration-1",
+                "color-primary"
+              )}>
+                  {title}
+                </span>
+          )}
         </TitleTag>
       )}
       <div
         className={cn("it-card-body d-flex flex-column pt-0 pb-0", {
-          "px-0": cardAspect && cardAspect === "borderBottom",
-        })}
-      >
-        {summary && (
-          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{summary}</p>
+          "px-0": cardLayout && cardLayout === "borderBottom",
+        })}>
+        {description && (
+          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{description}</p>
         )}
-        {(category || label || data || formattedDate) && (
+        {(label || formattedDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
-            {(category || label) && (
+            {(label) && (
               <div className={"it-card-taxonomy"}>
                 <span className="visually-hidden">Categoria correlata: </span>
-                <span className={"it-card-category"}>{category || label}</span>
+                <span className={"it-card-category"}>{label}</span>
               </div>
             )}
-            {(data || formattedDate) && (
-              <time className={"it-card-date"}>{data || formattedDate}</time>
+            {(formattedDate) && (
+              <time className={"it-card-date"}>{formattedDate}</time>
             )}
           </footer>
         )}
