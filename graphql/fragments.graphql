@@ -8,6 +8,7 @@ fragment ButtonFragment on ButtonRecord {
   cmsPage {
     title
     slug
+    id
   }
 }
 
@@ -259,7 +260,26 @@ fragment TableListLinkItemFragment on TableListLinkItemRecord {
     slug
   }
   link {
-    ...LinkFragment
+    __typename
+    id
+    href
+    icon
+    target
+    text
+    cmsPage {
+      slug
+      title
+      id
+      body {
+        __typename
+        ... on DataHeroRecord {
+          id
+          badge {
+            label
+          }
+        }
+      }
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { TableListLinkItemRecord } from "@/graphql/generated";
-import { Icon } from "design-react-kit";
+import { Badge, Icon } from "design-react-kit";
 import Link from "next/link";
 
 export function TableListLinkItem({
@@ -33,6 +33,24 @@ export function TableListLinkItem({
     return "";
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getColor = (body: any) => {
+    if (body?.[0]?.__typename === "DataHeroRecord") {
+      if (body[0].badge.label === "Nuovo") {
+        return "primary";
+      }
+    }
+    return "secondary";
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getBadge = (body: any) => {
+    if (body?.[0]?.__typename === "DataHeroRecord") {
+      return body[0].badge.label;
+    }
+    return null;
+  };
+
   return (
     <div className="row border-bottom m-0 p-0 py-2 w-100">
       <div className="col ps-0">
@@ -55,14 +73,21 @@ export function TableListLinkItem({
               </div>
             )}
           </div>
-          <Icon
-            className="my-0"
-            color="primary"
-            icon="it-chevron-right"
-            size="sm"
-            title="Freccia a destra"
-            padding
-          />
+          <div className="d-flex align-items-center">
+            {getBadge(link?.cmsPage?.body) && (
+              <Badge color={getColor(link?.cmsPage?.body)} className="me-2">
+                {getBadge(link?.cmsPage?.body)}
+              </Badge>
+            )}
+            <Icon
+              className="my-0"
+              color="primary"
+              icon="it-chevron-right"
+              size="sm"
+              title="Freccia a destra"
+              padding
+            />
+          </div>
         </Link>
       </div>
     </div>
