@@ -1,23 +1,12 @@
 "use client";
 
+import { NewsRecord, CardGenericRecord } from "@/graphql/generated";
 import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
 
 const cn = classNames.bind(styles);
-
-interface CardProps {
-  title?: string | null;
-  date?: string | null;
-  data?: string | null;
-  category?: string | null;
-  label?: string | null;
-  summary?: string | null;
-  description?: string | null;
-  iconBeforeTitle?: string | null;
-  slug?: string | null;
-}
 
 export enum cardAspectEnum {
   borderBottom = "borderBottom",
@@ -30,13 +19,26 @@ export function CardGeneric({
   cardAspect = cardAspectEnum.borderBottom,
   TitleTag = "div",
 }: {
-  props: CardProps;
+  props: NewsRecord | CardGenericRecord;
   cardAspect?: cardAspectEnum;
   TitleTag?: ElementType;
 }) {
-  if (props.date && props.date.length > 0) {
+  const isNewsRecord = (
+    props: NewsRecord | CardGenericRecord
+  ): props is NewsRecord => {
+    return "summary" in props;
+  };
+
+  const isCardGenericRecord = (
+    props: NewsRecord | CardGenericRecord
+  ): props is CardGenericRecord => {
+    return "date" in props;
+  };
+
+  let formattedDate: string | undefined;
+  if (isCardGenericRecord(props) && props.date) {
     try {
-      props.date = new Intl.DateTimeFormat("it-IT", {
+      formattedDate = new Intl.DateTimeFormat("it-IT", {
         timeZone: "Europe/Rome",
         day: "2-digit",
         month: "long",
@@ -44,6 +46,16 @@ export function CardGeneric({
       }).format(Date.parse(props.date));
     } catch {}
   }
+
+  const summary = isNewsRecord(props) ? props.summary : props.description;
+  const category = isNewsRecord(props) ? props.category : undefined;
+  const label = !isNewsRecord(props) ? props.label : undefined;
+  const data = isNewsRecord(props) ? props.data : undefined;
+  const iconBeforeTitle = isCardGenericRecord(props)
+    ? props.iconBeforeTitle
+    : undefined;
+  const slug = isNewsRecord(props) ? props.slug : undefined;
+
   return (
     <article
       className={cn("it-card pb-0 flex-grow-1", {
@@ -62,13 +74,13 @@ export function CardGeneric({
             "px-0": cardAspect && cardAspect === "borderBottom",
           })}
         >
-          {props.iconBeforeTitle && (
+          {iconBeforeTitle && (
             <div
               className={cn("d-inline-block me-3", "title_icon")}
-              dangerouslySetInnerHTML={{ __html: props.iconBeforeTitle }}
+              dangerouslySetInnerHTML={{ __html: iconBeforeTitle }}
             />
           )}
-          <Link href={`/${props.slug}`} className={cn("decoration-1")}>
+          <Link href={`/${slug}`} className={cn("decoration-1")}>
             {props.title}
           </Link>
         </TitleTag>
@@ -78,23 +90,19 @@ export function CardGeneric({
           "px-0": cardAspect && cardAspect === "borderBottom",
         })}
       >
-        {(props.summary || props.description) && (
-          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">
-            {props.summary || props.description}
-          </p>
+        {summary && (
+          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{summary}</p>
         )}
-        {(props.category || props.label || props.data || props.date) && (
+        {(category || label || data || formattedDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
-            {(props.category || props.label) && (
+            {(category || label) && (
               <div className={"it-card-taxonomy"}>
                 <span className="visually-hidden">Categoria correlata: </span>
-                <span className={"it-card-category"}>
-                  {props.category || props.label}
-                </span>
+                <span className={"it-card-category"}>{category || label}</span>
               </div>
             )}
-            {(props.data || props.date) && (
-              <time className={"it-card-date"}>{props.data || props.date}</time>
+            {(data || formattedDate) && (
+              <time className={"it-card-date"}>{data || formattedDate}</time>
             )}
           </footer>
         )}
