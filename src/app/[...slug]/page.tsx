@@ -69,11 +69,14 @@ export default async function Page({
         <div className="container-xxl">
           <p className="my-4 fs-6 text-secondary">
             Aggiornato il{" "}
-            {new Intl.DateTimeFormat("it-IT", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }).format(new Date(page.customUpdateDate))}
+            <time dateTime={page.customUpdateDate}>
+              {new Intl.DateTimeFormat("it-IT", {
+                timeZone: "Europe/Rome",
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              }).format(new Date(page.customUpdateDate))}
+            </time>
           </p>
         </div>
       )}
