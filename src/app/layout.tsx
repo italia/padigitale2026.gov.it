@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Script from "next/script";
 
 import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
 
@@ -11,6 +12,7 @@ import { getFooter, getHeader } from "@/lib/datocms";
 import type { FooterQuery, HeaderQuery } from "@/graphql/generated";
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
+import BootstrapInit from "@/src/components/BootstrapInit";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +28,14 @@ export default async function RootLayout({
   const headerProps = (await getHeader()) as HeaderQuery;
   return (
     <html lang="it">
+      <head>
+        <Script
+          src="/bootstrap-italia.bundle.min.js"
+          strategy="afterInteractive"
+        />
+      </head>
       <body>
+        <BootstrapInit />
         <Header props={headerProps} />
         <main>{children}</main>
         <Footer props={footerProps} />

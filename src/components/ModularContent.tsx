@@ -8,7 +8,6 @@ import {
   DataHeroRecord,
   RichTextRecord,
   VideoPlayerRecord,
-  CardServiceRecord,
   CardsGridRecord,
   LayoutSidebarRecord,
   TableListRecord,
@@ -19,7 +18,6 @@ import { SplitBanner } from "@/src/components/SplitBanner";
 import { Banner } from "@/src/components/Banner";
 import { RichText } from "@/src/components/RichText";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
-import { CardService } from "@/src/components/CardService";
 import { CardsGrid } from "@/src/components/CardsGrid";
 import { LayoutSidebar } from "@/src/components/LayoutSidebar";
 import { TableList } from "@/src/components/TableList";
@@ -40,8 +38,6 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <RichText key={idx} props={el as RichTextRecord} />;
           case "VideoPlayerRecord":
             return <VideoPlayer key={idx} props={el as VideoPlayerRecord} />;
-          case "CardServiceRecord":
-            return <CardService key={idx} props={el as CardServiceRecord} />;
           case "CardsGridRecord":
             return <CardsGrid key={idx} props={el as CardsGridRecord} />;
           case "LayoutSidebarRecord":

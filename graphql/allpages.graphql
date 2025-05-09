@@ -24,11 +24,6 @@ query AllPages {
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment
       }
-      ... on CardServiceRecord {
-        __typename
-        id
-        title
-      }
       ... on CardsGridRecord {
         ...CardsGridFragment
       }
