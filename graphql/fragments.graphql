@@ -317,7 +317,7 @@ fragment TableListFragment on TableListRecord {
   title
   showTableHead
   alignment
-  cta {
+  button {
     ...ButtonFragment
   }
   items {
