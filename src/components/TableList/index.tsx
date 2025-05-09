@@ -11,9 +11,9 @@ import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
 export function TableList({ props }: { props: TableListRecord }) {
-  const { title, showTableHead, alignment, items, cta } = props;
+  const { title, showTableHead, alignment, items, button } = props;
 
-  const getButtonHref = (button: TableListRecord["cta"]) => {
+  const getButtonHref = (button: TableListRecord["button"]) => {
     // href link > cms page
     if (button?.href) {
       return `${button.href}`;
@@ -24,7 +24,7 @@ export function TableList({ props }: { props: TableListRecord }) {
     return "";
   };
 
-  const getButtonTitle = (button: TableListRecord["cta"]) => {
+  const getButtonTitle = (button: TableListRecord["button"]) => {
     // href link > cms page
     if (button?.href) {
       return button.text || "";
@@ -69,7 +69,7 @@ export function TableList({ props }: { props: TableListRecord }) {
             )}
           </div>
         ))}
-        {cta && (
+        {button && (
           <div
             className={cn("w-100 pt-5", {
               "text-center": alignment === "center",
@@ -77,16 +77,16 @@ export function TableList({ props }: { props: TableListRecord }) {
           >
             <Link
               className="btn btn-sm btn-outline-primary"
-              href={getButtonHref(cta)}
-              target={cta.target || "_self"}
-              title={getButtonTitle(cta)}
+              href={getButtonHref(button)}
+              target={button.target || "_self"}
+              title={getButtonTitle(button)}
             >
-              {cta.text}
-              {cta.icon && (
+              {button.text}
+              {button.icon && (
                 <Icon
                   className="my-0"
                   color="primary"
-                  icon={cta.icon}
+                  icon={button.icon}
                   size="sm"
                   title=""
                   padding
