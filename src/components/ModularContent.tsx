@@ -8,7 +8,11 @@ import {
   DataHeroRecord,
   RichTextRecord,
   VideoPlayerRecord,
-  CardsGridRecord,
+  CardsGridGenericRecord,
+  CardsGridAttachmentRecord,
+  CardsGridServiceRecord,
+  CardsGridResourceRecord,
+  CardsGridNewsRecord,
   LayoutSidebarRecord,
   TableListRecord,
 } from "@/graphql/generated";
@@ -37,9 +41,17 @@ export function ModularContent({ content }: { content: PageQuery }) {
           case "RichTextRecord":
             return <RichText key={idx} props={el as RichTextRecord} />;
           case "VideoPlayerRecord":
-            return <VideoPlayer key={idx} props={el as VideoPlayerRecord} />;
-          case "CardsGridRecord":
-            return <CardsGrid key={idx} props={el as CardsGridRecord} />;
+            return <VideoPlayer key={idx} props={el as VideoPlayerRecord}/>;
+          case "CardsGridGenericRecord":
+            return <CardsGrid key={idx} props={el as CardsGridGenericRecord}/>
+          case "CardsGridAttachmentRecord":
+            return <CardsGrid key={idx} props={el as CardsGridAttachmentRecord}/>
+          case "CardsGridServiceRecord":
+            return <CardsGrid key={idx} props={el as CardsGridServiceRecord}/>
+          case "CardsGridResourceRecord":
+            return <CardsGrid key={idx} props={el as CardsGridResourceRecord}/>
+          case "CardsGridNewsRecord":
+            return <CardsGrid key={idx} props={el as CardsGridNewsRecord}/>
           case "LayoutSidebarRecord":
             return (
               <LayoutSidebar key={idx} props={el as LayoutSidebarRecord} />

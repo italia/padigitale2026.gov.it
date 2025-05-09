@@ -27,6 +27,21 @@ query AllFaqs {
       ... on CardsGridRecord {
         ...CardsGridFragment
       }
+      ... on CardsGridGenericRecord {
+        ...CardsGridGenericFragment
+      }
+      ... on CardsGridAttachmentRecord {
+        ...CardsGridAttachmentFragment
+      }
+      ... on CardsGridServiceRecord {
+        ...CardsGridServiceFragment
+      }
+      ... on CardsGridNewsRecord {
+        ...CardsGridNewsFragment
+      }
+      ... on CardsGridResourceRecord {
+        ...CardsGridResourceFragment
+      }
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }

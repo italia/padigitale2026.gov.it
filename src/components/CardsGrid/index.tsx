@@ -1,46 +1,109 @@
 "use client";
 
-import {CardsGridRecord} from "@/graphql/generated";
+import {
+  CardsGridGenericRecord,
+  CardsGridAttachmentRecord,
+  CardsGridServiceRecord,
+  CardsGridResourceRecord,
+  CardsGridNewsRecord
+} from "@/graphql/generated";
+
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import {CardResource} from "@/src/components/CardResource";
 import Link from "next/link";
 import {Icon} from "design-react-kit";
 import {ElementType} from "react";
+
 import {genericCardLayoutEnum, CardGeneric} from "@/src/components/CardGeneric";
 import {CardAttachment} from "@/src/components/CardAttachment";
+import {CardResource} from "@/src/components/CardResource";
+import {CardService} from "@/src/components/CardService";
 import {newsCardLayoutEnum, CardNews} from "@/src/components/CardNews";
 
 const cn = classNames.bind(styles);
 
-export function CardsGrid({props}: { props: CardsGridRecord }) {
-  const {
-    title,
-    description,
-    alignment,
-    risorse,
-    news,
-    columns,
-    button,
-    background,
-    cardTitleTag,
-    customCards,
-  } = props;
+export function CardsGrid({props}: {
+  props: CardsGridGenericRecord | CardsGridAttachmentRecord | CardsGridServiceRecord | CardsGridResourceRecord | CardsGridNewsRecord
+}) {
 
-  const titleTag = cardTitleTag || "h3";
+  const {__typename, id, sectionFields} = props;
+  let title = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.title !== 'undefined') {
+    title = sectionFields.title;
+  }
+
+  let singleCardsTitleTag = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.singleCardsTitleTag !== 'undefined') {
+    singleCardsTitleTag = sectionFields.singleCardsTitleTag;
+  }
+
+  let description = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.description !== 'undefined') {
+    description = sectionFields.description;
+  }
+
+  let button = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.button !== 'undefined') {
+    button = sectionFields.button;
+  }
+
+  let alignment = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.alignment !== 'undefined') {
+    alignment = sectionFields.alignment;
+  }
+
+  let columns = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.columns !== 'undefined') {
+    columns = sectionFields.columns;
+  }
+
+  let backgroundColor = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.backgroundColor !== 'undefined') {
+    backgroundColor = sectionFields.backgroundColor;
+  }
+
+  let titleHtmlTag = null;
+  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.titleHtmlTag !== 'undefined') {
+    titleHtmlTag = sectionFields.titleHtmlTag;
+  }
+
+  let cardLayout = null;
+  let cards = null;
+  let news = null;
+  let resources = null;
+
+  if (__typename === 'CardsGridGenericRecord') {
+    cardLayout = typeof props.cardLayout !== 'undefined' ? props.cardLayout : null;
+    cards = typeof props.cards !== 'undefined' ? props.cards : null;
+  }
+
+  if (__typename === 'CardsGridAttachmentRecord' || __typename === 'CardsGridServiceRecord') {
+    cards = typeof props.cards !== 'undefined' ? props.cards : null;
+  }
+
+  if (__typename === 'CardsGridResourceRecord') {
+    resources = typeof props.resources !== 'undefined' ? props.resources : null;
+  }
+
+  if (__typename === 'CardsGridNewsRecord') {
+    news = typeof props.news !== 'undefined' ? props.news : null;
+  }
+
+  const cardTitleTag:ElementType = (singleCardsTitleTag || "h3") as ElementType;
+  const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
   return (
-    <div className={`wrapper py-5 ${background}`}>
+    <div key={id} className={`wrapper py-5 ${backgroundColor}`}>
       <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
         <div className="col-12 pb-3">
           {title && (
-            <h2
+            <SectionTitleTag
               className={cn(
                 "text-dark mb-0 fs-2 lh-sm",
                 alignment === "center" ? "text-center" : "text-start"
               )}>
               {title}
-            </h2>
+            </SectionTitleTag>
           )}
           {description && (
             <p
@@ -53,9 +116,9 @@ export function CardsGrid({props}: { props: CardsGridRecord }) {
           )}
         </div>
       </div>
-      {risorse && (
+      {resources && (
         <div className={"row w-100 h-100 mx-auto container-xxl"}>
-          {risorse.map((resource, idx) => {
+          {resources.map((resource, idx) => {
             let colClasses = "";
             const intColumns = (columns && parseInt(columns)) ?? 1;
             if (intColumns === 1) {
@@ -72,7 +135,7 @@ export function CardsGrid({props}: { props: CardsGridRecord }) {
                 key={idx}
                 className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
                 <CardResource
-                  TitleTag={titleTag as ElementType}
+                  TitleTag={cardTitleTag}
                   props={resource}
                 />
               </div>
@@ -99,7 +162,7 @@ export function CardsGrid({props}: { props: CardsGridRecord }) {
                 key={idx}
                 className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
                 <CardNews
-                  TitleTag={titleTag as ElementType}
+                  TitleTag={cardTitleTag}
                   cardLayout={newsCardLayoutEnum.clean}
                   props={record}
                 />
@@ -108,9 +171,9 @@ export function CardsGrid({props}: { props: CardsGridRecord }) {
           })}
         </div>
       )}
-      {customCards && customCards.cards && (
+      {cards !== null && (
         <div className={"row w-100 h-100 mx-auto container-xxl"}>
-          {customCards.cards.map((card, idx) => {
+          {cards.map((card, idx) => {
             let colClasses = "";
             const intColumns = (columns && parseInt(columns)) ?? 1;
             if (intColumns === 1) {
@@ -122,17 +185,16 @@ export function CardsGrid({props}: { props: CardsGridRecord }) {
             } else if (intColumns === 4) {
               colClasses = "col-12 col-lg-3";
             }
-
             if (card.__typename === 'CardGenericRecord') {
               return (
                 <div
                   key={idx}
                   className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
                   <CardGeneric
-                    TitleTag={titleTag as ElementType}
+                    TitleTag={cardTitleTag}
                     cardLayout={
                       genericCardLayoutEnum[
-                        (customCards.cardLayout ??
+                        (cardLayout ??
                           "bordered") as keyof typeof genericCardLayoutEnum
                         ]
                     }
@@ -146,7 +208,18 @@ export function CardsGrid({props}: { props: CardsGridRecord }) {
                   key={idx}
                   className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
                   <CardAttachment
-                    TitleTag={titleTag as ElementType}
+                    TitleTag={cardTitleTag}
+                    props={card}
+                  />
+                </div>
+              );
+            } else if (card.__typename === 'CardServiceRecord') {
+              return (
+                <div
+                  key={idx}
+                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                  <CardService
+                    TitleTag={cardTitleTag}
                     props={card}
                   />
                 </div>

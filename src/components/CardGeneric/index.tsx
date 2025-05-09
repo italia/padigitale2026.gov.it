@@ -17,7 +17,7 @@ export enum genericCardLayoutEnum {
 export function CardGeneric({
                               props,
                               cardLayout = genericCardLayoutEnum.borderBottom,
-                              TitleTag = "div",
+                              TitleTag = "div"
                             }: {
   props: CardGenericRecord;
   cardLayout?: genericCardLayoutEnum;

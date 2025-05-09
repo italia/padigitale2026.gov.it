@@ -1,3 +1,18 @@
+fragment CardsGridFieldsetFragment on CardsGridFieldsetRecord {
+  __typename
+  id
+  title
+  titleHtmlTag
+  description
+  alignment
+  columns
+  singleCardsTitleTag
+  button {
+    ... ButtonFragment
+  }
+  backgroundColor
+}
+
 fragment ButtonFragment on ButtonRecord {
   __typename
   id
@@ -172,6 +187,16 @@ fragment CardsGridFragment on CardsGridRecord {
         target
         updated
       }
+      ... on CardServiceRecord {
+        __typename
+        id
+        label
+        title
+        description
+        button {
+          ...ButtonFragment
+        }
+      }
     }
   }
   risorse {
@@ -327,5 +352,122 @@ fragment TableListFragment on TableListRecord {
     ... on TableListLinkItemRecord {
       ...TableListLinkItemFragment
     }
+  }
+}
+
+fragment CardsGridGenericFragment on CardsGridGenericRecord {
+  __typename
+  id
+  sectionFields {
+    ... CardsGridFieldsetFragment
+  }
+  cardLayout
+  cards {
+    ... on CardGenericRecord {
+      __typename
+      id
+      title
+      description
+      date
+      label
+      iconBeforeTitle
+      href
+      cmsPage {
+        title
+        slug
+      }
+      target
+    }
+  }
+}
+
+
+fragment CardsGridAttachmentFragment on CardsGridAttachmentRecord {
+  __typename
+  id
+  sectionFields {
+    ... CardsGridFieldsetFragment
+  }
+  cards {
+    ... on CardAttachmentRecord {
+      __typename
+      id
+      title
+      description
+      date
+      label
+      href
+      cmsAsset {
+        title
+        url
+      }
+      target
+    }
+  }
+}
+
+fragment CardsGridServiceFragment on CardsGridServiceRecord {
+  __typename
+  id
+  sectionFields {
+    ... CardsGridFieldsetFragment
+  }
+  cards {
+    ... on CardServiceRecord {
+      __typename
+      id
+      title
+      description
+      label
+      button {
+        __typename
+        id
+        href
+        target
+        text
+        icon
+        cmsPage {
+          title
+          slug
+        }
+      }
+    }
+  }
+}
+
+
+
+fragment CardsGridNewsFragment on CardsGridNewsRecord {
+  __typename
+  id
+  sectionFields {
+    ... CardsGridFieldsetFragment
+  }
+  news {
+    __typename
+    id
+    slug
+    title
+    summary
+    category
+    data
+  }
+}
+
+
+fragment CardsGridResourceFragment on CardsGridResourceRecord {
+  __typename
+  id
+  sectionFields {
+    ... CardsGridFieldsetFragment
+  }
+  resources {
+    __typename
+    id
+    slug
+    title
+    summary
+    badge
+    data
   }
 }
