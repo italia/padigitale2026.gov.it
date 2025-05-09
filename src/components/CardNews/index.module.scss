@@ -1,0 +1,19 @@
+@use "../../styles/index" as *;
+
+.bg-badge {
+  background-color: #F2F7FC;
+}
+.decoration-1{
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.title_icon{
+  width: 40px;
+  height: 40px;
+  svg {
+    width: 100%;
+    height: auto;
+    transform: translateY(-2px);
+  }
+}

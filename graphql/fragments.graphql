@@ -137,13 +137,41 @@ fragment CardsGridFragment on CardsGridRecord {
     id
     cardLayout
     cards {
-      __typename
-      id
-      title
-      description
-      date
-      label
-      iconBeforeTitle
+      ... on CardGenericRecord {
+        __typename
+        id
+        title
+        description
+        date
+        label
+        iconBeforeTitle
+        href
+        cmsPage {
+          title
+          slug
+        }
+        target
+      }
+      ... on CardAttachmentRecord {
+        __typename
+        id
+        title
+        description
+        date
+        label
+        href
+        cmsAsset {
+          alt
+          basename
+          filename
+          mimeType
+          size
+          url
+          title
+        }
+        target
+        updated
+      }
     }
   }
   risorse {

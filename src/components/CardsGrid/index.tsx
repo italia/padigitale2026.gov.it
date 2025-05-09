@@ -1,17 +1,19 @@
 "use client";
 
-import { CardsGridRecord } from "@/graphql/generated";
+import {CardsGridRecord} from "@/graphql/generated";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import { CardResource } from "@/src/components/CardResource";
+import {CardResource} from "@/src/components/CardResource";
 import Link from "next/link";
-import { Icon } from "design-react-kit";
-import { cardAspectEnum, CardGeneric } from "@/src/components/CardGeneric";
-import { ElementType } from "react";
+import {Icon} from "design-react-kit";
+import {ElementType} from "react";
+import {genericCardLayoutEnum, CardGeneric} from "@/src/components/CardGeneric";
+import {CardAttachment} from "@/src/components/CardAttachment";
+import {newsCardLayoutEnum, CardNews} from "@/src/components/CardNews";
 
 const cn = classNames.bind(styles);
 
-export function CardsGrid({ props }: { props: CardsGridRecord }) {
+export function CardsGrid({props}: { props: CardsGridRecord }) {
   const {
     title,
     description,
@@ -24,7 +26,9 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
     cardTitleTag,
     customCards,
   } = props;
+
   const titleTag = cardTitleTag || "h3";
+
   return (
     <div className={`wrapper py-5 ${background}`}>
       <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
@@ -34,8 +38,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
               className={cn(
                 "text-dark mb-0 fs-2 lh-sm",
                 alignment === "center" ? "text-center" : "text-start"
-              )}
-            >
+              )}>
               {title}
             </h2>
           )}
@@ -44,8 +47,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
               className={cn(
                 "font-sans-serif text-dark mt-3 mb-0",
                 alignment === "center" ? "text-center" : "text-start"
-              )}
-            >
+              )}>
               {description}
             </p>
           )}
@@ -68,8 +70,7 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
             return (
               <div
                 key={idx}
-                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-              >
+                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
                 <CardResource
                   TitleTag={titleTag as ElementType}
                   props={resource}
@@ -96,11 +97,10 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
             return (
               <div
                 key={idx}
-                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-              >
-                <CardGeneric
+                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                <CardNews
                   TitleTag={titleTag as ElementType}
-                  cardAspect={cardAspectEnum.clean}
+                  cardLayout={newsCardLayoutEnum.clean}
                   props={record}
                 />
               </div>
@@ -123,23 +123,36 @@ export function CardsGrid({ props }: { props: CardsGridRecord }) {
               colClasses = "col-12 col-lg-3";
             }
 
-            return (
-              <div
-                key={idx}
-                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-              >
-                <CardGeneric
-                  TitleTag={titleTag as ElementType}
-                  cardAspect={
-                    cardAspectEnum[
-                      (customCards.cardLayout ??
-                        "bordered") as keyof typeof cardAspectEnum
-                    ]
-                  }
-                  props={card}
-                />
-              </div>
-            );
+            if (card.__typename === 'CardGenericRecord') {
+              return (
+                <div
+                  key={idx}
+                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                  <CardGeneric
+                    TitleTag={titleTag as ElementType}
+                    cardLayout={
+                      genericCardLayoutEnum[
+                        (customCards.cardLayout ??
+                          "bordered") as keyof typeof genericCardLayoutEnum
+                        ]
+                    }
+                    props={card}
+                  />
+                </div>
+              );
+            } else if (card.__typename === 'CardAttachmentRecord') {
+              return (
+                <div
+                  key={idx}
+                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                  <CardAttachment
+                    TitleTag={titleTag as ElementType}
+                    props={card}
+                  />
+                </div>
+              );
+            }
+
           })}
         </div>
       )}

@@ -1,0 +1,21 @@
+@use "../../styles/index" as *;
+
+.bg-badge {
+  background-color: #F2F7FC;
+}
+.decoration-1{
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.icon{
+  width: 34px;
+  height: 34px;
+  position: relative;
+  display: inline-block;
+  svg {
+    width: 100%;
+    height: auto;
+    transform: translateY(-2px);
+  }
+}

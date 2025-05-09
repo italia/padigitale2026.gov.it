@@ -1,6 +1,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --bs-it-card-spacer-x: 1.5rem;
 }
 
 @media (prefers-color-scheme: dark) {

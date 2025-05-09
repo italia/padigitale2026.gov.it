@@ -342,7 +342,10 @@ export type CardServiceRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
   _updatedAt: Scalars['DateTime']['output'];
+  button?: Maybe<ButtonRecord>;
+  description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ItemId']['output'];
+  label?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -350,6 +353,12 @@ export type CardServiceRecord = RecordInterface & {
 /** Block of type Card Service (card_service) */
 export type CardServiceRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Block of type Card Service (card_service) */
+export type CardServiceRecordDescriptionArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type Cards Grid (cards_grid) */
@@ -888,6 +897,8 @@ export type FooterRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+export type GenericCardListModelCardsField = CardAttachmentRecord | CardGenericRecord | CardServiceRecord;
+
 /** Block of type Generic card list (generic_card_list) */
 export type GenericCardListRecord = RecordInterface & {
   __typename?: 'GenericCardListRecord';
@@ -905,7 +916,7 @@ export type GenericCardListRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
   _updatedAt: Scalars['DateTime']['output'];
   cardLayout?: Maybe<Scalars['String']['output']>;
-  cards: Array<CardGenericRecord>;
+  cards: Array<GenericCardListModelCardsField>;
   id: Scalars['ItemId']['output'];
 };
 
