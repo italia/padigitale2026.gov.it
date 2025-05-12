@@ -137,91 +137,9 @@ fragment NavScrollFragment on NavScrollRecord {
     value
   }
 }
-
 fragment CardsGridFragment on CardsGridRecord {
   __typename
-  id
-  background
-  title
-  description
-  alignment
-  columns
-  cardTitleTag
-  customCards {
-    __typename
-    id
-    cardLayout
-    cards {
-      ... on CardGenericRecord {
-        __typename
-        id
-        title
-        description
-        date
-        label
-        iconBeforeTitle
-        href
-        cmsPage {
-          title
-          slug
-        }
-        target
-      }
-      ... on CardAttachmentRecord {
-        __typename
-        id
-        title
-        description
-        date
-        label
-        href
-        cmsAsset {
-          alt
-          basename
-          filename
-          mimeType
-          size
-          url
-          title
-        }
-        target
-        updated
-      }
-      ... on CardServiceRecord {
-        __typename
-        id
-        label
-        title
-        description
-        button {
-          ...ButtonFragment
-        }
-      }
-    }
-  }
-  risorse {
-    __typename
-    id
-    slug
-    title
-    summary
-    badge
-    data
-  }
-  news {
-    __typename
-    id
-    slug
-    title
-    summary
-    category
-    data
-  }
-  button {
-    ...ButtonFragment
-  }
 }
-
 fragment HeroFragment on HeroRecord {
   __typename
   lightTheme
@@ -402,6 +320,7 @@ fragment CardsGridAttachmentFragment on CardsGridAttachmentRecord {
         url
       }
       target
+      updated
     }
   }
 }

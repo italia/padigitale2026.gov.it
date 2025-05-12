@@ -17,13 +17,20 @@ export function CardService({ props, TitleTag = "div" }: {
   const {label, title, description, button} = props;
   return (
     <article
-      className={"it-card pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3"}>
+      className={"it-card pb-0 flex-grow-1 bg-white pt-3"}>
+      {label && (
+        <div className={cn(
+          "fw-normal pb-0 lh-sm",
+          "service_label"
+        )}>
+          {title}
+        </div>
+      )}
       {title && (
         <TitleTag
-          className={"it-card-title fw-semibold pb-3 lh-sm"}>
-          {label}
+          className={"it-card-title fw-bold fs-3 pb-3 lh-sm"}>
           <span className={cn(
-              "decoration-1",
+              "service_title",
               "color-primary"
             )}>
             {title}
@@ -36,13 +43,13 @@ export function CardService({ props, TitleTag = "div" }: {
           <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{description}</p>
         )}
         {button && (
-          <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
+          <footer className={cn("it-card-related pb-4 pt-0 mt-0 d-flex justify-content-start")}>
             {button && (
               <Link
                 href={button.href || `/${button.cmsPage?.slug || ""}`}
-                className={"btn btn-outline-primary btn-lg"}
+                className={"text-decoration-none fw-semibold"}
               >
-                <span>{button.text}</span>
+                <small>{button.text}</small>
                 {button.icon && (
                   <Icon
                     className="my-0"

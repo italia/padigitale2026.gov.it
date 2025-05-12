@@ -24,9 +24,6 @@ query Page($slug: String) {
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment
       }
-      ... on CardsGridRecord {
-        ...CardsGridFragment
-      }
       ... on CardsGridGenericRecord {
         ...CardsGridGenericFragment
       }

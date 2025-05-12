@@ -24,9 +24,6 @@ query AllNews {
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment
       }
-      ... on CardsGridRecord {
-        ...CardsGridFragment
-      }
       ... on CardsGridGenericRecord {
         ...CardsGridGenericFragment
       }

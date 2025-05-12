@@ -33,7 +33,7 @@ export function CardResource({
               <span className="visually-hidden">Tag correlato: </span>
               <span
                 className={cn(
-                  "badge text-primary fs-6 text-capitalize px-3",
+                  "badge text-primary text-capitalize px-3",
                   "bg-badge"
                 )}
               >

@@ -214,10 +214,19 @@ export function CardsGrid({props}: {
                 </div>
               );
             } else if (card.__typename === 'CardServiceRecord') {
+
+              // colClasses = "col-12 col-lg-4";
+
               return (
                 <div
                   key={idx}
-                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                  className={cn(
+                    "col-12 col-lg-4 pt-4 d-flex flex-column justify-content-stretch border-top-lg border-neutral-1-bg-a3",
+                  {
+                    "border-end border-bottom": (idx + 1) % 3 != 0,
+                    "border-bottom-lg": (idx + 1) % 3 == 0
+                  }
+                  )}>
                   <CardService
                     TitleTag={cardTitleTag}
                     props={card}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./globals.scss";
 import Script from "next/script";
 
 import "bootstrap-italia/dist/css/bootstrap-italia.min.css";

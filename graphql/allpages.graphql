@@ -24,9 +24,6 @@ query AllPages {
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment
       }
-      ... on CardsGridRecord {
-        ...CardsGridFragment
-      }
       ... on CardsGridGenericRecord {
         ...CardsGridGenericFragment
       }
