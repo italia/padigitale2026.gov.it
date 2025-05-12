@@ -84,6 +84,21 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on CardsGridRecord {
     ...CardsGridFragment
   }
+  ... on CardsGridGenericRecord {
+    ...CardsGridGenericFragment
+  }
+  ... on CardsGridAttachmentRecord {
+    ...CardsGridAttachmentFragment
+  }
+  ... on CardsGridServiceRecord {
+    ...CardsGridServiceFragment
+  }
+  ... on CardsGridNewsRecord {
+    ...CardsGridNewsFragment
+  }
+  ... on CardsGridResourceRecord {
+    ...CardsGridResourceFragment
+  }
 }
 
 fragment RichTextFragment on RichTextRecord {
@@ -320,7 +335,7 @@ fragment CardsGridAttachmentFragment on CardsGridAttachmentRecord {
         url
       }
       target
-      updated
+      badge
     }
   }
 }

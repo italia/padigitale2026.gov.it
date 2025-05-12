@@ -7,9 +7,15 @@ import {
   RichTextRecord,
   ImagesGridRecord,
   RichTextModelContentField,
+  CardsGridGenericRecord,
+  CardsGridAttachmentRecord,
+  CardsGridServiceRecord,
+  CardsGridResourceRecord,
+  CardsGridNewsRecord
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
+import { CardsGrid } from "@/src/components/CardsGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -110,6 +116,16 @@ export function RichText({
             )}
           </Link>
         );
+      case "CardsGridGenericRecord":
+        return <CardsGrid props={record as CardsGridGenericRecord}/>
+      case "CardsGridAttachmentRecord":
+        return <CardsGrid props={record as CardsGridAttachmentRecord}/>
+      case "CardsGridServiceRecord":
+        return <CardsGrid props={record as CardsGridServiceRecord}/>
+      case "CardsGridResourceRecord":
+        return <CardsGrid props={record as CardsGridResourceRecord}/>
+      case "CardsGridNewsRecord":
+        return <CardsGrid props={record as CardsGridNewsRecord}/>
       default:
         return null;
     }

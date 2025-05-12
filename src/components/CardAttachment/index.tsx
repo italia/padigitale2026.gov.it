@@ -6,6 +6,7 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import {ElementType} from "react";
 import {Icon} from "design-react-kit";
+import {CardBadge} from "@/src/components/CardBadge";
 
 const cn = classNames.bind(styles);
 
@@ -17,7 +18,7 @@ export function CardAttachment({
   TitleTag?: ElementType;
 }) {
 
-  const {title, description, label, date, href, cmsAsset, target, updated} = props;
+  const {title, description, label, date, href, cmsAsset, target, badge} = props;
 
   let formattedDate: string | undefined;
 
@@ -88,10 +89,10 @@ export function CardAttachment({
                 <span className={"it-card-category"}>{label}</span>
               </div>
             )}
-            {updated && (
+            {badge && (
               <div className={"it-card-taxonomy"}>
-                <span className="visually-hidden">Tag correlato: </span>
-                <span className="badge text-dark text-capitalize px-3 neutral-1-bg-a2">Aggiornato</span>
+                <span className="visually-hidden">Stato risorsa: </span>
+                <CardBadge content={badge} />
               </div>
             )}
             {(formattedDate) && (

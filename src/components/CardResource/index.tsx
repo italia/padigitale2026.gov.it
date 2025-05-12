@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
+import {CardBadge} from "@/src/components/CardBadge";
 
 const cn = classNames.bind(styles);
 
@@ -31,14 +32,7 @@ export function CardResource({
           {badge && (
             <div className={"it-card-taxonomy"}>
               <span className="visually-hidden">Tag correlato: </span>
-              <span
-                className={cn(
-                  "badge text-primary text-capitalize px-3",
-                  "bg-badge"
-                )}
-              >
-                {badge}
-              </span>
+              <CardBadge content={badge} />
             </div>
           )}
           {data && <time className={"it-card-date"}>{data}</time>}
