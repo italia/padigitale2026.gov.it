@@ -13,7 +13,7 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import {Icon} from "design-react-kit";
-import {ElementType} from "react";
+import {ElementType, Fragment} from "react";
 
 import {genericCardLayoutEnum, CardGeneric} from "@/src/components/CardGeneric";
 import {CardAttachment} from "@/src/components/CardAttachment";
@@ -292,6 +292,7 @@ export function CardsGrid({props, hasSidebar = false}: {
           {cards !== null && (
             <div className={"row h-100"}>
               {cards.map((card, idx) => {
+                // console.log(`cards for ${__typename}`, cards);
                 let colClasses = "";
                 const intColumns = (columns && parseInt(columns)) ?? 1;
                 if (intColumns === 1) {
@@ -320,7 +321,8 @@ export function CardsGrid({props, hasSidebar = false}: {
                       />
                     </div>
                   );
-                } else if (card.__typename === 'CardAttachmentRecord') {
+                }
+                else if (card.__typename === 'CardAttachmentRecord') {
                   // if (intColumns === 1) {
                   //   colClasses = "col-12 col-lg-8";
                   // }
@@ -334,22 +336,30 @@ export function CardsGrid({props, hasSidebar = false}: {
                       />
                     </div>
                   );
-                } else if (card.__typename === 'CardServiceRecord') {
+                }
+                else if (card.__typename === 'CardServiceRecord') {
                   return (
-                    <div
-                      key={idx}
-                      className={cn(
-                        "col-12 col-lg-4 d-flex flex-column pt-3 justify-content-stretch border-top-lg border-neutral-1-bg-a3",
-                        {
-                          "border-end border-bottom": (idx + 1) % 3 != 0,
-                          "border-bottom-lg": (idx + 1) % 3 == 0
-                        }
-                      )}>
-                      <CardService
-                        TitleTag={cardTitleTag}
-                        props={card}
-                      />
-                    </div>
+                    <Fragment key={idx}>
+                      {(idx === 0 || (idx % 3) === 0) && (
+                        <div className={"col-12"}><div className={"w-100 border-top-lg"}></div> </div>
+                      )}
+                      <div
+                        className={cn(
+                          "col-12 col-lg-4 d-flex flex-column pt-3 justify-content-stretch border-neutral-1-bg-a3",
+                          {
+                            "border-end-lg": (idx + 1) % 3 != 0
+                          }
+                        )}>
+                        <CardService
+                          customClass={"border-bottom border-bottom-lg-0"}
+                          TitleTag={cardTitleTag}
+                          props={card}
+                        />
+                      </div>
+                      {(cards.length === idx + 1) && (
+                        <div className={"col-12"}><div className={"w-100 border-top-lg"}></div> </div>
+                      )}
+                    </Fragment>
                   );
                 }
 

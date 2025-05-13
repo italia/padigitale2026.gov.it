@@ -21,7 +21,7 @@ export function CardService({ props, TitleTag = "div", customClass = "" }: {
       className={`it-card pb-0 flex-grow-1 bg-white pt-3 ${customClass}`}>
       {label && (
         <div className={cn(
-          "fw-normal pb-0 lh-sm",
+          "fw-normal pb-0 lh-sm px-0 ps-lg-2 pe-lg-2",
           "service_label"
         )}>
           {title}
@@ -29,7 +29,7 @@ export function CardService({ props, TitleTag = "div", customClass = "" }: {
       )}
       {title && (
         <TitleTag
-          className={"it-card-title fw-bold fs-3 pb-3 lh-sm"}>
+          className={"it-card-title fw-bold fs-3 pb-3 lh-sm px-0 ps-lg-2 pe-lg-2"}>
           <span className={cn(
               "service_title",
               "color-primary"
@@ -39,7 +39,7 @@ export function CardService({ props, TitleTag = "div", customClass = "" }: {
         </TitleTag>
       )}
       <div
-        className={"it-card-body d-flex flex-column pt-0 pb-0"}>
+        className={"it-card-body d-flex flex-column pt-0 pb-0 px-0 ps-lg-2 pe-lg-2"}>
         {description && (
           <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{description}</p>
         )}
