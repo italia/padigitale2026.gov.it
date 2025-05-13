@@ -39,6 +39,9 @@ query AllFaqs {
       ... on CardsGridResourceRecord {
         ...CardsGridResourceFragment
       }
+      ... on CardsGridAnnouncementRecord {
+        ...CardsGridAnnouncementFragment
+      }
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }

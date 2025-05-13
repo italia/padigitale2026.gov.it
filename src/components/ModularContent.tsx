@@ -14,7 +14,7 @@ import {
   CardsGridResourceRecord,
   CardsGridNewsRecord,
   LayoutSidebarRecord,
-  TableListRecord,
+  TableListRecord, CardsGridAnnouncementRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -25,6 +25,8 @@ import { CardsGrid } from "@/src/components/CardsGrid";
 import { LayoutSidebar } from "@/src/components/LayoutSidebar";
 import { TableList } from "@/src/components/TableList";
 import {RichTextSection} from "@/src/components/RichTextSection";
+import {BackToTop} from "design-react-kit";
+
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
     <>
@@ -50,6 +52,8 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <CardsGrid key={idx} props={el as CardsGridServiceRecord}/>
           case "CardsGridResourceRecord":
             return <CardsGrid key={idx} props={el as CardsGridResourceRecord}/>
+          case "CardsGridAnnouncementRecord":
+            return <CardsGrid key={idx} props={el as CardsGridAnnouncementRecord}/>
           case "CardsGridNewsRecord":
             return <CardsGrid key={idx} props={el as CardsGridNewsRecord}/>
           case "LayoutSidebarRecord":
@@ -62,6 +66,7 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return null;
         }
       })}
+      <BackToTop />
     </>
   );
 }

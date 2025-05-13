@@ -99,6 +99,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on CardsGridResourceRecord {
     ...CardsGridResourceFragment
   }
+  ... on CardsGridAnnouncementRecord {
+    ...CardsGridAnnouncementFragment
+  }
 }
 
 fragment RichTextSectionFragment on RichTextSectionRecord {
@@ -402,5 +405,13 @@ fragment CardsGridResourceFragment on CardsGridResourceRecord {
     summary
     badge
     data
+  }
+}
+
+fragment CardsGridAnnouncementFragment on CardsGridAnnouncementRecord {
+  __typename
+  id
+  sectionFields {
+    ... CardsGridFieldsetFragment
   }
 }
