@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.scss";
 import Script from "next/script";
 
 import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
+import "./globals.scss";
 
 import "typeface-titillium-web";
 import "typeface-roboto-mono";

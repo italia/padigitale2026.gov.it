@@ -29,7 +29,7 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
           {content.map((item, index) => (
             <div
               key={index}
-              className="it-page-section"
+              className="row it-page-section"
               id={item.anchorId || undefined}
             >
               <RichText props={item} padding={false} />

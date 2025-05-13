@@ -22,8 +22,9 @@ import {newsCardLayoutEnum, CardNews} from "@/src/components/CardNews";
 
 const cn = classNames.bind(styles);
 
-export function CardsGrid({props}: {
-  props: CardsGridGenericRecord | CardsGridAttachmentRecord | CardsGridServiceRecord | CardsGridResourceRecord | CardsGridNewsRecord
+export function CardsGrid({props, hasSidebar = false}: {
+  props: CardsGridGenericRecord | CardsGridAttachmentRecord | CardsGridServiceRecord | CardsGridResourceRecord | CardsGridNewsRecord;
+  hasSidebar?: boolean;
 }) {
 
   const {__typename, id, sectionFields} = props;
@@ -93,178 +94,210 @@ export function CardsGrid({props}: {
   const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
   return (
-    <div key={id} className={`wrapper py-5 ${backgroundColor}`}>
-      <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
-        <div className="col-12 pb-3">
-          {title && (
-            <SectionTitleTag
-              className={cn(
-                "text-dark mb-0 fs-2 lh-sm",
-                alignment === "center" ? "text-center" : "text-start"
-              )}>
-              {title}
-            </SectionTitleTag>
-          )}
-          {description && (
-            <p
-              className={cn(
-                "font-sans-serif text-dark mt-3 mb-0",
-                alignment === "center" ? "text-center" : "text-start"
-              )}>
-              {description}
-            </p>
-          )}
-        </div>
-      </div>
-      {resources && (
-        <div className={"row w-100 h-100 mx-auto container-xxl"}>
-          {resources.map((resource, idx) => {
-            let colClasses = "";
-            const intColumns = (columns && parseInt(columns)) ?? 1;
-            if (intColumns === 1) {
-              colClasses = "col-12";
-            } else if (intColumns === 2) {
-              colClasses = "col-12 col-md-6";
-            } else if (intColumns === 3) {
-              colClasses = "col-12 col-lg-4";
-            } else if (intColumns === 4) {
-              colClasses = "col-12 col-lg-3";
-            }
-            return (
-              <div
-                key={idx}
-                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                <CardResource
-                  TitleTag={cardTitleTag}
-                  props={resource}
-                />
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {news && (
-        <div className={"row w-100 h-100 mx-auto container-xxl"}>
-          {news.map((record, idx) => {
-            let colClasses = "";
-            const intColumns = (columns && parseInt(columns)) ?? 1;
-            if (intColumns === 1) {
-              colClasses = "col-12";
-            } else if (intColumns === 2) {
-              colClasses = "col-12 col-md-6";
-            } else if (intColumns === 3) {
-              colClasses = "col-12 col-lg-4";
-            } else if (intColumns === 4) {
-              colClasses = "col-12 col-lg-3";
-            }
-            return (
-              <div
-                key={idx}
-                className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                <CardNews
-                  TitleTag={cardTitleTag}
-                  cardLayout={newsCardLayoutEnum.clean}
-                  props={record}
-                />
-              </div>
-            );
-          })}
-        </div>
-      )}
-      {cards !== null && (
-        <div className={"row w-100 h-100 mx-auto container-xxl"}>
-          {cards.map((card, idx) => {
-            let colClasses = "";
-            const intColumns = (columns && parseInt(columns)) ?? 1;
-            if (intColumns === 1) {
-              colClasses = "col-12";
-            } else if (intColumns === 2) {
-              colClasses = "col-12 col-md-6";
-            } else if (intColumns === 3) {
-              colClasses = "col-12 col-lg-4";
-            } else if (intColumns === 4) {
-              colClasses = "col-12 col-lg-3";
-            }
-            if (card.__typename === 'CardGenericRecord') {
-              return (
-                <div
-                  key={idx}
-                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                  <CardGeneric
-                    TitleTag={cardTitleTag}
-                    cardLayout={
-                      genericCardLayoutEnum[
-                        (cardLayout ??
-                          "bordered") as keyof typeof genericCardLayoutEnum
-                        ]
-                    }
-                    props={card}
-                  />
-                </div>
-              );
-            } else if (card.__typename === 'CardAttachmentRecord') {
-              return (
-                <div
-                  key={idx}
-                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
-                  <CardAttachment
-                    TitleTag={cardTitleTag}
-                    props={card}
-                  />
-                </div>
-              );
-            } else if (card.__typename === 'CardServiceRecord') {
-
-              // colClasses = "col-12 col-lg-4";
-
-              return (
-                <div
-                  key={idx}
-                  className={cn(
-                    "col-12 col-lg-4 pt-4 d-flex flex-column justify-content-stretch border-top-lg border-neutral-1-bg-a3",
-                  {
-                    "border-end border-bottom": (idx + 1) % 3 != 0,
-                    "border-bottom-lg": (idx + 1) % 3 == 0
-                  }
-                  )}>
-                  <CardService
-                    TitleTag={cardTitleTag}
-                    props={card}
-                  />
-                </div>
-              );
-            }
-
-          })}
-        </div>
-      )}
-      {button && (
-        <div className={"row w-100 h-100 mx-auto container-xxl"}>
-          <div
-            className={cn(
-              "col-12 pt-5",
-              alignment === "center" ? "text-center" : "text-start"
+    <div key={id} className={cn(
+      `py-5 ${backgroundColor}`,
+      {
+        "wrapper": !hasSidebar,
+        "row": hasSidebar,
+      }
+    )}>
+      <div className={cn(
+        {
+          "col-12": hasSidebar,
+        }
+      )}>
+        <div className={cn(
+          "row",
+          {
+            "w-100 mx-auto container-xxl": !hasSidebar
+          }
+        )}>
+          <div className="col-12 pb-3">
+            {title && (
+              <SectionTitleTag
+                className={cn(
+                  "text-dark mb-0 fs-2 lh-sm",
+                  alignment === "center" ? "text-center" : "text-start"
+                )}>
+                {title}
+              </SectionTitleTag>
             )}
-          >
-            <Link
-              href={button.href || `/${button.cmsPage?.slug || ""}`}
-              className={"btn btn-outline-primary btn-lg"}
-            >
-              <span>{button.text}</span>
-              {button.icon && (
-                <Icon
-                  className="my-0"
-                  color="primary"
-                  icon={button.icon}
-                  size="sm"
-                  title=""
-                  padding
-                />
-              )}
-            </Link>
+            {description && (
+              <p
+                className={cn(
+                  "font-sans-serif text-dark mt-3 mb-0",
+                  alignment === "center" ? "text-center" : "text-start"
+                )}>
+                {description}
+              </p>
+            )}
           </div>
         </div>
-      )}
+        {resources && (
+          <div className={cn(
+              "row h-100",
+              {
+                "w-100 mx-auto container-xxl": !hasSidebar
+              }
+            )}>
+            {resources.map((resource, idx) => {
+              let colClasses = "";
+              const intColumns = (columns && parseInt(columns)) ?? 1;
+              if (intColumns === 1) {
+                colClasses = "col-12";
+              } else if (intColumns === 2) {
+                colClasses = "col-12 col-md-6";
+              } else if (intColumns === 3) {
+                colClasses = "col-12 col-lg-4";
+              } else if (intColumns === 4) {
+                colClasses = "col-12 col-lg-3";
+              }
+              return (
+                <div
+                  key={idx}
+                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                  <CardResource
+                    TitleTag={cardTitleTag}
+                    props={resource}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {news && (
+          <div className={"row w-100 h-100 mx-auto container-xxl"}>
+            {news.map((record, idx) => {
+              let colClasses = "";
+              const intColumns = (columns && parseInt(columns)) ?? 1;
+              if (intColumns === 1) {
+                colClasses = "col-12";
+              } else if (intColumns === 2) {
+                colClasses = "col-12 col-md-6";
+              } else if (intColumns === 3) {
+                colClasses = "col-12 col-lg-4";
+              } else if (intColumns === 4) {
+                colClasses = "col-12 col-lg-3";
+              }
+              return (
+                <div
+                  key={idx}
+                  className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                  <CardNews
+                    TitleTag={cardTitleTag}
+                    cardLayout={newsCardLayoutEnum.clean}
+                    props={record}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {cards !== null && (
+          <div className={cn(
+            "row h-100",
+            {
+              "w-100 mx-auto container-xxl": !hasSidebar
+            }
+          )}>
+            {cards.map((card, idx) => {
+              let colClasses = "";
+              const intColumns = (columns && parseInt(columns)) ?? 1;
+              if (intColumns === 1) {
+                colClasses = "col-12";
+              } else if (intColumns === 2) {
+                colClasses = "col-12 col-md-6";
+              } else if (intColumns === 3) {
+                colClasses = "col-12 col-lg-4";
+              } else if (intColumns === 4) {
+                colClasses = "col-12 col-lg-3";
+              }
+              if (card.__typename === 'CardGenericRecord') {
+                return (
+                  <div
+                    key={idx}
+                    className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                    <CardGeneric
+                      TitleTag={cardTitleTag}
+                      cardLayout={
+                        genericCardLayoutEnum[
+                          (cardLayout ??
+                            "bordered") as keyof typeof genericCardLayoutEnum
+                          ]
+                      }
+                      props={card}
+                    />
+                  </div>
+                );
+              } else if (card.__typename === 'CardAttachmentRecord') {
+                // if (intColumns === 1) {
+                //   colClasses = "col-12 col-lg-8";
+                // }
+                return (
+                  <div
+                    key={idx}
+                    className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                    <CardAttachment
+                      TitleTag={cardTitleTag}
+                      props={card}
+                    />
+                  </div>
+                );
+              } else if (card.__typename === 'CardServiceRecord') {
+                return (
+                  <div
+                    key={idx}
+                    className={cn(
+                      "col-12 col-lg-4 d-flex flex-column pt-3 justify-content-stretch border-top-lg border-neutral-1-bg-a3",
+                      {
+                        "border-end border-bottom": (idx + 1) % 3 != 0,
+                        "border-bottom-lg": (idx + 1) % 3 == 0
+                      }
+                    )}>
+                    <CardService
+                      TitleTag={cardTitleTag}
+                      props={card}
+                    />
+                  </div>
+                );
+              }
+
+            })}
+          </div>
+        )}
+        {button && (
+          <div className={cn(
+            "row",
+            {
+              "w-100 mx-auto container-xxl": !hasSidebar
+            }
+          )}>
+            <div
+              className={cn(
+                "col-12 pt-5",
+                alignment === "center" ? "text-center" : "text-start"
+              )}
+            >
+              <Link
+                href={button.href || `/${button.cmsPage?.slug || ""}`}
+                className={"btn btn-outline-primary btn-lg"}
+              >
+                <span>{button.text}</span>
+                {button.icon && (
+                  <Icon
+                    className="my-0"
+                    color="primary"
+                    icon={button.icon}
+                    size="sm"
+                    title=""
+                    padding
+                  />
+                )}
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

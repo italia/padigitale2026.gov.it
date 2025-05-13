@@ -43,17 +43,19 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
     badge,
   } = props;
   return (
-    <HeroComponent className={cn("wrapper")}>
-      <div className={"row container-xxl px-0 mx-auto position-relative"}>
-        <div className={"px-0"}>
+    <HeroComponent className={cn(
+      "wrapper"
+    )}>
+      <div className={"container-xxl position-relative"}>
+        <div className={"row"}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
-            <section className={cn("pt-2 px-4")}>
+            <section className={cn("pt-2 col-12")}>
               <Breadcrumbs lightTheme />
             </section>
           )}
           {/* Body */}
-          <div className={"pb-4 px-4"}>
+          <div className={"pb-4 col-12"}>
             {title && (
               <HeroTitle className={cn("text-secondary fs-1")}>
                 {title}

@@ -10,14 +10,15 @@ import Link from "next/link";
 
 const cn = classNames.bind(styles);
 
-export function CardService({ props, TitleTag = "div" }: {
+export function CardService({ props, TitleTag = "div", customClass = "" }: {
   props: CardServiceRecord;
   TitleTag?: ElementType;
+  customClass?: string
 }) {
   const {label, title, description, button} = props;
   return (
     <article
-      className={"it-card pb-0 flex-grow-1 bg-white pt-3"}>
+      className={`it-card pb-0 flex-grow-1 bg-white pt-3 ${customClass}`}>
       {label && (
         <div className={cn(
           "fw-normal pb-0 lh-sm",

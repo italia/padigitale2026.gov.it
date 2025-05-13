@@ -42,35 +42,37 @@ export function Banner({ props }: { props: BannerRecord }) {
         "p-0"
       )}
     >
-      <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
+      <div className={cn("container-xxl")}>
         {/* Body */}
-        <div className="p-4">
+        <div className="row h-100 pt-4">
           {title && (
-            <h2 className={"text-secondary mb-3 fs-2 lh-sm"}>{title}</h2>
+            <h2 className={"col-12 text-secondary mb-3 fs-2 lh-sm"}>{title}</h2>
           )}
           {description && (
-            <p className={"font-sans-serif text-secondary"}>{description}</p>
+            <p className={"col-12 font-sans-serif text-secondary"}>{description}</p>
           )}
 
           {button && (
-            <Link
-              className="btn btn-sm btn-outline-primary mt-2"
-              href={getButtonHref(button)}
-              target={button.target || "_self"}
-              title={getButtonTitle(button)}
-            >
-              {button.text}
-              {button.icon && (
-                <Icon
-                  className="my-0"
-                  color="primary"
-                  icon={button.icon}
-                  size="sm"
-                  title=""
-                  padding
-                />
-              )}
-            </Link>
+            <div className={"col-12"}>
+              <Link
+                className="btn btn-sm btn-outline-primary mt-2"
+                href={getButtonHref(button)}
+                target={button.target || "_self"}
+                title={getButtonTitle(button)}
+              >
+                {button.text}
+                {button.icon && (
+                  <Icon
+                    className="my-0"
+                    color="primary"
+                    icon={button.icon}
+                    size="sm"
+                    title=""
+                    padding
+                  />
+                )}
+              </Link>
+            </div>
           )}
         </div>
       </div>

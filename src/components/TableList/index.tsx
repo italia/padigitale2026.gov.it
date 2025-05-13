@@ -37,10 +37,10 @@ export function TableList({ props }: { props: TableListRecord }) {
 
   return (
     <div className="container-xxl">
-      <div className={cn("w-100 mx-auto p-4")}>
+      <div className={cn("row pt-4")}>
         {title && (
           <h2
-            className={cn("h-1 text-secondary pb-4", {
+            className={cn("col-12 h-1 text-secondary pb-4", {
               "text-center": alignment === "center",
             })}
           >
@@ -60,7 +60,7 @@ export function TableList({ props }: { props: TableListRecord }) {
         )}
 
         {items.map((item, idx) => (
-          <div key={idx}>
+          <div className={"col-12"} key={idx}>
             {item.__typename === "TableListItemRecord" && (
               <TableListItem props={item} />
             )}
@@ -71,7 +71,7 @@ export function TableList({ props }: { props: TableListRecord }) {
         ))}
         {button && (
           <div
-            className={cn("w-100 pt-5", {
+            className={cn("col-12 pt-5", {
               "text-center": alignment === "center",
             })}
           >

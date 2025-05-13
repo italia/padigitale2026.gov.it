@@ -4,18 +4,12 @@
 import Link from "next/link";
 import { StructuredText } from "react-datocms";
 import {
-  RichTextRecord,
   ImagesGridRecord,
   RichTextModelContentField,
-  CardsGridGenericRecord,
-  CardsGridAttachmentRecord,
-  CardsGridServiceRecord,
-  CardsGridResourceRecord,
-  CardsGridNewsRecord
+  RichTextSectionRecord
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
-import { CardsGrid } from "@/src/components/CardsGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -56,16 +50,16 @@ type BlockContext = {
       };
 };
 
-interface RichTextProps extends RichTextRecord {
+interface RichTextProps extends RichTextSectionRecord {
   richTextContent?: RichTextModelContentField;
 }
 
-export function RichText({
+export function RichTextSection({
   props,
   padding = false,
   isPageSection = false
 }: {
-  props: RichTextRecord;
+  props: RichTextSectionRecord;
   padding?: boolean;
   isPageSection?: boolean
 }) {
@@ -118,16 +112,6 @@ export function RichText({
             )}
           </Link>
         );
-      case "CardsGridGenericRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridGenericRecord}/>
-      case "CardsGridAttachmentRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridAttachmentRecord}/>
-      case "CardsGridServiceRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridServiceRecord}/>
-      case "CardsGridResourceRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridResourceRecord}/>
-      case "CardsGridNewsRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridNewsRecord}/>
       default:
         return null;
     }

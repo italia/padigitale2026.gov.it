@@ -101,10 +101,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   }
 }
 
-fragment RichTextFragment on RichTextRecord {
+fragment RichTextSectionFragment on RichTextSectionRecord {
   __typename
   alignment
-  anchorId
   richTextContent: content {
     value
     blocks {

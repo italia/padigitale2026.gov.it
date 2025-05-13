@@ -18,8 +18,8 @@ query Page($slug: String) {
       ... on BannerRecord {
         ...BannerFragment
       }
-      ... on RichTextRecord {
-        ...RichTextFragment
+      ... on RichTextSectionRecord {
+        ...RichTextSectionFragment
       }
       ... on VideoPlayerRecord {
         ...VideoPlayerFragment

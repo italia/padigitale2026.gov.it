@@ -6,7 +6,7 @@ import {
   SplitBannerRecord,
   BannerRecord,
   DataHeroRecord,
-  RichTextRecord,
+  RichTextSectionRecord,
   VideoPlayerRecord,
   CardsGridGenericRecord,
   CardsGridAttachmentRecord,
@@ -20,11 +20,11 @@ import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
 import { SplitBanner } from "@/src/components/SplitBanner";
 import { Banner } from "@/src/components/Banner";
-import { RichText } from "@/src/components/RichText";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
 import { CardsGrid } from "@/src/components/CardsGrid";
 import { LayoutSidebar } from "@/src/components/LayoutSidebar";
 import { TableList } from "@/src/components/TableList";
+import {RichTextSection} from "@/src/components/RichTextSection";
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
     <>
@@ -38,8 +38,8 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <Banner key={idx} props={el as BannerRecord} />;
           case "DataHeroRecord":
             return <HeroWithData key={idx} props={el as DataHeroRecord} />;
-          case "RichTextRecord":
-            return <RichText key={idx} props={el as RichTextRecord} />;
+          case "RichTextSectionRecord":
+            return <RichTextSection key={idx} isPageSection={true} props={el as RichTextSectionRecord} />;
           case "VideoPlayerRecord":
             return <VideoPlayer key={idx} props={el as VideoPlayerRecord}/>;
           case "CardsGridGenericRecord":
