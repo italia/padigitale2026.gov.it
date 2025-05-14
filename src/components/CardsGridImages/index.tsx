@@ -49,10 +49,10 @@ export function CardsGridImages({props, hasSidebar = false}: {
     <div key={id}
          aria-labelledby={`section${id}`}
          className={cn(
-      `py-5 ${backgroundColor}`,
+      `${backgroundColor}`,
       {
-        "wrapper": !hasSidebar,
-        "row": hasSidebar,
+        "wrapper py-5": !hasSidebar,
+        "row pt-3": hasSidebar,
       }
     )}>
       <div className={cn(
@@ -119,11 +119,13 @@ export function CardsGridImages({props, hasSidebar = false}: {
                                       tag="figcaption"
                                     >
                                       <GridItemText>{cardFragment?.didascalia || cardFragment?.image?.title || ''}</GridItemText>
-                                      <Icon
-                                        icon="it-code-circle"
-                                        size="sm"
-                                        title="Significato icona"
-                                      />
+                                      {(cardFragment?.didascalia || cardFragment?.image?.title) && (
+                                        <Icon
+                                          aria-hidden={true}
+                                          icon="it-code-circle"
+                                          size="sm"
+                                        />
+                                      )}
                                     </GridItemTextWrapper>
                                   </ResponsiveImage>
                                 ) || (
@@ -145,11 +147,13 @@ export function CardsGridImages({props, hasSidebar = false}: {
                                   tag="figcaption"
                                 >
                                   <GridItemText>{cardFragment?.didascalia || cardFragment?.image?.title || ''}</GridItemText>
-                                  <Icon
-                                    icon="it-code-circle"
-                                    size="sm"
-                                    title="Significato icona"
-                                  />
+                                  {(cardFragment?.didascalia || cardFragment?.image?.title) && (
+                                    <Icon
+                                      aria-hidden={true}
+                                      icon="it-code-circle"
+                                      size="sm"
+                                    />
+                                  )}
                                 </GridItemTextWrapper>
                               </ResponsiveImage>
                             )) || (

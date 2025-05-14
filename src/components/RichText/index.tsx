@@ -11,7 +11,8 @@ import {
   CardsGridAttachmentRecord,
   CardsGridServiceRecord,
   CardsGridResourceRecord,
-  CardsGridNewsRecord
+  CardsGridNewsRecord,
+  CardsGridImagesFragmentFragment
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
@@ -19,6 +20,7 @@ import { CardsGrid } from "@/src/components/CardsGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import {CardsGridImages} from "@/src/components/CardsGridImages";
 const cn = classNames.bind(styles);
 
 type BlockContext = {
@@ -128,6 +130,8 @@ export function RichText({
         return <CardsGrid hasSidebar={true} props={record as CardsGridResourceRecord}/>
       case "CardsGridNewsRecord":
         return <CardsGrid hasSidebar={true} props={record as CardsGridNewsRecord}/>
+      case "CardsGridImageRecord":
+        return <CardsGridImages hasSidebar={true} props={record as CardsGridImagesFragmentFragment}/>
       default:
         return null;
     }
