@@ -102,6 +102,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on CardsGridAnnouncementRecord {
     ...CardsGridAnnouncementFragment
   }
+  ... on CardsGridImageRecord {
+    ...CardsGridImagesFragment
+  }
 }
 
 fragment RichTextSectionFragment on RichTextSectionRecord {
@@ -415,3 +418,51 @@ fragment CardsGridAnnouncementFragment on CardsGridAnnouncementRecord {
     ... CardsGridFieldsetFragment
   }
 }
+
+fragment CardImageFragment on CardImageRecord {
+  __typename
+  id
+  didascalia
+  image {
+    id
+    __typename
+    size
+    alt
+    height
+    width
+    url1_1: url(imgixParams: { w: 1280, h: 1280, fit: crop, fm: webp })
+    url21_9: url(imgixParams: { w: 1281, h: 549, fit: crop, fm: webp })
+    url16_9: url(imgixParams: { w: 1280, h: 720, fit: crop, fm: webp })
+    url4_3: url(imgixParams: { w: 1280, h: 960, fit: crop, fm: webp })
+    url32_9: url(imgixParams: { w: 1280, h: 360, fit: crop, fm: webp })
+    url7_11: url(imgixParams: { w: 819, h: 1287, fit: crop, fm: webp })
+    title
+  }
+  href
+  cmsPage {
+    title
+    slug
+  }
+  target
+}
+
+fragment CardsGridImagesFragment on CardsGridImageRecord {
+  __typename
+  id
+  title
+  titleHtmlTag
+  description
+  alignment
+  captions
+  layout
+  button {
+    ... ButtonFragment
+  }
+  backgroundColor
+  imageBlocks: images {
+    ... on CardImageRecord {
+      ... CardImageFragment
+    }
+  }
+}
+

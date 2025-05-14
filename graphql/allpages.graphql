@@ -42,6 +42,9 @@ query AllPages {
       ... on CardsGridAnnouncementRecord {
         ...CardsGridAnnouncementFragment
       }
+      ... on CardsGridImageRecord {
+        ...CardsGridImagesFragment
+      }
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }

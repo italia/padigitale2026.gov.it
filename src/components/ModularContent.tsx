@@ -14,7 +14,9 @@ import {
   CardsGridResourceRecord,
   CardsGridNewsRecord,
   LayoutSidebarRecord,
-  TableListRecord, CardsGridAnnouncementRecord,
+  TableListRecord,
+  CardsGridAnnouncementRecord,
+  CardsGridImagesFragmentFragment
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -22,6 +24,7 @@ import { SplitBanner } from "@/src/components/SplitBanner";
 import { Banner } from "@/src/components/Banner";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
 import { CardsGrid } from "@/src/components/CardsGrid";
+import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { LayoutSidebar } from "@/src/components/LayoutSidebar";
 import { TableList } from "@/src/components/TableList";
 import {RichTextSection} from "@/src/components/RichTextSection";
@@ -56,6 +59,8 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <CardsGrid key={idx} props={el as CardsGridAnnouncementRecord}/>
           case "CardsGridNewsRecord":
             return <CardsGrid key={idx} props={el as CardsGridNewsRecord}/>
+          case "CardsGridImageRecord":
+            return <CardsGridImages key={idx} props={el as CardsGridImagesFragmentFragment}/>
           case "LayoutSidebarRecord":
             return (
               <LayoutSidebar key={idx} props={el as LayoutSidebarRecord} />

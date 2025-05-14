@@ -82,3 +82,11 @@ $utilities: (
 );
 
 @import "bootstrap-italia/src/scss/base/utilities/api";
+
+.it-grid-list-wrapper .grid-row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.it-grid-list-wrapper div[class^=col-] {
+  padding: 0 4px 8px 4px;
+}

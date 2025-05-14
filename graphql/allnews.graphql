@@ -42,6 +42,9 @@ query AllNews {
       ... on CardsGridAnnouncementRecord {
         ...CardsGridAnnouncementFragment
       }
+      ... on CardsGridImageRecord {
+        ...CardsGridImagesFragment
+      }
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
