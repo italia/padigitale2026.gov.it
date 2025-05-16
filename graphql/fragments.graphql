@@ -124,16 +124,24 @@ fragment LayoutSidebarFragment on LayoutSidebarRecord {
     ...NavScrollFragment
   }
   content {
-    alignment
-    anchorId
-    richTextContent: content {
-      value
-      blocks {
-        ...RichTextContentFragment
+    ... on RichTextRecord {
+      __typename
+      id
+      alignment
+      anchorId
+      richTextContent: content {
+        value
+        blocks {
+          ...RichTextContentFragment
+        }
       }
+    }
+    ... on StepperRecord {
+      ... StepperFragment
     }
   }
 }
+
 
 fragment VideoPlayerFragment on VideoPlayerRecord {
   __typename
@@ -319,6 +327,22 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
   }
 }
 
+fragment CardAttachmentFragment on CardAttachmentRecord {
+  __typename
+  id
+  title
+  description
+  date
+  label
+  href
+  cmsAsset {
+    title
+    url
+  }
+  target
+  badge
+}
+
 
 fragment CardsGridAttachmentFragment on CardsGridAttachmentRecord {
   __typename
@@ -328,19 +352,7 @@ fragment CardsGridAttachmentFragment on CardsGridAttachmentRecord {
   }
   cards {
     ... on CardAttachmentRecord {
-      __typename
-      id
-      title
-      description
-      date
-      label
-      href
-      cmsAsset {
-        title
-        url
-      }
-      target
-      badge
+      ... CardAttachmentFragment
     }
   }
 }
@@ -466,3 +478,40 @@ fragment CardsGridImagesFragment on CardsGridImageRecord {
   }
 }
 
+fragment StepperFragment on StepperRecord {
+  __typename
+  id
+  anchorId
+  steps {
+    ... on StepperStepRecord {
+      __typename
+      id
+      stepTitle
+      stepStatus
+      stepBody {
+        ... on RichTextStepperRecord {
+          __typename
+          id
+          alignment
+          content {
+            ... on RichTextStepperModelContentField {
+              __typename
+              value
+              blocks {
+                ... on LinkRecord {
+                  ...LinkFragment
+                }
+                ... on ButtonRecord {
+                  ...ButtonFragment
+                }
+                ... on CardAttachmentRecord {
+                  ... CardAttachmentFragment
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

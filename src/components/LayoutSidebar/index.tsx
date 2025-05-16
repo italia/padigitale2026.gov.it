@@ -3,7 +3,10 @@
 import { LayoutSidebarRecord } from "@/graphql/generated";
 import { RichText } from "@/src/components/RichText";
 import { NavScroll } from "@/src/components/NavScroll";
+import {StepperAccordion} from "@/src/components/StepperAccordion";
 import { useEffect, useState } from "react";
+import {Col} from "design-react-kit";
+import {Fragment} from "react";
 
 export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
   const { sidebar, content } = props;
@@ -27,13 +30,26 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
         </div>
         <div className="col-12 col-lg-8 it-page-sections-container">
           {content.map((item, index) => (
-            <div
-              key={index}
-              className="row it-page-section"
-              id={item.anchorId || undefined}
-            >
-              <RichText props={item} padding={false} />
-            </div>
+            <Fragment key={index}>
+              {(item.__typename === 'RichTextRecord') && (
+                <div
+                  className="row it-page-section"
+                  id={item.anchorId || undefined}
+                >
+                  <RichText props={item} padding={false} />
+                </div>
+              )}
+              {(item.__typename === 'StepperRecord') && (
+                <div
+                  className="row it-page-section"
+                  id={item?.anchorId || undefined}
+                >
+                  <Col>
+                    <StepperAccordion props={item}/>
+                  </Col>
+                </div>
+              )}
+            </Fragment>
           ))}
         </div>
       </div>

@@ -6,8 +6,36 @@
 @import 'bootstrap-italia/src/scss/base/maps';
 @import 'bootstrap-italia/src/scss/base/utilities';
 
+.accordion-all-hide {
+  position: relative;
+  margin: 20px 24px 20px 70px;
+  &:after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' %3E%3Cg%3E%3Cpath fill='#{url-friendly-color($primary)}' d='M12,10.3l4.8,4.8c0.3,0.3,0.8,0.3,1.1,0c0.3-0.3,0.3-0.8,0-1c0,0,0,0,0,0l-4.8-4.8c-0.6-0.6-1.5-0.6-2.1,0L6.2,14c-0.3,0.3-0.3,0.8,0,1c0,0,0,0,0,0c0.3,0.3,0.8,0.3,1.1,0L12,10.3z'/%3E%3C/g%3E%3C/svg%3E");
+    float: right;
+    width: 1.2rem;
+    height: auto;
+    line-height: 0.1rem;
+    color: var(--bs-primary); // UI kit
+    transition: transform 0.3s;
+    background-image: none;
+    margin-left: 10px;
+    transform: rotate(180deg) translateY(-2px);
+  }
+  &[aria-expanded="true"] {
+    &:after {
+      transform: rotate(0) translateY(2px);
+    }
+  }
+}
 
 .num-accordion {
+
+  :global(.accordion-item) {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
   :global(.accordion-header) {
     :global(.accordion-button) {
       padding: 10px 12px;
@@ -20,9 +48,27 @@
       background-color: var(--bs-primary);
       color: var(--bs-white);
       @include font-size($h3-font-size);
+      cursor: default;
       &:after{
         content: none;
       }
+    }
+
+    :global(.accordion-button.status-closed),
+    :global(.accordion-button.status-not-published){
+      background-color: #{$neutral-1-a2};
+      color: #{$neutral-1-a7};
+    }
+
+    &:before{
+      content: "";
+      position: absolute;
+      left: 27px;
+      top: calc(100% + 8px);
+      margin: auto 0;
+      width: 1px;
+      background-color: #{$neutral-1-a3};
+      height: 1000px;
     }
   }
 
@@ -41,6 +87,7 @@
 
   :global(.accordion-body-hide) {
     position: relative;
+    margin: 20px 24px 20px 70px;
     &:after {
       content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' %3E%3Cg%3E%3Cpath fill='#{url-friendly-color($primary)}' d='M12,10.3l4.8,4.8c0.3,0.3,0.8,0.3,1.1,0c0.3-0.3,0.3-0.8,0-1c0,0,0,0,0,0l-4.8-4.8c-0.6-0.6-1.5-0.6-2.1,0L6.2,14c-0.3,0.3-0.3,0.8,0,1c0,0,0,0,0,0c0.3,0.3,0.8,0.3,1.1,0L12,10.3z'/%3E%3C/g%3E%3C/svg%3E");
       float: right;
@@ -51,23 +98,18 @@
       transition: transform 0.3s;
       background-image: none;
       margin-left: 10px;
-      transform: scaleY(-1) rotate(180deg) translateY(4px);
+      transform: rotate(180deg) translateY(-2px);
+    }
+    &[aria-expanded="true"] {
+      &:after {
+        transform: rotate(0) translateY(2px);
+      }
     }
   }
 
   :global(.accordion-body) {
     position: relative;
     padding: 16px 24px 42px 70px;
-    &:before{
-      content: "";
-      position: absolute;
-      left: 27px;
-      top: 8px;
-      bottom: 8px;
-      margin: auto 0;
-      width: 1px;
-      background-color: #{$neutral-1-a3};
-    }
   }
 }
 

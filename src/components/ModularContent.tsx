@@ -28,8 +28,7 @@ import {CardsGridImages} from "@/src/components/CardsGridImages";
 import {LayoutSidebar} from "@/src/components/LayoutSidebar";
 import {TableList} from "@/src/components/TableList";
 import {RichTextSection} from "@/src/components/RichTextSection";
-import {BackToTop, Col, Container, Row, Section} from "design-react-kit";
-import {TimelineAccordion} from "@/src/components/TimelineAccordion";
+import {BackToTop} from "design-react-kit";
 
 export function ModularContent({content}: { content: PageQuery }) {
   return (
@@ -61,22 +60,9 @@ export function ModularContent({content}: { content: PageQuery }) {
           case "CardsGridNewsRecord":
             return <CardsGrid key={idx} props={el as CardsGridNewsRecord}/>
           case "CardsGridImageRecord":
-            return (
-              <>
-                <Container key={'myk'} fluid={true} className={"container-xxl"}>
-                  <Row>
-                    <Col>
-                      <TimelineAccordion key={"myaccordionkey"}/>
-                    </Col>
-                  </Row>
-                </Container>
-                <CardsGridImages key={idx} props={el as CardsGridImagesFragmentFragment}/>
-              </>
-            );
+            return <CardsGridImages key={idx} props={el as CardsGridImagesFragmentFragment}/>;
           case "LayoutSidebarRecord":
-            return (
-              <LayoutSidebar key={idx} props={el as LayoutSidebarRecord}/>
-            );
+            return <LayoutSidebar key={idx} props={el as LayoutSidebarRecord}/>;
           case "TableListRecord":
             return <TableList key={idx} props={el as TableListRecord}/>;
           default:
