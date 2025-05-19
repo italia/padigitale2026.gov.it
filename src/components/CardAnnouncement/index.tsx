@@ -108,7 +108,7 @@ export function CardAnnouncement(
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Ente promotore</dt>
-              <dd className={"d-block fw-semibold text-dark pb-3"}>{istituto}</dd>
+              <dd className={"d-block fw-semibold neutral-1-color-a9 pb-3"}>{istituto}</dd>
             </div>
           )}
           {beneficiari && (
@@ -119,7 +119,7 @@ export function CardAnnouncement(
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Beneficiari</dt>
-              <dd className={"d-block fw-semibold text-dark pb-3"}>{beneficiari}</dd>
+              <dd className={"d-block fw-semibold neutral-1-color-a9 pb-3"}>{beneficiari}</dd>
             </div>
           )}
           {dataDiPubblicazione && (
@@ -130,14 +130,14 @@ export function CardAnnouncement(
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Pubblicazione</dt>
-              <dd className={"d-block fw-semibold text-dark pb-3"}>
+              <dd className={"d-block fw-semibold neutral-1-color-a9 pb-3"}>
                 {dataDiPubblicazione}
                 {badge && badge !== "In scadenza" && (
                   <Badge className={cn(
                     "text-capitalize px-3 ms-2",
                     {
                       "lightgrey-bg-a3 text-primary": badge === "Nuovo",
-                      "lightgrey-bg-a1 text-dark": badge === "Aggiornato"
+                      "lightgrey-bg-a1 neutral-1-color-a9": badge === "Aggiornato"
                     }
                   )}>{badge}</Badge>
                 )}
@@ -152,10 +152,10 @@ export function CardAnnouncement(
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Scadenza</dt>
-              <dd className={"d-block fw-semibold text-dark pb-3"}>
+              <dd className={"d-block fw-semibold neutral-1-color-a9 pb-3"}>
                 {dataDiScadenza}
                 {badge && badge === "In scadenza" && (
-                  <Badge className={"text-capitalize px-3 ms-2 complementary-2-bg-a1 text-dark"}>{badge}</Badge>
+                  <Badge className={"text-capitalize px-3 ms-2 complementary-2-bg-a1 neutral-1-color-a9"}>{badge}</Badge>
                 )}
               </dd>
             </div>

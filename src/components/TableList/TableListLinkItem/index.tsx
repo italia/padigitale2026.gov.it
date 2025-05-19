@@ -3,6 +3,9 @@
 import { TableListLinkItemRecord } from "@/graphql/generated";
 import { Badge, Icon } from "design-react-kit";
 import Link from "next/link";
+import classNames from "classnames/bind";
+import styles from "@/src/components/CardBadge/index.module.scss";
+const cn = classNames.bind(styles);
 
 export function TableListLinkItem({
   props,
@@ -34,13 +37,13 @@ export function TableListLinkItem({
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getColor = (body: any) => {
+  const getBadgeLabel = (body: any) => {
     if (body?.[0]?.__typename === "DataHeroRecord") {
       if (body[0].badge.label === "Nuovo") {
-        return "primary";
+        return "nuovo";
       }
     }
-    return "secondary";
+    return "aggiornato";
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,7 +78,13 @@ export function TableListLinkItem({
           </div>
           <div className="d-flex align-items-center">
             {getBadge(link?.cmsPage?.body) && (
-              <Badge color={getColor(link?.cmsPage?.body)} className="me-2">
+              <Badge className={cn(
+                "badge text-capitalize px-3 me-2",
+                {
+                  "lightgrey-bg-a3 text-primary": getBadgeLabel(link?.cmsPage?.body) === "nuovo",
+                  "neutral-1-bg-a2 text-dark": getBadgeLabel(link?.cmsPage?.body) === "aggiornato"
+                }
+              )}>
                 {getBadge(link?.cmsPage?.body)}
               </Badge>
             )}

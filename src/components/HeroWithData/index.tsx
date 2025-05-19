@@ -57,7 +57,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
           {/* Body */}
           <div className={"pb-4 col-12"}>
             {title && (
-              <HeroTitle className={cn("text-secondary fs-1")}>
+              <HeroTitle className={cn("fs-1")}>
                 {title}
               </HeroTitle>
             )}
@@ -70,7 +70,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   className={cn("text-secondary fs-6")}
                   style={{ minWidth: "114px" }}
                 >
-                  <h6 className="fw-normal fs-6">Argomento</h6>
+                  <div className="fw-normal fs-6">Argomento</div>
                   <a className="fw-semibold fs-6" href={argomento.slug || ""}>
                     {argomento.label}
                   </a>
@@ -78,7 +78,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
               )}
               {misura && (
                 <div className={cn("text-secondary fs-6")}>
-                  <h6 className="fw-normal fs-6">Misura</h6>
+                  <div className="fw-normal fs-6">Misura</div>
                   <a
                     className="fw-semibold fs-6"
                     href={`${misura.basePath || ""}${misura.slug || ""}`}
@@ -89,13 +89,13 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
               )}
               {beneficiari && (
                 <div className={cn("text-secondary fs-6")}>
-                  <h6 className="fw-normal fs-6">Beneficiari</h6>
+                  <div className="fw-normal fs-6">Beneficiari</div>
                   <p className="fw-semibold fs-6 mb-0">{beneficiari.label}</p>
                 </div>
               )}
               {badge && (
                 <div className={cn("text-secondary fs-6")}>
-                  <h6 className="fw-normal fs-6">Stato</h6>
+                  <div className="fw-normal fs-6">Stato</div>
                   <p className="fw-semibold fs-6 mb-0">{badge.label}</p>
                 </div>
               )}
@@ -129,7 +129,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
               {updateDate && updateDate.length > 0 && (
                 <p
                   className={
-                    "font-sans-serif text-body-secondary text-secondary m-0 fw-normal fs-6"
+                    "font-sans-serif text-body-secondary m-0 fw-normal fs-6"
                   }
                 >
                   {updateDate}

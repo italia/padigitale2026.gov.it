@@ -33,7 +33,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
     <div className="row border-bottom m-0 p-0 py-2 w-100">
       {date && (
         <div className="col-12 col-sm-2 ps-0">
-          <time className="text-secondary">
+          <time>
             {new Intl.DateTimeFormat("it-IT", {
               timeZone: "Europe/Rome",
               day: "2-digit",
@@ -45,7 +45,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
       )}
       <div className={`col-12 ${date ? "col-sm-10" : "col-sm-12"} ps-0`}>
         <div className="d-flex justify-content-between align-items-center">
-          <span className="text-secondary me-3">{title}</span>
+          <span className="me-3">{title}</span>
           <Link
             className="fw-bold text-nowrap"
             href={getHref(link)}

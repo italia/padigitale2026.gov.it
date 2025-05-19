@@ -95,12 +95,9 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     className="me-1"
                   />
                   <div className="it-brand-text ms-2 pt-1">
-                    <h4
-                      style={{ fontSize: "1.25rem", textTransform: "none" }}
-                      className="m-0"
-                    >
+                    <h3 className="m-0 fs-5 fw-semibold">
                       {title}
-                    </h4>
+                    </h3>
                   </div>
                 </div>
               </Col>

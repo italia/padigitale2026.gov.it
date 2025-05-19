@@ -37,7 +37,7 @@ export default async function RootLayout({
       <body>
         <BootstrapInit />
         <Header props={headerProps} />
-        <main>{children}</main>
+        <main id={"main"} className={"overflow-hidden"}>{children}</main>
         <Footer props={footerProps} />
       </body>
     </html>

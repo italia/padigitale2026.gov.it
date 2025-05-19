@@ -69,7 +69,7 @@ export function ModularContent({content}: { content: PageQuery }) {
             return null;
         }
       })}
-      <BackToTop/>
+      <BackToTop ariaLabel={"Clicca qui per tornare in alto"} shadow={true}/>
     </>
   );
 }

@@ -44,10 +44,12 @@ const renderNavList = (items: DASTNode[]) => {
                   </a>
                   {item.children?.find((child) => child.type === "list") && (
                     <ul className="link-list">
-                      {renderNavList(
-                        item.children.find((child) => child.type === "list")
-                          ?.children || []
-                      )}
+                      <li>
+                        {renderNavList(
+                          item.children.find((child) => child.type === "list")
+                            ?.children || []
+                        )}
+                      </li>
                     </ul>
                   )}
                 </li>
@@ -85,7 +87,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
         {navItems[0]?.children?.[0]?.children?.[0]?.children?.[0]?.value ||
           "Menu"}
       </button>
-      <div className="progress custom-navbar-progressbar">
+      <div className="progress custom-navbar-progressbar"
+      aria-hidden={true} role={"presentation"}>
         <div
           className="progress-bar it-navscroll-progressbar"
           role="progressbar"
@@ -109,7 +112,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
         <div className="menu-wrapper">
           <div className="link-list-wrapper">
             {title && <h3>{title}</h3>}
-            <div className="progress">
+            <div className="progress" aria-hidden={true} role={"presentation"}>
               <div
                 className="progress-bar it-navscroll-progressbar"
                 role="progressbar"
@@ -118,7 +121,9 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
                 aria-valuemax={100}
               ></div>
             </div>
-            {renderNavList(navItems)}
+            <div role={"navigation"} aria-label={"Navigazione contenuti"}>
+              {renderNavList(navItems)}
+            </div>
           </div>
         </div>
       </div>

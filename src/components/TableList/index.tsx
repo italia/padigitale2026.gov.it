@@ -40,7 +40,7 @@ export function TableList({ props }: { props: TableListRecord }) {
       <div className={cn("row pt-4")}>
         {title && (
           <h2
-            className={cn("col-12 h-1 text-secondary pb-4", {
+            className={cn("col-12 h-1 pb-4", {
               "text-center": alignment === "center",
             })}
           >

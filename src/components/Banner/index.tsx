@@ -46,10 +46,10 @@ export function Banner({ props }: { props: BannerRecord }) {
         {/* Body */}
         <div className="row h-100 pt-4">
           {title && (
-            <h2 className={"col-12 text-secondary mb-3 fs-2 lh-sm"}>{title}</h2>
+            <h2 className={"col-12 mb-3 fs-2 lh-sm"}>{title}</h2>
           )}
           {description && (
-            <p className={"col-12 font-sans-serif text-secondary"}>{description}</p>
+            <p className={"col-12 font-sans-serif"}>{description}</p>
           )}
 
           {button && (

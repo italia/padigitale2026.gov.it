@@ -25,7 +25,7 @@ export default function CenterHeader({
 
   return (
     <Header theme={theme || ""} type="center">
-      <HeaderContent>
+      <HeaderContent className={"px-0"}>
         <Link
           href="/"
           className="d-flex align-items-center gap-4 text-decoration-none ms-4 ms-lg-0 ps-3 ps-lg-0"
@@ -43,7 +43,7 @@ export default function CenterHeader({
           </div>
         </Link>
         <HeaderRightZone>
-          <HeaderSearch iconName="it-search" label="Cerca" />
+          <HeaderSearch role={"search"} href={"#"}  iconName="it-search" label="Cerca" />
         </HeaderRightZone>
       </HeaderContent>
     </Header>

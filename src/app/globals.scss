@@ -1,7 +1,30 @@
+/**
+import bootstrap for custom responsive utilities
+ */
+
+// Functions
+@import 'bootstrap-italia/src/scss/base/functions';
+// ------------------------------
+
+// Variables
+@import 'bootstrap-italia/src/scss/base/variables';
+// ------------------------------
+
+// Functions, maps and mixins
+@import 'bootstrap-italia/src/scss/base/mixins';
+@import 'bootstrap-italia/src/scss/base/maps';
+@import 'bootstrap-italia/src/scss/base/utilities';
+// ------------------------------
+
 :root {
 //  --background: #ffffff;
 //  --foreground: #171717;
   --bs-it-card-spacer-x: 1.5rem;
+  --bs-body-color: #{$neutral-1-a9};
+}
+.it-card, article.it-card {
+  --bs-it-card-p-color: #{$neutral-1-a9};
+  --bs-it-card-color: #{$neutral-1-a9};
 }
 //
 //@media (prefers-color-scheme: dark) {
@@ -43,23 +66,7 @@ body {
 //}
 
 
-/**
-import bootstrap for custom responsive utilities
- */
 
-// Functions
-@import 'bootstrap-italia/src/scss/base/functions';
-// ------------------------------
-
-// Variables
-@import 'bootstrap-italia/src/scss/base/variables';
-// ------------------------------
-
-// Functions, maps and mixins
-@import 'bootstrap-italia/src/scss/base/mixins';
-@import 'bootstrap-italia/src/scss/base/maps';
-@import 'bootstrap-italia/src/scss/base/utilities';
-// ------------------------------
 
 //map of just necessary utilities
 $utilities: (

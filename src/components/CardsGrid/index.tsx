@@ -187,7 +187,7 @@ export function CardsGrid({props, hasSidebar = false}: {
                 <SectionTitleTag
                   id={`section${id}`}
                   className={cn(
-                    "text-dark mb-0 fs-2 lh-sm",
+                    "mb-0 fs-2 lh-sm",
                     alignment === "center" ? "text-center" : "text-start"
                   )}>
                   {title}
@@ -196,7 +196,7 @@ export function CardsGrid({props, hasSidebar = false}: {
               {description && (
                 <p
                   className={cn(
-                    "font-sans-serif text-dark mt-3 mb-0",
+                    "font-sans-serif mt-3 mb-0",
                     alignment === "center" ? "text-center" : "text-start"
                   )}>
                   {description}

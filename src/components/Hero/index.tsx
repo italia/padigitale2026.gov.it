@@ -57,14 +57,14 @@ export function Hero({ props }: { props: HeroRecord }) {
           {/* Body */}
           <div className="it-hero-text-wrapper container-xxl px-lg-2 mx-lg-1">
             {title && (
-              <HeroTitle className={cn({ "text-secondary": lightTheme })}>
+              <HeroTitle className={cn({ "neutral-1-color-a9": lightTheme })}>
                 {title}
               </HeroTitle>
             )}
             {description && (
               <p
                 className={cn("fs-4 font-sans-serif", {
-                  "text-secondary": lightTheme,
+                  "neutral-1-color-a9": lightTheme,
                 })}
               >
                 {description}

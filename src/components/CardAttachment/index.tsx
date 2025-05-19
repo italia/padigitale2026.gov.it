@@ -82,7 +82,7 @@ export function CardAttachment({
           <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{description}</p>
         )}
         {(label || formattedDate) && (
-          <footer className={cn("it-card-related pb-4 pt-0 mt-0 flex-nowrap")}>
+          <footer className={cn("it-card-related pb-4 pt-0 mt-0 flex-wrap")}>
             {(label) && (
               <div className={"it-card-taxonomy"}>
                 <span className="visually-hidden">Categoria correlata: </span>

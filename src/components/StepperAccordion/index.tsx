@@ -25,7 +25,7 @@ export function StepperAccordion({props}: {props:StepperRecord}) {
     }
   }
 
-  const accord = <Accordion className={cn("num-accordion", "border-bottom-0")} tag={"section"} role="region" aria-live="polite">
+  const accord = <Accordion className={cn("num-accordion", "border-bottom-0")} tag={"section"}>
     {steps && steps.map((stepperStepRecord, idx) => {
       return (
         <AccordionItem key={stepperStepRecord.id} tag={"article"} id={stepperStepRecord.id}>
@@ -40,7 +40,7 @@ export function StepperAccordion({props}: {props:StepperRecord}) {
                   aria-controls={`content${stepperStepRecord.id}`}
                   aria-label={`${(collapseElementOpen.includes(stepperStepRecord.id) ? "Nascondi" : "Mostra")} il contenuto di questo articolo`}
                   onClick={() => setCollapseElementOpen(getFreshCollapsedArray(stepperStepRecord.id, collapseElementOpen))}
-                  className={"accordion-body-hide text-dark p-0 border-0 bg-transparent small fw-semibold"}>
+                  className={"accordion-body-hide neutral-1-color-a9 p-0 border-0 bg-transparent small fw-semibold"}>
             {collapseElementOpen.includes(stepperStepRecord.id) ? "Nascondi dettagli" : "Mostra dettagli"}
           </button>
           <br/>
@@ -70,7 +70,7 @@ export function StepperAccordion({props}: {props:StepperRecord}) {
               aria-label={`${(collapseElementOpen.length > 0 ? "Nascondi" : "Mostra")} i contenuti degli articoli sottostanti`}
               onClick={() => collapseElementOpen.length ? setCollapseElementOpen([]) : setCollapseElementOpen(allIndexes)}
               className={cn(
-                "text-dark m-0 mb-3 p-0 border-0 bg-transparent small fw-semibold",
+                "neutral-1-color-a9 m-0 mb-3 p-0 border-0 bg-transparent small fw-semibold",
                 "accordion-all-hide"
               )}>
         {collapseElementOpen.length > 0 ? "Nascondi tutto" : "Mostra tutto"}

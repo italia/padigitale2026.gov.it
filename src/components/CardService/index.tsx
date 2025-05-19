@@ -24,16 +24,13 @@ export function CardService({ props, TitleTag = "div", customClass = "" }: {
           "fw-normal pb-0 lh-sm px-0 ps-lg-2 pe-lg-2",
           "service_label"
         )}>
-          {title}
+          {label}
         </div>
       )}
       {title && (
         <TitleTag
           className={"it-card-title fw-bold fs-3 pb-3 lh-sm px-0 ps-lg-2 pe-lg-2"}>
-          <span className={cn(
-              "service_title",
-              "color-primary"
-            )}>
+          <span className={cn("service_title")}>
             {title}
           </span>
         </TitleTag>
