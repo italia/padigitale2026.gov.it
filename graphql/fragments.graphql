@@ -117,6 +117,9 @@ fragment RichTextSectionFragment on RichTextSectionRecord {
     value
     blocks {
       ...RichTextContentFragment
+      ... on StepperRecord {
+        ...StepperFragment
+      }
     }
   }
 }

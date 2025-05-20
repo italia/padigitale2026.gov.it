@@ -66,12 +66,12 @@ export function RichTextSection({
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
 
+  console.log("content", content);
+
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
 
     if (!record?.__typename) return null;
-
-    console.log("record", record.__typename);
 
     switch (record.__typename) {
       case "ImagesGridRecord":
@@ -131,8 +131,7 @@ export function RichTextSection({
         <div className={"col-12"}>
           {content && (
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            // <StructuredText data={content as any} renderBlock={renderBlock} />
-            <p>ciao</p>
+            <StructuredText data={content as any} renderBlock={renderBlock} />
           )}
         </div>
       </div>
