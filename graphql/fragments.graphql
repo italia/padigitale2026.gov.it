@@ -483,6 +483,7 @@ fragment StepperFragment on StepperRecord {
   __typename
   id
   anchorId
+  layout
   steps {
     ... on StepperStepRecord {
       __typename
