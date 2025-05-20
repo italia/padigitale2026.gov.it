@@ -12,8 +12,6 @@ const cn = classNames.bind(styles);
 export function TableListFaq({ props }: { props: TableListFaqRecord }) {
   const { questionsRef } = props;
 
-  console.log("questionsRef", questionsRef);
-
   return (
     <div className="container-xxl">
       <div className={cn("row pt-4")}>
