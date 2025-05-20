@@ -7,12 +7,14 @@ import {
   ImagesGridRecord,
   RichTextModelContentField,
   RichTextSectionRecord,
+  StepperRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import { StepperAccordion } from "../StepperAccordion";
 const cn = classNames.bind(styles);
 
 type BlockContext = {
@@ -66,8 +68,6 @@ export function RichTextSection({
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
 
-  // console.log("content", content);
-
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
 
@@ -114,6 +114,8 @@ export function RichTextSection({
             )}
           </Link>
         );
+      case "StepperRecord":
+        return <StepperAccordion props={record as StepperRecord} />;
       default:
         return null;
     }
