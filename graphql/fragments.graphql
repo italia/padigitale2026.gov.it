@@ -108,6 +108,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on TableListRecord {
     ...TableListFragment
   }
+  ... on TableListFaqRecord {
+    ...TableListFaqFragment
+  }
 }
 
 fragment RichTextSectionFragment on RichTextSectionRecord {
