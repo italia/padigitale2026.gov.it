@@ -15,6 +15,8 @@ export enum CardAnnouncementStatusType {
 
 export enum CardAnnouncementLayout {
   'small' = 'small',
+  'small_with_border_top' = 'small_with_border_top',
+  'large_with_border_top' = 'large_with_border_top',
   'large' = 'large'
 }
 
@@ -52,10 +54,15 @@ export function CardAnnouncement(
 
   return (
     <article
-      className={"it-card it-card-border-top it-card-border-top-primary pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3 pt-3 shadow"}>
+      className={cn(
+        "it-card pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3 pt-3 shadow",
+      {
+        "it-card-border-top it-card-border-top-primary": ['small_with_border_top', 'large_with_border_top'].includes(layout)
+      }
+      )}>
       {titolo && (
         <TitleTag
-          className={"it-card-title fw-semibold pb-3 lh-sm d-flex justify-content-between fs-3"}>
+          className={"it-card-title fw-semibold pb-2 lh-sm d-flex justify-content-between fs-3"}>
           {href && (
             <Link
               href={href}
@@ -80,7 +87,7 @@ export function CardAnnouncement(
         <dl className={cn(
           "it-card-description-list border-0",
           {
-            "flex-md-row flex-md-wrap gap-md-0": layout === CardAnnouncementLayout.large
+            "flex-md-row flex-md-wrap gap-md-0 pb-0": layout === CardAnnouncementLayout.large
           }
         )}>
           {stato && (

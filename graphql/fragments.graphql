@@ -427,6 +427,7 @@ fragment CardsGridResourceFragment on CardsGridResourceRecord {
 fragment CardsGridAnnouncementFragment on CardsGridAnnouncementRecord {
   __typename
   id
+  borderOnTop
   sectionFields {
     ...CardsGridFieldsetFragment
   }
