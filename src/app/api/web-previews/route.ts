@@ -14,17 +14,19 @@ export async function OPTIONS() {
     return new Response('OK', withCORS());
 }
 
+const ERROR_RESPONSE = Response.json({
+    "message": "invalid JSON payload"
+}, {
+    status: 401
+})
+
 export async function POST(request: Request) {
     try {
         const data = await request.json();
         const slug = data['item']['attributes']['slug'];
 
         if (!slug) {
-            return Response.json({
-                "message": "invalid JSON payload"
-            }, {
-                status: 401
-            })
+            return ERROR_RESPONSE
         }
 
         return Response.json({
@@ -41,10 +43,6 @@ export async function POST(request: Request) {
         }, withCORS());
     }
     catch {
-        return Response.json({
-            "message": "invalid JSON payload"
-        }, {
-            status: 401
-        })
+        return ERROR_RESPONSE
     }
 };
