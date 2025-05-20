@@ -408,6 +408,7 @@ export type CardsGridAnnouncementRecord = RecordInterface & {
   _status: ItemStatus;
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
   _updatedAt: Scalars['DateTime']['output'];
+  borderOnTop: Scalars['BooleanType']['output'];
   id: Scalars['ItemId']['output'];
   sectionFields?: Maybe<CardsGridFieldsetRecord>;
 };
