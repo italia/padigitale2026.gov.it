@@ -15,19 +15,36 @@ export async function OPTIONS() {
 }
 
 export async function POST(request: Request) {
-    const data = await request.json();
-    const slug = data['item']['attributes']['slug'];
+    try {
+        const data = await request.json();
+        const slug = data['item']['attributes']['slug'];
 
-    return Response.json({
-        "previewLinks": [
-            {
-                "label": "Published",
-                "url": `https://padigitale2026-gov-it-develop.vercel.app/${slug}`
-            },
-            {
-                "label": "Draft",
-                "url": `https://padigitale2026-gov-it-develop.vercel.app/${slug}`
-            }
-        ]
-    }, withCORS());
+        if (!slug) {
+            return Response.json({
+                "message": "invalid JSON payload"
+            }, {
+                status: 401
+            })
+        }
+
+        return Response.json({
+            "previewLinks": [
+                {
+                    "label": "Preview 1",
+                    "url": `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}&secret=${process.env.DRAFT_SECRET}`
+                },
+                {
+                    "label": "Preview 2",
+                    "url": `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}&secret=${process.env.DRAFT_SECRET}`
+                }
+            ]
+        }, withCORS());
+    }
+    catch {
+        return Response.json({
+            "message": "invalid JSON payload"
+        }, {
+            status: 401
+        })
+    }
 };
