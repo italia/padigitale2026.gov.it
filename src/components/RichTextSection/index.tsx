@@ -68,8 +68,6 @@ export function RichTextSection({
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
 
-  console.log("content", content);
-
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
 
