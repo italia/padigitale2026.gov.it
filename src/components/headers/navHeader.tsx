@@ -68,6 +68,11 @@ export default function NavHeader({
           >
             <div className="menu-wrapper">
               <Nav navbar>
+                <NavItem>
+                  <NavLink href="https://padigitale2026--collaudo.sandbox.my.site.com/Pa_digitale2026_avvisi">
+                    <span className="fw-semibold">Avvisi</span>
+                  </NavLink>
+                </NavItem>
                 {mainLinks.map((link) => (
                   <NavItem key={link.id} active={isActiveLink(link.slug)}>
                     <NavLink

@@ -6,7 +6,7 @@ import { StructuredText } from "react-datocms";
 import {
   ImagesGridRecord,
   RichTextModelContentField,
-  RichTextSectionRecord
+  RichTextSectionRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
@@ -57,11 +57,11 @@ interface RichTextProps extends RichTextSectionRecord {
 export function RichTextSection({
   props,
   padding = false,
-  isPageSection = false
+  isPageSection = false,
 }: {
   props: RichTextSectionRecord;
   padding?: boolean;
-  isPageSection?: boolean
+  isPageSection?: boolean;
 }) {
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
@@ -70,6 +70,8 @@ export function RichTextSection({
     const record = context.record;
 
     if (!record?.__typename) return null;
+
+    console.log("record", record.__typename);
 
     switch (record.__typename) {
       case "ImagesGridRecord":
@@ -117,19 +119,20 @@ export function RichTextSection({
     }
   };
 
-
-
   return (
-    <div className={cn("it-section container-xxl", {
-      "text-center": alignment === "center",
-      "text-end": alignment === "right",
-      "py-4": padding || isPageSection,
-    })}>
+    <div
+      className={cn("it-section container-xxl", {
+        "text-center": alignment === "center",
+        "text-end": alignment === "right",
+        "py-4": padding || isPageSection,
+      })}
+    >
       <div className={"row"}>
         <div className={"col-12"}>
           {content && (
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <StructuredText data={content as any} renderBlock={renderBlock} />
+            // <StructuredText data={content as any} renderBlock={renderBlock} />
+            <p>ciao</p>
           )}
         </div>
       </div>

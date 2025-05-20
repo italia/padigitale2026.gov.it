@@ -12,7 +12,8 @@ import {
   CardsGridServiceRecord,
   CardsGridResourceRecord,
   CardsGridNewsRecord,
-  CardsGridImagesFragmentFragment
+  CardsGridImagesFragmentFragment,
+  TableListRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
@@ -20,7 +21,8 @@ import { CardsGrid } from "@/src/components/CardsGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import {CardsGridImages} from "@/src/components/CardsGridImages";
+import { CardsGridImages } from "@/src/components/CardsGridImages";
+import { TableList } from "../TableList";
 const cn = classNames.bind(styles);
 
 type BlockContext = {
@@ -65,11 +67,11 @@ interface RichTextProps extends RichTextRecord {
 export function RichText({
   props,
   padding = false,
-  isPageSection = false
+  isPageSection = false,
 }: {
   props: RichTextRecord;
   padding?: boolean;
-  isPageSection?: boolean
+  isPageSection?: boolean;
 }) {
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
@@ -121,30 +123,59 @@ export function RichText({
           </Link>
         );
       case "CardsGridGenericRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridGenericRecord}/>
+        return (
+          <CardsGrid
+            hasSidebar={true}
+            props={record as CardsGridGenericRecord}
+          />
+        );
       case "CardsGridAttachmentRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridAttachmentRecord}/>
+        return (
+          <CardsGrid
+            hasSidebar={true}
+            props={record as CardsGridAttachmentRecord}
+          />
+        );
       case "CardsGridServiceRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridServiceRecord}/>
+        return (
+          <CardsGrid
+            hasSidebar={true}
+            props={record as CardsGridServiceRecord}
+          />
+        );
       case "CardsGridResourceRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridResourceRecord}/>
+        return (
+          <CardsGrid
+            hasSidebar={true}
+            props={record as CardsGridResourceRecord}
+          />
+        );
       case "CardsGridNewsRecord":
-        return <CardsGrid hasSidebar={true} props={record as CardsGridNewsRecord}/>
+        return (
+          <CardsGrid hasSidebar={true} props={record as CardsGridNewsRecord} />
+        );
       case "CardsGridImageRecord":
-        return <CardsGridImages hasSidebar={true} props={record as CardsGridImagesFragmentFragment}/>
+        return (
+          <CardsGridImages
+            hasSidebar={true}
+            props={record as CardsGridImagesFragmentFragment}
+          />
+        );
+      case "TableListRecord":
+        return <TableList props={record as TableListRecord} />;
       default:
         return null;
     }
   };
 
-
-
   return (
-    <div className={cn("it-section container-xxl", {
-      "text-center": alignment === "center",
-      "text-end": alignment === "right",
-      "py-4": padding || isPageSection,
-    })}>
+    <div
+      className={cn("it-section container-xxl", {
+        "text-center": alignment === "center",
+        "text-end": alignment === "right",
+        "py-4": padding || isPageSection,
+      })}
+    >
       <div className={"row"}>
         <div className={"col-12"}>
           {content && (

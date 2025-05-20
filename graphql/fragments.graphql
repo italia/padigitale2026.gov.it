@@ -8,7 +8,7 @@ fragment CardsGridFieldsetFragment on CardsGridFieldsetRecord {
   columns
   singleCardsTitleTag
   button {
-    ... ButtonFragment
+    ...ButtonFragment
   }
   backgroundColor
 }
@@ -105,6 +105,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on CardsGridImageRecord {
     ...CardsGridImagesFragment
   }
+  ... on TableListRecord {
+    ...TableListFragment
+  }
 }
 
 fragment RichTextSectionFragment on RichTextSectionRecord {
@@ -137,11 +140,10 @@ fragment LayoutSidebarFragment on LayoutSidebarRecord {
       }
     }
     ... on StepperRecord {
-      ... StepperFragment
+      ...StepperFragment
     }
   }
 }
-
 
 fragment VideoPlayerFragment on VideoPlayerRecord {
   __typename
@@ -305,7 +307,7 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
   __typename
   id
   sectionFields {
-    ... CardsGridFieldsetFragment
+    ...CardsGridFieldsetFragment
   }
   cardLayout
   cards {
@@ -343,16 +345,15 @@ fragment CardAttachmentFragment on CardAttachmentRecord {
   badge
 }
 
-
 fragment CardsGridAttachmentFragment on CardsGridAttachmentRecord {
   __typename
   id
   sectionFields {
-    ... CardsGridFieldsetFragment
+    ...CardsGridFieldsetFragment
   }
   cards {
     ... on CardAttachmentRecord {
-      ... CardAttachmentFragment
+      ...CardAttachmentFragment
     }
   }
 }
@@ -361,7 +362,7 @@ fragment CardsGridServiceFragment on CardsGridServiceRecord {
   __typename
   id
   sectionFields {
-    ... CardsGridFieldsetFragment
+    ...CardsGridFieldsetFragment
   }
   cards {
     ... on CardServiceRecord {
@@ -386,13 +387,11 @@ fragment CardsGridServiceFragment on CardsGridServiceRecord {
   }
 }
 
-
-
 fragment CardsGridNewsFragment on CardsGridNewsRecord {
   __typename
   id
   sectionFields {
-    ... CardsGridFieldsetFragment
+    ...CardsGridFieldsetFragment
   }
   news {
     __typename
@@ -405,12 +404,11 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
   }
 }
 
-
 fragment CardsGridResourceFragment on CardsGridResourceRecord {
   __typename
   id
   sectionFields {
-    ... CardsGridFieldsetFragment
+    ...CardsGridFieldsetFragment
   }
   resources {
     __typename
@@ -427,7 +425,7 @@ fragment CardsGridAnnouncementFragment on CardsGridAnnouncementRecord {
   __typename
   id
   sectionFields {
-    ... CardsGridFieldsetFragment
+    ...CardsGridFieldsetFragment
   }
 }
 
@@ -468,12 +466,12 @@ fragment CardsGridImagesFragment on CardsGridImageRecord {
   captions
   layout
   button {
-    ... ButtonFragment
+    ...ButtonFragment
   }
   backgroundColor
   imageBlocks: images {
     ... on CardImageRecord {
-      ... CardImageFragment
+      ...CardImageFragment
     }
   }
 }
@@ -505,13 +503,27 @@ fragment StepperFragment on StepperRecord {
                   ...ButtonFragment
                 }
                 ... on CardAttachmentRecord {
-                  ... CardAttachmentFragment
+                  ...CardAttachmentFragment
                 }
               }
             }
           }
         }
       }
+    }
+  }
+}
+
+fragment TableListFaqFragment on TableListFaqRecord {
+  __typename
+  questionsRef {
+    title
+    slug
+    category {
+      label
+    }
+    badge {
+      label
     }
   }
 }

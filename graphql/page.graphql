@@ -45,6 +45,12 @@ query Page($slug: String) {
       ... on TableListRecord {
         ...TableListFragment
       }
+      ... on TableListFaqRecord {
+        ...TableListFaqFragment
+      }
+      ... on CardsGridAnnouncementRecord {
+        ...CardsGridAnnouncementFragment
+      }
     }
   }
 }
