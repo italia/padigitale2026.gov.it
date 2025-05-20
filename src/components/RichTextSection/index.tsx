@@ -2,7 +2,7 @@
 
 // import { SRCImage } from "react-datocms";
 import Link from "next/link";
-import { StructuredText } from "react-datocms";
+import { StructuredText, renderNodeRule } from "react-datocms";
 import {
   ImagesGridRecord,
   RichTextModelContentField,
@@ -68,7 +68,30 @@ export function RichTextSection({
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
 
-  console.log("content", content);
+  const customNodeRules = [
+    renderNodeRule(
+      (node) => node.type === "link",
+      ({ node, children }) => {
+        const isExternal =
+          node.url.startsWith("http://") || node.url.startsWith("https://");
+        return (
+          <Link href={node.url} className={isExternal ? "external-link" : ""}>
+            {children}
+            {isExternal && (
+              <Icon
+                className="mt-0"
+                color="primary"
+                icon="it-external-link"
+                size="sm"
+                title="Link esterno"
+                padding
+              />
+            )}
+          </Link>
+        );
+      }
+    ),
+  ];
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
@@ -134,8 +157,12 @@ export function RichTextSection({
       <div className={"row"}>
         <div className={"col-12"}>
           {content && (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <StructuredText data={content as any} renderBlock={renderBlock} />
+            <StructuredText
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              data={content as any}
+              renderBlock={renderBlock}
+              customNodeRules={customNodeRules}
+            />
           )}
         </div>
       </div>
