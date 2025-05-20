@@ -75,65 +75,86 @@ export function CardsGrid({props, hasSidebar = false}: {
   let news = null;
   let resources = null;
   let announcements: CardAnnouncementRecord[]|null = null;
+  let borderOnTop = false;
 
   if (__typename === 'CardsGridAnnouncementRecord') {
+    borderOnTop = (typeof props.borderOnTop !== 'undefined') ? props.borderOnTop : false;
     announcements = [];
-    if (columns) {
+    if (columns && parseInt(columns) === 3) {
       announcements.push({
         __typename: 'CardAnnouncementRecord',
         badge: 'Nuovo',
-        istituto: 'Istituto Tecnico Statale',
-        beneficiari: 'Studenti del triennio',
+        istituto: 'Dipartimento della funzione pubblica',
+        beneficiari: 'ASL, Province, Città Metropolitane',
         stato: CardAnnouncementStatusType.Aperto,
-        titolo: 'Borsa di studio 2025',
-        dataDiPubblicazione: '1 febbraio 2025',
-        dataDiScadenza: '1 agosto 2025',
-        href: 'https://www.google.com/',
+        titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)"',
+        dataDiPubblicazione: '2 febbraio 2025',
+        dataDiScadenza: '28 marzo 2025',
+        href: '',
         target: '_blank',
       } as CardAnnouncementRecord);
-    }
 
-    if (columns && parseInt(columns) > 1) {
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'Aggiornato',
-        istituto: 'Liceo Scientifico Galileo',
-        beneficiari: 'Tutti gli studenti',
-        stato: CardAnnouncementStatusType.Chiuso,
-        titolo: 'Avviso per viaggio d’istruzione',
-        dataDiPubblicazione: '1 febbraio 2025',
-        dataDiScadenza: '1 agosto 2025',
-        href: 'https://www.google.com/',
+        badge: 'Nuovo',
+        istituto: 'Dipartimento della funzione pubblica',
+        beneficiari: 'Province',
+        stato: CardAnnouncementStatusType.Aperto,
+        titolo: '2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" - Enti Terzi - Regioni',
+        dataDiPubblicazione: '2 febbraio 2025',
+        dataDiScadenza: '22 marzo 2025',
+        href: '',
+        target: '_self',
+      } as CardAnnouncementRecord);
+
+      announcements.push({
+        __typename: 'CardAnnouncementRecord',
+        badge: 'Nuovo',
+        istituto: 'Dipartimento per la trasformazione digitale',
+        beneficiari: 'Comuni',
+        stato: CardAnnouncementStatusType.Aperto,
+        titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)"',
+        dataDiPubblicazione: '5 gennaio 2025',
+        dataDiScadenza: '20 marzo 2025',
+        href: '',
         target: '_self',
       } as CardAnnouncementRecord);
     }
-
-    if (columns && parseInt(columns) > 2) {
+    else {
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'In scadenza',
-        istituto: 'Istituto Comprensivo Verdi',
-        beneficiari: 'Genitori degli alunni',
+        badge: 'Nuovo',
+        istituto: 'Dipartimento della funzione pubblica',
+        beneficiari: 'Comuni, ASL',
         stato: CardAnnouncementStatusType.Aperto,
-        titolo: 'Incontro scuola-famiglia',
-        dataDiPubblicazione: '1 febbraio 2025',
-        dataDiScadenza: '1 giugno 2025',
-        href: 'https://www.google.com/',
+        titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" -Enti Terzi - Comuni',
+        dataDiPubblicazione: '4 febbraio 2025',
+        dataDiScadenza: '28 aprile 2025',
+        href: '',
         target: '_self',
       } as CardAnnouncementRecord);
-    }
-
-    if (columns && parseInt(columns) > 3) {
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'In scadenza',
-        istituto: 'Istituto Comprensivo Verdi',
-        beneficiari: 'Genitori degli alunni',
+        badge: 'Nuovo',
+        istituto: 'Dipartimento della funzione pubblica',
+        beneficiari: 'Comuni, ASL, Regioni e province autonome, Città metropolitane',
         stato: CardAnnouncementStatusType.Aperto,
-        titolo: 'Incontro scuola-famiglia',
-        dataDiPubblicazione: '1 febbraio 2025',
-        dataDiScadenza: '1 giugno 2025',
-        href: 'https://www.google.com/',
+        titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" Comuni - Seconda edizione',
+        dataDiPubblicazione: '10 gennaio 2025',
+        dataDiScadenza: '15 aprile  2025',
+        href: '',
+        target: '_self',
+      } as CardAnnouncementRecord);
+      announcements.push({
+        __typename: 'CardAnnouncementRecord',
+        badge: 'Nuovo',
+        istituto: 'Dipartimento per la trasformazione digitale',
+        beneficiari: 'Comuni, ASL, Regioni e province autonome, Città metropolitane',
+        stato: CardAnnouncementStatusType.Aperto,
+        titolo: 'Avviso Investimento 1.2 “Abilitazione al Cloud per le PA Locali ” Comuni settembre 2024',
+        dataDiPubblicazione: '9 gennaio 2025',
+        dataDiScadenza: '20 marzo 2025',
+        href: '',
         target: '_self',
       } as CardAnnouncementRecord);
     }
@@ -222,9 +243,17 @@ export function CardsGrid({props, hasSidebar = false}: {
                 return (
                   <div
                     key={idx}
-                    className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}>
+                    className={cn(
+                      `${colClasses} d-flex flex-column justify-content-stretch`,
+                      {
+                        "pt-5": intColumns && intColumns === 1,
+                        "pt-4": (intColumns && intColumns >= 2) || !intColumns
+                      }
+                    )}>
                     <CardAnnouncement
-                      layout={intColumns === 1 ? CardAnnouncementLayout.large : CardAnnouncementLayout.small}
+                      layout={
+                        intColumns === 1 ? (borderOnTop ? CardAnnouncementLayout.large_with_border_top : CardAnnouncementLayout.large) : (borderOnTop ? CardAnnouncementLayout.small_with_border_top : CardAnnouncementLayout.small)
+                      }
                       TitleTag={cardTitleTag}
                       props={announcement}
                     />
