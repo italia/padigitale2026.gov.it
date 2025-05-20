@@ -51,6 +51,9 @@ query AllPages {
       ... on TableListRecord {
         ...TableListFragment
       }
+      ... on TableListFaqRecord {
+        ...TableListFaqFragment
+      }
     }
   }
   _allPagesMeta {

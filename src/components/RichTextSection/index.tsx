@@ -2,17 +2,19 @@
 
 // import { SRCImage } from "react-datocms";
 import Link from "next/link";
-import { StructuredText } from "react-datocms";
+import { StructuredText, renderNodeRule } from "react-datocms";
 import {
   ImagesGridRecord,
   RichTextModelContentField,
-  RichTextSectionRecord
+  RichTextSectionRecord,
+  StepperRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import { StepperAccordion } from "../StepperAccordion";
 const cn = classNames.bind(styles);
 
 type BlockContext = {
@@ -57,14 +59,39 @@ interface RichTextProps extends RichTextSectionRecord {
 export function RichTextSection({
   props,
   padding = false,
-  isPageSection = false
+  isPageSection = false,
 }: {
   props: RichTextSectionRecord;
   padding?: boolean;
-  isPageSection?: boolean
+  isPageSection?: boolean;
 }) {
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
+
+  const customNodeRules = [
+    renderNodeRule(
+      (node) => node.type === "link",
+      ({ node, children }) => {
+        const isExternal =
+          node.url.startsWith("http://") || node.url.startsWith("https://");
+        return (
+          <Link href={node.url} className={isExternal ? "external-link" : ""}>
+            {children}
+            {isExternal && (
+              <Icon
+                className="mt-0"
+                color="primary"
+                icon="it-external-link"
+                size="sm"
+                title="Link esterno"
+                padding
+              />
+            )}
+          </Link>
+        );
+      }
+    ),
+  ];
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
@@ -112,24 +139,30 @@ export function RichTextSection({
             )}
           </Link>
         );
+      case "StepperRecord":
+        return <StepperAccordion props={record as StepperRecord} />;
       default:
         return null;
     }
   };
 
-
-
   return (
-    <div className={cn("it-section container-xxl", {
-      "text-center": alignment === "center",
-      "text-end": alignment === "right",
-      "py-4": padding || isPageSection,
-    })}>
+    <div
+      className={cn("it-section container-xxl", {
+        "text-center": alignment === "center",
+        "text-end": alignment === "right",
+        "py-4": padding || isPageSection,
+      })}
+    >
       <div className={"row"}>
         <div className={"col-12"}>
           {content && (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <StructuredText data={content as any} renderBlock={renderBlock} />
+            <StructuredText
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              data={content as any}
+              renderBlock={renderBlock}
+              customNodeRules={customNodeRules}
+            />
           )}
         </div>
       </div>

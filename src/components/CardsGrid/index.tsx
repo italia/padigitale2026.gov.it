@@ -376,7 +376,7 @@ export function CardsGrid({props, hasSidebar = false}: {
               >
                 <Link
                   href={button.href || `/${button.cmsPage?.slug || ""}`}
-                  className={"btn btn-outline-primary btn-lg"}
+                  className={"btn btn-outline-primary"}
                 >
                   <span>{button.text}</span>
                   {button.icon && (

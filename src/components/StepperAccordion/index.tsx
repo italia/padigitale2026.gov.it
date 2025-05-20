@@ -15,7 +15,7 @@ const cn = classNames.bind(styles);
 export function StepperAccordion({props}: {props:StepperRecord}) {
   const [collapseElementOpen, setCollapseElementOpen] = useState<Array<string>>([]);
   const [allIndexes, setAllIndexes] = useState<Array<string>>([]);
-  const {steps} = props;
+  const {steps, layout} = props;
 
   const getFreshCollapsedArray = function (elId: string, arrayEl: Array<string>) {
     if (arrayEl.includes(elId)) {
@@ -30,20 +30,29 @@ export function StepperAccordion({props}: {props:StepperRecord}) {
       return (
         <AccordionItem key={stepperStepRecord.id} tag={"article"} id={stepperStepRecord.id}>
           <div className="accordion-header">
-            <h3 className={`accordion-button collapsed status-${stepperStepRecord?.stepStatus}`}
+            <h3 className={cn(
+              `accordion-button status-${stepperStepRecord?.stepStatus}`,
+              {
+                "collapsed": !layout || layout !== "exploded"
+              }
+            )}
                 id={`label${stepperStepRecord.id}`}>
               <span aria-hidden={true} className={"accordion-button-order"}>{idx + 1}</span>
               <span className={"accordion-button-text"}>{stepperStepRecord.stepTitle}</span>
             </h3>
           </div>
-          <button aria-expanded={collapseElementOpen.includes(stepperStepRecord.id)}
-                  aria-controls={`content${stepperStepRecord.id}`}
-                  aria-label={`${(collapseElementOpen.includes(stepperStepRecord.id) ? "Nascondi" : "Mostra")} il contenuto di questo articolo`}
-                  onClick={() => setCollapseElementOpen(getFreshCollapsedArray(stepperStepRecord.id, collapseElementOpen))}
-                  className={"accordion-body-hide neutral-1-color-a9 p-0 border-0 bg-transparent small fw-semibold"}>
-            {collapseElementOpen.includes(stepperStepRecord.id) ? "Nascondi dettagli" : "Mostra dettagli"}
-          </button>
-          <br/>
+          {(!layout || layout !== "exploded") && (
+            <>
+              <button aria-expanded={collapseElementOpen.includes(stepperStepRecord.id)}
+                      aria-controls={`content${stepperStepRecord.id}`}
+                      aria-label={`${(collapseElementOpen.includes(stepperStepRecord.id) ? "Nascondi" : "Mostra")} il contenuto di questo articolo`}
+                      onClick={() => setCollapseElementOpen(getFreshCollapsedArray(stepperStepRecord.id, collapseElementOpen))}
+                      className={"accordion-body-hide neutral-1-color-a9 p-0 border-0 bg-transparent small fw-semibold"}>
+                {collapseElementOpen.includes(stepperStepRecord.id) ? "Nascondi dettagli" : "Mostra dettagli"}
+              </button>
+              <br/>
+            </>
+          )}
           <AccordionBody role="region"
                          id={`content${stepperStepRecord.id}`}
                          aria-labelledby={`label${stepperStepRecord.id}`}
@@ -65,16 +74,18 @@ export function StepperAccordion({props}: {props:StepperRecord}) {
 
   return (
     <>
-      <button aria-expanded={collapseElementOpen.length > 0}
-              aria-controls={allIndexes.map(itemid => `content${itemid}`).join(" ")}
-              aria-label={`${(collapseElementOpen.length > 0 ? "Nascondi" : "Mostra")} i contenuti degli articoli sottostanti`}
-              onClick={() => collapseElementOpen.length ? setCollapseElementOpen([]) : setCollapseElementOpen(allIndexes)}
-              className={cn(
-                "neutral-1-color-a9 m-0 mb-3 p-0 border-0 bg-transparent small fw-semibold",
-                "accordion-all-hide"
-              )}>
-        {collapseElementOpen.length > 0 ? "Nascondi tutto" : "Mostra tutto"}
-      </button>
+      {(!layout || layout !== "exploded") && (
+        <button aria-expanded={collapseElementOpen.length > 0}
+                aria-controls={allIndexes.map(itemid => `content${itemid}`).join(" ")}
+                aria-label={`${(collapseElementOpen.length > 0 ? "Nascondi" : "Mostra")} i contenuti degli articoli sottostanti`}
+                onClick={() => collapseElementOpen.length ? setCollapseElementOpen([]) : setCollapseElementOpen(allIndexes)}
+                className={cn(
+                  "neutral-1-color-a9 mt-3 m-0 mb-3 p-0 border-0 bg-transparent small fw-semibold",
+                  "accordion-all-hide"
+                )}>
+          {collapseElementOpen.length > 0 ? "Nascondi tutto" : "Mostra tutto"}
+        </button>
+      )}
       {accord}
     </>
   );

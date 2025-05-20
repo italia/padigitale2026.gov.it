@@ -1,18 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import {StructuredText} from "react-datocms";
+import { StructuredText, renderNodeRule } from "react-datocms";
 import {
   CardAttachmentRecord,
   ImagesGridRecord,
-  RichTextStepperRecord
+  RichTextStepperRecord,
 } from "@/graphql/generated";
-import {Icon} from "design-react-kit";
-import {ImagesGrid} from "@/src/components/ImagesGrid";
+import { Icon } from "design-react-kit";
+import { ImagesGrid } from "@/src/components/ImagesGrid";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import {CardAttachment} from "@/src/components/CardAttachment";
+import { CardAttachment } from "@/src/components/CardAttachment";
 
 const cn = classNames.bind(styles);
 
@@ -20,39 +20,64 @@ type BlockContext = {
   record:
     | ImagesGridRecord
     | {
-    __typename?: string;
-    color?: string;
-    text?: string;
-    href?: string;
-    icon?: string;
-    cmsPage?: {
-      slug?: string;
-    };
-    id?: string;
-    images?: Array<{
-      url: string;
-      basename: string;
-      alt: string;
-      format: string;
-      width: number;
-      height: number;
-      id: string;
-      title: string;
-      responsiveImage: {
-        src: string;
-        srcSet: string;
-        title: string;
-        width: number;
-        height: number;
-        alt: string;
-        aspectRatio: number;
+        __typename?: string;
+        color?: string;
+        text?: string;
+        href?: string;
+        icon?: string;
+        cmsPage?: {
+          slug?: string;
+        };
+        id?: string;
+        images?: Array<{
+          url: string;
+          basename: string;
+          alt: string;
+          format: string;
+          width: number;
+          height: number;
+          id: string;
+          title: string;
+          responsiveImage: {
+            src: string;
+            srcSet: string;
+            title: string;
+            width: number;
+            height: number;
+            alt: string;
+            aspectRatio: number;
+          };
+        }>;
       };
-    }>;
-  };
 };
 
-export function RichTextStepper({props}: { props: RichTextStepperRecord; }) {
-  const {content, alignment = "left"} = props;
+export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
+  const { content, alignment = "left" } = props;
+
+  const customNodeRules = [
+    renderNodeRule(
+      (node) => node.type === "link",
+      ({ node, children }) => {
+        const isExternal =
+          node.url.startsWith("http://") || node.url.startsWith("https://");
+        return (
+          <Link href={node.url} className={isExternal ? "external-link" : ""}>
+            {children}
+            {isExternal && (
+              <Icon
+                className="mt-0"
+                color="primary"
+                icon="it-external-link"
+                size="sm"
+                title="Link esterno"
+                padding
+              />
+            )}
+          </Link>
+        );
+      }
+    ),
+  ];
 
   const renderBlock = (context: BlockContext) => {
     const record = context.record;
@@ -61,7 +86,7 @@ export function RichTextStepper({props}: { props: RichTextStepperRecord; }) {
 
     switch (record.__typename) {
       case "ImagesGridRecord":
-        return <ImagesGrid props={record as ImagesGridRecord}/>;
+        return <ImagesGrid props={record as ImagesGridRecord} />;
       case "LinkRecord":
         return (
           <Link
@@ -84,7 +109,7 @@ export function RichTextStepper({props}: { props: RichTextStepperRecord; }) {
       case "CardAttachmentRecord":
         return (
           <div className={"pt-5 d-block"}>
-            <CardAttachment props={record as CardAttachmentRecord}/>
+            <CardAttachment props={record as CardAttachmentRecord} />
           </div>
         );
       case "ButtonRecord":
@@ -112,13 +137,19 @@ export function RichTextStepper({props}: { props: RichTextStepperRecord; }) {
   };
 
   return (
-    <div className={cn({
-      "text-center": alignment === "center",
-      "text-end": alignment === "right"
-    })}>
+    <div
+      className={cn({
+        "text-center": alignment === "center",
+        "text-end": alignment === "right",
+      })}
+    >
       {content && (
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        <StructuredText data={content as any} renderBlock={renderBlock}/>
+        <StructuredText
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data={content as any}
+          renderBlock={renderBlock}
+          customNodeRules={customNodeRules}
+        />
       )}
     </div>
   );

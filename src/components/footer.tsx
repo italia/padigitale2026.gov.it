@@ -38,32 +38,44 @@ export default function Footer({ props }: { props: FooterQuery }) {
               <Col sm={12} className="px-0">
                 <div className="px-3 py-2 py-lg-4 d-lg-flex align-items-center gap-4">
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2 me-4">
-                    <Image
-                      src="/images/logo-eu.svg"
-                      alt="Logo"
-                      width={153}
-                      height={49}
-                    />
+                    <Link
+                      href="https://commission.europa.eu/index_it"
+                      title="Vai al sito della Commissione Europea"
+                      className="d-flex align-items-center"
+                    >
+                      <Image
+                        src="/images/logo-eu.svg"
+                        alt="Logo"
+                        width={153}
+                        height={49}
+                      />
+                    </Link>
                   </div>
 
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2 me-4">
-                    <Image
-                      src="/images/logo-ri.svg"
-                      alt="Logo"
-                      width={36}
-                      height={41}
-                      className="me-1"
-                    />
-                    <div className="it-brand-text ms-1 lh-1">
-                      <small
-                        className="text-primary d-block"
-                        style={{ fontSize: "0.75rem", minWidth: "181px" }}
-                      >
-                        Governo Italiano
-                        <br />
-                        Presidenza del Consiglio dei Ministri
-                      </small>
-                    </div>
+                    <Link
+                      href="https://www.governo.it/"
+                      title="Vai al sito del Governo Italiano"
+                      className="d-flex align-items-center text-decoration-none"
+                    >
+                      <Image
+                        src="/images/logo-ri.svg"
+                        alt="Logo"
+                        width={36}
+                        height={41}
+                        className="me-1"
+                      />
+                      <div className="it-brand-text ms-1 lh-1">
+                        <small
+                          className="text-primary d-block"
+                          style={{ fontSize: "0.75rem", minWidth: "181px" }}
+                        >
+                          Governo Italiano
+                          <br />
+                          Presidenza del Consiglio dei Ministri
+                        </small>
+                      </div>
+                    </Link>
                   </div>
 
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2">
@@ -95,9 +107,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     className="me-1"
                   />
                   <div className="it-brand-text ms-2 pt-1">
-                    <h3 className="m-0 fs-5 fw-semibold">
-                      {title}
-                    </h3>
+                    <h3 className="m-0 fs-5 fw-semibold">{title}</h3>
                   </div>
                 </div>
               </Col>
