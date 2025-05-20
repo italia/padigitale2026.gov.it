@@ -61,7 +61,11 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
         const isExternal =
           node.url.startsWith("http://") || node.url.startsWith("https://");
         return (
-          <Link href={node.url} className={isExternal ? "external-link" : ""}>
+          <Link
+            key={JSON.stringify(node.url)}
+            href={node.url}
+            className={isExternal ? "external-link" : ""}
+          >
             {children}
             {isExternal && (
               <Icon
@@ -86,10 +90,13 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
 
     switch (record.__typename) {
       case "ImagesGridRecord":
-        return <ImagesGrid props={record as ImagesGridRecord} />;
+        return (
+          <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
+        );
       case "LinkRecord":
         return (
           <Link
+            key={record.id}
             className="fw-bold"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
@@ -108,13 +115,14 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
         );
       case "CardAttachmentRecord":
         return (
-          <div className={"pt-5 d-block"}>
+          <div key={record.id} className={"pt-5 d-block"}>
             <CardAttachment props={record as CardAttachmentRecord} />
           </div>
         );
       case "ButtonRecord":
         return (
           <Link
+            key={record.id}
             className="btn btn-sm btn-outline-primary btn-mini"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
@@ -145,6 +153,7 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
     >
       {content && (
         <StructuredText
+          key={JSON.stringify(content)}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data={content as any}
           renderBlock={renderBlock}

@@ -12,11 +12,13 @@ const cn = classNames.bind(styles);
 export function TableListFaq({ props }: { props: TableListFaqRecord }) {
   const { questionsRef } = props;
 
+  console.log("questionsRef", questionsRef);
+
   return (
     <div className="container-xxl">
       <div className={cn("row pt-4")}>
-        {questionsRef.map((item, idx: number) => (
-          <div className={"col-12"} key={idx}>
+        {questionsRef.map((item) => (
+          <div className={"col-12"} key={item.id}>
             <div className="row border-bottom m-0 p-0 py-2 w-100">
               <div className="col ps-0">
                 <Link

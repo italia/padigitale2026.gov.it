@@ -75,7 +75,11 @@ export function RichTextSection({
         const isExternal =
           node.url.startsWith("http://") || node.url.startsWith("https://");
         return (
-          <Link href={node.url} className={isExternal ? "external-link" : ""}>
+          <Link
+            key={JSON.stringify(node.url)}
+            href={node.url}
+            className={isExternal ? "external-link" : ""}
+          >
             {children}
             {isExternal && (
               <Icon
@@ -100,10 +104,13 @@ export function RichTextSection({
 
     switch (record.__typename) {
       case "ImagesGridRecord":
-        return <ImagesGrid props={record as ImagesGridRecord} />;
+        return (
+          <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
+        );
       case "LinkRecord":
         return (
           <Link
+            key={record.id}
             className="fw-bold"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
@@ -123,6 +130,7 @@ export function RichTextSection({
       case "ButtonRecord":
         return (
           <Link
+            key={record.id}
             className="btn btn-sm btn-outline-primary btn-mini"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
@@ -140,7 +148,9 @@ export function RichTextSection({
           </Link>
         );
       case "StepperRecord":
-        return <StepperAccordion props={record as StepperRecord} />;
+        return (
+          <StepperAccordion key={record.id} props={record as StepperRecord} />
+        );
       default:
         return null;
     }
@@ -158,6 +168,7 @@ export function RichTextSection({
         <div className={"col-12"}>
           {content && (
             <StructuredText
+              key={JSON.stringify(content)}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               data={content as any}
               renderBlock={renderBlock}

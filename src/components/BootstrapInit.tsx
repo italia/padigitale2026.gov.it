@@ -6,8 +6,21 @@ export default function BootstrapInit() {
   useEffect(() => {
     const initBootstrap = () => {
       if (typeof window !== "undefined" && window.bootstrap) {
-        // @ts-expect-error bootstrap è aggiunto globalmente da bootstrap-italia
-        window.bootstrap.init();
+        const bootstrap = window.bootstrap;
+        // Inizializza tutti i componenti Bootstrap
+        const tooltipTriggerList = document.querySelectorAll(
+          '[data-bs-toggle="tooltip"]'
+        );
+        [...tooltipTriggerList].map(
+          (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+        );
+
+        const popoverTriggerList = document.querySelectorAll(
+          '[data-bs-toggle="popover"]'
+        );
+        [...popoverTriggerList].map(
+          (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+        );
       }
     };
 
