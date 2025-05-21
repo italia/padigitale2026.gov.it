@@ -18,7 +18,7 @@ export function CardResource({
 }) {
   const { title, summary, badge, data, slug } = props;
   return (
-    <article className="it-card pb-0 bg-white flex-grow-1">
+    <article className="it-card--resource it-card pb-0 bg-white flex-grow-1">
       {title && (
         <TitleTag className="it-card-title px-0 fs-3 fw-semibold lh-sm">
           <Link href={`/${slug}`} className={cn("decoration-1")}>

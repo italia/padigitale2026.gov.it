@@ -18,7 +18,7 @@ export function CardService({ props, TitleTag = "div", customClass = "" }: {
   const {label, title, description, button} = props;
   return (
     <article
-      className={`it-card pb-0 flex-grow-1 bg-white pt-3 ${customClass}`}>
+      className={`it-card--service it-card pb-0 flex-grow-1 bg-white pt-3 ${customClass}`}>
       {label && (
         <div className={cn(
           "fw-normal pb-0 lh-sm px-0 ps-lg-2 pe-lg-2",

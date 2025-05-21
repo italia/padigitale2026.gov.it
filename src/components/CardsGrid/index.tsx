@@ -65,10 +65,10 @@ export function CardsGrid({props, hasSidebar = false}: {
     backgroundColor = sectionFields.backgroundColor;
   }
 
-  let titleHtmlTag = null;
-  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.titleHtmlTag !== 'undefined') {
-    titleHtmlTag = sectionFields.titleHtmlTag;
-  }
+  // let titleHtmlTag = null;
+  // if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.titleHtmlTag !== 'undefined') {
+  //   titleHtmlTag = sectionFields.titleHtmlTag;
+  // }
 
   let cardLayout = null;
   let cards = null;
@@ -177,7 +177,7 @@ export function CardsGrid({props, hasSidebar = false}: {
   }
 
   const cardTitleTag:ElementType = (singleCardsTitleTag || "h3") as ElementType;
-  const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
+  // const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
   return (
     <div key={id}
@@ -203,14 +203,14 @@ export function CardsGrid({props, hasSidebar = false}: {
           <div className={"row"}>
             <div className="col-12 pb-3">
               {title && (
-                <SectionTitleTag
+                <h2
                   id={`section${id}`}
                   className={cn(
-                    "mb-0 fs-2 lh-sm",
+                    "mb-0 lh-sm",
                     alignment === "center" ? "text-center" : "text-start"
                   )}>
                   {title}
-                </SectionTitleTag>
+                </h2>
               )}
               {description && (
                 <p

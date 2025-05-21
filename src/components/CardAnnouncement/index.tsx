@@ -55,7 +55,7 @@ export function CardAnnouncement(
   return (
     <article
       className={cn(
-        "it-card pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3 pt-3 shadow",
+        "it-card--announcement it-card pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3 pt-3 shadow",
       {
         "it-card-border-top it-card-border-top-primary": ['small_with_border_top', 'large_with_border_top'].includes(layout)
       }

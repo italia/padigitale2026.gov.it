@@ -19,7 +19,6 @@ import {
   GridItemTextWrapper,
   GridItemText
 } from "design-react-kit";
-import {ElementType} from "react";
 
 const cn = classNames.bind(styles);
 
@@ -32,7 +31,7 @@ export function CardsGridImages({props, hasSidebar = false}: {
     // __typename,
     id,
     title,
-    titleHtmlTag,
+    // titleHtmlTag,
     description,
     alignment,
     captions,
@@ -41,8 +40,6 @@ export function CardsGridImages({props, hasSidebar = false}: {
     button,
     imageBlocks
   } = props;
-
-  const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
 
   return (
@@ -69,14 +66,14 @@ export function CardsGridImages({props, hasSidebar = false}: {
           <div className={"row"}>
             <div className="col-12 pb-3">
               {title && (
-                <SectionTitleTag
+                <h2
                   id={`section${id}`}
                   className={cn(
-                    "mb-0 fs-2 lh-sm",
+                    "mb-0 lh-sm",
                     alignment === "center" ? "text-center" : "text-start"
                   )}>
                   {title}
-                </SectionTitleTag>
+                </h2>
               )}
               {description && (
                 <p
