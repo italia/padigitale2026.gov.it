@@ -4,12 +4,12 @@ import { redirect } from 'next/navigation'
 export async function GET(request: Request) {
     // Parse query string parameters
     const { searchParams } = new URL(request.url)
-    const secret = searchParams.get('secret')
+    // const secret = searchParams.get('secret')
     const slug = searchParams.get('slug')
 
     // Check the secret and next parameters
     // This secret should only be known to this Route Handler and the CMS
-    if (secret !== process.env.DRAFT_SECRET || !slug) {
+    if (/*secret !== process.env.DRAFT_SECRET ||*/ !slug) {
         return Response.json({
             "message": 'Invalid token or missing slug'
         }, { status: 401 })
