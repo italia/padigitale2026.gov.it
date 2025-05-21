@@ -8,12 +8,14 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   },
   async headers() {
-    // const revalidateSeconds = parseInt(process.env.REVALIDATE_SECONDS || "60", 10);
-    const revalidateSeconds = 0;
+    const revalidateSeconds = parseInt(
+      process.env.REVALIDATE_SECONDS || "60",
+      10
+    );
 
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
             key: "Cache-Control",
