@@ -11,11 +11,13 @@ const options = {
   environment: process.env.DATOCMS_ENVIRONMENT || "main",
 };
 
-export async function getAllPages() {
+export async function getAllPages(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQueryWithAutoPagination(AllPagesDocument, options);
 }
 
-export async function page(slug: string) {
+export async function page(slug: string, includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQuery(PageDocument, {
     ...options,
     variables: {
@@ -25,26 +27,32 @@ export async function page(slug: string) {
   })
 }
 
-export async function getAllFaqs() {
+export async function getAllFaqs(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQueryWithAutoPagination(AllFaqsDocument, options);
 }
 
-export async function getAllNews() {
+export async function getAllNews(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQueryWithAutoPagination(AllNewsDocument, options);
 }
 
-export async function getAllResources() {
+export async function getAllResources(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQueryWithAutoPagination(AllResourcesDocument, options);
 }
 
-export async function getFooter() {
+export async function getFooter(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQuery(FooterDocument, options);
 }
 
-export async function getHeader() {
+export async function getHeader(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQuery(HeaderDocument, options);
 }
 
-export async function getSitemapPages() {
+export async function getSitemapPages(includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQueryWithAutoPagination(SitemapPagesDocument, options);
 }

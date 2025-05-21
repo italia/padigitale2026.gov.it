@@ -12,11 +12,10 @@ import {
 } from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
+import { draftMode } from 'next/headers'
 
 export const dynamicParams = true;
-export const dynamic = "force-static";
-export const fetchCache = "auto";
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   const pages = (await getAllPages()) as AllPagesQuery;
@@ -36,6 +35,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const fullSlug = slug.join("/");
+  const { isEnabled } = await draftMode(); // get draft content or not
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let page: any;
@@ -43,19 +43,19 @@ export default async function Page({
 
   switch (true) {
     case fullSlug.includes("domande-frequenti/"):
-      pages = (await getAllFaqs()) as AllFaqsQuery;
+      pages = (await getAllFaqs(isEnabled)) as AllFaqsQuery;
       page = pages.allFaqs.find((p) => p.slug === fullSlug);
       break;
     case fullSlug.includes("notizie/"):
-      pages = (await getAllNews()) as AllNewsQuery;
+      pages = (await getAllNews(isEnabled)) as AllNewsQuery;
       page = pages.allNews.find((p) => p.slug === fullSlug);
       break;
     case fullSlug.includes("guide-e-risorse/"):
-      pages = (await getAllResources()) as AllResourcesQuery;
+      pages = (await getAllResources(isEnabled)) as AllResourcesQuery;
       page = pages.allResources.find((p) => p.slug === fullSlug);
       break;
     default:
-      pages = (await getAllPages()) as AllPagesQuery;
+      pages = (await getAllPages(isEnabled)) as AllPagesQuery;
       page = pages.allPages.find((p) => p.slug === fullSlug);
       break;
   }
