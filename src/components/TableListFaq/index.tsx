@@ -21,7 +21,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
               <div className="col ps-0">
                 <Link
                   className="d-flex justify-content-between align-items-center text-decoration-none"
-                  href={`/faq/${item.slug}`}
+                  href={`${item.slug}`}
                   title={item.title || ""}
                   key={`faq-link-${item.id || index}`}
                 >
