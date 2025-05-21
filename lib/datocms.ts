@@ -16,7 +16,8 @@ export async function getAllPages(includeDrafts: boolean = false) {
   return executeQueryWithAutoPagination(AllPagesDocument, options);
 }
 
-export async function page(slug: string) {
+export async function page(slug: string, includeDrafts: boolean = false) {
+  options.includeDrafts = includeDrafts;
   return executeQuery(PageDocument, {
     ...options,
     variables: {
