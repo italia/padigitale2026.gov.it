@@ -65,10 +65,10 @@ export function CardsGrid({props, hasSidebar = false}: {
     backgroundColor = sectionFields.backgroundColor;
   }
 
-  let titleHtmlTag = null;
-  if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.titleHtmlTag !== 'undefined') {
-    titleHtmlTag = sectionFields.titleHtmlTag;
-  }
+  // let titleHtmlTag = null;
+  // if (typeof sectionFields !== 'undefined' && sectionFields && typeof sectionFields.titleHtmlTag !== 'undefined') {
+  //   titleHtmlTag = sectionFields.titleHtmlTag;
+  // }
 
   let cardLayout = null;
   let cards = null;
@@ -88,34 +88,33 @@ export function CardsGrid({props, hasSidebar = false}: {
         beneficiari: 'ASL, Province, Città Metropolitane',
         stato: CardAnnouncementStatusType.Aperto,
         titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)"',
-        dataDiPubblicazione: '2 febbraio 2025',
-        dataDiScadenza: '28 marzo 2025',
+        dataDiPubblicazione: '15 maggio 2025',
+        dataDiScadenza: '28 luglio 2025',
         href: '',
         target: '_blank',
       } as CardAnnouncementRecord);
 
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'Nuovo',
         istituto: 'Dipartimento della funzione pubblica',
         beneficiari: 'Province',
-        stato: CardAnnouncementStatusType.Aperto,
+        stato: CardAnnouncementStatusType.Chiuso,
         titolo: '2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" - Enti Terzi - Regioni',
         dataDiPubblicazione: '2 febbraio 2025',
-        dataDiScadenza: '22 marzo 2025',
+        dataDiScadenza: '15 maggio 2025',
         href: '',
         target: '_self',
       } as CardAnnouncementRecord);
 
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'Nuovo',
+        badge: 'In scadenza',
         istituto: 'Dipartimento per la trasformazione digitale',
         beneficiari: 'Comuni',
         stato: CardAnnouncementStatusType.Aperto,
         titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)"',
         dataDiPubblicazione: '5 gennaio 2025',
-        dataDiScadenza: '20 marzo 2025',
+        dataDiScadenza: '30 maggio 2025',
         href: '',
         target: '_self',
       } as CardAnnouncementRecord);
@@ -128,32 +127,31 @@ export function CardsGrid({props, hasSidebar = false}: {
         beneficiari: 'Comuni, ASL',
         stato: CardAnnouncementStatusType.Aperto,
         titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" -Enti Terzi - Comuni',
-        dataDiPubblicazione: '4 febbraio 2025',
-        dataDiScadenza: '28 aprile 2025',
+        dataDiPubblicazione: '15 maggio 2025',
+        dataDiScadenza: '28 luglio 2025',
         href: '',
         target: '_self',
       } as CardAnnouncementRecord);
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'Nuovo',
         istituto: 'Dipartimento della funzione pubblica',
         beneficiari: 'Comuni, ASL, Regioni e province autonome, Città metropolitane',
-        stato: CardAnnouncementStatusType.Aperto,
+        stato: CardAnnouncementStatusType.Chiuso,
         titolo: 'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" Comuni - Seconda edizione',
-        dataDiPubblicazione: '10 gennaio 2025',
-        dataDiScadenza: '15 aprile  2025',
+        dataDiPubblicazione: '2 febbraio 2025',
+        dataDiScadenza: '15 maggio 2025',
         href: '',
         target: '_self',
       } as CardAnnouncementRecord);
       announcements.push({
         __typename: 'CardAnnouncementRecord',
-        badge: 'Nuovo',
+        badge: 'In scadenza',
         istituto: 'Dipartimento per la trasformazione digitale',
         beneficiari: 'Comuni, ASL, Regioni e province autonome, Città metropolitane',
         stato: CardAnnouncementStatusType.Aperto,
         titolo: 'Avviso Investimento 1.2 “Abilitazione al Cloud per le PA Locali ” Comuni settembre 2024',
-        dataDiPubblicazione: '9 gennaio 2025',
-        dataDiScadenza: '20 marzo 2025',
+        dataDiPubblicazione: '5 gennaio 2025',
+        dataDiScadenza: '30 maggio 2025',
         href: '',
         target: '_self',
       } as CardAnnouncementRecord);
@@ -179,7 +177,7 @@ export function CardsGrid({props, hasSidebar = false}: {
   }
 
   const cardTitleTag:ElementType = (singleCardsTitleTag || "h3") as ElementType;
-  const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
+  // const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
   return (
     <div key={id}
@@ -205,14 +203,14 @@ export function CardsGrid({props, hasSidebar = false}: {
           <div className={"row"}>
             <div className="col-12 pb-3">
               {title && (
-                <SectionTitleTag
+                <h2
                   id={`section${id}`}
                   className={cn(
-                    "mb-0 fs-2 lh-sm",
+                    "mb-0 lh-sm",
                     alignment === "center" ? "text-center" : "text-start"
                   )}>
                   {title}
-                </SectionTitleTag>
+                </h2>
               )}
               {description && (
                 <p

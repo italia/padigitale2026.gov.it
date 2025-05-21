@@ -41,7 +41,7 @@ export function CardAttachment({
 
   return (
     <article
-      className={"it-card pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3 pt-3 rounded shadow"}>
+      className={"it-card--attachment it-card pb-0 flex-grow-1 bg-white rounded border border-neutral-1-bg-a3 pt-3 rounded shadow"}>
       {title && (
         <TitleTag
           className={"it-card-title fw-semibold pb-3 lh-sm d-flex justify-content-between fs-4"}>
@@ -57,7 +57,7 @@ export function CardAttachment({
             <span
               className={cn(
                 "decoration-1",
-                "color-primary"
+                "text-primary"
               )}>
                   {title}
                 </span>

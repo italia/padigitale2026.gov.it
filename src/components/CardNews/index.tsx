@@ -27,7 +27,7 @@ export function CardNews({
 
   return (
     <article
-      className={cn("it-card pb-0 flex-grow-1", {
+      className={cn("it-card--news it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
         "bg-transparent border-bottom border-neutral-1-bg-a3":

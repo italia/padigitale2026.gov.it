@@ -47,7 +47,7 @@ export function CardGeneric({
 
   return (
     <article
-      className={cn("it-card pb-0 flex-grow-1", {
+      className={cn("it-card--generic it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
         "bg-transparent border-bottom border-neutral-1-bg-a3":
@@ -76,13 +76,7 @@ export function CardGeneric({
             </Link>
           )}
           {(!href && !cmsPage?.slug) && (
-            <span
-              className={cn(
-                "decoration-1",
-                "color-primary"
-              )}>
-                  {title}
-                </span>
+            <span>{title}</span>
           )}
         </TitleTag>
       )}
