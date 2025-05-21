@@ -18,7 +18,7 @@ const ERROR_RESPONSE = Response.json({
     "message": "invalid JSON payload"
 }, {
     status: 401
-})
+});
 
 export async function POST(request: Request) {
     try {
@@ -26,23 +26,23 @@ export async function POST(request: Request) {
         const slug = data['item']['attributes']['slug'];
 
         if (!slug) {
-            return ERROR_RESPONSE
+            return ERROR_RESPONSE;
         }
 
         return Response.json({
             "previewLinks": [
                 {
                     "label": "Preview 1",
-                    "url": `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}&secret=${process.env.DRAFT_SECRET}`
+                    "url": `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}`
                 },
                 {
                     "label": "Preview 2",
-                    "url": `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}&secret=${process.env.DRAFT_SECRET}`
+                    "url": `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}`
                 }
             ]
         }, withCORS());
     }
     catch {
-        return ERROR_RESPONSE
+        return ERROR_RESPONSE;
     }
 };
