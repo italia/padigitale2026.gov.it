@@ -75,7 +75,7 @@ export function CardAnnouncement(
             <span
               className={cn(
                 "decoration-1",
-                "color-primary"
+                "text-primary"
               )}>
                   {titolo}
                 </span>
@@ -87,14 +87,14 @@ export function CardAnnouncement(
         <dl className={cn(
           "it-card-description-list border-0",
           {
-            "flex-md-row flex-md-wrap gap-md-0 pb-0": layout === CardAnnouncementLayout.large
+            "flex-md-row flex-md-wrap gap-md-0 pb-0": ['large_with_border_top', 'large'].includes(layout)
           }
         )}>
           {stato && (
             <div className={cn(
               "d-block",
               {
-                "col-md-4 pe-md-2 pb-md-3": layout === CardAnnouncementLayout.large
+                "col-md-4 pe-md-2 pb-md-3": ['large_with_border_top', 'large'].includes(layout)
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Stato avviso</dt>
@@ -111,7 +111,7 @@ export function CardAnnouncement(
             <div className={cn(
               "d-block",
               {
-                "col-md-4 pe-md-2 pb-md-3": layout === CardAnnouncementLayout.large
+                "col-md-4 pe-md-2 pb-md-3": ['large_with_border_top', 'large'].includes(layout)
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Ente promotore</dt>
@@ -122,7 +122,7 @@ export function CardAnnouncement(
             <div className={cn(
               "d-block",
               {
-                "col-md-4 pe-md-2 pb-md-3": layout === CardAnnouncementLayout.large
+                "col-md-4 pe-md-2 pb-md-3": ['large_with_border_top', 'large'].includes(layout)
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Beneficiari</dt>
@@ -133,7 +133,7 @@ export function CardAnnouncement(
             <div className={cn(
               "d-block",
               {
-                "col-md-4 pe-md-2 pb-md-3": layout === CardAnnouncementLayout.large
+                "col-md-4 pe-md-2 pb-md-3": ['large_with_border_top', 'large'].includes(layout)
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Pubblicazione</dt>
@@ -155,7 +155,7 @@ export function CardAnnouncement(
             <div className={cn(
               "d-block",
               {
-                "col-md-4 pe-md-2 pb-md-3": layout === CardAnnouncementLayout.large
+                "col-md-4 pe-md-2 pb-md-3": ['large_with_border_top', 'large'].includes(layout)
               }
             )}>
               <dt className={"d-block text-uppercase small fw-semibold text-secondary"}>Scadenza</dt>

@@ -57,7 +57,7 @@ export function CardAttachment({
             <span
               className={cn(
                 "decoration-1",
-                "color-primary"
+                "text-primary"
               )}>
                   {title}
                 </span>
