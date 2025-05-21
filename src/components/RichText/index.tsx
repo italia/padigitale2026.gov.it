@@ -83,7 +83,11 @@ export function RichText({
         const isExternal =
           node.url.startsWith("http://") || node.url.startsWith("https://");
         return (
-          <Link href={node.url} className={isExternal ? "external-link" : ""}>
+          <Link
+            key={JSON.stringify(node.url)}
+            href={node.url}
+            className={isExternal ? "external-link" : ""}
+          >
             {children}
             {isExternal && (
               <Icon
@@ -108,10 +112,13 @@ export function RichText({
 
     switch (record.__typename) {
       case "ImagesGridRecord":
-        return <ImagesGrid props={record as ImagesGridRecord} />;
+        return (
+          <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
+        );
       case "LinkRecord":
         return (
           <Link
+            key={record.id}
             className="fw-bold"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
@@ -131,6 +138,7 @@ export function RichText({
       case "ButtonRecord":
         return (
           <Link
+            key={record.id}
             className="btn btn-sm btn-outline-primary btn-mini"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
@@ -150,6 +158,7 @@ export function RichText({
       case "CardsGridGenericRecord":
         return (
           <CardsGrid
+            key={record.id}
             hasSidebar={true}
             props={record as CardsGridGenericRecord}
           />
@@ -157,6 +166,7 @@ export function RichText({
       case "CardsGridAttachmentRecord":
         return (
           <CardsGrid
+            key={record.id}
             hasSidebar={true}
             props={record as CardsGridAttachmentRecord}
           />
@@ -164,6 +174,7 @@ export function RichText({
       case "CardsGridServiceRecord":
         return (
           <CardsGrid
+            key={record.id}
             hasSidebar={true}
             props={record as CardsGridServiceRecord}
           />
@@ -171,23 +182,29 @@ export function RichText({
       case "CardsGridResourceRecord":
         return (
           <CardsGrid
+            key={record.id}
             hasSidebar={true}
             props={record as CardsGridResourceRecord}
           />
         );
       case "CardsGridNewsRecord":
         return (
-          <CardsGrid hasSidebar={true} props={record as CardsGridNewsRecord} />
+          <CardsGrid
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridNewsRecord}
+          />
         );
       case "CardsGridImageRecord":
         return (
           <CardsGridImages
+            key={record.id}
             hasSidebar={true}
             props={record as CardsGridImagesFragmentFragment}
           />
         );
       case "TableListRecord":
-        return <TableList props={record as TableListRecord} />;
+        return <TableList key={record.id} props={record as TableListRecord} />;
       default:
         return null;
     }
@@ -205,6 +222,7 @@ export function RichText({
         <div className={"col-12"}>
           {content && (
             <StructuredText
+              key={JSON.stringify(content)}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               data={content as any}
               renderBlock={renderBlock}

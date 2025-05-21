@@ -15,14 +15,15 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
   return (
     <div className="container-xxl">
       <div className={cn("row pt-4")}>
-        {questionsRef.map((item, idx: number) => (
-          <div className={"col-12"} key={idx}>
+        {questionsRef.map((item, index) => (
+          <div className={"col-12"} key={`faq-item-${item.id || index}`}>
             <div className="row border-bottom m-0 p-0 py-2 w-100">
               <div className="col ps-0">
                 <Link
                   className="d-flex justify-content-between align-items-center text-decoration-none"
                   href={`/faq/${item.slug}`}
                   title={item.title || ""}
+                  key={`faq-link-${item.id || index}`}
                 >
                   <div>
                     <div

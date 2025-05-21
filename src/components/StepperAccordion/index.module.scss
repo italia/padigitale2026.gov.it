@@ -1,10 +1,10 @@
 @use "../../styles/index" as *;
 
-@import 'bootstrap-italia/src/scss/base/functions';
+@import "bootstrap-italia/src/scss/base/functions";
 @import "bootstrap-italia/src/scss/base/variables";
-@import 'bootstrap-italia/src/scss/base/mixins';
-@import 'bootstrap-italia/src/scss/base/maps';
-@import 'bootstrap-italia/src/scss/base/utilities';
+@import "bootstrap-italia/src/scss/base/mixins";
+@import "bootstrap-italia/src/scss/base/maps";
+@import "bootstrap-italia/src/scss/base/utilities";
 
 .accordion-all-hide {
   position: relative;
@@ -29,10 +29,9 @@
 }
 
 .num-accordion {
-
   :global(.accordion-item) {
     position: relative;
-    overflow: hidden;
+    overflow: clip;
     margin-bottom: 8px;
   }
 
@@ -43,24 +42,24 @@
       min-height: 48px;
       display: flex;
       flex-flow: row nowrap;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: stretch;
       background-color: var(--bs-primary);
       color: var(--bs-white);
       @include font-size($h3-font-size);
       cursor: default;
-      &:after{
+      &:after {
         content: none;
       }
     }
 
     :global(.accordion-button.status-closed),
-    :global(.accordion-button.status-not-published){
+    :global(.accordion-button.status-not-published) {
       background-color: #{$neutral-1-a2};
       color: #{$neutral-1-a8};
     }
 
-    &:before{
+    &:before {
       content: "";
       position: absolute;
       left: 27px;
@@ -112,4 +111,3 @@
     padding: 16px 24px 42px 70px;
   }
 }
-
