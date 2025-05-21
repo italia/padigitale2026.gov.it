@@ -524,13 +524,14 @@ fragment StepperFragment on StepperRecord {
 
 fragment TableListFaqFragment on TableListFaqRecord {
   __typename
+  id
   questionsRef {
-    title
     slug
-    category {
+    title
+    badge {
       label
     }
-    badge {
+    category {
       label
     }
   }

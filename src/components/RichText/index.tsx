@@ -14,14 +14,14 @@ import {
   CardsGridNewsRecord,
   CardsGridImagesFragmentFragment,
   TableListRecord,
-  // TableListFaqRecord,
+  TableListFaqRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { CardsGrid } from "@/src/components/CardsGrid";
 import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { TableList } from "../TableList";
-// import { TableListFaq } from "../TableListFaq";
+import { TableListFaq } from "../TableListFaq";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -207,10 +207,10 @@ export function RichText({
         );
       case "TableListRecord":
         return <TableList key={record.id} props={record as TableListRecord} />;
-      // case "TableListFaqRecord":
-      //   return (
-      //     <TableListFaq key={record.id} props={record as TableListFaqRecord} />
-      //   );
+      case "TableListFaqRecord":
+        return (
+          <TableListFaq key={record.id} props={record as TableListFaqRecord} />
+        );
       default:
         return null;
     }
