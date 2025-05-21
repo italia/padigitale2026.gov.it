@@ -27,15 +27,18 @@ const options = {
 };
 
 export async function getAllPages(includeDrafts: boolean = false) {
-  options.includeDrafts = includeDrafts;
-  return executeQueryWithAutoPagination(AllPagesDocument, options);
+  return executeQueryWithAutoPagination(AllPagesDocument, {
+    ...options,
+    includeDrafts: includeDrafts,
+    referer: `fn_name:getAllPages|includeDrafts:${includeDrafts}`,
+  });
 }
 
 export async function page(slug: string, includeDrafts: boolean = false) {
   return executeQuery(PageDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:page|slug:${slug}|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:page|slug:${slug}|includeDrafts:${includeDrafts}`,
     variables: {
       slug: slug,
       index: "2",
@@ -47,7 +50,7 @@ export async function getAllFaqs(includeDrafts: boolean = false) {
   return executeQueryWithAutoPagination(AllFaqsDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:getAllFaqs|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:getAllFaqs|includeDrafts:${includeDrafts}`,
   });
 }
 
@@ -55,7 +58,7 @@ export async function getAllNews(includeDrafts: boolean = false) {
   return executeQueryWithAutoPagination(AllNewsDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:getAllNews|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:getAllNews|includeDrafts:${includeDrafts}`,
   });
 }
 
@@ -63,7 +66,7 @@ export async function getAllResources(includeDrafts: boolean = false) {
   return executeQueryWithAutoPagination(AllResourcesDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:getAllResources|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:getAllResources|includeDrafts:${includeDrafts}`,
   });
 }
 
@@ -71,7 +74,7 @@ export async function getFooter(includeDrafts: boolean = false) {
   return executeQuery(FooterDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:getFooter|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:getFooter|includeDrafts:${includeDrafts}`,
   });
 }
 
@@ -79,7 +82,7 @@ export async function getHeader(includeDrafts: boolean = false) {
   return executeQuery(HeaderDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:getHeader|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:getHeader|includeDrafts:${includeDrafts}`,
   });
 }
 
@@ -87,6 +90,6 @@ export async function getSitemapPages(includeDrafts: boolean = false) {
   return executeQueryWithAutoPagination(SitemapPagesDocument, {
     ...options,
     includeDrafts: includeDrafts,
-    referer: `function:getSitemapPages|includeDrafts:${includeDrafts}`,
+    referer: `fn_name:getSitemapPages|includeDrafts:${includeDrafts}`,
   });
 }
