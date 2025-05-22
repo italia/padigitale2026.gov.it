@@ -1,11 +1,9 @@
-"use client";
-
 import { ResourceRecord } from "@/graphql/generated";
 import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
-import {CardBadge} from "@/src/components/CardBadge";
+import { CardBadge } from "@/src/components/CardBadge";
 
 const cn = classNames.bind(styles);
 

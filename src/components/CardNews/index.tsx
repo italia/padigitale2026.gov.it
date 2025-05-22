@@ -1,10 +1,8 @@
-"use client";
-
-import {NewsRecord} from "@/graphql/generated";
+import { NewsRecord } from "@/graphql/generated";
 import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import {ElementType} from "react";
+import { ElementType } from "react";
 
 const cn = classNames.bind(styles);
 
@@ -15,15 +13,15 @@ export enum newsCardLayoutEnum {
 }
 
 export function CardNews({
-                           props,
-                           cardLayout = newsCardLayoutEnum.borderBottom,
-                           TitleTag = "div",
-                         }: {
+  props,
+  cardLayout = newsCardLayoutEnum.borderBottom,
+  TitleTag = "div",
+}: {
   props: NewsRecord;
   cardLayout?: newsCardLayoutEnum;
   TitleTag?: ElementType;
 }) {
-  const {title, summary, category, data, slug} = props;
+  const { title, summary, category, data, slug } = props;
 
   return (
     <article
@@ -41,10 +39,13 @@ export function CardNews({
               cardLayout && ["borderBottom", "clean"].includes(cardLayout),
             "fs-4": cardLayout && cardLayout === "bordered",
             "px-0": cardLayout && cardLayout === "borderBottom",
-          })}>
-          <Link href={`/${slug}`}
-                className={cn("decoration-1")}
-                target={"_self"}>
+          })}
+        >
+          <Link
+            href={`/${slug}`}
+            className={cn("decoration-1")}
+            target={"_self"}
+          >
             {title}
           </Link>
         </TitleTag>
@@ -52,21 +53,20 @@ export function CardNews({
       <div
         className={cn("it-card-body d-flex flex-column pt-0 pb-0", {
           "px-0": cardLayout && cardLayout === "borderBottom",
-        })}>
+        })}
+      >
         {summary && (
           <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{summary}</p>
         )}
         {(category || data) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
-            {(category) && (
+            {category && (
               <div className={"it-card-taxonomy"}>
                 <span className="visually-hidden">Categoria correlata: </span>
                 <span className={"it-card-category"}>{category}</span>
               </div>
             )}
-            {(data) && (
-              <time className={"it-card-date"}>{data}</time>
-            )}
+            {data && <time className={"it-card-date"}>{data}</time>}
           </footer>
         )}
       </div>

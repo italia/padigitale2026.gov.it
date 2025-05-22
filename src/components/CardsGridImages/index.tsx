@@ -1,5 +1,3 @@
-"use client";
-
 import {
   CardImageFragmentFragment,
   CardsGridImagesFragmentFragment,
@@ -17,16 +15,18 @@ import {
   Row,
   Icon,
   GridItemTextWrapper,
-  GridItemText
+  GridItemText,
 } from "design-react-kit";
 
 const cn = classNames.bind(styles);
 
-export function CardsGridImages({props, hasSidebar = false}: {
+export function CardsGridImages({
+  props,
+  hasSidebar = false,
+}: {
   props: CardsGridImagesFragmentFragment;
   hasSidebar?: boolean;
 }) {
-
   const {
     // __typename,
     id,
@@ -38,31 +38,29 @@ export function CardsGridImages({props, hasSidebar = false}: {
     // layout,
     backgroundColor,
     button,
-    imageBlocks
+    imageBlocks,
   } = props;
 
-
   return (
-    <div key={id}
-         aria-labelledby={`section${id}`}
-         className={cn(
-      `${backgroundColor}`,
-      {
+    <div
+      key={id}
+      aria-labelledby={`section${id}`}
+      className={cn(`${backgroundColor}`, {
         "wrapper py-5": !hasSidebar,
         "row pt-3": hasSidebar,
-      }
-    )}>
-      <div className={cn(
-        {
+      })}
+    >
+      <div
+        className={cn({
           "section-content": !hasSidebar,
           "col-12": hasSidebar,
-        }
-      )}>
-        <div className={cn(
-          {
+        })}
+      >
+        <div
+          className={cn({
             "container-xxl": !hasSidebar,
-          }
-        )}>
+          })}
+        >
           <div className={"row"}>
             <div className="col-12 pb-3">
               {title && (
@@ -71,7 +69,8 @@ export function CardsGridImages({props, hasSidebar = false}: {
                   className={cn(
                     "mb-0 lh-sm",
                     alignment === "center" ? "text-center" : "text-start"
-                  )}>
+                  )}
+                >
                   {title}
                 </h2>
               )}
@@ -80,7 +79,8 @@ export function CardsGridImages({props, hasSidebar = false}: {
                   className={cn(
                     "font-sans-serif mt-3 mb-0",
                     alignment === "center" ? "text-center" : "text-start"
-                  )}>
+                  )}
+                >
                   {description}
                 </p>
               )}
@@ -93,30 +93,38 @@ export function CardsGridImages({props, hasSidebar = false}: {
                 <GridList>
                   <GridRow>
                     {imageBlocks.map((record, idx) => {
-                      const cardFragment:CardImageFragmentFragment = record as CardImageFragmentFragment;
+                      const cardFragment: CardImageFragmentFragment =
+                        record as CardImageFragmentFragment;
                       return (
-                        <Col
-                          lg={4}
-                          xs={6}
-                          key={idx}
-                        >
+                        <Col lg={4} xs={6} key={idx}>
                           <GridItem>
-                            {((cardFragment?.href || cardFragment?.cmsPage?.slug) && (
-                              <a href={cardFragment?.href || `/${cardFragment?.cmsPage?.slug}`}
+                            {((cardFragment?.href ||
+                              cardFragment?.cmsPage?.slug) && (
+                              <a
+                                href={
+                                  cardFragment?.href ||
+                                  `/${cardFragment?.cmsPage?.slug}`
+                                }
                                 aria-label={"Questa immagine apre un link"}
-                                target={cardFragment?.target || "_self"}>
-                                {(captions && captions === 'show') && (
+                                target={cardFragment?.target || "_self"}
+                              >
+                                {(captions && captions === "show" && (
                                   <ResponsiveImage
-                                    alt={cardFragment.image?.alt || ''}
-                                    src={cardFragment.image?.url16_9 || ''}
-                                    title={cardFragment.image?.title || ''}
+                                    alt={cardFragment.image?.alt || ""}
+                                    src={cardFragment.image?.url16_9 || ""}
+                                    title={cardFragment.image?.title || ""}
                                   >
                                     <GridItemTextWrapper
                                       className="figure-caption"
                                       tag="figcaption"
                                     >
-                                      <GridItemText>{cardFragment?.didascalia || cardFragment?.image?.title || ''}</GridItemText>
-                                      {(cardFragment?.didascalia || cardFragment?.image?.title) && (
+                                      <GridItemText>
+                                        {cardFragment?.didascalia ||
+                                          cardFragment?.image?.title ||
+                                          ""}
+                                      </GridItemText>
+                                      {(cardFragment?.didascalia ||
+                                        cardFragment?.image?.title) && (
                                         <Icon
                                           aria-hidden={true}
                                           icon="it-code-circle"
@@ -125,51 +133,56 @@ export function CardsGridImages({props, hasSidebar = false}: {
                                       )}
                                     </GridItemTextWrapper>
                                   </ResponsiveImage>
-                                ) || (
+                                )) || (
                                   <ResponsiveImage
-                                    alt={cardFragment.image?.alt || ''}
-                                    src={cardFragment.image?.url16_9 || ''}
-                                    title={cardFragment.image?.title || ''}
+                                    alt={cardFragment.image?.alt || ""}
+                                    src={cardFragment.image?.url16_9 || ""}
+                                    title={cardFragment.image?.title || ""}
                                   />
                                 )}
                               </a>
-                            )) || ((captions && captions === 'show') && (
-                              <ResponsiveImage
-                                alt={cardFragment.image?.alt || ''}
-                                src={cardFragment.image?.url16_9 || ''}
-                                title={cardFragment.image?.title || ''}
-                              >
-                                <GridItemTextWrapper
-                                  className="figure-caption"
-                                  tag="figcaption"
+                            )) ||
+                              (captions && captions === "show" && (
+                                <ResponsiveImage
+                                  alt={cardFragment.image?.alt || ""}
+                                  src={cardFragment.image?.url16_9 || ""}
+                                  title={cardFragment.image?.title || ""}
                                 >
-                                  <GridItemText>{cardFragment?.didascalia || cardFragment?.image?.title || ''}</GridItemText>
-                                  {(cardFragment?.didascalia || cardFragment?.image?.title) && (
-                                    <Icon
-                                      aria-hidden={true}
-                                      icon="it-code-circle"
-                                      size="sm"
-                                    />
-                                  )}
-                                </GridItemTextWrapper>
-                              </ResponsiveImage>
-                            )) || (
-                              <ResponsiveImage
-                                alt={cardFragment.image?.alt || ''}
-                                src={cardFragment.image?.url16_9 || ''}
-                                title={cardFragment.image?.title || ''}
-                              />
-                            )}
+                                  <GridItemTextWrapper
+                                    className="figure-caption"
+                                    tag="figcaption"
+                                  >
+                                    <GridItemText>
+                                      {cardFragment?.didascalia ||
+                                        cardFragment?.image?.title ||
+                                        ""}
+                                    </GridItemText>
+                                    {(cardFragment?.didascalia ||
+                                      cardFragment?.image?.title) && (
+                                      <Icon
+                                        aria-hidden={true}
+                                        icon="it-code-circle"
+                                        size="sm"
+                                      />
+                                    )}
+                                  </GridItemTextWrapper>
+                                </ResponsiveImage>
+                              )) || (
+                                <ResponsiveImage
+                                  alt={cardFragment.image?.alt || ""}
+                                  src={cardFragment.image?.url16_9 || ""}
+                                  title={cardFragment.image?.title || ""}
+                                />
+                              )}
                           </GridItem>
                         </Col>
-                      )
+                      );
                     })}
                   </GridRow>
                 </GridList>
               </Col>
             </Row>
           )}
-
 
           {button && (
             <div className={"row h-100"}>
@@ -198,11 +211,7 @@ export function CardsGridImages({props, hasSidebar = false}: {
               </div>
             </div>
           )}
-
-
         </div>
-
-
       </div>
     </div>
   );
