@@ -55,7 +55,6 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        <BootstrapInit />
         <PagesProvider
           pages={pages}
           faqs={faqs}
@@ -66,6 +65,7 @@ export default async function RootLayout({
           <main id={"main"}>{children}</main>
           <Footer props={footerProps} />
         </PagesProvider>
+        <BootstrapInit />
       </body>
     </html>
   );
