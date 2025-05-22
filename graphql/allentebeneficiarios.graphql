@@ -1,0 +1,6 @@
+query AllEnteBeneficiarios {
+  allEnteBeneficiarios {
+    label
+    id
+  }
+}
