@@ -4,18 +4,7 @@ import { usePathname } from "next/navigation";
 import { Breadcrumb } from "design-react-kit";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  getAllPages,
-  getAllFaqs,
-  getAllNews,
-  getAllResources,
-} from "@/lib/datocms";
-import {
-  AllPagesQuery,
-  AllFaqsQuery,
-  AllNewsQuery,
-  AllResourcesQuery,
-} from "@/graphql/generated";
+import { usePages } from "@/src/contexts/PagesContext";
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 
@@ -38,13 +27,10 @@ export function Breadcrumbs({
 }: BreadcrumbsProps) {
   const pathname = usePathname();
   const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([]);
+  const { pages, faqs, news, resources } = usePages();
 
   useEffect(() => {
-    const generateBreadcrumbs = async () => {
-      const pages = (await getAllPages()) as AllPagesQuery;
-      const faqs = (await getAllFaqs()) as AllFaqsQuery;
-      const news = (await getAllNews()) as AllNewsQuery;
-      const resources = (await getAllResources()) as AllResourcesQuery;
+    const generateBreadcrumbs = () => {
       const pathSegments = pathname.split("/").filter(Boolean);
 
       const items: BreadcrumbItem[] = [
@@ -113,7 +99,7 @@ export function Breadcrumbs({
     };
 
     generateBreadcrumbs();
-  }, [pathname]);
+  }, [pathname, pages, faqs, news, resources]);
 
   if (breadcrumbs.length <= 1) return null;
 
