@@ -18,6 +18,7 @@ import {
   TableListFaqRecord,
   CardsGridAnnouncementRecord,
   CardsGridImagesFragmentFragment,
+  LayoutSidebarFilterRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -31,6 +32,7 @@ import { TableList } from "@/src/components/TableList";
 import { RichTextSection } from "@/src/components/RichTextSection";
 import { BackToTop } from "design-react-kit";
 import { TableListFaq } from "./TableListFaq";
+import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
 
 export function ModularContent({ content }: { content: PageQuery }) {
   return (
@@ -83,6 +85,13 @@ export function ModularContent({ content }: { content: PageQuery }) {
           case "LayoutSidebarRecord":
             return (
               <LayoutSidebar key={idx} props={el as LayoutSidebarRecord} />
+            );
+          case "LayoutSidebarFilterRecord":
+            return (
+              <LayoutSidebarFilter
+                key={idx}
+                props={el as LayoutSidebarFilterRecord}
+              />
             );
           case "TableListRecord":
             return <TableList key={idx} props={el as TableListRecord} />;

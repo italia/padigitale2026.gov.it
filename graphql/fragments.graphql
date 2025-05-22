@@ -151,6 +151,30 @@ fragment LayoutSidebarFragment on LayoutSidebarRecord {
   }
 }
 
+fragment LayoutSidebarFilterFragment on LayoutSidebarFilterRecord {
+  __typename
+  sidebar {
+    ...NavScrollFragment
+  }
+  content {
+    ... on RichTextRecord {
+      __typename
+      id
+      alignment
+      anchorId
+      richTextContent: content {
+        value
+        blocks {
+          ...RichTextContentFragment
+        }
+      }
+    }
+    ... on StepperRecord {
+      ...StepperFragment
+    }
+  }
+}
+
 fragment VideoPlayerFragment on VideoPlayerRecord {
   __typename
   id
