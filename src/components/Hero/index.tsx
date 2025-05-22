@@ -1,5 +1,3 @@
-"use client";
-
 import { SRCImage } from "react-datocms";
 import { HeroRecord } from "@/graphql/generated";
 import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";

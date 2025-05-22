@@ -1,5 +1,3 @@
-"use client";
-
 import { SRCImage } from "react-datocms";
 import { SplitBannerRecord } from "@/graphql/generated";
 import { Hero as SplitBannerComponent, Icon } from "design-react-kit";
@@ -63,7 +61,9 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
               <h2 className={"neutral-1-color-a9 mb-3 fs-1 lh-sm"}>{title}</h2>
             )}
             {description && (
-              <p className={"font-sans-serif neutral-1-color-a9"}>{description}</p>
+              <p className={"font-sans-serif neutral-1-color-a9"}>
+                {description}
+              </p>
             )}
 
             {button && (

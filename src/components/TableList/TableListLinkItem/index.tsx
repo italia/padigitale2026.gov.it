@@ -1,5 +1,3 @@
-"use client";
-
 import { TableListLinkItemRecord } from "@/graphql/generated";
 import { Badge, Icon } from "design-react-kit";
 import Link from "next/link";
@@ -78,13 +76,14 @@ export function TableListLinkItem({
           </div>
           <div className="d-flex align-items-center">
             {getBadge(link?.cmsPage?.body) && (
-              <Badge className={cn(
-                "badge text-capitalize px-3 me-2",
-                {
-                  "lightgrey-bg-a3 text-primary": getBadgeLabel(link?.cmsPage?.body) === "nuovo",
-                  "neutral-1-bg-a2 text-dark": getBadgeLabel(link?.cmsPage?.body) === "aggiornato"
-                }
-              )}>
+              <Badge
+                className={cn("badge text-capitalize px-3 me-2", {
+                  "lightgrey-bg-a3 text-primary":
+                    getBadgeLabel(link?.cmsPage?.body) === "nuovo",
+                  "neutral-1-bg-a2 text-dark":
+                    getBadgeLabel(link?.cmsPage?.body) === "aggiornato",
+                })}
+              >
                 {getBadge(link?.cmsPage?.body)}
               </Badge>
             )}

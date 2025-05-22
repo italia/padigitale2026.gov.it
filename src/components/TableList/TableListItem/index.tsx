@@ -1,5 +1,3 @@
-"use client";
-
 import { TableListItemRecord } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import Link from "next/link";

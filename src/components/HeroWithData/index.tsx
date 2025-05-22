@@ -1,5 +1,3 @@
-"use client";
-
 import { DataHeroRecord } from "@/graphql/generated";
 import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";
 import Link from "next/link";
@@ -43,9 +41,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
     badge,
   } = props;
   return (
-    <HeroComponent className={cn(
-      "wrapper"
-    )}>
+    <HeroComponent className={cn("wrapper")}>
       <div className={"container-xxl position-relative"}>
         <div className={"row"}>
           {/* Breadcrumbs */}
@@ -56,11 +52,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
           )}
           {/* Body */}
           <div className={"pb-4 col-12"}>
-            {title && (
-              <HeroTitle className={cn("fs-1")}>
-                {title}
-              </HeroTitle>
-            )}
+            {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
             <div
               className={cn("d-flex flex-wrap my-4 pb-3")}
               style={{ columnGap: "4rem", rowGap: "1rem" }}

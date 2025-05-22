@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { TableListFaqRecord } from "@/graphql/generated";
 import { Badge } from "design-react-kit";

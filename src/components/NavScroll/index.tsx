@@ -1,5 +1,3 @@
-"use client";
-
 import { NavScrollRecord } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 
@@ -87,8 +85,11 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
         {navItems[0]?.children?.[0]?.children?.[0]?.children?.[0]?.value ||
           "Menu"}
       </button>
-      <div className="progress custom-navbar-progressbar"
-      aria-hidden={true} role={"presentation"}>
+      <div
+        className="progress custom-navbar-progressbar"
+        aria-hidden={true}
+        role={"presentation"}
+      >
         <div
           className="progress-bar it-navscroll-progressbar"
           role="progressbar"
