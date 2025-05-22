@@ -4,9 +4,9 @@ import { LayoutSidebarFilterRecord } from "@/graphql/generated";
 import { RichText } from "@/src/components/RichText";
 import { NavScroll } from "@/src/components/NavScroll";
 import { StepperAccordion } from "@/src/components/StepperAccordion";
-import { useEffect, useState } from "react";
-import { Col } from "design-react-kit";
-import { Fragment } from "react";
+import { usePages } from "@/src/contexts/PagesContext";
+import { useEffect, useState, Fragment } from "react";
+import { Col, Select } from "design-react-kit";
 
 export function LayoutSidebarFilter({
   props,
@@ -14,14 +14,46 @@ export function LayoutSidebarFilter({
   props: LayoutSidebarFilterRecord;
 }) {
   const { sidebar, content } = props;
+  const { enteBeneficiarios } = usePages();
   const [isClient, setIsClient] = useState(false);
+  const [value, setValue] = useState<string>("");
+  const handleChange = (selectedOption: string) => setValue(selectedOption);
+
+  const createSlug = (text: string) => {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  };
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    console.log("value", value);
+  }, [value]);
 
   return (
     <div className="container-xxl py-lg-5">
+      <div className="row" style={{ marginTop: "64px", marginBottom: "48px" }}>
+        <div className="col-12 col-lg-4">
+          <Select
+            id="example-reactstrap"
+            label="Beneficiari"
+            onChange={handleChange}
+          >
+            <>
+              <option value="">Scegli beneficiario</option>
+              {enteBeneficiarios.allEnteBeneficiarios.map((ente) => (
+                <option
+                  key={ente.id}
+                  value={ente.label ? createSlug(ente.label) : ""}
+                >
+                  {ente.label}
+                </option>
+              ))}
+            </>
+          </Select>
+        </div>
+      </div>
       <div className="row">
         <div className="col-12 col-lg-4">
           {isClient ? (

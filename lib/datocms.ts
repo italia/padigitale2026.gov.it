@@ -12,6 +12,7 @@ import {
   HeaderDocument,
   AllNewsDocument,
   AllResourcesDocument,
+  AllEnteBeneficiariosDocument,
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -91,5 +92,13 @@ export async function getSitemapPages(includeDrafts: boolean = false) {
     ...options,
     includeDrafts: includeDrafts,
     referer: `fn_name:getSitemapPages|includeDrafts:${includeDrafts}`,
+  });
+}
+
+export async function getAllEnteBeneficiarios(includeDrafts: boolean = false) {
+  return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, {
+    ...options,
+    includeDrafts: includeDrafts,
+    referer: `fn_name:getAllEnteBeneficiarios|includeDrafts:${includeDrafts}`,
   });
 }

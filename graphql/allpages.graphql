@@ -48,6 +48,9 @@ query AllPages {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
       ... on TableListRecord {
         ...TableListFragment
       }

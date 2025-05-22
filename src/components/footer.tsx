@@ -30,7 +30,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
   const linkNewsletter = footerData?.linkNewsletter || null;
 
   return (
-    <footer className="it-footer">
+    <footer className="it-footer mt-auto">
       <div className="it-footer-top">
         <Container>
           <section>
