@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
+import {Icon} from "design-react-kit";
 
 const cn = classNames.bind(styles);
 
@@ -24,6 +25,7 @@ export function CardGeneric({
   const {
     iconBeforeTitle,
     title,
+    iconAfterTitle,
     description,
     label,
     date,
@@ -61,10 +63,7 @@ export function CardGeneric({
     >
       {title && (
         <TitleTag
-          className={cn("it-card-title fw-semibold pb-3 lh-sm", {
-            "fs-3":
-              cardLayout && ["borderBottom", "clean"].includes(cardLayout),
-            "fs-4": cardLayout && cardLayout === "bordered",
+          className={cn("it-card-title fw-semibold pb-3 lh-sm fs-3 d-flex justify-content-between", {
             "px-0": cardLayout && cardLayout === "borderBottom",
           })}
         >
@@ -78,12 +77,23 @@ export function CardGeneric({
             <Link
               href={href || cmsPage?.slug || ""}
               target={targetLink}
-              className={cn("decoration-1")}
+              className={cn("decoration-1", "flex-grow-1")}
             >
               {title}
             </Link>
           )}
-          {!href && !cmsPage?.slug && <span>{title}</span>}
+          {!href && !cmsPage?.slug && (
+            <span className={"flex-grow-1"}>{title}</span>
+          )}
+          {iconAfterTitle && (
+            <span className={cn("icon")} aria-hidden={"true"}>
+              <Icon
+                className="my-0"
+                color="primary"
+                icon={iconAfterTitle}
+              />
+            </span>
+          )}
         </TitleTag>
       )}
       <div
