@@ -8,11 +8,26 @@ import "typeface-titillium-web";
 import "typeface-roboto-mono";
 import "typeface-lora";
 
-import { getFooter, getHeader } from "@/lib/datocms";
-import type { FooterQuery, HeaderQuery } from "@/graphql/generated";
+import {
+  getFooter,
+  getHeader,
+  getAllPages,
+  getAllFaqs,
+  getAllNews,
+  getAllResources,
+} from "@/lib/datocms";
+import type {
+  FooterQuery,
+  HeaderQuery,
+  AllPagesQuery,
+  AllFaqsQuery,
+  AllNewsQuery,
+  AllResourcesQuery,
+} from "@/graphql/generated";
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 import BootstrapInit from "@/src/components/BootstrapInit";
+import { PagesProvider } from "@/src/contexts/PagesContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,6 +41,11 @@ export default async function RootLayout({
 }) {
   const footerProps = (await getFooter()) as FooterQuery;
   const headerProps = (await getHeader()) as HeaderQuery;
+  const pages = (await getAllPages()) as AllPagesQuery;
+  const faqs = (await getAllFaqs()) as AllFaqsQuery;
+  const news = (await getAllNews()) as AllNewsQuery;
+  const resources = (await getAllResources()) as AllResourcesQuery;
+
   return (
     <html lang="it">
       <head>
@@ -36,9 +56,16 @@ export default async function RootLayout({
       </head>
       <body>
         <BootstrapInit />
-        <Header props={headerProps} />
-        <main id={"main"}>{children}</main>
-        <Footer props={footerProps} />
+        <PagesProvider
+          pages={pages}
+          faqs={faqs}
+          news={news}
+          resources={resources}
+        >
+          <Header props={headerProps} />
+          <main id={"main"}>{children}</main>
+          <Footer props={footerProps} />
+        </PagesProvider>
       </body>
     </html>
   );

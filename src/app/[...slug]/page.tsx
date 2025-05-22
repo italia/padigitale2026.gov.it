@@ -12,10 +12,10 @@ import {
 } from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
-import { draftMode } from 'next/headers'
+import { draftMode } from "next/headers";
 
 export const dynamicParams = true;
-export const revalidate = 0;
+export const revalidate = 120;
 
 export async function generateStaticParams() {
   const pages = (await getAllPages()) as AllPagesQuery;

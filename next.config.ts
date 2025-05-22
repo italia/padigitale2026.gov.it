@@ -8,22 +8,21 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   },
   async headers() {
-    const revalidateSeconds = parseInt(process.env.REVALIDATE_SECONDS || "60", 10);
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
             key: "Cache-Control",
-            value: `max-age=0, s-max-age=${revalidateSeconds}, stale-while-revalidate=${revalidateSeconds}`,
+            value: `max-age=0, s-max-age=120, stale-while-revalidate=120`,
           },
           {
             key: "CDN-Cache-Control",
-            value: `max-age=${revalidateSeconds}`,
+            value: `max-age=120`,
           },
           {
             key: "Vercel-CDN-Cache-Control",
-            value: `max-age=${revalidateSeconds}`,
+            value: `max-age=120`,
           },
         ],
       },
