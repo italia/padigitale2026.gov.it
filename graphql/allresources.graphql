@@ -2,6 +2,8 @@
 
 query AllResources {
   allResources(first: 100) {
+    _createdAt
+    _updatedAt
     title
     slug
     customUpdateDate

@@ -48,6 +48,9 @@ query AllFaqs {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
     }
   }
   _allFaqsMeta {

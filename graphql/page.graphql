@@ -2,6 +2,8 @@
 
 query Page($slug: String) {
   page(filter: { slug: { eq: $slug } }) {
+    _createdAt
+    _updatedAt
     title
     slug
     customUpdateDate

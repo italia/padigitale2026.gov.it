@@ -2,6 +2,8 @@
 
 query AllPages {
   allPages(first: 100) {
+    _createdAt
+    _updatedAt
     title
     slug
     customUpdateDate

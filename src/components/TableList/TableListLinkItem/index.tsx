@@ -3,6 +3,7 @@ import { Badge, Icon } from "design-react-kit";
 import Link from "next/link";
 import classNames from "classnames/bind";
 import styles from "@/src/components/CardBadge/index.module.scss";
+import { HTMLAttributeAnchorTarget } from "react";
 const cn = classNames.bind(styles);
 
 export function TableListLinkItem({
@@ -34,21 +35,37 @@ export function TableListLinkItem({
     return "";
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getBadgeLabel = (body: any) => {
-    if (body?.[0]?.__typename === "DataHeroRecord") {
-      if (body[0].badge.label === "Nuovo") {
-        return "nuovo";
-      }
+  const getBadge = (item: TableListLinkItemRecord["link"]) => {
+    if (!item?.cmsPage?._createdAt && !item?.cmsPage?._updatedAt) {
+      return null;
     }
-    return "aggiornato";
-  };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getBadge = (body: any) => {
-    if (body?.[0]?.__typename === "DataHeroRecord") {
-      return body[0].badge.label;
+    const now = new Date();
+    const createdDate = item.cmsPage._createdAt
+      ? new Date(item.cmsPage._createdAt)
+      : null;
+    const updatedDate = item.cmsPage._updatedAt
+      ? new Date(item.cmsPage._updatedAt)
+      : null;
+
+    // if createdDate is < of 60 days return "Nuovo"
+    if (
+      createdDate &&
+      createdDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)
+    ) {
+      return "Nuovo";
     }
+
+    // if updatedDate is < of 60 days return "Aggiornato"
+    if (
+      updatedDate &&
+      createdDate &&
+      updatedDate > createdDate &&
+      updatedDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)
+    ) {
+      return "Aggiornato";
+    }
+
     return null;
   };
 
@@ -59,6 +76,7 @@ export function TableListLinkItem({
           className="d-flex justify-content-between align-items-center text-decoration-none"
           href={getHref(link)}
           title={getTitle(link)}
+          target={link?.target as HTMLAttributeAnchorTarget}
         >
           <div>
             <div
@@ -75,18 +93,21 @@ export function TableListLinkItem({
             )}
           </div>
           <div className="d-flex align-items-center">
-            {getBadge(link?.cmsPage?.body) && (
-              <Badge
-                className={cn("badge text-capitalize px-3 me-2", {
-                  "lightgrey-bg-a3 text-primary":
-                    getBadgeLabel(link?.cmsPage?.body) === "nuovo",
-                  "neutral-1-bg-a2 text-dark":
-                    getBadgeLabel(link?.cmsPage?.body) === "aggiornato",
-                })}
-              >
-                {getBadge(link?.cmsPage?.body)}
-              </Badge>
-            )}
+            {(() => {
+              const badge = getBadge(link);
+              return (
+                badge && (
+                  <Badge
+                    className={cn("badge text-capitalize px-3 me-2", {
+                      "lightgrey-bg-a3 text-primary": badge === "Nuovo",
+                      "neutral-1-bg-a2 text-dark": badge === "Aggiornato",
+                    })}
+                  >
+                    {badge}
+                  </Badge>
+                )
+              );
+            })()}
             <Icon
               className="my-0"
               color="primary"

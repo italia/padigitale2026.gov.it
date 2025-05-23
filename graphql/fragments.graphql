@@ -229,9 +229,6 @@ fragment DataHeroFragment on DataHeroRecord {
     label
     slug
   }
-  badge {
-    label
-  }
   beneficiari {
     label
   }
@@ -298,18 +295,11 @@ fragment TableListLinkItemFragment on TableListLinkItemRecord {
     target
     text
     cmsPage {
+      _createdAt
+      _updatedAt
+      id
       slug
       title
-      id
-      body {
-        __typename
-        ... on DataHeroRecord {
-          id
-          badge {
-            label
-          }
-        }
-      }
     }
   }
 }
@@ -550,12 +540,15 @@ fragment TableListFaqFragment on TableListFaqRecord {
   __typename
   id
   questionsRef {
+    _createdAt
+    _updatedAt
     slug
     title
-    badge {
+    category {
       label
     }
-    category {
+    beneficiari {
+      id
       label
     }
   }

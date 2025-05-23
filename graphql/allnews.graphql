@@ -2,6 +2,8 @@
 
 query AllNews {
   allNews(first: 100) {
+    _createdAt
+    _updatedAt
     title
     slug
     customUpdateDate

@@ -79,16 +79,23 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   </a>
                 </div>
               )}
-              {beneficiari && (
-                <div className={cn("text-secondary fs-6")}>
-                  <div className="fw-normal fs-6">Beneficiari</div>
-                  <p className="fw-semibold fs-6 mb-0">{beneficiari.label}</p>
-                </div>
-              )}
               {badge && (
                 <div className={cn("text-secondary fs-6")}>
                   <div className="fw-normal fs-6">Stato</div>
                   <p className="fw-semibold fs-6 mb-0">{badge.label}</p>
+                </div>
+              )}
+              {beneficiari && (
+                <div className={cn("text-secondary fs-6")}>
+                  <div className="fw-normal fs-6">Beneficiari</div>
+                  <p className="fw-semibold fs-6 mb-0">
+                    {beneficiari.map((ente, idx) => (
+                      <span key={idx}>
+                        {ente.label}
+                        {idx < beneficiari.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </p>
                 </div>
               )}
             </div>
