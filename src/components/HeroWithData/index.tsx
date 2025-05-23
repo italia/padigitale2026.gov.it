@@ -112,7 +112,15 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                     "font-sans-serif text-body-secondary m-0 fw-normal fs-6"
                   }
                 >
-                  {updateDate}
+                  Aggiornato il{" "}
+                  <time dateTime={updateDate}>
+                    {new Intl.DateTimeFormat("it-IT", {
+                      timeZone: "Europe/Rome",
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    }).format(new Date(updateDate))}
+                  </time>
                 </p>
               )}
             </div>
