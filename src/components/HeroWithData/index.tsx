@@ -1,45 +1,44 @@
 import { DataHeroRecord } from "@/graphql/generated";
-import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";
-import Link from "next/link";
+import { Hero as HeroComponent, HeroTitle } from "design-react-kit";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
+import { CopyLinkButton } from "@/src/components/CopyLinkButton";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
-const getButtonHref = (button: DataHeroRecord["button"]) => {
-  // href link > cms page
-  if (button?.href) {
-    return `${button.href}`;
-  }
-  if (button?.cmsPage?.slug) {
-    return `/${button.cmsPage.slug}`;
-  }
-  return "";
-};
+const getBadge = (item: DataHeroRecord) => {
+  const createdAt = item._createdAt;
+  const updatedAt = item._updatedAt;
+  const now = new Date();
+  const createdDate = new Date(createdAt);
+  const updatedDate = new Date(updatedAt);
 
-const getButtonTitle = (button: DataHeroRecord["button"]) => {
-  // href link > cms page
-  if (button?.href) {
-    return button.text || "";
+  // Badge "Nuovo" wins over "Aggiornato" (if both are true)
+
+  // if createdDate is < of 60 days return "Nuovo"
+  if (createdDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)) {
+    return "Nuovo";
   }
-  if (button?.cmsPage?.title) {
-    return `Vai alla pagina ${button.cmsPage.title}`;
+
+  // if updatedDate is < of 60 days return "Aggiornato"
+  if (updatedDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)) {
+    return "Aggiornato";
   }
-  return "";
+
+  return null;
 };
 
 export function HeroWithData({ props }: { props: DataHeroRecord }) {
   const {
     title,
-    button,
     hideBreadcrumbs = false,
     updateDate,
     argomento,
     misura,
     beneficiari,
-    badge,
   } = props;
+
   return (
     <HeroComponent className={cn("wrapper")}>
       <div className={"container-xxl position-relative"}>
@@ -79,10 +78,10 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   </a>
                 </div>
               )}
-              {badge && (
+              {getBadge(props) && (
                 <div className={cn("text-secondary fs-6")}>
                   <div className="fw-normal fs-6">Stato</div>
-                  <p className="fw-semibold fs-6 mb-0">{badge.label}</p>
+                  <p className="fw-semibold fs-6 mb-0">{getBadge(props)}</p>
                 </div>
               )}
               {beneficiari && (
@@ -103,28 +102,10 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
               className={cn("d-flex flex-wrap align-items-center")}
               style={{ columnGap: "4rem", rowGap: "1rem" }}
             >
-              {button && (
-                <div className={cn("it-btn-container")}>
-                  <Link
-                    className="btn btn-sm btn-outline-primary btn-mini"
-                    href={getButtonHref(button)}
-                    target={button.target || "_self"}
-                    title={getButtonTitle(button)}
-                  >
-                    {button.text}
-                    {button.icon && (
-                      <Icon
-                        className="my-0"
-                        color="primary"
-                        icon={button.icon}
-                        size="sm"
-                        title=""
-                        padding
-                      />
-                    )}
-                  </Link>
-                </div>
-              )}
+              <div className={cn("it-btn-container")}>
+                <CopyLinkButton />
+              </div>
+
               {updateDate && updateDate.length > 0 && (
                 <p
                   className={

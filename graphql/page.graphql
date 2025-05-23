@@ -11,9 +11,6 @@ query Page($slug: String) {
       ... on HeroRecord {
         ...HeroFragment
       }
-      ... on DataHeroRecord {
-        ...DataHeroFragment
-      }
       ... on SplitBannerRecord {
         ...SplitBannerFragment
       }

@@ -41,32 +41,36 @@ export default async function Page({
   let page: any;
   let pages: AllPagesQuery | AllFaqsQuery | AllNewsQuery | AllResourcesQuery;
 
+  let pageContentType: "page" | "faq" | "news" | "resource" = "page";
+
   switch (true) {
     case fullSlug.includes("domande-frequenti/"):
       pages = (await getAllFaqs(isEnabled)) as AllFaqsQuery;
       page = pages.allFaqs.find((p) => p.slug === fullSlug);
+      pageContentType = "faq";
       break;
     case fullSlug.includes("notizie/"):
       pages = (await getAllNews(isEnabled)) as AllNewsQuery;
       page = pages.allNews.find((p) => p.slug === fullSlug);
+      pageContentType = "news";
       break;
     case fullSlug.includes("guide-e-risorse/"):
       pages = (await getAllResources(isEnabled)) as AllResourcesQuery;
       page = pages.allResources.find((p) => p.slug === fullSlug);
+      pageContentType = "resource";
       break;
     default:
       pages = (await getAllPages(isEnabled)) as AllPagesQuery;
       page = pages.allPages.find((p) => p.slug === fullSlug);
+      pageContentType = "page";
       break;
   }
 
   if (!page) return notFound();
 
-  // console.log('page', page);
-
   return (
     <>
-      <ModularContent content={{ page }} />
+      <ModularContent content={{ page }} pageContentType={pageContentType} />
       {page.customUpdateDate && (
         <div className="container-xxl">
           <p className="my-4 fs-6 text-secondary">

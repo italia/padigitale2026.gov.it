@@ -9,5 +9,5 @@ export default async function Page() {
   const { isEnabled } = await draftMode(); // get draft content or not
   const content = (await page("homepage", isEnabled)) as PageQuery;
 
-  return <ModularContent content={content} />;
+  return <ModularContent content={content} pageContentType="page" />;
 }

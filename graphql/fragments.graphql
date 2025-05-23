@@ -222,9 +222,6 @@ fragment DataHeroFragment on DataHeroRecord {
   hideBreadcrumbs
   title
   updateDate
-  button {
-    ...ButtonFragment
-  }
   argomento {
     label
     slug

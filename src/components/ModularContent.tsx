@@ -19,6 +19,7 @@ import {
   CardsGridAnnouncementRecord,
   CardsGridImagesFragmentFragment,
   LayoutSidebarFilterRecord,
+  FaqRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -34,10 +35,34 @@ import { BackToTop } from "design-react-kit";
 import { TableListFaq } from "./TableListFaq";
 import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
 
-export function ModularContent({ content }: { content: PageQuery }) {
-  // console.log("content.page", content.page);
+export function ModularContent({
+  content,
+  pageContentType,
+}: {
+  content: PageQuery;
+  pageContentType: "page" | "faq" | "news" | "resource";
+}) {
   return (
     <>
+      {/* 
+        FAQ pages ALWAYS have a HeroWithData as first element in the body 
+        that is populated by the CMS page data automatically 
+      */}
+      {pageContentType === "faq" && (
+        <HeroWithData
+          props={
+            {
+              _createdAt: content.page?._createdAt,
+              _updatedAt: content.page?._updatedAt,
+              title: content.page?.title || "",
+              updateDate: content.page?.customUpdateDate || "",
+              argomento: (content.page as FaqRecord)?.category || null,
+              misura: (content.page as FaqRecord)?.misura || [],
+              beneficiari: (content.page as FaqRecord)?.beneficiari || [],
+            } as DataHeroRecord
+          }
+        />
+      )}
       {content.page?.body.map((el, idx) => {
         switch (el.__typename) {
           case "HeroRecord":
@@ -46,8 +71,6 @@ export function ModularContent({ content }: { content: PageQuery }) {
             return <SplitBanner key={idx} props={el as SplitBannerRecord} />;
           case "BannerRecord":
             return <Banner key={idx} props={el as BannerRecord} />;
-          case "DataHeroRecord":
-            return <HeroWithData key={idx} props={el as DataHeroRecord} />;
           case "RichTextSectionRecord":
             return (
               <RichTextSection

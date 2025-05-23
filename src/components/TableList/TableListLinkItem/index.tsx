@@ -48,6 +48,8 @@ export function TableListLinkItem({
       ? new Date(item.cmsPage._updatedAt)
       : null;
 
+    // Badge "Nuovo" wins over "Aggiornato" (if both are true)
+
     // if createdDate is < of 60 days return "Nuovo"
     if (
       createdDate &&
@@ -59,8 +61,6 @@ export function TableListLinkItem({
     // if updatedDate is < of 60 days return "Aggiornato"
     if (
       updatedDate &&
-      createdDate &&
-      updatedDate > createdDate &&
       updatedDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)
     ) {
       return "Aggiornato";

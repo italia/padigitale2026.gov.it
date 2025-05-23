@@ -17,16 +17,15 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
     const createdDate = new Date(createdAt);
     const updatedDate = new Date(updatedAt);
 
+    // Badge "Nuovo" wins over "Aggiornato" (if both are true)
+
     // if createdDate is < of 60 days return "Nuovo"
     if (createdDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)) {
       return "Nuovo";
     }
 
-    // if updatedDate is < of 60 days and more recent than createdDate return "Aggiornato"
-    if (
-      updatedDate > createdDate &&
-      updatedDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)
-    ) {
+    // if updatedDate is < of 60 days return "Aggiornato"
+    if (updatedDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)) {
       return "Aggiornato";
     }
 

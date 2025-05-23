@@ -14,12 +14,14 @@ query AllFaqs {
     beneficiari {
       label
     }
+    misura {
+      label
+      slug
+      basePath
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment
-      }
-      ... on DataHeroRecord {
-        ...DataHeroFragment
       }
       ... on SplitBannerRecord {
         ...SplitBannerFragment

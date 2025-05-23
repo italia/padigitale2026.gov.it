@@ -11,9 +11,6 @@ query AllResources {
       ... on HeroRecord {
         ...HeroFragment
       }
-      ... on DataHeroRecord {
-        ...DataHeroFragment
-      }
       ... on SplitBannerRecord {
         ...SplitBannerFragment
       }
