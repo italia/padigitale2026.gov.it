@@ -47,13 +47,15 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
         {questionsRef.map((item, idx) => {
           if (!item) return null;
 
+          console.log("item.slug", item.slug);
+
           return (
             <div className={"col-12"} key={`faq-item-${item.id || idx}`}>
               <div className="row border-bottom m-0 p-0 py-2 w-100">
                 <div className="col ps-0">
                   <Link
                     className="d-flex justify-content-between align-items-center text-decoration-none"
-                    href={`${item.slug}`}
+                    href={`/${item.slug}`}
                     title={item.title || ""}
                     key={`faq-link-${item.id || idx}`}
                   >
