@@ -45,7 +45,7 @@ export function CardAttachment({
       {title && (
         <TitleTag
           className={
-            "it-card-title fw-semibold pb-3 lh-sm d-flex justify-content-between fs-4"
+            "it-card-title fw-semibold pb-3 lh-sm d-flex justify-content-between fs-3"
           }
         >
           {(href || cmsAsset?.url) && (
@@ -65,8 +65,6 @@ export function CardAttachment({
               className="my-0"
               color="primary"
               icon="it-clip"
-              title=""
-              padding
             />
           </span>
         </TitleTag>

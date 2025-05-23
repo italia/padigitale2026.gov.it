@@ -339,6 +339,7 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
       date
       label
       iconBeforeTitle
+      iconAfterTitle
       href
       cmsPage {
         title
