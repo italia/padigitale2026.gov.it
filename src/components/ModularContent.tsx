@@ -35,7 +35,7 @@ import { TableListFaq } from "./TableListFaq";
 import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
 
 export function ModularContent({ content }: { content: PageQuery }) {
-  console.log("content.page", content.page);
+  // console.log("content.page", content.page);
   return (
     <>
       {content.page?.body.map((el, idx) => {

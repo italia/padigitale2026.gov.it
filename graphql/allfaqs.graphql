@@ -2,9 +2,18 @@
 
 query AllFaqs {
   allFaqs(first: 100) {
+    _createdAt
+    _updatedAt
     title
     slug
     customUpdateDate
+    category {
+      label
+      slug
+    }
+    beneficiari {
+      label
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment
