@@ -10,7 +10,8 @@ const config: CodegenConfig = {
     {
       "https://graphql.datocms.com/": {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          Referer: "codegen",
         }
       }
     }
