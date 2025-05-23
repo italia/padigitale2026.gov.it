@@ -54,11 +54,11 @@ export function ModularContent({
             {
               _createdAt: content.page?._createdAt,
               _updatedAt: content.page?._updatedAt,
-              title: content.page?.title || "",
-              updateDate: content.page?.customUpdateDate || "",
+              title: content.page?.title || null,
+              updateDate: content.page?.customUpdateDate || null,
               argomento: (content.page as FaqRecord)?.category || null,
-              misura: (content.page as FaqRecord)?.misura || [],
-              beneficiari: (content.page as FaqRecord)?.beneficiari || [],
+              misura: (content.page as FaqRecord)?.misura || null,
+              beneficiari: (content.page as FaqRecord)?.beneficiari || null,
             } as DataHeroRecord
           }
         />
