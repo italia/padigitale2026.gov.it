@@ -14,7 +14,6 @@ export function LayoutSidebarFilter({
 }) {
   const { sidebar, content } = props;
   const { enteBeneficiarios } = usePages();
-  const [isClient, setIsClient] = useState(false);
   const [value, setValue] = useState<string>("");
   const [hasVisibleContent, setHasVisibleContent] = useState(true);
   const handleChange = (selectedOption: string) => setValue(selectedOption);
@@ -32,8 +31,6 @@ export function LayoutSidebarFilter({
   };
 
   useEffect(() => {
-    setIsClient(true);
-
     // Reset visibility state at the start of each filter change
     setHasVisibleContent(false);
 
@@ -128,13 +125,9 @@ export function LayoutSidebarFilter({
       </div>
       <div className="row">
         <div className="col-12 col-lg-4">
-          {isClient ? (
-            <div data-bs-toggle="sticky" data-bs-stackable="true">
-              {sidebar && <NavScroll props={sidebar} />}
-            </div>
-          ) : (
-            <div>{sidebar && <NavScroll props={sidebar} />}</div>
-          )}
+          <div data-bs-toggle="sticky" data-bs-stackable="true">
+            {sidebar && <NavScroll props={sidebar} />}
+          </div>
         </div>
         <div className="col-12 col-lg-8 it-page-sections-container">
           {!hasVisibleContent && value !== "" && (
