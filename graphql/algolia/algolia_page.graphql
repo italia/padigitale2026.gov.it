@@ -1,0 +1,36 @@
+query AlgoliaPage($id: ItemId) {
+  page(filter: { id: { eq: $id } }) {
+    id
+    title
+    slug
+    body {
+      ... on LayoutSidebarRecord {
+        __typename
+        ls_content: content {
+          ... on RichTextRecord {
+            __typename
+            content {
+              value
+            }
+          }
+        }
+      }
+      ... on RichTextSectionRecord {
+        __typename
+        rt_content: content {
+          value
+        }
+      }
+      ... on HeroRecord {
+        __typename
+        title
+        description
+      }
+      ... on BannerRecord {
+        __typename
+        title
+        description
+      }
+    }
+  }
+}

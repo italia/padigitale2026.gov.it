@@ -13,6 +13,8 @@ import {
   AllNewsDocument,
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
+  AlgoliaPageDocument,
+  AlgoliaPageQueryVariables
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -101,4 +103,15 @@ export async function getAllEnteBeneficiarios(includeDrafts: boolean = false) {
     includeDrafts: includeDrafts,
     referer: `fn_name:getAllEnteBeneficiarios|includeDrafts:${includeDrafts}`,
   });
+}
+
+// Funzioni di indicizzazione in Algolia
+
+export async function getAlgoliaPage(id: string) {
+  return executeQuery(AlgoliaPageDocument, {
+    ...options,
+    variables: {
+      id: id
+    } as AlgoliaPageQueryVariables
+  })
 }
