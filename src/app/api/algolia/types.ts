@@ -9,7 +9,6 @@ export type WebhookPayload = {
 }
 
 export type AlgoliaDocument = {
-    id?: string
     title?: string
     content_type?: ContentType
     slug?: string

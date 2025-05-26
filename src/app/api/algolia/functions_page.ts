@@ -14,12 +14,16 @@ import type { AlgoliaResponse } from "./types";
  */
 export async function indexPage(id: string, algoliaClient: Algoliasearch): Promise<AlgoliaResponse> {
     const page = await getAlgoliaPage(id) as AlgoliaPageQuery;
-    let algoiliaDocument: AlgoliaDocument = {};
+    const algoliaDocument: AlgoliaDocument = {
+        title: undefined,
+        slug: undefined,
+        content: undefined,
+        content_type: "page"
+    };
     let content: string = "";
 
-    algoiliaDocument.id = id;
-    algoiliaDocument.title = page.page?.title || "";
-    algoiliaDocument.slug = page.page?.slug || "";
+    algoliaDocument["title"] = page.page?.title || "";
+    algoliaDocument["slug"] = page.page?.slug || "";
 
     page.page?.body.forEach((el) => {
         if (el.__typename == "RichTextSectionRecord") {
@@ -40,12 +44,12 @@ export async function indexPage(id: string, algoliaClient: Algoliasearch): Promi
         }
     })
 
-    algoiliaDocument.content = compressText(content);
+    algoliaDocument["content"] = compressText(content);
 
     const response = await algoliaClient.addOrUpdateObject({
         indexName: process.env.ALGOLIA_INDEX_NAME || "",
-        objectID: algoiliaDocument.id,
-        body: algoiliaDocument
+        objectID: id,
+        body: algoliaDocument
     })
 
     if (response.objectID) {
