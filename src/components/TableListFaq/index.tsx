@@ -55,6 +55,11 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
                 ?.map((b) =>
                   b.label
                     ?.toLowerCase()
+                    .replace(/à/g, "a")
+                    .replace(/è/g, "e")
+                    .replace(/ì/g, "i")
+                    .replace(/ò/g, "o")
+                    .replace(/ù/g, "u")
                     .replace(/[^a-z0-9]+/g, "-")
                     .replace(/(^-|-$)/g, "")
                 )

@@ -22,6 +22,11 @@ export function LayoutSidebarFilter({
   const createSlug = (text: string) => {
     return text
       .toLowerCase()
+      .replace(/à/g, "a")
+      .replace(/è/g, "e")
+      .replace(/ì/g, "i")
+      .replace(/ò/g, "o")
+      .replace(/ù/g, "u")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
   };
@@ -29,12 +34,15 @@ export function LayoutSidebarFilter({
   useEffect(() => {
     setIsClient(true);
 
+    // Reset visibility state at the start of each filter change
+    setHasVisibleContent(false);
+
     // Filter management
     const elements = document.querySelectorAll("[data-beneficiari]");
     let hasVisibleElements = false;
 
     elements.forEach((element) => {
-      if (!value || value === "tutti") {
+      if (!value) {
         // If no value is selected, show all elements
         element.classList.remove("d-none");
         hasVisibleElements = true;
@@ -59,7 +67,7 @@ export function LayoutSidebarFilter({
       );
       const containerId = container.id;
 
-      if (visibleElements.length === 0 && value !== "" && value !== "tutti") {
+      if (visibleElements.length === 0 && value !== "") {
         container.classList.add("d-none");
         // Disable sidebar link pointing to this section
         if (containerId) {
@@ -91,6 +99,9 @@ export function LayoutSidebarFilter({
       }
     });
 
+    // Update visibility state after all DOM manipulations
+    console.log("elements", elements);
+    console.log("hasVisibleElements", hasVisibleElements);
     setHasVisibleContent(hasVisibleElements);
   }, [value]);
 
@@ -128,29 +139,26 @@ export function LayoutSidebarFilter({
           )}
         </div>
         <div className="col-12 col-lg-8 it-page-sections-container">
-          {!hasVisibleContent && value !== "" && value !== "tutti" ? (
+          {!hasVisibleContent && value !== "" && (
             <div className="alert alert-info" role="alert">
               <p className="mb-0">
                 Non ci sono contenuti disponibili per il beneficiario
                 selezionato.
               </p>
             </div>
-          ) : (
-            <>
-              {content.map((item, index) => (
-                <Fragment key={index}>
-                  {item.__typename === "RichTextRecord" && (
-                    <div
-                      className="row it-page-section pb-4"
-                      id={item.anchorId || undefined}
-                    >
-                      <RichText props={item} padding={false} />
-                    </div>
-                  )}
-                </Fragment>
-              ))}
-            </>
           )}
+          {content.map((item, index) => (
+            <Fragment key={index}>
+              {item.__typename === "RichTextRecord" && (
+                <div
+                  className="row it-page-section pb-4"
+                  id={item.anchorId || undefined}
+                >
+                  <RichText props={item} padding={false} />
+                </div>
+              )}
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>
