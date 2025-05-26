@@ -49,7 +49,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
 
           return (
             <div
-              className={"col-12"}
+              className={"col-12 px-0"}
               key={`faq-item-${item.id || idx}`}
               data-beneficiari={item.beneficiari
                 ?.map((b) =>
