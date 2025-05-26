@@ -47,10 +47,19 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
         {questionsRef.map((item, idx) => {
           if (!item) return null;
 
-          console.log("item.slug", item.slug);
-
           return (
-            <div className={"col-12"} key={`faq-item-${item.id || idx}`}>
+            <div
+              className={"col-12"}
+              key={`faq-item-${item.id || idx}`}
+              data-beneficiari={item.beneficiari
+                ?.map((b) =>
+                  b.label
+                    ?.toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/(^-|-$)/g, "")
+                )
+                .join(" ")}
+            >
               <div className="row border-bottom m-0 p-0 py-2 w-100">
                 <div className="col ps-0">
                   <Link

@@ -28,7 +28,23 @@ export function LayoutSidebarFilter({
 
   useEffect(() => {
     setIsClient(true);
-    console.log("value", value);
+
+    // Gestione del filtraggio
+    const elements = document.querySelectorAll("[data-beneficiari]");
+    elements.forEach((element) => {
+      if (!value) {
+        // Se nessun valore è selezionato, mostra tutti gli elementi
+        element.classList.remove("d-none");
+      } else {
+        const beneficiari =
+          element.getAttribute("data-beneficiari")?.split(" ") || [];
+        if (beneficiari.includes(value)) {
+          element.classList.remove("d-none");
+        } else {
+          element.classList.add("d-none");
+        }
+      }
+    });
   }, [value]);
 
   return (
@@ -71,6 +87,7 @@ export function LayoutSidebarFilter({
                 <div
                   className="row it-page-section pb-4"
                   id={item.anchorId || undefined}
+                  // data-beneficiari-wrap={}
                 >
                   <RichText props={item} padding={false} />
                 </div>

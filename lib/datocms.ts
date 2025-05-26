@@ -27,19 +27,25 @@ const options = {
   environment: process.env.DATOCMS_ENVIRONMENT || "main",
 };
 
-export async function getAllPages(includeDrafts: boolean = false) {
+export async function getAllPages() {
   return executeQueryWithAutoPagination(AllPagesDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllPages|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getAllPages`,
+      },
+    },
   });
 }
 
-export async function page(slug: string, includeDrafts: boolean = false) {
+export async function page(slug: string) {
   return executeQuery(PageDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:page|slug:${slug}|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:page|slug:${slug}`,
+      },
+    },
     variables: {
       slug: slug,
       index: "2",
@@ -47,58 +53,79 @@ export async function page(slug: string, includeDrafts: boolean = false) {
   });
 }
 
-export async function getAllFaqs(includeDrafts: boolean = false) {
+export async function getAllFaqs() {
   return executeQueryWithAutoPagination(AllFaqsDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllFaqs|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getAllFaqs`,
+      },
+    },
   });
 }
 
-export async function getAllNews(includeDrafts: boolean = false) {
+export async function getAllNews() {
   return executeQueryWithAutoPagination(AllNewsDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllNews|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getAllNews`,
+      },
+    },
   });
 }
 
-export async function getAllResources(includeDrafts: boolean = false) {
+export async function getAllResources() {
   return executeQueryWithAutoPagination(AllResourcesDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllResources|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getAllResources`,
+      },
+    },
   });
 }
 
-export async function getFooter(includeDrafts: boolean = false) {
+export async function getFooter() {
   return executeQuery(FooterDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getFooter|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getFooter`,
+      },
+    },
   });
 }
 
-export async function getHeader(includeDrafts: boolean = false) {
+export async function getHeader() {
   return executeQuery(HeaderDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getHeader|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getHeader`,
+      },
+    },
   });
 }
 
-export async function getSitemapPages(includeDrafts: boolean = false) {
+export async function getSitemapPages() {
   return executeQueryWithAutoPagination(SitemapPagesDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getSitemapPages|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getSitemapPages`,
+      },
+    },
   });
 }
 
-export async function getAllEnteBeneficiarios(includeDrafts: boolean = false) {
+export async function getAllEnteBeneficiarios() {
   return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, {
     ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllEnteBeneficiarios|includeDrafts:${includeDrafts}`,
+    requestInitOptions: {
+      headers: {
+        "Referer": `fn_name:getAllEnteBeneficiarios`,
+      },
+    },
   });
 }
