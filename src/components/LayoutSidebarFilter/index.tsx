@@ -100,8 +100,6 @@ export function LayoutSidebarFilter({
     });
 
     // Update visibility state after all DOM manipulations
-    console.log("elements", elements);
-    console.log("hasVisibleElements", hasVisibleElements);
     setHasVisibleContent(hasVisibleElements);
   }, [value]);
 
