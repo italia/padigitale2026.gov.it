@@ -21,31 +21,31 @@ if (!process.env.DATOCMS_API_TOKEN) {
   );
 }
 
-const options = {
+const baseOptions = {
   token: process.env.DATOCMS_API_TOKEN,
   includeDrafts: process.env.DATOCMS_INCLUDE_DRAFTS === "true",
   environment: process.env.DATOCMS_ENVIRONMENT || "main",
 };
 
-export async function getAllPages() {
-  return executeQueryWithAutoPagination(AllPagesDocument, {
-    ...options,
+function getOptions(referer: string) {
+  return {
+    ...baseOptions,
     requestInitOptions: {
       headers: {
-        "Referer": `fn_name:getAllPages`,
+        "Authorization": `Bearer ${process.env.DATOCMS_API_TOKEN}`,
+        "Referer": referer,
       },
     },
-  });
+  };
+}
+
+export async function getAllPages() {
+  return executeQueryWithAutoPagination(AllPagesDocument, getOptions(`fn_name:getAllPages`));
 }
 
 export async function page(slug: string) {
   return executeQuery(PageDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:page|slug:${slug}`,
-      },
-    },
+    ...getOptions(`fn_name:page|slug:${slug}`),
     variables: {
       slug: slug,
       index: "2",
@@ -54,78 +54,29 @@ export async function page(slug: string) {
 }
 
 export async function getAllFaqs() {
-  return executeQueryWithAutoPagination(AllFaqsDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getAllFaqs`,
-      },
-    },
-  });
+  return executeQueryWithAutoPagination(AllFaqsDocument, getOptions(`fn_name:getAllFaqs`));
 }
 
 export async function getAllNews() {
-  return executeQueryWithAutoPagination(AllNewsDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getAllNews`,
-      },
-    },
-  });
+  return executeQueryWithAutoPagination(AllNewsDocument, getOptions(`fn_name:getAllNews`));
 }
 
 export async function getAllResources() {
-  return executeQueryWithAutoPagination(AllResourcesDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getAllResources`,
-      },
-    },
-  });
+  return executeQueryWithAutoPagination(AllResourcesDocument, getOptions(`fn_name:getAllResources`));
 }
 
 export async function getFooter() {
-  return executeQuery(FooterDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getFooter`,
-      },
-    },
-  });
+  return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
 }
 
 export async function getHeader() {
-  return executeQuery(HeaderDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getHeader`,
-      },
-    },
-  });
+  return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
 }
 
 export async function getSitemapPages() {
-  return executeQueryWithAutoPagination(SitemapPagesDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getSitemapPages`,
-      },
-    },
-  });
+  return executeQueryWithAutoPagination(SitemapPagesDocument, getOptions(`fn_name:getSitemapPages`));
 }
 
 export async function getAllEnteBeneficiarios() {
-  return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, {
-    ...options,
-    requestInitOptions: {
-      headers: {
-        "Referer": `fn_name:getAllEnteBeneficiarios`,
-      },
-    },
-  });
+  return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, getOptions(`fn_name:getAllEnteBeneficiarios`));
 }
