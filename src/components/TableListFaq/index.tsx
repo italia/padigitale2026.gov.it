@@ -43,7 +43,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
 
   return (
     <div className="container-xxl">
-      <div className={cn("row pt-4")}>
+      <div className={cn("row py-2")}>
         {questionsRef.map((item, idx) => {
           if (!item) return null;
 
