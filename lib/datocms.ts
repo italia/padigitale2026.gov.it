@@ -14,6 +14,8 @@ import {
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
   AllMisurasDocument,
+  AlgoliaPageDocument,
+  AlgoliaPageQueryVariables
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -84,4 +86,14 @@ export async function getAllEnteBeneficiarios() {
 
 export async function getAllMisuras() {
   return executeQueryWithAutoPagination(AllMisurasDocument, getOptions(`fn_name:getAllMisuras`));
+}
+// Funzioni di indicizzazione in Algolia
+
+export async function getAlgoliaPage(id: string) {
+  return executeQuery(AlgoliaPageDocument, {
+    ...getOptions(`fn_name:getAlgoliaPage|id:${id}`),
+    variables: {
+      id: id
+    } as AlgoliaPageQueryVariables
+  })
 }

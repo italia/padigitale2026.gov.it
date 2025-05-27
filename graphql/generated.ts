@@ -5241,6 +5241,13 @@ export type FocalPoint = {
   y: Scalars['FloatType']['output'];
 };
 
+export type AlgoliaPageQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['ItemId']['input']>;
+}>;
+
+
+export type AlgoliaPageQuery = { __typename?: 'Query', page?: { __typename?: 'PageRecord', id: string, title?: string | null, slug?: string | null, body: Array<{ __typename?: 'AccordionsFilterRecord' } | { __typename: 'BannerRecord', title?: string | null, description?: string | null } | { __typename?: 'BloccoGraficoRecord' } | { __typename?: 'CardsGridAnnouncementRecord' } | { __typename?: 'CardsGridAttachmentRecord' } | { __typename?: 'CardsGridGenericRecord' } | { __typename?: 'CardsGridImageRecord' } | { __typename?: 'CardsGridNewsRecord' } | { __typename?: 'CardsGridRecord' } | { __typename?: 'CardsGridResourceRecord' } | { __typename?: 'CardsGridServiceRecord' } | { __typename: 'HeroRecord', title?: string | null, description?: string | null } | { __typename?: 'LatestRecord' } | { __typename?: 'LayoutSidebarFilterRecord' } | { __typename: 'LayoutSidebarRecord', ls_content: Array<{ __typename: 'RichTextRecord', content?: { __typename?: 'RichTextModelContentField', value: unknown } | null } | { __typename?: 'StepperRecord' }> } | { __typename: 'RichTextSectionRecord', rt_content?: { __typename?: 'RichTextSectionModelContentField', value: unknown } | null } | { __typename?: 'SplitBannerRecord' } | { __typename?: 'TableListFaqRecord' } | { __typename?: 'TableListRecord' } | { __typename?: 'TableListUpdateRecord' } | { __typename?: 'VideoPlayerRecord' }> } | null };
+
 export type AllEnteBeneficiariosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
