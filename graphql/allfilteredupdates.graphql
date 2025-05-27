@@ -1,0 +1,30 @@
+#import "./fragments.graphql"
+
+query AllFilteredUpdates ($idBeneficiari: [ItemId]) {
+  allUpdates(
+    first: 6,
+    filter: {
+      beneficiari: {
+        anyIn: $idBeneficiari
+      }
+    }
+  ) {
+    _createdAt
+    _updatedAt
+    title
+    slug
+    data
+    customUpdateDate
+    beneficiari {
+      label
+      id
+    }
+    testo
+    cta {
+      ...ButtonFragment
+    }
+  }
+  _allUpdatesMeta {
+    count
+  }
+}

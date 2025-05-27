@@ -21,6 +21,7 @@ import {
   LayoutSidebarFilterRecord,
   FaqRecord,
   AccordionsFilterRecord,
+  TableListUpdateRecord
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -36,6 +37,7 @@ import { BackToTop } from "design-react-kit";
 import { TableListFaq } from "./TableListFaq";
 import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
 import { AccordionsFilter } from "./AccordionsFilter";
+import {TableListUpdates} from "@/src/components/TableListUpdates";
 
 export function ModularContent({
   content,
@@ -130,6 +132,8 @@ export function ModularContent({
                 props={el as AccordionsFilterRecord}
               />
             );
+                              case "TableListUpdateRecord":
+                              return <TableListUpdates key={idx} props={el as TableListUpdateRecord} />;
           default:
             return null;
         }

@@ -21,6 +21,7 @@ fragment ButtonFragment on ButtonRecord {
   text
   icon
   cmsPage {
+    __typename
     title
     slug
     id
@@ -110,6 +111,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   }
   ... on TableListFaqRecord {
     ...TableListFaqFragment
+  }
+  ... on TableListUpdateRecord {
+    ...TableListUpdateFragment
   }
 }
 
@@ -571,4 +575,21 @@ fragment AccordionsFilterFragment on AccordionsFilterRecord {
       data
     }
   }
+}
+
+
+fragment TableListUpdateFragment on TableListUpdateRecord {
+__typename
+id
+title
+alignment
+showLastItems
+filterByInstitute {
+__typename
+id
+label
+}
+button {
+...ButtonFragment
+}
 }

@@ -50,6 +50,9 @@ query AllResources {
       ... on AccordionsFilterRecord {
         ...AccordionsFilterFragment
       }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
     }
   }
   _allResourcesMeta {

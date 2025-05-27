@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import {createContext, useContext} from "react";
 import {
   AllPagesQuery,
   AllFaqsQuery,
@@ -8,6 +8,7 @@ import {
   AllResourcesQuery,
   AllEnteBeneficiariosQuery,
   AllMisurasQuery,
+  AllUpdatesQuery
 } from "@/graphql/generated";
 
 interface PagesContextType {
@@ -17,6 +18,7 @@ interface PagesContextType {
   resources: AllResourcesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
   misuras: AllMisurasQuery;
+  updates: AllUpdatesQuery;
 }
 
 export const PagesContext = createContext<PagesContextType | null>(null);
@@ -39,6 +41,7 @@ interface PagesProviderProps {
   resources: AllResourcesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
   misuras: AllMisurasQuery;
+  updates: AllUpdatesQuery;
 }
 
 export function PagesProvider({
@@ -49,10 +52,11 @@ export function PagesProvider({
   resources,
   enteBeneficiarios,
   misuras,
+  updates
 }: PagesProviderProps) {
   return (
     <PagesContext.Provider
-      value={{ pages, faqs, news, resources, enteBeneficiarios, misuras }}
+      value={{ pages, faqs, news, resources, enteBeneficiarios, misuras, updates }}
     >
       {children}
     </PagesContext.Provider>

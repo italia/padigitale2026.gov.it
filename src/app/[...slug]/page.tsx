@@ -66,6 +66,8 @@ export default async function Page({
 
   if (!page) return notFound();
 
+  // console.log(page, 'page')
+
   return (
     <>
       <ModularContent content={{ page }} pageContentType={pageContentType} />

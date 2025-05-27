@@ -128,3 +128,10 @@ $utilities: (
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
+
+.skiplinks a.visually-hidden-focusable > span {
+  border-color: #000 !important;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #000 !important;
+  outline: 3px solid rgba(0, 0, 0, 0) !important;
+  outline-offset: 3px !important;
+}

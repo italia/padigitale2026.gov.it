@@ -1,0 +1,25 @@
+#import "./fragments.graphql"
+
+query AllUpdates {
+  allUpdates(first: 200) {
+    id
+    __typename
+    _createdAt
+    _updatedAt
+    title
+    slug
+    data
+    customUpdateDate
+    beneficiari {
+      label
+      id
+    }
+    testo
+    cta {
+      ...ButtonFragment
+    }
+  }
+  _allUpdatesMeta {
+    count
+  }
+}
