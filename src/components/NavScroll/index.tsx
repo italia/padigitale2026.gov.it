@@ -71,6 +71,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
     <nav
       className="navbar it-navscroll-wrapper navbar-expand-lg it-bottom-navscroll it-right-side"
       data-bs-navscroll
+      role="navigation"
+      aria-label="Navigazione contenuti"
     >
       <button
         className="custom-navbar-toggler"
@@ -96,6 +98,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
           aria-valuenow={0}
           aria-valuemin={0}
           aria-valuemax={100}
+          style={{ width: "0%" }}
         ></div>
       </div>
       <div className="navbar-collapsable" id="navbarNav">
@@ -120,6 +123,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
                 aria-valuenow={0}
                 aria-valuemin={0}
                 aria-valuemax={100}
+                style={{ width: "0%" }}
               ></div>
             </div>
             <div role={"navigation"} aria-label={"Navigazione contenuti"}>

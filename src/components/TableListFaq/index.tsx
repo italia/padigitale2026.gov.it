@@ -43,14 +43,28 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
 
   return (
     <div className="container-xxl">
-      <div className={cn("row pt-4")}>
+      <div className={cn("row py-2")}>
         {questionsRef.map((item, idx) => {
           if (!item) return null;
 
-          console.log("item.slug", item.slug);
-
           return (
-            <div className={"col-12"} key={`faq-item-${item.id || idx}`}>
+            <div
+              className={"col-12 px-0"}
+              key={`faq-item-${item.id || idx}`}
+              data-beneficiari={item.beneficiari
+                ?.map((b) =>
+                  b.label
+                    ?.toLowerCase()
+                    .replace(/à/g, "a")
+                    .replace(/è/g, "e")
+                    .replace(/ì/g, "i")
+                    .replace(/ò/g, "o")
+                    .replace(/ù/g, "u")
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/(^-|-$)/g, "")
+                )
+                .join(" ")}
+            >
               <div className="row border-bottom m-0 p-0 py-2 w-100">
                 <div className="col ps-0">
                   <Link

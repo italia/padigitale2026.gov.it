@@ -430,11 +430,12 @@ fragment CardsGridResourceFragment on CardsGridResourceRecord {
   }
   resources {
     __typename
+    _createdAt
+    _updatedAt
     id
     slug
     title
     summary
-    badge
     data
   }
 }
@@ -548,6 +549,19 @@ fragment TableListFaqFragment on TableListFaqRecord {
     beneficiari {
       id
       label
+    }
+  }
+}
+
+fragment AccordionsFilterFragment on AccordionsFilterRecord {
+  __typename
+  id
+  items {
+    __typename
+    id
+    title
+    cards {
+      ...CardsGridResourceFragment
     }
   }
 }

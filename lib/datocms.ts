@@ -13,6 +13,7 @@ import {
   AllNewsDocument,
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
+  AllMisurasDocument,
   AlgoliaPageDocument,
   AlgoliaPageQueryVariables
 } from "@/graphql/generated";
@@ -23,25 +24,31 @@ if (!process.env.DATOCMS_API_TOKEN) {
   );
 }
 
-const options = {
+const baseOptions = {
   token: process.env.DATOCMS_API_TOKEN,
   includeDrafts: process.env.DATOCMS_INCLUDE_DRAFTS === "true",
   environment: process.env.DATOCMS_ENVIRONMENT || "main",
 };
 
-export async function getAllPages(includeDrafts: boolean = false) {
-  return executeQueryWithAutoPagination(AllPagesDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllPages|includeDrafts:${includeDrafts}`,
-  });
+function getOptions(referer: string) {
+  return {
+    ...baseOptions,
+    requestInitOptions: {
+      headers: {
+        "Authorization": `Bearer ${process.env.DATOCMS_API_TOKEN}`,
+        "Referer": referer,
+      },
+    },
+  };
 }
 
-export async function page(slug: string, includeDrafts: boolean = false) {
+export async function getAllPages() {
+  return executeQueryWithAutoPagination(AllPagesDocument, getOptions(`fn_name:getAllPages`));
+}
+
+export async function page(slug: string) {
   return executeQuery(PageDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:page|slug:${slug}|includeDrafts:${includeDrafts}`,
+    ...getOptions(`fn_name:page|slug:${slug}`),
     variables: {
       slug: slug,
       index: "2",
@@ -49,67 +56,42 @@ export async function page(slug: string, includeDrafts: boolean = false) {
   });
 }
 
-export async function getAllFaqs(includeDrafts: boolean = false) {
-  return executeQueryWithAutoPagination(AllFaqsDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllFaqs|includeDrafts:${includeDrafts}`,
-  });
+export async function getAllFaqs() {
+  return executeQueryWithAutoPagination(AllFaqsDocument, getOptions(`fn_name:getAllFaqs`));
 }
 
-export async function getAllNews(includeDrafts: boolean = false) {
-  return executeQueryWithAutoPagination(AllNewsDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllNews|includeDrafts:${includeDrafts}`,
-  });
+export async function getAllNews() {
+  return executeQueryWithAutoPagination(AllNewsDocument, getOptions(`fn_name:getAllNews`));
 }
 
-export async function getAllResources(includeDrafts: boolean = false) {
-  return executeQueryWithAutoPagination(AllResourcesDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllResources|includeDrafts:${includeDrafts}`,
-  });
+export async function getAllResources() {
+  return executeQueryWithAutoPagination(AllResourcesDocument, getOptions(`fn_name:getAllResources`));
 }
 
-export async function getFooter(includeDrafts: boolean = false) {
-  return executeQuery(FooterDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getFooter|includeDrafts:${includeDrafts}`,
-  });
+export async function getFooter() {
+  return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
 }
 
-export async function getHeader(includeDrafts: boolean = false) {
-  return executeQuery(HeaderDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getHeader|includeDrafts:${includeDrafts}`,
-  });
+export async function getHeader() {
+  return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
 }
 
-export async function getSitemapPages(includeDrafts: boolean = false) {
-  return executeQueryWithAutoPagination(SitemapPagesDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getSitemapPages|includeDrafts:${includeDrafts}`,
-  });
+export async function getSitemapPages() {
+  return executeQueryWithAutoPagination(SitemapPagesDocument, getOptions(`fn_name:getSitemapPages`));
 }
 
-export async function getAllEnteBeneficiarios(includeDrafts: boolean = false) {
-  return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, {
-    ...options,
-    includeDrafts: includeDrafts,
-    referer: `fn_name:getAllEnteBeneficiarios|includeDrafts:${includeDrafts}`,
-  });
+export async function getAllEnteBeneficiarios() {
+  return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, getOptions(`fn_name:getAllEnteBeneficiarios`));
 }
 
+export async function getAllMisuras() {
+  return executeQueryWithAutoPagination(AllMisurasDocument, getOptions(`fn_name:getAllMisuras`));
+}
 // Funzioni di indicizzazione in Algolia
 
 export async function getAlgoliaPage(id: string) {
   return executeQuery(AlgoliaPageDocument, {
-    ...options,
+    ...getOptions(`fn_name:getAlgoliaPage|id:${id}`),
     variables: {
       id: id
     } as AlgoliaPageQueryVariables
