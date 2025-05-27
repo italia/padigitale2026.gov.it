@@ -430,6 +430,8 @@ fragment CardsGridResourceFragment on CardsGridResourceRecord {
   }
   resources {
     __typename
+    _createdAt
+    _updatedAt
     id
     slug
     title
@@ -547,6 +549,28 @@ fragment TableListFaqFragment on TableListFaqRecord {
     beneficiari {
       id
       label
+    }
+  }
+}
+
+fragment AccordionsFilterFragment on AccordionsFilterRecord {
+  __typename
+  id
+  title
+  items {
+    ... on AccordionMisuraRecord {
+      ...AccordionMisuraFragment
+    }
+  }
+}
+
+fragment AccordionMisuraFragment on AccordionMisuraRecord {
+  __typename
+  id
+  title
+  cards {
+    ... on CardsGridResourceRecord {
+      ...CardsGridResourceFragment
     }
   }
 }

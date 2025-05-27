@@ -16,6 +16,7 @@ import {
   getAllNews,
   getAllResources,
   getAllEnteBeneficiarios,
+  getAllMisuras,
 } from "@/lib/datocms";
 import type {
   FooterQuery,
@@ -25,6 +26,7 @@ import type {
   AllNewsQuery,
   AllResourcesQuery,
   AllEnteBeneficiariosQuery,
+  AllMisurasQuery,
 } from "@/graphql/generated";
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
@@ -49,6 +51,7 @@ export default async function RootLayout({
   const resources = (await getAllResources()) as AllResourcesQuery;
   const enteBeneficiarios =
     (await getAllEnteBeneficiarios()) as AllEnteBeneficiariosQuery;
+  const misuras = (await getAllMisuras()) as AllMisurasQuery;
 
   return (
     <html lang="it">
@@ -65,6 +68,7 @@ export default async function RootLayout({
           news={news}
           resources={resources}
           enteBeneficiarios={enteBeneficiarios}
+          misuras={misuras}
         >
           <Header props={headerProps} />
           <main id={"main"}>{children}</main>

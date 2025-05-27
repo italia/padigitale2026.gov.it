@@ -13,6 +13,7 @@ import {
   AllNewsDocument,
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
+  AllMisurasDocument,
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -79,4 +80,8 @@ export async function getSitemapPages() {
 
 export async function getAllEnteBeneficiarios() {
   return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, getOptions(`fn_name:getAllEnteBeneficiarios`));
+}
+
+export async function getAllMisuras() {
+  return executeQueryWithAutoPagination(AllMisurasDocument, getOptions(`fn_name:getAllMisuras`));
 }

@@ -1,0 +1,6 @@
+query AllMisuras {
+  allMisuras {
+    label
+    id
+  }
+}

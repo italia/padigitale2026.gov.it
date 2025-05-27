@@ -47,7 +47,7 @@ export function TableList({ props }: { props: TableListRecord }) {
         )}
 
         {showTableHead && items[0].__typename !== "TableListLinkItemRecord" && (
-          <div className="row border-bottom border-2 py-4 px-0 mx-0">
+          <div className="row border-bottom border-2 py-4 mx-0">
             <div className="col-12 col-sm-2 ps-0">
               <span className="h6 text-secondary">Data</span>
             </div>

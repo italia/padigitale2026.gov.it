@@ -7,6 +7,7 @@ import {
   AllNewsQuery,
   AllResourcesQuery,
   AllEnteBeneficiariosQuery,
+  AllMisurasQuery,
 } from "@/graphql/generated";
 
 interface PagesContextType {
@@ -15,6 +16,7 @@ interface PagesContextType {
   news: AllNewsQuery;
   resources: AllResourcesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
+  misuras: AllMisurasQuery;
 }
 
 export const PagesContext = createContext<PagesContextType | null>(null);
@@ -36,6 +38,7 @@ interface PagesProviderProps {
   news: AllNewsQuery;
   resources: AllResourcesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
+  misuras: AllMisurasQuery;
 }
 
 export function PagesProvider({
@@ -45,10 +48,11 @@ export function PagesProvider({
   news,
   resources,
   enteBeneficiarios,
+  misuras,
 }: PagesProviderProps) {
   return (
     <PagesContext.Provider
-      value={{ pages, faqs, news, resources, enteBeneficiarios }}
+      value={{ pages, faqs, news, resources, enteBeneficiarios, misuras }}
     >
       {children}
     </PagesContext.Provider>

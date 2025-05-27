@@ -20,6 +20,7 @@ import {
   CardsGridImagesFragmentFragment,
   LayoutSidebarFilterRecord,
   FaqRecord,
+  AccordionsFilterRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -34,6 +35,7 @@ import { RichTextSection } from "@/src/components/RichTextSection";
 import { BackToTop } from "design-react-kit";
 import { TableListFaq } from "./TableListFaq";
 import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
+import { AccordionsFilter } from "./AccordionsFilter";
 
 export function ModularContent({
   content,
@@ -121,6 +123,13 @@ export function ModularContent({
             return <TableList key={idx} props={el as TableListRecord} />;
           case "TableListFaqRecord":
             return <TableListFaq key={idx} props={el as TableListFaqRecord} />;
+          case "AccordionsFilterRecord":
+            return (
+              <AccordionsFilter
+                key={idx}
+                props={el as AccordionsFilterRecord}
+              />
+            );
           default:
             return null;
         }

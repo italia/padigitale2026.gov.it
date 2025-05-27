@@ -47,6 +47,9 @@ query AllResources {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on AccordionsFilterRecord {
+        ...AccordionsFilterFragment
+      }
     }
   }
   _allResourcesMeta {
