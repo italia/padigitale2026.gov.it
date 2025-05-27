@@ -560,8 +560,15 @@ fragment AccordionsFilterFragment on AccordionsFilterRecord {
     __typename
     id
     title
-    cards {
-      ...CardsGridResourceFragment
+    resources {
+      __typename
+      _createdAt
+      _updatedAt
+      id
+      slug
+      title
+      summary
+      data
     }
   }
 }

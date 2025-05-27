@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  AccordionsFilterRecord,
-  CardsGridResourceRecord,
-} from "@/graphql/generated";
+import { AccordionsFilterRecord } from "@/graphql/generated";
 import { usePages } from "@/src/contexts/PagesContext";
 import { useState, Fragment } from "react";
 import {
@@ -14,7 +11,7 @@ import {
   AccordionBody,
 } from "design-react-kit";
 
-import { CardsGrid } from "@/src/components/CardsGrid";
+import { CardResource } from "@/src/components/CardResource";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -43,14 +40,10 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   };
 
   return (
-    <div className={cn("container-xxl py-lg-5", styles.accordionsFilter)}>
+    <div className={cn("container-xxl py-lg-5")}>
       <div className="row" style={{ marginTop: "64px", marginBottom: "48px" }}>
         <div className="col-12 col-lg-4">
-          <Select
-            id="example-reactstrap"
-            label="Misura"
-            onChange={handleChange}
-          >
+          <Select id="select-misura" label="Misura" onChange={handleChange}>
             <>
               <option value="">Scegli misura</option>
               {misuras.allMisuras.map((misura) => (
@@ -66,7 +59,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
         </div>
         <div className="col-12 col-lg-4">
           <Select
-            id="example-reactstrap"
+            id="select-beneficiario"
             label="Beneficiario"
             onChange={handleChange}
           >
@@ -105,11 +98,19 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
                 <AccordionBody
                   active={collapseElementOpen === index.toString()}
                 >
-                  {item.cards && (
-                    <CardsGrid
-                      props={item.cards as CardsGridResourceRecord}
-                      hasSidebar={false}
-                    />
+                  {item.resources && (
+                    <div className={"row"}>
+                      {item.resources.map((resource, idx) => {
+                        return (
+                          <div
+                            key={idx}
+                            className={`col-12 col-md-6 pt-4 d-flex flex-column justify-content-stretch`}
+                          >
+                            <CardResource TitleTag={"h3"} props={resource} />
+                          </div>
+                        );
+                      })}
+                    </div>
                   )}
                 </AccordionBody>
               </AccordionItem>
