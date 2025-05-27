@@ -83,7 +83,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
             <Accordion iconLeft key={index}>
               <AccordionItem>
                 <AccordionHeader
-                  className="h2"
+                  className={cn("h2")}
                   active={collapseElementOpen === index.toString()}
                   onToggle={() =>
                     setCollapseElement(
