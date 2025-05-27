@@ -556,7 +556,6 @@ fragment TableListFaqFragment on TableListFaqRecord {
 fragment AccordionsFilterFragment on AccordionsFilterRecord {
   __typename
   id
-  title
   items {
     __typename
     id
