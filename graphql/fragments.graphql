@@ -558,18 +558,10 @@ fragment AccordionsFilterFragment on AccordionsFilterRecord {
   id
   title
   items {
-    ... on AccordionMisuraRecord {
-      ...AccordionMisuraFragment
-    }
-  }
-}
-
-fragment AccordionMisuraFragment on AccordionMisuraRecord {
-  __typename
-  id
-  title
-  cards {
-    ... on CardsGridResourceRecord {
+    __typename
+    id
+    title
+    cards {
       ...CardsGridResourceFragment
     }
   }

@@ -1,5 +1,5 @@
 query AllEnteBeneficiarios {
-  allEnteBeneficiarios {
+  allEnteBeneficiarios(orderBy: label_ASC) {
     label
     id
   }

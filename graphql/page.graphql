@@ -50,6 +50,9 @@ query Page($slug: String) {
       ... on CardsGridAnnouncementRecord {
         ...CardsGridAnnouncementFragment
       }
+      ... on AccordionsFilterRecord {
+        ...AccordionsFilterFragment
+      }
     }
   }
 }

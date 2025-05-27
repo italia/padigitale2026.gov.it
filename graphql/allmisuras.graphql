@@ -1,5 +1,5 @@
 query AllMisuras {
-  allMisuras {
+  allMisuras(orderBy: label_ASC) {
     label
     id
   }
