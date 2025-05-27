@@ -43,6 +43,7 @@ export type AccordionMisuraRecord = RecordInterface & {
   _updatedAt: Scalars['DateTime']['output'];
   cards?: Maybe<CardsGridResourceRecord>;
   id: Scalars['ItemId']['output'];
+  risorse: Array<ResourceRecord>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
