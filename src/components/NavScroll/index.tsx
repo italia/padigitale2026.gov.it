@@ -71,6 +71,8 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
     <nav
       className="navbar it-navscroll-wrapper navbar-expand-lg it-bottom-navscroll it-right-side"
       data-bs-navscroll
+      role="navigation"
+      aria-label="Navigazione contenuti"
     >
       <button
         className="custom-navbar-toggler"

@@ -16,7 +16,20 @@ export function LayoutSidebarFilter({
   const { enteBeneficiarios } = usePages();
   const [value, setValue] = useState<string>("");
   const [hasVisibleContent, setHasVisibleContent] = useState(true);
-  const handleChange = (selectedOption: string) => setValue(selectedOption);
+  const [statusMessage, setStatusMessage] = useState<string>("");
+
+  const handleChange = (selectedOption: string) => {
+    setValue(selectedOption);
+    // Aggiorniamo il messaggio di stato quando cambia il filtro
+    if (selectedOption === "") {
+      setStatusMessage("Tutti i contenuti sono visibili");
+    } else {
+      const selectedEnte = enteBeneficiarios.allEnteBeneficiarios.find(
+        (ente) => createSlug(ente.label || "") === selectedOption
+      );
+      setStatusMessage(`Contenuti filtrati per: ${selectedEnte?.label || ""}`);
+    }
+  };
 
   const createSlug = (text: string) => {
     return text
@@ -108,6 +121,8 @@ export function LayoutSidebarFilter({
             id="example-reactstrap"
             label="Beneficiari"
             onChange={handleChange}
+            aria-label="Seleziona un beneficiario per filtrare i contenuti"
+            aria-describedby="filter-description"
           >
             <>
               <option value="">Scegli beneficiario</option>
@@ -121,6 +136,18 @@ export function LayoutSidebarFilter({
               ))}
             </>
           </Select>
+          <div id="filter-description" className="screen-reader-only">
+            Usa questo menu per filtrare i contenuti in base al beneficiario
+            selezionato
+          </div>
+          <div
+            id="filter-status"
+            className="screen-reader-only"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {statusMessage}
+          </div>
         </div>
       </div>
       <div className="row">
@@ -129,9 +156,17 @@ export function LayoutSidebarFilter({
             {sidebar && <NavScroll props={sidebar} />}
           </div>
         </div>
-        <div className="col-12 col-lg-8 it-page-sections-container">
+        <div
+          className="col-12 col-lg-8 it-page-sections-container"
+          role="main"
+          aria-live="polite"
+        >
           {!hasVisibleContent && value !== "" && (
-            <div className="alert alert-info" role="alert">
+            <div
+              className="alert alert-info"
+              role="alert"
+              aria-live="assertive"
+            >
               <p className="mb-0">
                 Non ci sono contenuti disponibili per il beneficiario
                 selezionato.

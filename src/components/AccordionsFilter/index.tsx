@@ -6,8 +6,8 @@ import { useState, Fragment } from "react";
 import { Select } from "design-react-kit";
 
 export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
-  const { title } = props;
-  const { misuras } = usePages();
+  const { items } = props;
+  const { misuras, enteBeneficiarios } = usePages();
   const [value, setValue] = useState<string>("");
   // const [hasVisibleContent, setHasVisibleContent] = useState(true);
   const handleChange = (selectedOption: string) => {
@@ -100,10 +100,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   return (
     <div className="container-xxl py-lg-5">
       <div className="row" style={{ marginTop: "64px", marginBottom: "48px" }}>
-        {/* remove this */}
-        <h1>{title}</h1>
-        {/* remove this */}
-        <div className="col-12 col-lg-4">
+        <div className="col-12 d-flex gap-4">
           <Select
             id="example-reactstrap"
             label="Misura"
@@ -121,6 +118,24 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
               ))}
             </>
           </Select>
+
+          <Select
+            id="example-reactstrap"
+            label="Beneficiario"
+            onChange={handleChange}
+          >
+            <>
+              <option value="">Scegli beneficiario</option>
+              {enteBeneficiarios.allEnteBeneficiarios.map((ente) => (
+                <option
+                  key={ente.id}
+                  value={ente.label ? createSlug(ente.label) : ""}
+                >
+                  {ente.label}
+                </option>
+              ))}
+            </>
+          </Select>
         </div>
       </div>
       <div className="row">
@@ -133,18 +148,21 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
               </p>
             </div>
           )} */}
-          {/* {content.map((item, index) => (
+          {items.map((item, index) => (
             <Fragment key={index}>
-              {item.__typename === "RichTextRecord" && (
-                <div
-                  className="row it-page-section pb-4"
-                  id={item.anchorId || undefined}
-                >
-                  <RichText props={item} padding={false} />
+              <div
+                className="row it-page-section pb-4"
+                // id={item.anchorId || undefined}
+              >
+                <h2>{item.title}</h2>
+                <div className="row">
+                  {/* {item.cards.map((card, index) => (
+                    <div key={index}>{card.title}</div>
+                  ))} */}
                 </div>
-              )}
+              </div>
             </Fragment>
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

@@ -16,13 +16,21 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
             {sidebar && <NavScroll props={sidebar} />}
           </div>
         </div>
-        <div className="col-12 col-lg-8 it-page-sections-container">
+        <div
+          className="col-12 col-lg-8 it-page-sections-container"
+          role="main"
+          aria-label="Contenuto principale"
+        >
           {content.map((item, index) => (
             <Fragment key={index}>
               {item.__typename === "RichTextRecord" && (
                 <div
                   className="row it-page-section pb-4"
                   id={item.anchorId || undefined}
+                  role="region"
+                  aria-label={
+                    item.anchorId ? `Sezione ${item.anchorId}` : undefined
+                  }
                 >
                   <RichText props={item} padding={false} />
                 </div>
@@ -31,6 +39,10 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
                 <div
                   className="row it-page-section"
                   id={item?.anchorId || undefined}
+                  role="region"
+                  aria-label={
+                    item?.anchorId ? `Sezione ${item.anchorId}` : undefined
+                  }
                 >
                   <Col>
                     <StepperAccordion props={item} />
