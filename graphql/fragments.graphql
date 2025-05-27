@@ -434,7 +434,6 @@ fragment CardsGridResourceFragment on CardsGridResourceRecord {
     slug
     title
     summary
-    badge
     data
   }
 }
