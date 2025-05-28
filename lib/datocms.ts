@@ -104,6 +104,7 @@ export async function getAllMisuras() {
 export async function getAlgoliaPage(id: string) {
   return executeQuery(AlgoliaPageDocument, {
     ...getOptions(`fn_name:getAlgoliaPage|id:${id}`),
+    includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
     variables: {
       id: id
     } as AlgoliaPageQueryVariables
@@ -111,5 +112,5 @@ export async function getAlgoliaPage(id: string) {
 }
 
 export async function getAllUpdates() {
-    return executeQueryWithAutoPagination(AllUpdatesDocument, getOptions(`fn_name:getAllUpdates`));
+  return executeQueryWithAutoPagination(AllUpdatesDocument, getOptions(`fn_name:getAllUpdates`));
 }

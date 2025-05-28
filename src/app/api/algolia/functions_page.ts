@@ -26,21 +26,47 @@ export async function indexPage(id: string, algoliaClient: Algoliasearch): Promi
     algoliaDocument["slug"] = page.page?.slug || "";
 
     page.page?.body.forEach((el) => {
-        if (el.__typename == "RichTextSectionRecord") {
-            content += `${render(el.rt_content)} `;
-        }
-        if (el.__typename == "LayoutSidebarRecord") {
-            el.ls_content.forEach((ls) => {
-                if (ls.__typename == "RichTextRecord") {
-                    content += `${render(ls.content)} `;
-                }
-            })
-        }
-        if (el.__typename == "HeroRecord") {
-            content += `${el.title} ${el.description} `
-        }
-        if (el.__typename == "BannerRecord") {
-            content += `${el.title} ${el.description} `
+        switch (el.__typename) {
+            case "RichTextSectionRecord":
+                content += `${render(el.rt_content)} `;
+                break;
+
+            case "CardsGridGenericRecord":
+            case "CardsGridAttachmentRecord":
+            case "CardsGridServiceRecord":
+            case "CardsGridResourceRecord":
+            case "CardsGridNewsRecord":
+            case "CardsGridAnnouncementRecord":
+                content += `${el.sectionFields?.title} ${el.sectionFields?.description} `;
+                break;
+
+            case "CardsGridImageRecord":
+                content += `${el.title} ${el.description} ${el.captions} `;
+                break;
+
+            case "TableListRecord":
+            case "TableListUpdateRecord":
+                content += `${el.title} `;
+                break;
+
+            case "LayoutSidebarRecord":
+                el.ls_content.forEach((ls) => {
+                    if (ls.__typename === "RichTextRecord") {
+                        content += `${render(ls.content)} `;
+                    }
+                });
+                break;
+
+            case "HeroRecord":
+            case "BannerRecord":
+            case "SplitBannerRecord":
+            case "CardsGridRecord":
+                content += `${el.title} ${el.description} `;
+                break;
+
+            case "VideoPlayerRecord":
+                content += `${el.title} ${el.transcription} `;
+                break;
         }
     })
 
