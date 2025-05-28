@@ -24,7 +24,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   const [collapseElementOpen, setCollapseElement] = useState("");
   const handleChange = (selectedOption: string) => {
     setValue(selectedOption);
-    // console.log(value);
+    console.log(value);
   };
 
   const createSlug = (text: string) => {
