@@ -1,0 +1,10 @@
+@use "../../styles/index" as *;
+
+.tableList {
+  @media (max-width: 856px) {
+    overflow-x: scroll;
+  }
+}
+.tableListInner {
+  min-width: 600px;
+}

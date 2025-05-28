@@ -9,7 +9,7 @@ export default function Header({ props }: { props: HeaderQuery }) {
   return (
     <>
       <div className={"skiplinks"} tabIndex={-1} aria-label="Scorciatoie di navigazione">
-        <SkiplinkItem href={"#main"}>Vai al contenuto principale</SkiplinkItem>
+        <SkiplinkItem href={"#main"}><span>Vai al contenuto principale</span></SkiplinkItem>
       </div>
       <Headers>
         <SlimHeader theme="light" />

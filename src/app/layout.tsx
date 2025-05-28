@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import Script from "next/script";
 
 import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
@@ -17,6 +17,7 @@ import {
   getAllResources,
   getAllEnteBeneficiarios,
   getAllMisuras,
+  getAllUpdates
 } from "@/lib/datocms";
 import type {
   FooterQuery,
@@ -27,11 +28,12 @@ import type {
   AllResourcesQuery,
   AllEnteBeneficiariosQuery,
   AllMisurasQuery,
+  AllUpdatesQuery
 } from "@/graphql/generated";
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 import BootstrapInit from "@/src/components/BootstrapInit";
-import { PagesProvider } from "@/src/contexts/PagesContext";
+import {PagesProvider} from "@/src/contexts/PagesContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -39,8 +41,8 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
-  children,
-}: {
+                                           children,
+                                         }: {
   children: React.ReactNode;
 }) {
   const footerProps = (await getFooter()) as FooterQuery;
@@ -49,33 +51,34 @@ export default async function RootLayout({
   const faqs = (await getAllFaqs()) as AllFaqsQuery;
   const news = (await getAllNews()) as AllNewsQuery;
   const resources = (await getAllResources()) as AllResourcesQuery;
-  const enteBeneficiarios =
-    (await getAllEnteBeneficiarios()) as AllEnteBeneficiariosQuery;
   const misuras = (await getAllMisuras()) as AllMisurasQuery;
+  const enteBeneficiarios = (await getAllEnteBeneficiarios()) as AllEnteBeneficiariosQuery;
+  const updates = (await getAllUpdates()) as AllUpdatesQuery;
 
   return (
     <html lang="it">
-      <head>
-        <Script
-          src="/bootstrap-italia.bundle.min.js"
-          strategy="afterInteractive"
-        />
-      </head>
-      <body>
-        <PagesProvider
-          pages={pages}
-          faqs={faqs}
-          news={news}
-          resources={resources}
-          enteBeneficiarios={enteBeneficiarios}
-          misuras={misuras}
-        >
-          <Header props={headerProps} />
-          <main id={"main"}>{children}</main>
-          <Footer props={footerProps} />
-        </PagesProvider>
-        <BootstrapInit />
-      </body>
+    <head>
+      <Script
+        src="/bootstrap-italia.bundle.min.js"
+        strategy="afterInteractive"
+      />
+    </head>
+    <body>
+    <PagesProvider
+      pages={pages}
+      faqs={faqs}
+      news={news}
+      resources={resources}
+      enteBeneficiarios={enteBeneficiarios}
+      misuras={misuras}
+      updates={updates}
+    >
+      <Header props={headerProps}/>
+      <main id={"main"}>{children}</main>
+      <Footer props={footerProps}/>
+    </PagesProvider>
+    <BootstrapInit/>
+    </body>
     </html>
   );
 }

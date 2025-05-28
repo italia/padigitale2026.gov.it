@@ -53,6 +53,9 @@ query Page($slug: String) {
       ... on AccordionsFilterRecord {
         ...AccordionsFilterFragment
       }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
     }
   }
 }

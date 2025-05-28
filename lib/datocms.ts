@@ -15,7 +15,10 @@ import {
   AllEnteBeneficiariosDocument,
   AllMisurasDocument,
   AlgoliaPageDocument,
-  AlgoliaPageQueryVariables
+  AlgoliaPageQueryVariables,
+  AllUpdatesDocument,
+  AllFilteredUpdatesDocument,
+  AllFilteredUpdatesQueryVariables
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -53,6 +56,15 @@ export async function page(slug: string) {
       slug: slug,
       index: "2",
     } as PageQueryVariables,
+  });
+}
+
+export async function getAllFilteredUpdates(idBeneficiari: Array<string>) {
+  return executeQuery(AllFilteredUpdatesDocument, {
+    ...getOptions(`fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`),
+    variables: {
+      idBeneficiari: idBeneficiari
+    } as AllFilteredUpdatesQueryVariables,
   });
 }
 
@@ -96,4 +108,8 @@ export async function getAlgoliaPage(id: string) {
       id: id
     } as AlgoliaPageQueryVariables
   })
+}
+
+export async function getAllUpdates() {
+    return executeQueryWithAutoPagination(AllUpdatesDocument, getOptions(`fn_name:getAllUpdates`));
 }
