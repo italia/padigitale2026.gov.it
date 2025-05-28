@@ -20,12 +20,6 @@ const cn = classNames.bind(styles);
 export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   const { items } = props;
   const { misuras, enteBeneficiarios } = usePages();
-  const [value, setValue] = useState<string>("");
-  const [collapseElementOpen, setCollapseElement] = useState("");
-  const handleChange = (selectedOption: string) => {
-    setValue(selectedOption);
-    console.log(value);
-  };
 
   const createSlug = (text: string) => {
     return text
@@ -39,11 +33,32 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
       .replace(/(^-|-$)/g, "");
   };
 
+  const [valueMisura, setValueMisura] = useState<string>("");
+  const [valueBeneficiario, setValueBeneficiario] = useState<string>("");
+  const [collapseElementOpen, setCollapseElement] = useState(
+    items[0]?.title ? createSlug(items[0].title) : ""
+  );
+
+  const handleChangeMisura = (selectedOption: string) => {
+    setValueMisura(selectedOption);
+  };
+
+  const handleChangeBeneficiario = (selectedOption: string) => {
+    setValueBeneficiario(selectedOption);
+  };
+
+  console.log("valueMisura", valueMisura);
+  console.log("valueBeneficiario", valueBeneficiario);
+
   return (
     <div className={cn("container-xxl py-lg-5")}>
-      <div className="row" style={{ marginTop: "64px", marginBottom: "48px" }}>
+      <div className="row py-4 my-4">
         <div className="col-12 col-lg-4">
-          <Select id="select-misura" label="Misura" onChange={handleChange}>
+          <Select
+            id="select-misura"
+            label="Misura"
+            onChange={handleChangeMisura}
+          >
             <>
               <option value="">Scegli misura</option>
               {misuras.allMisuras.map((misura) => (
@@ -61,7 +76,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
           <Select
             id="select-beneficiario"
             label="Beneficiario"
-            onChange={handleChange}
+            onChange={handleChangeBeneficiario}
           >
             <>
               <option value="">Scegli beneficiario</option>
@@ -80,15 +95,19 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
       <div className="row">
         <div className="col-12 it-page-sections-container">
           {items.map((item, index) => (
-            <Accordion iconLeft key={index}>
+            <Accordion iconLeft key={index} className={cn("border-0")}>
               <AccordionItem>
                 <AccordionHeader
-                  className={cn("h2")}
-                  active={collapseElementOpen === index.toString()}
+                  className={cn("custom-accordion-header")}
+                  active={
+                    collapseElementOpen ===
+                    createSlug(item.title ?? index.toString())
+                  }
                   onToggle={() =>
                     setCollapseElement(
-                      collapseElementOpen !== index.toString()
-                        ? index.toString()
+                      collapseElementOpen !==
+                        createSlug(item.title ?? index.toString())
+                        ? createSlug(item.title ?? index.toString())
                         : ""
                     )
                   }
@@ -96,7 +115,11 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
                   {item.title}
                 </AccordionHeader>
                 <AccordionBody
-                  active={collapseElementOpen === index.toString()}
+                  className={cn("custom-accordion-body")}
+                  active={
+                    collapseElementOpen ===
+                    createSlug(item.title ?? index.toString())
+                  }
                 >
                   {item.resources && (
                     <div className={"row"}>
@@ -105,6 +128,19 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
                           <div
                             key={idx}
                             className={`col-12 col-md-6 pt-4 d-flex flex-column justify-content-stretch`}
+                            data-beneficiari={resource.entiBeneficiari
+                              ?.map((b) =>
+                                b.label
+                                  ?.toLowerCase()
+                                  .replace(/à/g, "a")
+                                  .replace(/è/g, "e")
+                                  .replace(/ì/g, "i")
+                                  .replace(/ò/g, "o")
+                                  .replace(/ù/g, "u")
+                                  .replace(/[^a-z0-9]+/g, "-")
+                                  .replace(/(^-|-$)/g, "")
+                              )
+                              .join(" ")}
                           >
                             <CardResource TitleTag={"h3"} props={resource} />
                           </div>

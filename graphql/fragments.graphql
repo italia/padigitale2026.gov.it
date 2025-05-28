@@ -569,6 +569,10 @@ fragment AccordionsFilterFragment on AccordionsFilterRecord {
       title
       summary
       data
+      entiBeneficiari {
+        id
+        label
+      }
     }
   }
 }
