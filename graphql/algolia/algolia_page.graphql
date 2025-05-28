@@ -31,6 +31,65 @@ query AlgoliaPage($id: ItemId) {
         title
         description
       }
+      ... on CardsGridRecord {
+        title
+        description
+      }
+      ... on CardsGridGenericRecord {
+        sectionFields {
+          title
+          description
+        }
+      }
+      ... on CardsGridAttachmentRecord {
+        sectionFields {
+          title
+          description
+        }
+      }
+      ... on CardsGridServiceRecord {
+        sectionFields {
+          title
+          description
+        }
+      }
+      ... on CardsGridResourceRecord {
+        sectionFields {
+          title
+          description
+        }
+      }
+      ... on CardsGridNewsRecord {
+        sectionFields {
+          title
+          description
+        }
+      }
+      ... on CardsGridAnnouncementRecord {
+        sectionFields {
+          title
+          description
+        }
+      }
+      ... on CardsGridImageRecord {
+        title
+        description
+        captions
+      }
+      ... on TableListRecord {
+        title
+      }
+      ... on SplitBannerRecord {
+        title
+        description
+      }
+      ... on VideoPlayerRecord {
+        title
+        transcription
+      }
+      ... on TableListUpdateRecord {
+        title
+      }
     }
   }
 }
