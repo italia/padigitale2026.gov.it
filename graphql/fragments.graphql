@@ -563,7 +563,11 @@ fragment AccordionsFilterFragment on AccordionsFilterRecord {
   items {
     __typename
     id
-    title
+    titleMisura {
+      id
+      label
+      slug
+    }
     resources {
       __typename
       _createdAt
@@ -581,19 +585,18 @@ fragment AccordionsFilterFragment on AccordionsFilterRecord {
   }
 }
 
-
 fragment TableListUpdateFragment on TableListUpdateRecord {
-__typename
-id
-title
-alignment
-showLastItems
-filterByInstitute {
-__typename
-id
-label
-}
-button {
-...ButtonFragment
-}
+  __typename
+  id
+  title
+  alignment
+  showLastItems
+  filterByInstitute {
+    __typename
+    id
+    label
+  }
+  button {
+    ...ButtonFragment
+  }
 }
