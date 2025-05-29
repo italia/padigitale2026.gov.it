@@ -132,8 +132,8 @@ export function ModularContent({
                 props={el as AccordionsFilterRecord}
               />
             );
-                              case "TableListUpdateRecord":
-                              return <TableListUpdates key={idx} props={el as TableListUpdateRecord} />;
+          case "TableListUpdateRecord":
+            return <TableListUpdates key={idx} props={el as TableListUpdateRecord} />;
           default:
             return null;
         }

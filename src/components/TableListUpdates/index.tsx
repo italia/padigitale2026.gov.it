@@ -3,9 +3,7 @@
 import {ButtonRecord, TableListUpdateRecord, UpdateRecord} from "@/graphql/generated";
 import Link from "next/link";
 import {
-  // Badge,
   Col,
-  Container,
   Icon,
   Pager,
   Row
@@ -18,13 +16,19 @@ import {
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import {usePages} from "@/src/contexts/PagesContext";
-// import {HTMLAttributeAnchorTarget} from "react";
 import {usePathname} from "next/navigation";
 import {useCallback, useEffect, useState} from "react";
 
 const cn = classNames.bind(styles);
 
-export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
+export function TableListUpdates(
+  {
+    props,
+    hasSidebar = false,
+  }: {
+    props: TableListUpdateRecord,
+    hasSidebar?: boolean;
+  }) {
   const {
     alignment,
     button,
@@ -88,7 +92,6 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
   }
 
 
-
   if (showLastItems) {
     if (updates.length > 6) {
       updates = updates.splice(0, 6);
@@ -123,11 +126,13 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
   };
 
   return (
-    <Container
+    <div
       id={id}
-      fluid
       className={cn(
-        "container-xxl pb-5",
+        "pb-5",
+        {
+          "container-xxl container-fluid": !hasSidebar
+        }
       )}
       role="region"
       aria-labelledby={`${id}-title`}
@@ -142,7 +147,7 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
                 "text-center": alignment === "center",
                 "visually-hidden": !title
               }
-              )}>
+            )}>
             {title ?? 'Ultimi aggiornamenti'}
           </h2>
         </Col>
@@ -166,7 +171,7 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
                     !showLastItems &&
                     (itemIndex < (currentPage - 1) * itemsPerPage || itemIndex >= currentPage * itemsPerPage);
 
-                  if(showLastItems) {
+                  if (showLastItems) {
                     shouldHide = false;
                   }
 
@@ -269,7 +274,7 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
         <Row role="region" aria-label="Nessun aggiornamento disponibile">
           <Col className={cn({"text-center": alignment === "center"})}>
             <p>
-              <strong>Non ci sono aggiornamenti al momento.</strong> <br />
+              <strong>Non ci sono aggiornamenti al momento.</strong> <br/>
               Iscriviti alla newsletter per ricevere aggiornamenti sulle opportunità in arrivo.
             </p>
           </Col>
@@ -299,6 +304,6 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
           </Col>
         </Row>
       )}
-    </Container>
+    </div>
   );
 }

@@ -15,6 +15,7 @@ import {
   CardsGridImagesFragmentFragment,
   TableListRecord,
   TableListFaqRecord,
+  TableListUpdateRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
@@ -22,6 +23,7 @@ import { CardsGrid } from "@/src/components/CardsGrid";
 import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { TableList } from "../TableList";
 import { TableListFaq } from "../TableListFaq";
+import {TableListUpdates} from "@/src/components/TableListUpdates";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -211,6 +213,8 @@ export function RichText({
         return (
           <TableListFaq key={record.id} props={record as TableListFaqRecord} />
         );
+      case "TableListUpdateRecord":
+        return <TableListUpdates hasSidebar={true} key={record.id} props={record as TableListUpdateRecord} />;
       default:
         return null;
     }
