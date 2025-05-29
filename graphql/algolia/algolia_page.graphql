@@ -1,5 +1,3 @@
-# import "./page_fields.graphql"
-
 query AlgoliaPage($id: ItemId) {
   page(filter: { id: { eq: $id } }) {
     ...PageFields
