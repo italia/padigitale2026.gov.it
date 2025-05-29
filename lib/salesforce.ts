@@ -2,6 +2,10 @@ import jsforce from "jsforce";
 
 type Sort = "ASC" | "DESC";
 
+if (!process.env.SF_USERNAME || !process.env.SF_PASSWORD) {
+  throw Error("SF_USERNAME and SF_PASSWORD, must be defined.");
+}
+
 /**
  * Recupera tutti gli avvisi in una lista di oggetti JSON.
  * @param n Il numero di avvisi da recuperare.
