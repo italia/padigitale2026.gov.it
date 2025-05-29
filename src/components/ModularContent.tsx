@@ -24,6 +24,7 @@ import {
   TableListUpdateRecord,
   CardsListFilterRecord,
 } from "@/graphql/generated";
+import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
 import { SplitBanner } from "@/src/components/SplitBanner";
@@ -34,12 +35,11 @@ import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { LayoutSidebar } from "@/src/components/LayoutSidebar";
 import { TableList } from "@/src/components/TableList";
 import { RichTextSection } from "@/src/components/RichTextSection";
-import { BackToTop } from "design-react-kit";
-import { TableListFaq } from "./TableListFaq";
-import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
-import { AccordionsFilter } from "./AccordionsFilter";
+import { TableListFaq } from "@/src/components/TableListFaq";
+import { LayoutSidebarFilter } from "@/src/components/LayoutSidebarFilter";
+import { AccordionsFilter } from "@/src/components/AccordionsFilter";
 import { TableListUpdates } from "@/src/components/TableListUpdates";
-import { CardsListFilter } from "./CardsListFilter";
+import { CardsListFilter } from "@/src/components/CardsListFilter";
 
 export function ModularContent({
   content,

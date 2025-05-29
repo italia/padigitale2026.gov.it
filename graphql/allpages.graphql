@@ -59,6 +59,9 @@ query AllPages {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on CardsListFilterRecord {
+        ...CardsListFilterFragment
+      }
     }
   }
   _allPagesMeta {

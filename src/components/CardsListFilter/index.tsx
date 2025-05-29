@@ -4,6 +4,7 @@ import { CardsListFilterRecord } from "@/graphql/generated";
 import { usePages } from "@/src/contexts/PagesContext";
 import { Select } from "design-react-kit";
 import { CardMisura } from "@/src/components/CardMisura";
+import { useState, useEffect } from "react";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -12,6 +13,11 @@ const cn = classNames.bind(styles);
 export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
   const { items } = props;
   const { enteBeneficiarios, entePromotores } = usePages();
+  const [statusMessageBeneficiario, setStatusMessageBeneficiario] =
+    useState<string>("");
+  const [statusMessagePromotore, setStatusMessagePromotore] =
+    useState<string>("");
+  const [visibleCards, setVisibleCards] = useState<boolean>(true);
 
   const createSlug = (text: string) => {
     return text
@@ -25,27 +31,85 @@ export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
       .replace(/(^-|-$)/g, "");
   };
 
+  const updateVisibleCards = () => {
+    const elements = document.querySelectorAll(
+      "[data-beneficiari][data-promotore]"
+    );
+    let hasVisibleCards = false;
+
+    elements.forEach((element) => {
+      const beneficiari =
+        element.getAttribute("data-beneficiari")?.split(" ") || [];
+      const promotore = element.getAttribute("data-promotore") || "";
+      const selectedBeneficiario =
+        document.querySelector<HTMLSelectElement>("#select-beneficiario")
+          ?.value || "";
+      const selectedPromotore =
+        document.querySelector<HTMLSelectElement>("#select-promotore")?.value ||
+        "";
+
+      const matchesBeneficiario =
+        !selectedBeneficiario || beneficiari.includes(selectedBeneficiario);
+      const matchesPromotore =
+        !selectedPromotore || promotore === selectedPromotore;
+
+      if (matchesBeneficiario && matchesPromotore) {
+        element.classList.remove("d-none");
+        hasVisibleCards = true;
+      } else {
+        element.classList.add("d-none");
+      }
+    });
+
+    setVisibleCards(hasVisibleCards);
+  };
+
   const handleChangePromotore = (selectedOption: string) => {
-    console.log("selectedOption", selectedOption);
+    if (selectedOption === "") {
+      setStatusMessagePromotore("Tutti gli enti promotori sono visibili");
+    } else {
+      const selectedEnte = entePromotores.allEntePromotores.find(
+        (ente) => createSlug(ente.label || "") === selectedOption
+      );
+      setStatusMessagePromotore(
+        `Contenuti filtrati per promotore: ${selectedEnte?.label || ""}`
+      );
+    }
+    updateVisibleCards();
   };
 
   const handleChangeBeneficiario = (selectedOption: string) => {
-    console.log("selectedOption", selectedOption);
+    if (selectedOption === "") {
+      setStatusMessageBeneficiario("Tutti i beneficiari sono visibili");
+    } else {
+      const selectedEnte = enteBeneficiarios.allEnteBeneficiarios.find(
+        (ente) => createSlug(ente.label || "") === selectedOption
+      );
+      setStatusMessageBeneficiario(
+        `Contenuti filtrati per beneficiario: ${selectedEnte?.label || ""}`
+      );
+    }
+    updateVisibleCards();
   };
+
+  // Update visible cards state on component mount
+  useEffect(() => {
+    updateVisibleCards();
+  }, []);
 
   return (
     <div className={cn("container-xxl py-lg-5")}>
       <div className="row my-4">
-        <div className="col-12 col-lg-4 py-4">
+        <div className="col-12 col-lg-6 py-4">
           <Select
             id="select-beneficiario"
-            label="Beneficiario"
+            label="Beneficiari"
             onChange={handleChangeBeneficiario}
             aria-label="Seleziona un beneficiario per filtrare i contenuti"
             aria-describedby="beneficiario-description"
           >
             <>
-              <option value="">Scegli beneficiario</option>
+              <option value="">Tutti i beneficiari</option>
               {enteBeneficiarios.allEnteBeneficiarios.map((ente) => (
                 <option
                   key={ente.id}
@@ -66,19 +130,19 @@ export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
             aria-live="polite"
             aria-atomic="true"
           >
-            {/* {statusMessageBeneficiario} */}
+            {statusMessageBeneficiario}
           </div>
         </div>
-        <div className="col-12 col-lg-4 py-4">
+        <div className="col-12 col-lg-6 py-4">
           <Select
-            id="select-misura"
-            label="Misura"
+            id="select-promotore"
+            label="Ente promotore"
             onChange={handleChangePromotore}
-            aria-label="Seleziona una misura per filtrare i contenuti"
-            aria-describedby="misura-description"
+            aria-label="Seleziona un promotore per filtrare i contenuti"
+            aria-describedby="promotore-description"
           >
             <>
-              <option value="">Scegli misura</option>
+              <option value="">Tutti gli enti promotori</option>
               {entePromotores.allEntePromotores.map((ente) => (
                 <option
                   key={ente.id}
@@ -89,26 +153,62 @@ export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
               ))}
             </>
           </Select>
-          <div id="misura-description" className="visually-hidden">
-            Usa questo menu per filtrare i contenuti in base alla misura
-            selezionata
+          <div id="promotore-description" className="visually-hidden">
+            Usa questo menu per filtrare i contenuti in base al promotore
+            selezionato
           </div>
           <div
-            id="misura-status"
+            id="promotore-status"
             className="visually-hidden"
             aria-live="polite"
             aria-atomic="true"
           >
-            {/* {statusMessageMisura} */}
+            {statusMessagePromotore}
           </div>
         </div>
       </div>
       <div className="row">
-        <div className="col-12 it-page-sections-container">
-          {items.map((item) => (
+        {items.map((item) => (
+          <div
+            className="col-12 it-page-sections-container border"
+            key={item.id}
+            data-promotore={item.entePromotore?.label
+              ?.toLowerCase()
+              .replace(/à/g, "a")
+              .replace(/è/g, "e")
+              .replace(/ì/g, "i")
+              .replace(/ò/g, "o")
+              .replace(/ù/g, "u")
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/(^-|-$)/g, "")}
+            data-beneficiari={item.entiBeneficiari
+              ?.map((b) =>
+                b.label
+                  ?.toLowerCase()
+                  .replace(/à/g, "a")
+                  .replace(/è/g, "e")
+                  .replace(/ì/g, "i")
+                  .replace(/ò/g, "o")
+                  .replace(/ù/g, "u")
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/(^-|-$)/g, "")
+              )
+              .join(" ")}
+          >
             <CardMisura key={item.id} props={item} />
-          ))}
-        </div>
+          </div>
+        ))}
+        {!visibleCards && (
+          <div
+            className="col-12 text-center py-1"
+            role="status"
+            aria-live="polite"
+          >
+            <p className="h5 text-muted">
+              Nessun risultato trovato con i filtri attuali
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -35,7 +35,6 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
       <div className={cn("container-xxl")}>
         {/* Body */}
         <div className="row h-100 py-4">
-          asd
           {title && <h2 className={"col-12 mb-3 fs-2 lh-sm"}>{title}</h2>}
         </div>
       </div>
