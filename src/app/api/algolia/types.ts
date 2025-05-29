@@ -7,8 +7,6 @@ export type ContentType =
   | "faq"
   | "dati";
 
-type EventType = "publish" | "unpublish" | "delete";
-
 export type AlgoliaDocument = {
   title?: string;
   content_type?: ContentType;
@@ -46,7 +44,6 @@ export interface EntityAttributes {
   title: string;
   slug: string;
   custom_update_date: null;
-  body: any[];
   seo: null;
 }
 
