@@ -28,9 +28,10 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
   };
 
   return (
-    <div className="row border-bottom m-0 p-0 py-2 w-100">
+    <div role="listitem" className="row border-bottom m-0 p-0 py-2 w-100">
       {date && (
         <div className="col-12 col-sm-2 ps-0">
+          <span className="visually-hidden">Data: </span>
           <time>
             {new Intl.DateTimeFormat("it-IT", {
               timeZone: "Europe/Rome",
@@ -48,6 +49,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
             className="fw-bold text-nowrap"
             href={getHref(link)}
             title={getTitle(link)}
+            aria-label={`${getTitle(link)}: ${title}`}
           >
             <span style={{ fontSize: "0.875rem" }}>{link?.text}</span>
             {link?.icon && (
@@ -56,6 +58,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
                 color="primary"
                 icon={link.icon}
                 size="sm"
+                aria-hidden="true"
                 title="Freccia a destra"
                 padding
               />

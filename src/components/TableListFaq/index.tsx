@@ -8,7 +8,7 @@ import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
 export function TableListFaq({ props }: { props: TableListFaqRecord }) {
-  const { questionsRef } = props;
+  const { questionsRef, id } = props;
 
   const getBadge = (item: FaqRecord) => {
     const createdAt = item._createdAt;
@@ -38,17 +38,35 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
     questionsRef.length === 0
   ) {
     console.warn("TableListFaq: questionsRef is missing or empty");
-    return null;
+    return (
+      <div role="region" aria-label="Nessuna domanda frequente disponibile">
+        <p className="text-center">
+          <strong>Non ci sono domande frequenti al momento.</strong>
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="container-xxl">
-      <div className={cn("row py-2")}>
+    <div
+      className="container-xxl"
+      role="region"
+      aria-labelledby={`${id}-title`}
+    >
+      <h2 id={`${id}-title`} className="visually-hidden">
+        Lista delle domande frequenti
+      </h2>
+      <div
+        role="list"
+        aria-label="Lista domande frequenti"
+        className={cn("row py-2")}
+      >
         {questionsRef.map((item, idx) => {
           if (!item) return null;
 
           return (
             <div
+              role="listitem"
               className={"col-12 px-0"}
               key={`faq-item-${item.id || idx}`}
               data-beneficiari={item.beneficiari
@@ -72,6 +90,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
                     href={`/${item.slug}`}
                     title={item.title || ""}
                     key={`faq-link-${item.id || idx}`}
+                    aria-label={`Vai alla domanda: ${item.title}`}
                   >
                     <div>
                       <div
@@ -83,6 +102,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
 
                       {item.category && (
                         <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold">
+                          <span className="visually-hidden">Categoria: </span>
                           {item.category.label}
                         </div>
                       )}
@@ -110,6 +130,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
                         color="primary"
                         icon="it-chevron-right"
                         size="sm"
+                        aria-hidden="true"
                         title="Freccia a destra"
                         padding
                       />

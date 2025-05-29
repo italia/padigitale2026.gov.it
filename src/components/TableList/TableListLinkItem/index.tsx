@@ -70,13 +70,14 @@ export function TableListLinkItem({
   };
 
   return (
-    <div className="row border-bottom m-0 p-0 py-2 w-100">
+    <div role="listitem" className="row border-bottom m-0 p-0 py-2 w-100">
       <div className="col ps-0">
         <Link
           className="d-flex justify-content-between align-items-center text-decoration-none"
           href={getHref(link)}
           title={getTitle(link)}
           target={link?.target as HTMLAttributeAnchorTarget}
+          aria-label={`${getTitle(link)}: ${link?.text}`}
         >
           <div>
             <div
@@ -88,6 +89,7 @@ export function TableListLinkItem({
 
             {category && (
               <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold">
+                <span className="visually-hidden">Categoria: </span>
                 {category.label}
               </div>
             )}
@@ -102,6 +104,7 @@ export function TableListLinkItem({
                       "lightgrey-bg-a3 text-primary": badge === "Nuovo",
                       "neutral-1-bg-a2 text-dark": badge === "Aggiornato",
                     })}
+                    aria-label={`Stato: ${badge}`}
                   >
                     {badge}
                   </Badge>
@@ -113,6 +116,7 @@ export function TableListLinkItem({
               color="primary"
               icon="it-chevron-right"
               size="sm"
+              aria-hidden="true"
               title="Freccia a destra"
               padding
             />

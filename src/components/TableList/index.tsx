@@ -9,7 +9,7 @@ import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
 export function TableList({ props }: { props: TableListRecord }) {
-  const { title, showTableHead, alignment, items, button } = props;
+  const { title, showTableHead, alignment, items, button, id } = props;
 
   const getButtonHref = (button: TableListRecord["button"]) => {
     // href link > cms page
@@ -34,10 +34,15 @@ export function TableList({ props }: { props: TableListRecord }) {
   };
 
   return (
-    <div className="container-xxl">
+    <div
+      className="container-xxl"
+      role="region"
+      aria-labelledby={title ? `${id}-title` : undefined}
+    >
       <div className={cn("row pt-4")}>
         {title && (
           <h2
+            id={`${id}-title`}
             className={cn("col-12 h-1 pb-4", {
               "text-center": alignment === "center",
             })}
@@ -47,7 +52,11 @@ export function TableList({ props }: { props: TableListRecord }) {
         )}
 
         {showTableHead && items[0].__typename !== "TableListLinkItemRecord" && (
-          <div className="row border-bottom border-2 py-4 mx-0">
+          <div
+            className="row border-bottom border-2 py-4 mx-0"
+            role="rowgroup"
+            aria-hidden="true"
+          >
             <div className="col-12 col-sm-2 ps-0">
               <span className="h6 text-secondary">Data</span>
             </div>
@@ -57,16 +66,23 @@ export function TableList({ props }: { props: TableListRecord }) {
           </div>
         )}
 
-        {items.map((item, idx) => (
-          <div className={"col-12"} key={idx}>
-            {item.__typename === "TableListItemRecord" && (
-              <TableListItem props={item} />
-            )}
-            {item.__typename === "TableListLinkItemRecord" && (
-              <TableListLinkItem props={item} />
-            )}
-          </div>
-        ))}
+        <div
+          role="list"
+          aria-label={title ? `Lista ${title}` : "Lista elementi"}
+          className="col-12"
+        >
+          {items.map((item, idx) => (
+            <div key={idx}>
+              {item.__typename === "TableListItemRecord" && (
+                <TableListItem props={item} />
+              )}
+              {item.__typename === "TableListLinkItemRecord" && (
+                <TableListLinkItem props={item} />
+              )}
+            </div>
+          ))}
+        </div>
+
         {button && (
           <div
             className={cn("col-12 pt-5", {
@@ -78,6 +94,7 @@ export function TableList({ props }: { props: TableListRecord }) {
               href={getButtonHref(button)}
               target={button.target || "_self"}
               title={getButtonTitle(button)}
+              aria-label={getButtonTitle(button)}
             >
               {button.text}
               {button.icon && (
@@ -86,6 +103,7 @@ export function TableList({ props }: { props: TableListRecord }) {
                   color="primary"
                   icon={button.icon}
                   size="sm"
+                  aria-hidden="true"
                   title=""
                   padding
                 />
