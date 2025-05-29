@@ -168,14 +168,24 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
           >
             <>
               <option value="">Scegli misura</option>
-              {misuras.allMisuras.map((misura) => (
-                <option
-                  key={misura.id}
-                  value={misura.label ? createSlug(misura.label) : ""}
-                >
-                  {misura.label}
-                </option>
-              ))}
+              {misuras.allMisuras
+                .filter(
+                  (misura) =>
+                    misura.label !== "Risorse generali" &&
+                    items.some(
+                      (item) =>
+                        createSlug(item.titleMisura?.label || "") ===
+                        createSlug(misura.label || "")
+                    )
+                )
+                .map((misura) => (
+                  <option
+                    key={misura.id}
+                    value={misura.label ? createSlug(misura.label) : ""}
+                  >
+                    {misura.label}
+                  </option>
+                ))}
             </>
           </Select>
           <div id="misura-description" className="visually-hidden">
