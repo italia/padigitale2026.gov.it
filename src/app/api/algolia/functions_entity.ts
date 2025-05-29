@@ -1,4 +1,5 @@
 import {
+  AlgoliaFaqQuery,
   AlgoliaNewsQuery,
   AlgoliaPageQuery,
   AlgoliaResourceQuery,
@@ -7,6 +8,7 @@ import {
   getAlgoliaPage,
   getAlgoliaResource,
   getAlgoliaNews,
+  getAlgoliaFaq,
 } from "@/lib/datocms";
 import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
@@ -41,6 +43,11 @@ export async function indexEntity(
     case "news":
       entity = (await getAlgoliaNews(id)) as AlgoliaNewsQuery;
       entity_content = entity.news;
+      break;
+    case "faq":
+      entity = (await getAlgoliaFaq(id)) as AlgoliaFaqQuery;
+      entity_content = entity.faq;
+      break;
     default:
       throw Error("Trying to index an unrecognized content type");
   }
