@@ -18,7 +18,9 @@ import {
   AlgoliaPageQueryVariables,
   AllUpdatesDocument,
   AllFilteredUpdatesDocument,
-  AllFilteredUpdatesQueryVariables
+  AllFilteredUpdatesQueryVariables,
+  AlgoliaResourceDocument,
+  AlgoliaResourceQueryVariables,
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -38,15 +40,18 @@ function getOptions(referer: string) {
     ...baseOptions,
     requestInitOptions: {
       headers: {
-        "Authorization": `Bearer ${process.env.DATOCMS_API_TOKEN}`,
-        "Referer": referer,
+        Authorization: `Bearer ${process.env.DATOCMS_API_TOKEN}`,
+        Referer: referer,
       },
     },
   };
 }
 
 export async function getAllPages() {
-  return executeQueryWithAutoPagination(AllPagesDocument, getOptions(`fn_name:getAllPages`));
+  return executeQueryWithAutoPagination(
+    AllPagesDocument,
+    getOptions(`fn_name:getAllPages`)
+  );
 }
 
 export async function page(slug: string) {
@@ -61,23 +66,34 @@ export async function page(slug: string) {
 
 export async function getAllFilteredUpdates(idBeneficiari: Array<string>) {
   return executeQuery(AllFilteredUpdatesDocument, {
-    ...getOptions(`fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`),
+    ...getOptions(
+      `fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`
+    ),
     variables: {
-      idBeneficiari: idBeneficiari
+      idBeneficiari: idBeneficiari,
     } as AllFilteredUpdatesQueryVariables,
   });
 }
 
 export async function getAllFaqs() {
-  return executeQueryWithAutoPagination(AllFaqsDocument, getOptions(`fn_name:getAllFaqs`));
+  return executeQueryWithAutoPagination(
+    AllFaqsDocument,
+    getOptions(`fn_name:getAllFaqs`)
+  );
 }
 
 export async function getAllNews() {
-  return executeQueryWithAutoPagination(AllNewsDocument, getOptions(`fn_name:getAllNews`));
+  return executeQueryWithAutoPagination(
+    AllNewsDocument,
+    getOptions(`fn_name:getAllNews`)
+  );
 }
 
 export async function getAllResources() {
-  return executeQueryWithAutoPagination(AllResourcesDocument, getOptions(`fn_name:getAllResources`));
+  return executeQueryWithAutoPagination(
+    AllResourcesDocument,
+    getOptions(`fn_name:getAllResources`)
+  );
 }
 
 export async function getFooter() {
@@ -89,28 +105,53 @@ export async function getHeader() {
 }
 
 export async function getSitemapPages() {
-  return executeQueryWithAutoPagination(SitemapPagesDocument, getOptions(`fn_name:getSitemapPages`));
+  return executeQueryWithAutoPagination(
+    SitemapPagesDocument,
+    getOptions(`fn_name:getSitemapPages`)
+  );
 }
 
 export async function getAllEnteBeneficiarios() {
-  return executeQueryWithAutoPagination(AllEnteBeneficiariosDocument, getOptions(`fn_name:getAllEnteBeneficiarios`));
+  return executeQueryWithAutoPagination(
+    AllEnteBeneficiariosDocument,
+    getOptions(`fn_name:getAllEnteBeneficiarios`)
+  );
 }
 
 export async function getAllMisuras() {
-  return executeQueryWithAutoPagination(AllMisurasDocument, getOptions(`fn_name:getAllMisuras`));
+  return executeQueryWithAutoPagination(
+    AllMisurasDocument,
+    getOptions(`fn_name:getAllMisuras`)
+  );
 }
-// Funzioni di indicizzazione in Algolia
+
+export async function getAllUpdates() {
+  return executeQueryWithAutoPagination(
+    AllUpdatesDocument,
+    getOptions(`fn_name:getAllUpdates`)
+  );
+}
+
+// ------------------------------------- //
+// Funzioni di indicizzazione in Algolia //
+// ------------------------------------- //
 
 export async function getAlgoliaPage(id: string) {
   return executeQuery(AlgoliaPageDocument, {
     ...getOptions(`fn_name:getAlgoliaPage|id:${id}`),
     includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
     variables: {
-      id: id
-    } as AlgoliaPageQueryVariables
-  })
+      id: id,
+    } as AlgoliaPageQueryVariables,
+  });
 }
 
-export async function getAllUpdates() {
-  return executeQueryWithAutoPagination(AllUpdatesDocument, getOptions(`fn_name:getAllUpdates`));
+export async function getAlgoliaResource(id: string) {
+  return executeQuery(AlgoliaResourceDocument, {
+    ...getOptions(`fn_name:getAlgoliaResource|id:${id}`),
+    includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
+    variables: {
+      id: id,
+    } as AlgoliaResourceQueryVariables,
+  });
 }

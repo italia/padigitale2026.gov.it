@@ -1,0 +1,112 @@
+fragment PageFields on PageRecord {
+  __typename
+  id
+  title
+  slug
+  body {
+    ... on LayoutSidebarRecord {
+      __typename
+      ls_content: content {
+        ... on RichTextRecord {
+          __typename
+          content {
+            value
+          }
+        }
+      }
+    }
+    ... on RichTextSectionRecord {
+      __typename
+      rt_content: content {
+        value
+      }
+    }
+    ... on HeroRecord {
+      __typename
+      title
+      description
+    }
+    ... on BannerRecord {
+      __typename
+      title
+      description
+    }
+    ... on CardsGridRecord {
+      __typename
+      title
+      description
+    }
+    ... on CardsGridGenericRecord {
+      __typename
+      sectionFields {
+        __typename
+        title
+        description
+      }
+    }
+    ... on CardsGridAttachmentRecord {
+      __typename
+      sectionFields {
+        __typename
+        title
+        description
+      }
+    }
+    ... on CardsGridServiceRecord {
+      __typename
+      sectionFields {
+        __typename
+        title
+        description
+      }
+    }
+    ... on CardsGridResourceRecord {
+      __typename
+      sectionFields {
+        __typename
+        title
+        description
+      }
+    }
+    ... on CardsGridNewsRecord {
+      __typename
+      sectionFields {
+        __typename
+        title
+        description
+      }
+    }
+    ... on CardsGridAnnouncementRecord {
+      __typename
+      sectionFields {
+        __typename
+        title
+        description
+      }
+    }
+    ... on CardsGridImageRecord {
+      __typename
+      title
+      description
+      captions
+    }
+    ... on TableListRecord {
+      __typename
+      title
+    }
+    ... on SplitBannerRecord {
+      __typename
+      title
+      description
+    }
+    ... on VideoPlayerRecord {
+      __typename
+      title
+      transcription
+    }
+    ... on TableListUpdateRecord {
+      __typename
+      title
+    }
+  }
+}
