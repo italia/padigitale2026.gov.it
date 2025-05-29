@@ -62,6 +62,15 @@ query AllFaqs {
       ... on LayoutSidebarFilterRecord {
         ...LayoutSidebarFilterFragment
       }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
+      ... on TableListFaqRecord {
+        ...TableListFaqFragment
+      }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
     }
   }
   _allFaqsMeta {

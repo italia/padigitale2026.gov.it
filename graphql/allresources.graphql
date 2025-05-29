@@ -47,8 +47,14 @@ query AllResources {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
       ... on AccordionsFilterRecord {
         ...AccordionsFilterFragment
+      }
+      ... on TableListRecord {
+        ...TableListFragment
       }
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
