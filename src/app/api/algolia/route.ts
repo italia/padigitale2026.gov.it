@@ -1,7 +1,7 @@
 import { algoliasearch } from "algoliasearch";
 import { indexEntity, removeEntity } from "./functions_entity";
 import type { Algoliasearch } from "algoliasearch";
-import type { WebhookPayload } from "./types";
+import type { ContentType, WebhookPayload } from "./types";
 
 if (
   !process.env.ALGOLIA_APP_ID ||
@@ -38,7 +38,11 @@ export async function POST(request: Request) {
     switch (data.event_type) {
       case "publish":
         return Response.json(
-          await indexEntity(data.id, data.content_type, algoliaClient)
+          await indexEntity(
+            data.id,
+            data.related_entities.pop()?.attributes.api_key as ContentType,
+            algoliaClient
+          )
         );
       case "unpublish":
       case "delete":
