@@ -39,23 +39,23 @@ export async function POST(request: Request) {
       case "publish":
         return Response.json(
           await indexEntity(
-            data.id,
+            data.entity.id,
             data.related_entities.pop()?.attributes.api_key as ContentType,
             algoliaClient
           )
         );
       case "unpublish":
       case "delete":
-        return Response.json(await removeEntity(data.id, algoliaClient));
+        return Response.json(await removeEntity(data.entity.id, algoliaClient));
       default:
         Response.json({
           message: `Unmapped action ${data.event_type}`,
         });
     }
-  } catch {
+  } catch (error) {
     return Response.json(
       {
-        message: `Malformed request`,
+        message: `${error}`,
       },
       {
         status: 400,

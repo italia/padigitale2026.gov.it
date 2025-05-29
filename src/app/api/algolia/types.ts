@@ -9,12 +9,6 @@ export type ContentType =
 
 type EventType = "publish" | "unpublish" | "delete";
 
-export type WebhookPayload = {
-  id: string;
-  related_entities: RelatedEntities[];
-  event_type: EventType;
-};
-
 export type AlgoliaDocument = {
   title?: string;
   content_type?: ContentType;
@@ -26,15 +20,74 @@ export type AlgoliaResponse = {
   message: string;
 };
 
-export interface RelatedEntities {
-  id: string;
-  type: string;
-  attributes: Attributes;
-  relationships: Relationships;
-  meta: Meta;
+export interface WebhookPayload {
+  webhook_call_id: string;
+  event_triggered_at: Date;
+  attempted_auto_retries_count: number;
+  webhook_id: string;
+  site_id: string;
+  environment: string;
+  is_environment_primary: boolean;
+  entity_type: string;
+  event_type: string;
+  entity: Entity;
+  related_entities: RelatedEntity[];
 }
 
-export interface Attributes {
+export interface Entity {
+  id: string;
+  type: string;
+  attributes: EntityAttributes;
+  relationships: EntityRelationships;
+  meta: EntityMeta;
+}
+
+export interface EntityAttributes {
+  title: string;
+  slug: string;
+  custom_update_date: null;
+  body: any[];
+  seo: null;
+}
+
+export interface EntityMeta {
+  created_at: Date;
+  updated_at: Date;
+  published_at: Date;
+  publication_scheduled_at: null;
+  unpublishing_scheduled_at: null;
+  first_published_at: Date;
+  is_valid: boolean;
+  is_current_version_valid: boolean;
+  is_published_version_valid: boolean;
+  status: string;
+  current_version: string;
+  stage: null;
+}
+
+export interface EntityRelationships {
+  item_type: Creator;
+  creator: Creator;
+}
+
+export interface Creator {
+  data: DAT[] | DAT | null;
+}
+
+export interface DAT {
+  id: string;
+  type: string;
+}
+
+export interface RelatedEntity {
+  id: string;
+  type: string;
+  attributes: RelatedEntityAttributes;
+  relationships: RelatedEntityRelationships;
+  meta: RelatedEntityMeta;
+}
+
+export interface RelatedEntityAttributes {
   name: string;
   singleton: boolean;
   sortable: boolean;
@@ -52,28 +105,19 @@ export interface Attributes {
   inverse_relationships_enabled: boolean;
 }
 
-export interface Meta {
+export interface RelatedEntityMeta {
   has_singleton_item: boolean;
 }
 
-export interface Relationships {
-  fields: ExcerptField;
-  fieldsets: ExcerptField;
-  singleton_item: ExcerptField;
-  ordering_field: ExcerptField;
-  presentation_title_field: ExcerptField;
-  presentation_image_field: ExcerptField;
-  title_field: ExcerptField;
-  image_preview_field: ExcerptField;
-  excerpt_field: ExcerptField;
-  workflow: ExcerptField;
-}
-
-export interface ExcerptField {
-  data: DAT[] | DAT | null;
-}
-
-export interface DAT {
-  id: string;
-  type: string;
+export interface RelatedEntityRelationships {
+  fields: Creator;
+  fieldsets: Creator;
+  singleton_item: Creator;
+  ordering_field: Creator;
+  presentation_title_field: Creator;
+  presentation_image_field: Creator;
+  title_field: Creator;
+  image_preview_field: Creator;
+  excerpt_field: Creator;
+  workflow: Creator;
 }
