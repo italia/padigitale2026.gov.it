@@ -1,0 +1,7 @@
+# import "./resource_fields.graphql"
+
+query AlgoliaResource($id: ItemId) {
+  resource(filter: { id: { eq: $id } }) {
+    ...ResourceFields
+  }
+}
