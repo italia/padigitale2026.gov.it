@@ -108,5 +108,22 @@ fragment NewsFields on NewsRecord {
       __typename
       title
     }
+    ... on BloccoGraficoRecord {
+      __typename
+      title
+      subtitle
+    }
+    ... on LayoutSidebarFilterRecord {
+      __typename
+      content {
+        ... on RichTextRecord {
+          __typename
+          id
+          content {
+            value
+          }
+        }
+      }
+    }
   }
 }

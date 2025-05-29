@@ -101,6 +101,14 @@ export async function indexEntity(
         });
         break;
 
+      case "LayoutSidebarFilterRecord":
+        el.content.forEach((ls) => {
+          if (ls.__typename == "RichTextRecord") {
+            content += `${render(ls.content)} `;
+          }
+        });
+        break;
+
       case "HeroRecord":
       case "BannerRecord":
       case "SplitBannerRecord":
@@ -110,6 +118,10 @@ export async function indexEntity(
 
       case "VideoPlayerRecord":
         content += `${el.title} ${el.transcription} `;
+        break;
+
+      case "BloccoGraficoRecord":
+        content += `${el.title} ${el.subtitle} `;
         break;
     }
   });
