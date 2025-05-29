@@ -7,7 +7,8 @@ query AllFilteredUpdates ($idBeneficiari: [ItemId]) {
       beneficiari: {
         anyIn: $idBeneficiari
       }
-    }
+    },
+    orderBy: customUpdateDate_DESC
   ) {
     _createdAt
     _updatedAt
