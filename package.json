@@ -19,6 +19,7 @@
     "design-react-kit": "5.7.0",
     "dotenv": "^16.5.0",
     "graphql": "^16.11.0",
+    "jsforce": "^3.8.2",
     "next": "15.2.4",
     "next-sitemap": "^4.2.3",
     "react": "19.1.0",
