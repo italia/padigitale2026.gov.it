@@ -39,6 +39,9 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   const [visibleCards, setVisibleCards] = useState<{ [key: string]: boolean }>(
     {}
   );
+  const [statusMessageMisura, setStatusMessageMisura] = useState<string>("");
+  const [statusMessageBeneficiario, setStatusMessageBeneficiario] =
+    useState<string>("");
 
   const updateVisibleCards = () => {
     const newVisibleCards: { [key: string]: boolean } = {};
@@ -72,6 +75,18 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   const handleChangeMisura = (selectedOption: string) => {
     const accordions = document.querySelectorAll(".accordion");
 
+    // Update status message for screen readers
+    if (selectedOption === "") {
+      setStatusMessageMisura("Tutte le misure sono visibili");
+    } else {
+      const selectedMisura = misuras.allMisuras.find(
+        (misura) => createSlug(misura.label || "") === selectedOption
+      );
+      setStatusMessageMisura(
+        `Contenuti filtrati per misura: ${selectedMisura?.label || ""}`
+      );
+    }
+
     accordions.forEach((accordion, index) => {
       if (index === 0) {
         // First accordion is always visible
@@ -103,6 +118,18 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   };
 
   const handleChangeBeneficiario = (selectedOption: string) => {
+    // Update status message for screen readers
+    if (selectedOption === "") {
+      setStatusMessageBeneficiario("Tutti i beneficiari sono visibili");
+    } else {
+      const selectedEnte = enteBeneficiarios.allEnteBeneficiarios.find(
+        (ente) => createSlug(ente.label || "") === selectedOption
+      );
+      setStatusMessageBeneficiario(
+        `Contenuti filtrati per beneficiario: ${selectedEnte?.label || ""}`
+      );
+    }
+
     // Filter management
     const elements = document.querySelectorAll("[data-beneficiari]");
     elements.forEach((element) => {
@@ -122,9 +149,10 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
     updateVisibleCards();
   };
 
-  // Aggiorna lo stato delle card visibili al mount del componente
+  // Update visible cards state on component mount
   useEffect(() => {
     updateVisibleCards();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -135,6 +163,8 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
             id="select-misura"
             label="Misura"
             onChange={handleChangeMisura}
+            aria-label="Seleziona una misura per filtrare i contenuti"
+            aria-describedby="misura-description"
           >
             <>
               <option value="">Scegli misura</option>
@@ -148,12 +178,26 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
               ))}
             </>
           </Select>
+          <div id="misura-description" className="visually-hidden">
+            Usa questo menu per filtrare i contenuti in base alla misura
+            selezionata
+          </div>
+          <div
+            id="misura-status"
+            className="visually-hidden"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {statusMessageMisura}
+          </div>
         </div>
         <div className="col-12 col-lg-4 py-4">
           <Select
             id="select-beneficiario"
             label="Beneficiario"
             onChange={handleChangeBeneficiario}
+            aria-label="Seleziona un beneficiario per filtrare i contenuti"
+            aria-describedby="beneficiario-description"
           >
             <>
               <option value="">Scegli beneficiario</option>
@@ -167,6 +211,18 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
               ))}
             </>
           </Select>
+          <div id="beneficiario-description" className="visually-hidden">
+            Usa questo menu per filtrare i contenuti in base al beneficiario
+            selezionato
+          </div>
+          <div
+            id="beneficiario-status"
+            className="visually-hidden"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {statusMessageBeneficiario}
+          </div>
         </div>
       </div>
       <div className="row">

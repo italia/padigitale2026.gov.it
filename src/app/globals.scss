@@ -118,17 +118,7 @@ $utilities: (
   padding: 0 4px 8px 4px;
 }
 
-// accessibility classes
-.screen-reader-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-}
-
+// accessibility custom rules
 .skiplinks a.visually-hidden-focusable > span {
   border-color: #000 !important;
   box-shadow: 0 0 0 2px #fff, 0 0 0 5px #000 !important;

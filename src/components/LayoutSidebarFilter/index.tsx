@@ -136,13 +136,13 @@ export function LayoutSidebarFilter({
               ))}
             </>
           </Select>
-          <div id="filter-description" className="screen-reader-only">
+          <div id="filter-description" className="visually-hidden">
             Usa questo menu per filtrare i contenuti in base al beneficiario
             selezionato
           </div>
           <div
             id="filter-status"
-            className="screen-reader-only"
+            className="visually-hidden"
             aria-live="polite"
             aria-atomic="true"
           >
