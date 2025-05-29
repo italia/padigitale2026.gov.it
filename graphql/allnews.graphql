@@ -47,6 +47,15 @@ query AllNews {
       ... on LayoutSidebarRecord {
         ...LayoutSidebarFragment
       }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
     }
   }
   _allNewsMeta {
