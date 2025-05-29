@@ -21,10 +21,46 @@ fragment ButtonFragment on ButtonRecord {
   text
   icon
   cmsPage {
-    __typename
-    title
-    slug
-    id
+    ... on PageRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on NewsRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on ResourceRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on FaqRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on SupportoRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
   }
 }
 
@@ -63,9 +99,46 @@ fragment LinkFragment on LinkRecord {
   target
   text
   cmsPage {
-    slug
-    title
-    id
+    ... on PageRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on NewsRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on ResourceRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on FaqRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on SupportoRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
   }
 }
 
@@ -289,19 +362,7 @@ fragment TableListLinkItemFragment on TableListLinkItemRecord {
     slug
   }
   link {
-    __typename
-    id
-    href
-    icon
-    target
-    text
-    cmsPage {
-      _createdAt
-      _updatedAt
-      id
-      slug
-      title
-    }
+    ...LinkFragment
   }
 }
 
@@ -394,16 +455,7 @@ fragment CardsGridServiceFragment on CardsGridServiceRecord {
       description
       label
       button {
-        __typename
-        id
-        href
-        target
-        text
-        icon
-        cmsPage {
-          title
-          slug
-        }
+        ...ButtonFragment
       }
     }
   }
