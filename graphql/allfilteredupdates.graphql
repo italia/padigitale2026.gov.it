@@ -12,14 +12,11 @@ query AllFilteredUpdates ($idBeneficiari: [ItemId]) {
     _createdAt
     _updatedAt
     title
-    slug
-    data
     customUpdateDate
     beneficiari {
       label
       id
     }
-    testo
     cta {
       ...ButtonFragment
     }

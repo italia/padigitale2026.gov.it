@@ -28,7 +28,7 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
   const {
     alignment,
     button,
-    // filterByInstitute,
+    filterByInstitute,
     id,
     showLastItems,
     title
@@ -37,7 +37,8 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
   const itemsPerPage = 12;
   const pathname = usePathname();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  let updates = null;
+
+  let updates: UpdateRecord[] = [];
 
   const getPageFromHash = useCallback(() => {
     const hash = window?.location.hash?.substring(1);
@@ -70,23 +71,43 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
   };
 
   const allDatoObjects = usePages();
-  if (!showLastItems) {
-    if (allDatoObjects?.updates) {
-      updates = allDatoObjects.updates?.allUpdates;
+  if (allDatoObjects.updates?.allUpdates) {
+    //uncomment before commit
+    updates = allDatoObjects.updates.allUpdates as UpdateRecord[];
+    // Just for testing purposes
+    // if (allDatoObjects.updates.allUpdates.length <= 69) {
+    //   const elem = allDatoObjects.updates.allUpdates[0];
+    //   for (let i = 0; i <= 69; i++) {
+    //     const elemCopy = {...elem};
+    //     elemCopy.id = elemCopy.id + (showLastItems ? 'a' : 'b') + i;
+    //     elemCopy.title = elemCopy.title + " " + i;
+    //     updates.push(elemCopy);
+    //   }
+    // }
+    // remove before commit
+  }
 
-      // Just for test
-      if (updates.length <= 69) {
-        const elem = updates[0];
-        for (let i = updates.length; i <= 69; i++) {
-          const elemCopy = {...elem};
-          elemCopy.id = elemCopy.id + i;
-          elemCopy.title = elemCopy.title + " " + i;
-          updates.push(elemCopy);
-        }
-      }
-      // remove before commit
 
+
+  if (showLastItems) {
+    if (updates.length > 6) {
+      updates = updates.splice(0, 6);
     }
+  }
+
+  const filtersIds: string[] = filterByInstitute && filterByInstitute.length ? filterByInstitute.map(i => i.id) : [];
+  if (filtersIds.length) {
+    updates = updates.filter(update => {
+      let found = false;
+      if (update.beneficiari && update.beneficiari.length) {
+        update.beneficiari.forEach(b => {
+          if (filtersIds.includes(b.id)) {
+            found = true;
+          }
+        });
+      }
+      return found;
+    })
   }
 
   const getButtonHref = (button: ButtonRecord) => {
@@ -105,7 +126,9 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
     <Container
       id={id}
       fluid
-      className="container-xxl"
+      className={cn(
+        "container-xxl pb-5",
+      )}
       role="region"
       aria-labelledby={`${id}-title`}
     >
@@ -129,19 +152,23 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
           <div className={cn("tableList")}>
             <div className={cn("tableListInner")}>
               <Row className="border-bottom border-2 py-4 px-0 mx-0" aria-hidden={true}>
-                <Col className="col-12 col-sm-2 ps-0">
+                <Col className="col-3 col-md-2 ps-0">
                   <span className="h6 text-secondary">Data</span>
                 </Col>
-                <Col className="col-12 col-sm-10 ps-0">
+                <Col className="col-9 col-md-10 ps-0">
                   <span className="h6 text-secondary">Descrizione</span>
                 </Col>
               </Row>
               <div role="region" aria-label="Lista aggiornamenti" aria-live="polite">
                 {(updates as UpdateRecord[]).map((update: UpdateRecord, itemIndex) => {
                   const {cta, customUpdateDate, id: updateId, title: itemTitle} = update;
-                  const shouldHide =
+                  let shouldHide =
                     !showLastItems &&
                     (itemIndex < (currentPage - 1) * itemsPerPage || itemIndex >= currentPage * itemsPerPage);
+
+                  if(showLastItems) {
+                    shouldHide = false;
+                  }
 
                   if (shouldHide) return null;
 
@@ -149,7 +176,6 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
                     <div
                       key={updateId}
                       role="listitem"
-                      id={updateId}
                       className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap">
                       {customUpdateDate && (
                         <div className="col-3 col-md-2 ps-0">
@@ -166,10 +192,10 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
                       )}
                       <div className={`${customUpdateDate ? "col-9 col-md-10" : "col-12"} ps-0`}>
                         <div className="d-flex justify-content-between align-items-center">
-                    <span className="me-3">
-                      <span className="visually-hidden">Descrizione dell&apos;aggiornamento:</span>
-                      {itemTitle}
-                    </span>
+                          <span className="me-3">
+                            <span className="visually-hidden">Descrizione dell&apos;aggiornamento:</span>
+                            {itemTitle}
+                          </span>
                           <Link
                             className="fw-bold text-nowrap"
                             href={cta?.href ? `/${cta.href}` : cta?.cmsPage ? `/${cta.cmsPage.slug}` : ""}
@@ -183,17 +209,19 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
                             )}
                             {cta?.cmsPage && !cta?.text && !cta?.cmsPage?.title && (
                               <span className="small">
-                      {cta.cmsPage.__typename === "PageRecord" && "Vai alla pagina aggiornata"}
-                    </span>
+                                {cta.cmsPage.__typename === "PageRecord" && "Vai alla pagina aggiornata"}
+                              </span>
                             )}
-                            <Icon
-                              className="my-0"
-                              color="primary"
-                              icon={cta?.target === "_self" ? "it-arrow-right" : "it-external-link"}
-                              size="sm"
-                              aria-hidden
-                              padding
-                            />
+                            {cta?.icon && (
+                              <Icon
+                                className="my-0"
+                                color="primary"
+                                icon={cta.icon}
+                                size="sm"
+                                aria-hidden
+                                padding
+                              />
+                            )}
                           </Link>
                         </div>
                       </div>
@@ -204,7 +232,7 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
             </div>
           </div>
           {!showLastItems && updates?.length > itemsPerPage && (
-            <Row className="mb-4">
+            <Row>
               <Col className={cn("col-12 pt-5", {"d-flex justify-content-center": alignment === "center"})}>
                 <Pager aria-label="Naviga tra le pagine della lista aggiornamenti">
                   <PaginationItem disabled={currentPage <= 1}>
@@ -237,11 +265,9 @@ export function TableListUpdates({props}: { props: TableListUpdateRecord }) {
         </>
       )}
 
-
-
       {(!updates || updates?.length <= 0) && (
         <Row role="region" aria-label="Nessun aggiornamento disponibile">
-          <Col className={cn("pb-5",{"text-center": alignment === "center"})}>
+          <Col className={cn({"text-center": alignment === "center"})}>
             <p>
               <strong>Non ci sono aggiornamenti al momento.</strong> <br />
               Iscriviti alla newsletter per ricevere aggiornamenti sulle opportunità in arrivo.
