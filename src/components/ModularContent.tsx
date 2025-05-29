@@ -21,7 +21,8 @@ import {
   LayoutSidebarFilterRecord,
   FaqRecord,
   AccordionsFilterRecord,
-  TableListUpdateRecord
+  TableListUpdateRecord,
+  CardsListFilterRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -37,7 +38,8 @@ import { BackToTop } from "design-react-kit";
 import { TableListFaq } from "./TableListFaq";
 import { LayoutSidebarFilter } from "./LayoutSidebarFilter";
 import { AccordionsFilter } from "./AccordionsFilter";
-import {TableListUpdates} from "@/src/components/TableListUpdates";
+import { TableListUpdates } from "@/src/components/TableListUpdates";
+import { CardsListFilter } from "./CardsListFilter";
 
 export function ModularContent({
   content,
@@ -133,7 +135,13 @@ export function ModularContent({
               />
             );
           case "TableListUpdateRecord":
-            return <TableListUpdates key={idx} props={el as TableListUpdateRecord} />;
+            return (
+              <TableListUpdates key={idx} props={el as TableListUpdateRecord} />
+            );
+          case "CardsListFilterRecord":
+            return (
+              <CardsListFilter key={idx} props={el as CardsListFilterRecord} />
+            );
           default:
             return null;
         }

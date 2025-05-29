@@ -1,0 +1,6 @@
+query AllEntePromotores {
+  allEntePromotores(orderBy: label_ASC) {
+    label
+    id
+  }
+}

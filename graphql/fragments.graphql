@@ -652,3 +652,29 @@ fragment TableListUpdateFragment on TableListUpdateRecord {
     ...ButtonFragment
   }
 }
+
+fragment CardMisuraFragment on CardMisuraRecord {
+  __typename
+  id
+  title
+  misura {
+    id
+    label
+  }
+  entePromotore {
+    id
+    label
+  }
+  entiBeneficiari {
+    id
+    label
+  }
+}
+
+fragment CardsListFilterFragment on CardsListFilterRecord {
+  __typename
+  id
+  items {
+    ...CardMisuraFragment
+  }
+}

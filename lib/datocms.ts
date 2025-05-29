@@ -13,6 +13,7 @@ import {
   AllNewsDocument,
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
+  AllEntePromotoresDocument,
   AllMisurasDocument,
   AlgoliaPageDocument,
   AlgoliaPageQueryVariables,
@@ -115,6 +116,13 @@ export async function getAllEnteBeneficiarios() {
   return executeQueryWithAutoPagination(
     AllEnteBeneficiariosDocument,
     getOptions(`fn_name:getAllEnteBeneficiarios`)
+  );
+}
+
+export async function getAllEntePromotores() {
+  return executeQueryWithAutoPagination(
+    AllEntePromotoresDocument,
+    getOptions(`fn_name:getAllEntePromotores`)
   );
 }
 
