@@ -1,4 +1,4 @@
-fragment PageFields on PageRecord {
+fragment NewsFields on NewsRecord {
   __typename
   id
   title

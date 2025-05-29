@@ -1,4 +1,4 @@
-fragment PageFields on PageRecord {
+fragment FaqFields on FaqRecord {
   __typename
   id
   title

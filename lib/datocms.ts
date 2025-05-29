@@ -22,6 +22,10 @@ import {
   AllFilteredUpdatesQueryVariables,
   AlgoliaResourceDocument,
   AlgoliaResourceQueryVariables,
+  AlgoliaNewsDocument,
+  AlgoliaNewsQueryVariables,
+  AlgoliaFaqDocument,
+  AlgoliaFaqQueryVariables,
 } from "@/graphql/generated";
 
 if (!process.env.DATOCMS_API_TOKEN) {
@@ -161,5 +165,25 @@ export async function getAlgoliaResource(id: string) {
     variables: {
       id: id,
     } as AlgoliaResourceQueryVariables,
+  });
+}
+
+export async function getAlgoliaNews(id: string) {
+  return executeQuery(AlgoliaNewsDocument, {
+    ...getOptions(`fn_name:getAlgoliaNews|id:${id}`),
+    includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
+    variables: {
+      id: id,
+    } as AlgoliaNewsQueryVariables,
+  });
+}
+
+export async function getAlgoliaFaq(id: string) {
+  return executeQuery(AlgoliaFaqDocument, {
+    ...getOptions(`fn_name:getAlgoliaFaq|id:${id}`),
+    includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
+    variables: {
+      id: id,
+    } as AlgoliaFaqQueryVariables,
   });
 }

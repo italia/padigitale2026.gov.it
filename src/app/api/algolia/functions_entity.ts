@@ -1,5 +1,15 @@
-import { AlgoliaPageQuery, AlgoliaResourceQuery } from "@/graphql/generated";
-import { getAlgoliaPage, getAlgoliaResource } from "@/lib/datocms";
+import {
+  AlgoliaFaqQuery,
+  AlgoliaNewsQuery,
+  AlgoliaPageQuery,
+  AlgoliaResourceQuery,
+} from "@/graphql/generated";
+import {
+  getAlgoliaPage,
+  getAlgoliaResource,
+  getAlgoliaNews,
+  getAlgoliaFaq,
+} from "@/lib/datocms";
 import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
 import { compressText } from "./lib";
@@ -29,6 +39,14 @@ export async function indexEntity(
     case "resource":
       entity = (await getAlgoliaResource(id)) as AlgoliaResourceQuery;
       entity_content = entity.resource;
+      break;
+    case "news":
+      entity = (await getAlgoliaNews(id)) as AlgoliaNewsQuery;
+      entity_content = entity.news;
+      break;
+    case "faq":
+      entity = (await getAlgoliaFaq(id)) as AlgoliaFaqQuery;
+      entity_content = entity.faq;
       break;
     default:
       throw Error("Trying to index an unrecognized content type");
@@ -83,6 +101,14 @@ export async function indexEntity(
         });
         break;
 
+      case "LayoutSidebarFilterRecord":
+        el.content.forEach((ls) => {
+          if (ls.__typename == "RichTextRecord") {
+            content += `${render(ls.content)} `;
+          }
+        });
+        break;
+
       case "HeroRecord":
       case "BannerRecord":
       case "SplitBannerRecord":
@@ -92,6 +118,10 @@ export async function indexEntity(
 
       case "VideoPlayerRecord":
         content += `${el.title} ${el.transcription} `;
+        break;
+
+      case "BloccoGraficoRecord":
+        content += `${el.title} ${el.subtitle} `;
         break;
     }
   });
