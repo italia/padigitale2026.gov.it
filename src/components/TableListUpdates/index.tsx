@@ -165,74 +165,76 @@ export function TableListUpdates(
                 </Col>
               </Row>
               <div role="region" aria-label="Lista aggiornamenti" aria-live="polite">
-                {(updates as UpdateRecord[]).map((update: UpdateRecord, itemIndex) => {
-                  const {cta, customUpdateDate, id: updateId, title: itemTitle} = update;
-                  let shouldHide =
-                    !showLastItems &&
-                    (itemIndex < (currentPage - 1) * itemsPerPage || itemIndex >= currentPage * itemsPerPage);
+                <div role="list">
+                  {(updates as UpdateRecord[]).map((update: UpdateRecord, itemIndex) => {
+                    const {cta, customUpdateDate, id: updateId, title: itemTitle} = update;
+                    let shouldHide =
+                      !showLastItems &&
+                      (itemIndex < (currentPage - 1) * itemsPerPage || itemIndex >= currentPage * itemsPerPage);
 
-                  if (showLastItems) {
-                    shouldHide = false;
-                  }
+                    if (showLastItems) {
+                      shouldHide = false;
+                    }
 
-                  if (shouldHide) return null;
+                    if (shouldHide) return null;
 
-                  return (
-                    <div
-                      key={updateId}
-                      role="listitem"
-                      className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap">
-                      {customUpdateDate && (
-                        <div className="col-3 col-md-2 ps-0">
-                          <span className="visually-hidden">Data di aggiornamento:</span>
-                          <time>
-                            {new Intl.DateTimeFormat("it-IT", {
-                              timeZone: "Europe/Rome",
-                              day: "2-digit",
-                              month: "long",
-                              year: "numeric",
-                            }).format(Date.parse(customUpdateDate))}
-                          </time>
-                        </div>
-                      )}
-                      <div className={`${customUpdateDate ? "col-9 col-md-10" : "col-12"} ps-0`}>
-                        <div className="d-flex justify-content-between align-items-center">
+                    return (
+                      <div
+                        key={updateId}
+                        role="listitem"
+                        className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap">
+                        {customUpdateDate && (
+                          <div className="col-3 col-md-2 ps-0">
+                            <span className="visually-hidden">Data di aggiornamento:</span>
+                            <time>
+                              {new Intl.DateTimeFormat("it-IT", {
+                                timeZone: "Europe/Rome",
+                                day: "2-digit",
+                                month: "long",
+                                year: "numeric",
+                              }).format(Date.parse(customUpdateDate))}
+                            </time>
+                          </div>
+                        )}
+                        <div className={`${customUpdateDate ? "col-9 col-md-10" : "col-12"} ps-0`}>
+                          <div className="d-flex justify-content-between align-items-center">
                           <span className="me-3">
                             <span className="visually-hidden">Descrizione dell&apos;aggiornamento:</span>
                             {itemTitle}
                           </span>
-                          <Link
-                            className="fw-bold text-nowrap"
-                            href={cta?.href ? `/${cta.href}` : cta?.cmsPage ? `/${cta.cmsPage.slug}` : ""}
-                            aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
-                            target={"_self"}
-                          >
-                            {cta?.href && <span className="small">Vai alla risorsa aggiornata</span>}
-                            {cta?.cmsPage && cta?.text && <span className="small">{cta.text}</span>}
-                            {cta?.cmsPage && !cta?.text && cta?.cmsPage?.title && (
-                              <span className="small">{cta.cmsPage.title}</span>
-                            )}
-                            {cta?.cmsPage && !cta?.text && !cta?.cmsPage?.title && (
-                              <span className="small">
+                            <Link
+                              className="fw-bold text-nowrap"
+                              href={cta?.href ? `/${cta.href}` : cta?.cmsPage ? `/${cta.cmsPage.slug}` : ""}
+                              aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
+                              target={"_self"}
+                            >
+                              {cta?.href && <span className="small">Vai alla risorsa aggiornata</span>}
+                              {cta?.cmsPage && cta?.text && <span className="small">{cta.text}</span>}
+                              {cta?.cmsPage && !cta?.text && cta?.cmsPage?.title && (
+                                <span className="small">{cta.cmsPage.title}</span>
+                              )}
+                              {cta?.cmsPage && !cta?.text && !cta?.cmsPage?.title && (
+                                <span className="small">
                                 {cta.cmsPage.__typename === "PageRecord" && "Vai alla pagina aggiornata"}
                               </span>
-                            )}
-                            {cta?.icon && (
-                              <Icon
-                                className="my-0"
-                                color="primary"
-                                icon={cta.icon}
-                                size="sm"
-                                aria-hidden
-                                padding
-                              />
-                            )}
-                          </Link>
+                              )}
+                              {cta?.icon && (
+                                <Icon
+                                  className="my-0"
+                                  color="primary"
+                                  icon={cta.icon}
+                                  size="sm"
+                                  aria-hidden
+                                  padding
+                                />
+                              )}
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

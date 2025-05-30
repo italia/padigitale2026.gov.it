@@ -17,15 +17,18 @@ export function CardNews({
   props,
   cardLayout = newsCardLayoutEnum.borderBottom,
   TitleTag = "div",
+  parentId = null
 }: {
   props: NewsRecord;
   cardLayout?: newsCardLayoutEnum;
   TitleTag?: ElementType;
+  parentId: string|null
 }) {
-  const { title, summary, category, customUpdateDate, slug, externalLink } = props;
+  const { id, title, summary, category, customUpdateDate, slug, externalLink } = props;
 
   return (
     <article
+      aria-labelledby={(parentId && title) ? `title-${parentId}-${id}` : undefined}
       className={cn("it-card--news it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
@@ -46,6 +49,7 @@ export function CardNews({
             href={externalLink ?? `/${slug}`}
             className={cn("decoration-1")}
             target={externalLink ? "_blank" : "_self"}
+            id={parentId && title ? `title-${parentId}-${id}` : undefined}
           >
             {title}
           </Link>
@@ -78,14 +82,17 @@ export function CardNews({
               </div>
             )}
             {customUpdateDate && (
-              <time className={"it-card-date"}>
-                {new Intl.DateTimeFormat("it-IT", {
-                  timeZone: "Europe/Rome",
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }).format(Date.parse(customUpdateDate))}
-              </time>
+              <>
+                <span className="visually-hidden">Data: </span>
+                <time className={"it-card-date"}>
+                  {new Intl.DateTimeFormat("it-IT", {
+                    timeZone: "Europe/Rome",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(Date.parse(customUpdateDate))}
+                </time>
+              </>
             )}
           </footer>
         )}

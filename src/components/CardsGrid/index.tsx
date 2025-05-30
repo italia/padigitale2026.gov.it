@@ -11,7 +11,7 @@ import {
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
-import {Col, Icon, Pager} from "design-react-kit";
+import {Col, Icon, Pager, Row} from "design-react-kit";
 import {ElementType, Fragment, useCallback, useEffect, useState} from "react";
 import {
   PaginationItem,
@@ -133,6 +133,11 @@ export function CardsGrid({
   const getPageFromHash = useCallback(() => {
     const hash = window?.location.hash?.substring(1);
     const params = new URLSearchParams(hash);
+
+    if (params.get(`${id}-page`) === null) {
+      return null;
+    }
+
     const page = parseInt(params.get(`${id}-page`) || '1');
     return isNaN(page) ? 1 : page;
   }, [id]);
@@ -140,14 +145,24 @@ export function CardsGrid({
   // Effect: Update current page from hash after mount
   useEffect(() => {
     const handleHashChange = () => {
-      setCurrentPage(getPageFromHash());
+      const pageFromHash = getPageFromHash();
+      if (pageFromHash) {
+        setCurrentPage(pageFromHash);
+        const hash = window?.location.hash?.substring(1);
+        if (hash.includes(id)) {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
     };
 
     handleHashChange(); // Run on first mount
     window.addEventListener("hashchange", handleHashChange);
 
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [getPageFromHash]);
+  }, [getPageFromHash, id]);
 
   const createPageURL = (pageNumber: number, listItems: NewsRecord[], limit: number) => {
     if (pageNumber <= 1) {
@@ -299,6 +314,7 @@ export function CardsGrid({
   return (
     <div
       key={id}
+      id={id}
       aria-labelledby={`section${id}`}
       className={cn(`${backgroundColor}`, {
         "wrapper py-5": !hasSidebar,
@@ -424,10 +440,11 @@ export function CardsGrid({
             }
 
             return (
-              <div className={"row h-100"}>
+              <div className={"row h-100"} role={"list"}>
                 {news.map((record, idx) => {
                   return (
                     <div
+                      role={"listitem"}
                       key={idx}
                       className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
                     >
@@ -435,6 +452,7 @@ export function CardsGrid({
                         TitleTag={cardTitleTag}
                         cardLayout={newsCardLayoutEnum.clean}
                         props={record}
+                        parentId={id}
                       />
                     </div>
                   );
@@ -458,33 +476,42 @@ export function CardsGrid({
 
             return (
               <>
-                <div className={"row h-100"}>
-                  {news.map((newsRecord: NewsRecord, idx) => {
-                    const startIndex = (currentPage - 1) * itemsPerPage;
-                    const endIndex = currentPage * itemsPerPage;
-                    const shouldHide = (idx < startIndex || idx >= endIndex);
+                <div
+                  role="region"
+                  aria-label="Lista notizie"
+                  aria-live="polite"
+                >
+                  <Row role={"list"} className={"h-100"}>
+                    {news.map((newsRecord: NewsRecord, idx) => {
+                      const startIndex = (currentPage - 1) * itemsPerPage;
+                      const endIndex = currentPage * itemsPerPage;
+                      const shouldHide = (idx < startIndex || idx >= endIndex);
 
-                    if (shouldHide && news.length >= itemsPerPage) return null;
+                      if (shouldHide && news.length >= itemsPerPage) return null;
 
-                    return (
-                      <div
-                        key={idx}
-                        className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-                      >
-                        <CardNews
-                          TitleTag={cardTitleTag}
-                          cardLayout={newsCardLayoutEnum.clean}
-                          props={newsRecord}
-                        />
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div
+                          role={"listitem"}
+                          key={idx}
+                          className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                        >
+                          <CardNews
+                            TitleTag={cardTitleTag}
+                            cardLayout={newsCardLayoutEnum.clean}
+                            props={newsRecord}
+                            parentId={id}
+                          />
+                        </div>
+                      );
+                    })}
+                  </Row>
                 </div>
 
                 {news.length > itemsPerPage && (
                   <Col
                     className={cn("col-12 pt-5", {"d-flex justify-content-center": alignment === "center"})}>
-                    <Pager aria-label="Naviga tra le pagine di questa lista di notizie">
+                    <Pager aria-label="Naviga tra le pagine di questa lista di notizie"
+                           role="navigation">
                       <PaginationItem disabled={currentPage <= 1}>
                         <PaginationLink
                           // onClick={(e) => {
