@@ -1,11 +1,15 @@
 #import "./fragments.graphql"
 
 query AllNews {
-  allNews(first: 100) {
+  allNews(
+    first: 100,
+    orderBy: customUpdateDate_DESC
+  ) {
     _createdAt
     _updatedAt
     title
     slug
+    summary
     customUpdateDate
     body {
       ... on HeroRecord {
