@@ -9,6 +9,7 @@ query AllNews {
     _updatedAt
     title
     slug
+    externalLink
     summary
     customUpdateDate
     body {

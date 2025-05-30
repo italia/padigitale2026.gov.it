@@ -472,6 +472,7 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
     __typename
     id
     slug
+    externalLink
     title
     summary
     category

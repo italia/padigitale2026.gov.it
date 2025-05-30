@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
+import {Icon} from "design-react-kit";
 
 const cn = classNames.bind(styles);
 
@@ -21,7 +22,7 @@ export function CardNews({
   cardLayout?: newsCardLayoutEnum;
   TitleTag?: ElementType;
 }) {
-  const { title, summary, category, customUpdateDate, slug } = props;
+  const { title, summary, category, customUpdateDate, slug, externalLink } = props;
 
   return (
     <article
@@ -34,7 +35,7 @@ export function CardNews({
     >
       {title && (
         <TitleTag
-          className={cn("it-card-title fw-semibold pb-3 lh-sm", {
+          className={cn("it-card-title fw-semibold pb-3 lh-sm fs-3 d-flex justify-content-between", {
             "fs-3":
               cardLayout && ["borderBottom", "clean"].includes(cardLayout),
             "fs-4": cardLayout && cardLayout === "bordered",
@@ -42,12 +43,22 @@ export function CardNews({
           })}
         >
           <Link
-            href={`/${slug}`}
+            href={externalLink ?? `/${slug}`}
             className={cn("decoration-1")}
-            target={"_self"}
+            target={externalLink ? "_blank" : "_self"}
           >
             {title}
           </Link>
+
+          {externalLink && (
+            <span className={cn("icon")} aria-hidden={"true"}>
+              <Icon
+                className="my-0"
+                color="primary"
+                icon="it-external-link"
+              />
+            </span>
+          )}
         </TitleTag>
       )}
       <div

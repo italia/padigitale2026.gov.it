@@ -460,7 +460,6 @@ export function CardsGrid({
               <>
                 <div className={"row h-100"}>
                   {news.map((newsRecord: NewsRecord, idx) => {
-
                     const startIndex = (currentPage - 1) * itemsPerPage;
                     const endIndex = currentPage * itemsPerPage;
                     const shouldHide = (idx < startIndex || idx >= endIndex);
@@ -488,6 +487,13 @@ export function CardsGrid({
                     <Pager aria-label="Naviga tra le pagine di questa lista di notizie">
                       <PaginationItem disabled={currentPage <= 1}>
                         <PaginationLink
+                          // onClick={(e) => {
+                          //   e.preventDefault();
+                          //   const newPage = currentPage - 1;
+                          //   const url = createPageURL(newPage, news, itemsPerPage);
+                          //   window.history.replaceState(null, "", url);
+                          //   setCurrentPage(newPage);
+                          // }}
                           href={createPageURL(currentPage - 1, news, itemsPerPage)}>
                           <span className="visually-hidden">Pagina precedente</span>
                           <Icon aria-hidden icon="it-chevron-left"/>
@@ -498,6 +504,13 @@ export function CardsGrid({
                           <PaginationLink
                             aria-current={currentPage === pageIndex + 1 ? "page" : undefined}
                             aria-label={`Vai alla pagina ${pageIndex + 1} di questa lista di notizie`}
+                            // onClick={(e) => {
+                            //   e.preventDefault();
+                            //   const newPage = pageIndex + 1;
+                            //   const url = createPageURL(newPage, news, itemsPerPage);
+                            //   window.history.replaceState(null, "", url);
+                            //   setCurrentPage(newPage);
+                            // }}
                             href={createPageURL(pageIndex + 1, news, itemsPerPage)}>
                             {pageIndex + 1}
                           </PaginationLink>
@@ -506,6 +519,13 @@ export function CardsGrid({
                       <PaginationItem
                         disabled={currentPage >= Math.ceil(news.length / itemsPerPage)}>
                         <PaginationLink
+                          // onClick={(e) => {
+                          //   e.preventDefault();
+                          //   const newPage = currentPage + 1;
+                          //   const url = createPageURL(newPage, news, itemsPerPage);
+                          //   window.history.replaceState(null, "", url);
+                          //   setCurrentPage(newPage);
+                          // }}
                           href={createPageURL(currentPage + 1, news, itemsPerPage)}>
                           <span className="visually-hidden">Pagina successiva</span>
                           <Icon aria-hidden icon="it-chevron-right"/>
@@ -516,7 +536,6 @@ export function CardsGrid({
                 )}
               </>
             )
-
           })() || ""}
 
           {cards !== null && (() => {
@@ -596,6 +615,7 @@ export function CardsGrid({
               </div>
             )
           })() || ""}
+
           {button && (
             <div className={"row h-100"}>
               <div
