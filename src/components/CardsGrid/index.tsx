@@ -5,35 +5,42 @@ import {
   CardsGridResourceRecord,
   CardsGridNewsRecord,
   CardsGridAnnouncementRecord,
+  NewsRecord
 } from "@/graphql/generated";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
-import { Icon } from "design-react-kit";
-import { ElementType, Fragment } from "react";
+import {Col, Icon, Pager} from "design-react-kit";
+import {ElementType, Fragment, useCallback, useEffect, useState} from "react";
+import {
+  PaginationItem,
+  PaginationLink
+} from "reactstrap";
 
 import {
   genericCardLayoutEnum,
   CardGeneric,
 } from "@/src/components/CardGeneric";
-import { CardAttachment } from "@/src/components/CardAttachment";
-import { CardResource } from "@/src/components/CardResource";
-import { CardService } from "@/src/components/CardService";
+import {CardAttachment} from "@/src/components/CardAttachment";
+import {CardResource} from "@/src/components/CardResource";
+import {CardService} from "@/src/components/CardService";
 import {
   CardAnnouncement,
   CardAnnouncementRecord,
   CardAnnouncementStatusType,
   CardAnnouncementLayout,
 } from "@/src/components/CardAnnouncement";
-import { newsCardLayoutEnum, CardNews } from "@/src/components/CardNews";
+import {newsCardLayoutEnum, CardNews} from "@/src/components/CardNews";
+import {usePathname} from "next/navigation";
+import {usePages} from "@/src/contexts/PagesContext";
 
 const cn = classNames.bind(styles);
 
 export function CardsGrid({
-  props,
-  hasSidebar = false,
-}: {
+                            props,
+                            hasSidebar = false,
+                          }: {
   props:
     | CardsGridGenericRecord
     | CardsGridAttachmentRecord
@@ -43,7 +50,8 @@ export function CardsGrid({
     | CardsGridAnnouncementRecord;
   hasSidebar?: boolean;
 }) {
-  const { __typename, id, sectionFields } = props;
+  const allDatoObjects = usePages();
+  const {__typename, id, sectionFields} = props;
   let title = null;
   if (
     typeof sectionFields !== "undefined" &&
@@ -89,13 +97,13 @@ export function CardsGrid({
     alignment = sectionFields.alignment;
   }
 
-  let columns = null;
+  let columns = 1;
   if (
     typeof sectionFields !== "undefined" &&
     sectionFields &&
     typeof sectionFields.columns !== "undefined"
   ) {
-    columns = sectionFields.columns;
+    columns = parseInt(sectionFields.columns as string);
   }
 
   let backgroundColor = null;
@@ -114,7 +122,45 @@ export function CardsGrid({
 
   let cardLayout = null;
   let cards = null;
-  let news = null;
+
+  let news: NewsRecord[] = [];
+  let newsSelection: string | null = null;
+
+  const pathname = usePathname();
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const getPageFromHash = useCallback(() => {
+    const hash = window?.location.hash?.substring(1);
+    const params = new URLSearchParams(hash);
+    const page = parseInt(params.get(`${id}-page`) || '1');
+    return isNaN(page) ? 1 : page;
+  }, [id]);
+
+  // Effect: Update current page from hash after mount
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentPage(getPageFromHash());
+    };
+
+    handleHashChange(); // Run on first mount
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [getPageFromHash]);
+
+  const createPageURL = (pageNumber: number, listItems: NewsRecord[], limit: number) => {
+    if (pageNumber <= 1) {
+      pageNumber = 1;
+    }
+    const maxPages = Math.ceil(listItems.length / limit);
+    if (pageNumber > maxPages) {
+      pageNumber = maxPages;
+    }
+    return `${pathname}#${id}-page=${pageNumber}`;
+  };
+
+
   let resources = null;
   let announcements: CardAnnouncementRecord[] | null = null;
   let borderOnTop = false;
@@ -123,7 +169,7 @@ export function CardsGrid({
     borderOnTop =
       typeof props.borderOnTop !== "undefined" ? props.borderOnTop : false;
     announcements = [];
-    if (columns && parseInt(columns) === 3) {
+    if (columns === 3) {
       announcements.push({
         __typename: "CardAnnouncementRecord",
         badge: "Nuovo",
@@ -226,7 +272,22 @@ export function CardsGrid({
   }
 
   if (__typename === "CardsGridNewsRecord") {
-    news = typeof props.news !== "undefined" ? props.news : null;
+    if (typeof props.news !== "undefined" && props.news.length) {
+      news = props.news as NewsRecord[];
+    }
+
+    newsSelection = typeof props.newsSelection !== "undefined" ? props.newsSelection : null;
+
+    if (!news.length) {
+      if (allDatoObjects.news?.allNews) {
+        news = allDatoObjects.news.allNews as NewsRecord[];
+        if (newsSelection === 'latest_3') {
+          news = news.slice(0, 3);
+        } else if (newsSelection === 'latest_6') {
+          news = news.slice(0, 6);
+        }
+      }
+    }
   }
 
   const cardTitleTag: ElementType = (singleCardsTitleTag ||
@@ -283,7 +344,7 @@ export function CardsGrid({
             <div className={"row"}>
               {announcements.map((announcement, idx) => {
                 let colClasses = "";
-                const intColumns = (columns && parseInt(columns)) ?? 1;
+                const intColumns = columns;
                 if (intColumns === 1) {
                   colClasses = "col-12";
                 } else if (intColumns === 2) {
@@ -311,8 +372,8 @@ export function CardsGrid({
                             ? CardAnnouncementLayout.large_with_border_top
                             : CardAnnouncementLayout.large
                           : borderOnTop
-                          ? CardAnnouncementLayout.small_with_border_top
-                          : CardAnnouncementLayout.small
+                            ? CardAnnouncementLayout.small_with_border_top
+                            : CardAnnouncementLayout.small
                       }
                       TitleTag={cardTitleTag}
                       props={announcement}
@@ -327,7 +388,7 @@ export function CardsGrid({
             <div className={"row"}>
               {resources.map((resource, idx) => {
                 let colClasses = "";
-                const intColumns = (columns && parseInt(columns)) ?? 1;
+                const intColumns = columns;
                 if (intColumns === 1) {
                   colClasses = "col-12";
                 } else if (intColumns === 2) {
@@ -342,47 +403,130 @@ export function CardsGrid({
                     key={idx}
                     className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
                   >
-                    <CardResource TitleTag={cardTitleTag} props={resource} />
+                    <CardResource TitleTag={cardTitleTag} props={resource}/>
                   </div>
                 );
               })}
             </div>
           )}
-          {news && (
-            <div className={"row h-100"}>
-              {news.map((record, idx) => {
-                let colClasses = "";
-                const intColumns = (columns && parseInt(columns)) ?? 1;
-                if (intColumns === 1) {
-                  colClasses = "col-12";
-                } else if (intColumns === 2) {
-                  colClasses = "col-12 col-md-6";
-                } else if (intColumns === 3) {
-                  colClasses = "col-12 col-lg-4";
-                } else if (intColumns === 4) {
-                  colClasses = "col-12 col-lg-3";
-                }
-                return (
-                  <div
-                    key={idx}
-                    className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-                  >
-                    <CardNews
-                      TitleTag={cardTitleTag}
-                      cardLayout={newsCardLayoutEnum.clean}
-                      props={record}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
+
+          {news && news.length && (!newsSelection || newsSelection !== "paginated") && (() => {
+            let colClasses = "";
+
+            if (columns === 1) {
+              colClasses = "col-12";
+            } else if (columns === 2) {
+              colClasses = "col-12 col-md-6";
+            } else if (columns === 3) {
+              colClasses = "col-12 col-lg-4";
+            } else if (columns === 4) {
+              colClasses = "col-12 col-lg-3";
+            }
+
+            return (
+              <div className={"row h-100"}>
+                {news.map((record, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                    >
+                      <CardNews
+                        TitleTag={cardTitleTag}
+                        cardLayout={newsCardLayoutEnum.clean}
+                        props={record}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )
+          })() || ""}
+
+          {news && news.length && (newsSelection && newsSelection === "paginated") && (() => {
+            let colClasses = "";
+
+            if (columns === 1) {
+              colClasses = "col-12";
+            } else if (columns === 2) {
+              colClasses = "col-12 col-md-6";
+            } else if (columns === 3) {
+              colClasses = "col-12 col-lg-4";
+            } else if (columns === 4) {
+              colClasses = "col-12 col-lg-3";
+            }
+
+            const itemsPerPage = columns !== 3 ? 14 : 12;
+
+            return (
+              <>
+                <div className={"row h-100"}>
+                  {news.map((newsRecord: NewsRecord, idx) => {
+
+                    const startIndex = (currentPage - 1) * itemsPerPage;
+                    const endIndex = currentPage * itemsPerPage;
+                    const shouldHide = (idx < startIndex || idx >= endIndex);
+
+                    if (shouldHide && news.length >= itemsPerPage) return null;
+
+                    return (
+                      <div
+                        key={idx}
+                        className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                      >
+                        <CardNews
+                          TitleTag={cardTitleTag}
+                          cardLayout={newsCardLayoutEnum.clean}
+                          props={newsRecord}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {news.length > itemsPerPage && (
+                  <Col
+                    className={cn("col-12 pt-5", {"d-flex justify-content-center": alignment === "center"})}>
+                    <Pager aria-label="Naviga tra le pagine di questa lista di notizie">
+                      <PaginationItem disabled={currentPage <= 1}>
+                        <PaginationLink
+                          href={createPageURL(currentPage - 1, news, itemsPerPage)}>
+                          <span className="visually-hidden">Pagina precedente</span>
+                          <Icon aria-hidden icon="it-chevron-left"/>
+                        </PaginationLink>
+                      </PaginationItem>
+                      {Array.from({length: Math.ceil(news.length / itemsPerPage)}).map((_, pageIndex) => (
+                        <PaginationItem key={pageIndex}>
+                          <PaginationLink
+                            aria-current={currentPage === pageIndex + 1 ? "page" : undefined}
+                            aria-label={`Vai alla pagina ${pageIndex + 1} di questa lista di notizie`}
+                            href={createPageURL(pageIndex + 1, news, itemsPerPage)}
+                          >
+                            {pageIndex + 1}
+                          </PaginationLink>
+                        </PaginationItem>
+                      ))}
+                      <PaginationItem
+                        disabled={currentPage >= Math.ceil(news.length / itemsPerPage)}>
+                        <PaginationLink
+                          href={createPageURL(currentPage + 1, news, itemsPerPage)}>
+                          <span className="visually-hidden">Pagina successiva</span>
+                          <Icon aria-hidden icon="it-chevron-right"/>
+                        </PaginationLink>
+                      </PaginationItem>
+                    </Pager>
+                  </Col>
+                )}
+              </>
+            )
+
+          })() || ""}
+
           {cards !== null && (
             <div className={"row h-100"}>
               {cards.map((card, idx) => {
-                // console.log(`cards for ${__typename}`, cards);
                 let colClasses = "";
-                const intColumns = (columns && parseInt(columns)) ?? 1;
+                const intColumns = columns;
                 if (intColumns === 1) {
                   colClasses = "col-12";
                 } else if (intColumns === 2) {
@@ -404,22 +548,19 @@ export function CardsGrid({
                           genericCardLayoutEnum[
                             (cardLayout ??
                               "bordered") as keyof typeof genericCardLayoutEnum
-                          ]
+                            ]
                         }
                         props={card}
                       />
                     </div>
                   );
                 } else if (card.__typename === "CardAttachmentRecord") {
-                  // if (intColumns === 1) {
-                  //   colClasses = "col-12 col-lg-8";
-                  // }
                   return (
                     <div
                       key={idx}
                       className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
                     >
-                      <CardAttachment TitleTag={cardTitleTag} props={card} />
+                      <CardAttachment TitleTag={cardTitleTag} props={card}/>
                     </div>
                   );
                 } else if (card.__typename === "CardServiceRecord") {
@@ -427,7 +568,8 @@ export function CardsGrid({
                     <Fragment key={idx}>
                       {(idx === 0 || idx % 3 === 0) && (
                         <div className={"col-12"}>
-                          <div className={"w-100 border-top-lg"}></div>{" "}
+                          <div className={"w-100 border-top-lg"}></div>
+                          {" "}
                         </div>
                       )}
                       <div
@@ -446,7 +588,8 @@ export function CardsGrid({
                       </div>
                       {cards.length === idx + 1 && (
                         <div className={"col-12"}>
-                          <div className={"w-100 border-top-lg"}></div>{" "}
+                          <div className={"w-100 border-top-lg"}></div>
+                          {" "}
                         </div>
                       )}
                     </Fragment>

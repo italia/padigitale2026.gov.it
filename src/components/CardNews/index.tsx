@@ -21,7 +21,7 @@ export function CardNews({
   cardLayout?: newsCardLayoutEnum;
   TitleTag?: ElementType;
 }) {
-  const { title, summary, category, data, slug } = props;
+  const { title, summary, category, customUpdateDate, slug } = props;
 
   return (
     <article
@@ -58,7 +58,7 @@ export function CardNews({
         {summary && (
           <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{summary}</p>
         )}
-        {(category || data) && (
+        {(category || customUpdateDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
             {category && (
               <div className={"it-card-taxonomy"}>
@@ -66,7 +66,16 @@ export function CardNews({
                 <span className={"it-card-category"}>{category}</span>
               </div>
             )}
-            {data && <time className={"it-card-date"}>{data}</time>}
+            {customUpdateDate && (
+              <time className={"it-card-date"}>
+                {new Intl.DateTimeFormat("it-IT", {
+                  timeZone: "Europe/Rome",
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(Date.parse(customUpdateDate))}
+              </time>
+            )}
           </footer>
         )}
       </div>

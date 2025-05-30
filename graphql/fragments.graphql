@@ -467,6 +467,7 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
   sectionFields {
     ...CardsGridFieldsetFragment
   }
+  newsSelection
   news {
     __typename
     id
@@ -474,7 +475,7 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
     title
     summary
     category
-    data
+    customUpdateDate
   }
 }
 
