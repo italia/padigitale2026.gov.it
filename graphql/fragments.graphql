@@ -657,7 +657,10 @@ fragment TableListUpdateFragment on TableListUpdateRecord {
 fragment CardMisuraFragment on CardMisuraRecord {
   __typename
   id
-  title
+  risorseInEuro
+  descrizione
+  plateaPotenziale
+  aggiornamenti
   misura {
     id
     label

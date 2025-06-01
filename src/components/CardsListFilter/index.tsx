@@ -170,7 +170,7 @@ export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
       <div className="row">
         {items.map((item) => (
           <div
-            className="col-12 it-page-sections-container border"
+            className="col-12 it-page-sections-container"
             key={item.id}
             data-promotore={item.entePromotore?.label
               ?.toLowerCase()
