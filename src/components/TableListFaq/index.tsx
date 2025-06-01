@@ -7,7 +7,13 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
-export function TableListFaq({ props }: { props: TableListFaqRecord }) {
+export function TableListFaq({
+  props,
+  noPadding = false,
+}: {
+  props: TableListFaqRecord;
+  noPadding?: boolean;
+}) {
   const { questionsRef, id } = props;
 
   const getBadge = (item: FaqRecord) => {
@@ -67,7 +73,7 @@ export function TableListFaq({ props }: { props: TableListFaqRecord }) {
           return (
             <div
               role="listitem"
-              className={"col-12 px-0"}
+              className={cn("col-12", { "px-0": noPadding })}
               key={`faq-item-${item.id || idx}`}
               data-beneficiari={item.beneficiari
                 ?.map((b) =>

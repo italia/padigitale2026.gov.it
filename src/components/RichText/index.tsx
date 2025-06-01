@@ -23,7 +23,7 @@ import { CardsGrid } from "@/src/components/CardsGrid";
 import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { TableList } from "../TableList";
 import { TableListFaq } from "../TableListFaq";
-import {TableListUpdates} from "@/src/components/TableListUpdates";
+import { TableListUpdates } from "@/src/components/TableListUpdates";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -211,10 +211,20 @@ export function RichText({
         return <TableList key={record.id} props={record as TableListRecord} />;
       case "TableListFaqRecord":
         return (
-          <TableListFaq key={record.id} props={record as TableListFaqRecord} />
+          <TableListFaq
+            key={record.id}
+            props={record as TableListFaqRecord}
+            noPadding={true}
+          />
         );
       case "TableListUpdateRecord":
-        return <TableListUpdates hasSidebar={true} key={record.id} props={record as TableListUpdateRecord} />;
+        return (
+          <TableListUpdates
+            hasSidebar={true}
+            key={record.id}
+            props={record as TableListUpdateRecord}
+          />
+        );
       default:
         return null;
     }
