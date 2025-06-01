@@ -11,7 +11,7 @@ import {
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
-import {Col, Icon, Pager} from "design-react-kit";
+import {Col, Icon, Pager, Row} from "design-react-kit";
 import {ElementType, Fragment, useCallback, useEffect, useState} from "react";
 import {
   PaginationItem,
@@ -133,6 +133,11 @@ export function CardsGrid({
   const getPageFromHash = useCallback(() => {
     const hash = window?.location.hash?.substring(1);
     const params = new URLSearchParams(hash);
+
+    if (params.get(`${id}-page`) === null) {
+      return null;
+    }
+
     const page = parseInt(params.get(`${id}-page`) || '1');
     return isNaN(page) ? 1 : page;
   }, [id]);
@@ -140,14 +145,24 @@ export function CardsGrid({
   // Effect: Update current page from hash after mount
   useEffect(() => {
     const handleHashChange = () => {
-      setCurrentPage(getPageFromHash());
+      const pageFromHash = getPageFromHash();
+      if (pageFromHash) {
+        setCurrentPage(pageFromHash);
+        const hash = window?.location.hash?.substring(1);
+        if (hash.includes(id)) {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
     };
 
     handleHashChange(); // Run on first mount
     window.addEventListener("hashchange", handleHashChange);
 
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [getPageFromHash]);
+  }, [getPageFromHash, id]);
 
   const createPageURL = (pageNumber: number, listItems: NewsRecord[], limit: number) => {
     if (pageNumber <= 1) {
@@ -294,9 +309,12 @@ export function CardsGrid({
     "h3") as ElementType;
   // const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
+  let colClasses = "";
+
   return (
     <div
       key={id}
+      id={id}
       aria-labelledby={`section${id}`}
       className={cn(`${backgroundColor}`, {
         "wrapper py-5": !hasSidebar,
@@ -340,79 +358,77 @@ export function CardsGrid({
             </div>
           </div>
 
-          {announcements && (
-            <div className={"row"}>
-              {announcements.map((announcement, idx) => {
-                let colClasses = "";
-                const intColumns = columns;
-                if (intColumns === 1) {
-                  colClasses = "col-12";
-                } else if (intColumns === 2) {
-                  colClasses = "col-12 col-md-6";
-                } else if (intColumns === 3) {
-                  colClasses = "col-12 col-lg-4";
-                } else if (intColumns === 4) {
-                  colClasses = "col-12 col-lg-3";
-                }
-                return (
-                  <div
-                    key={idx}
-                    className={cn(
-                      `${colClasses} d-flex flex-column justify-content-stretch`,
-                      {
-                        "pt-5": intColumns && intColumns === 1,
-                        "pt-4": (intColumns && intColumns >= 2) || !intColumns,
-                      }
-                    )}
-                  >
-                    <CardAnnouncement
-                      layout={
-                        intColumns === 1
-                          ? borderOnTop
-                            ? CardAnnouncementLayout.large_with_border_top
-                            : CardAnnouncementLayout.large
-                          : borderOnTop
-                            ? CardAnnouncementLayout.small_with_border_top
-                            : CardAnnouncementLayout.small
-                      }
-                      TitleTag={cardTitleTag}
-                      props={announcement}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {announcements && (() => {
+            if (columns === 1) {
+              colClasses = "col-12";
+            } else if (columns === 2) {
+              colClasses = "col-12 col-md-6";
+            } else if (columns === 3) {
+              colClasses = "col-12 col-lg-4";
+            } else if (columns === 4) {
+              colClasses = "col-12 col-lg-3";
+            }
+            return (
+              <div className={"row"}>
+                {announcements.map((announcement, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      className={cn(
+                        `${colClasses} d-flex flex-column justify-content-stretch`,
+                        {
+                          "pt-5": columns && columns === 1,
+                          "pt-4": (columns && columns >= 2) || !columns,
+                        }
+                      )}
+                    >
+                      <CardAnnouncement
+                        layout={
+                          columns === 1
+                            ? borderOnTop
+                              ? CardAnnouncementLayout.large_with_border_top
+                              : CardAnnouncementLayout.large
+                            : borderOnTop
+                              ? CardAnnouncementLayout.small_with_border_top
+                              : CardAnnouncementLayout.small
+                        }
+                        TitleTag={cardTitleTag}
+                        props={announcement}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )
+          })() || ""}
 
-          {resources && (
-            <div className={"row"}>
-              {resources.map((resource, idx) => {
-                let colClasses = "";
-                const intColumns = columns;
-                if (intColumns === 1) {
-                  colClasses = "col-12";
-                } else if (intColumns === 2) {
-                  colClasses = "col-12 col-md-6";
-                } else if (intColumns === 3) {
-                  colClasses = "col-12 col-lg-4";
-                } else if (intColumns === 4) {
-                  colClasses = "col-12 col-lg-3";
-                }
-                return (
-                  <div
-                    key={idx}
-                    className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-                  >
-                    <CardResource TitleTag={cardTitleTag} props={resource}/>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {resources && (() => {
+            if (columns === 1) {
+              colClasses = "col-12";
+            } else if (columns === 2) {
+              colClasses = "col-12 col-md-6";
+            } else if (columns === 3) {
+              colClasses = "col-12 col-lg-4";
+            } else if (columns === 4) {
+              colClasses = "col-12 col-lg-3";
+            }
+            return (
+              <div className={"row"}>
+                {resources.map((resource, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                    >
+                      <CardResource TitleTag={cardTitleTag} props={resource}/>
+                    </div>
+                  );
+                })}
+              </div>
+            )
+          })() || ""}
 
           {news && news.length && (!newsSelection || newsSelection !== "paginated") && (() => {
-            let colClasses = "";
-
             if (columns === 1) {
               colClasses = "col-12";
             } else if (columns === 2) {
@@ -424,10 +440,11 @@ export function CardsGrid({
             }
 
             return (
-              <div className={"row h-100"}>
+              <div className={"row h-100"} role={"list"}>
                 {news.map((record, idx) => {
                   return (
                     <div
+                      role={"listitem"}
                       key={idx}
                       className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
                     >
@@ -435,6 +452,7 @@ export function CardsGrid({
                         TitleTag={cardTitleTag}
                         cardLayout={newsCardLayoutEnum.clean}
                         props={record}
+                        parentId={id}
                       />
                     </div>
                   );
@@ -444,8 +462,6 @@ export function CardsGrid({
           })() || ""}
 
           {news && news.length && (newsSelection && newsSelection === "paginated") && (() => {
-            let colClasses = "";
-
             if (columns === 1) {
               colClasses = "col-12";
             } else if (columns === 2) {
@@ -460,36 +476,51 @@ export function CardsGrid({
 
             return (
               <>
-                <div className={"row h-100"}>
-                  {news.map((newsRecord: NewsRecord, idx) => {
+                <div
+                  role="region"
+                  aria-label="Lista notizie"
+                  aria-live="polite"
+                >
+                  <Row role={"list"} className={"h-100"}>
+                    {news.map((newsRecord: NewsRecord, idx) => {
+                      const startIndex = (currentPage - 1) * itemsPerPage;
+                      const endIndex = currentPage * itemsPerPage;
+                      const shouldHide = (idx < startIndex || idx >= endIndex);
 
-                    const startIndex = (currentPage - 1) * itemsPerPage;
-                    const endIndex = currentPage * itemsPerPage;
-                    const shouldHide = (idx < startIndex || idx >= endIndex);
+                      if (shouldHide && news.length >= itemsPerPage) return null;
 
-                    if (shouldHide && news.length >= itemsPerPage) return null;
-
-                    return (
-                      <div
-                        key={idx}
-                        className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-                      >
-                        <CardNews
-                          TitleTag={cardTitleTag}
-                          cardLayout={newsCardLayoutEnum.clean}
-                          props={newsRecord}
-                        />
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div
+                          role={"listitem"}
+                          key={idx}
+                          className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                        >
+                          <CardNews
+                            TitleTag={cardTitleTag}
+                            cardLayout={newsCardLayoutEnum.clean}
+                            props={newsRecord}
+                            parentId={id}
+                          />
+                        </div>
+                      );
+                    })}
+                  </Row>
                 </div>
 
                 {news.length > itemsPerPage && (
                   <Col
                     className={cn("col-12 pt-5", {"d-flex justify-content-center": alignment === "center"})}>
-                    <Pager aria-label="Naviga tra le pagine di questa lista di notizie">
+                    <Pager aria-label="Naviga tra le pagine di questa lista di notizie"
+                           role="navigation">
                       <PaginationItem disabled={currentPage <= 1}>
                         <PaginationLink
+                          // onClick={(e) => {
+                          //   e.preventDefault();
+                          //   const newPage = currentPage - 1;
+                          //   const url = createPageURL(newPage, news, itemsPerPage);
+                          //   window.history.replaceState(null, "", url);
+                          //   setCurrentPage(newPage);
+                          // }}
                           href={createPageURL(currentPage - 1, news, itemsPerPage)}>
                           <span className="visually-hidden">Pagina precedente</span>
                           <Icon aria-hidden icon="it-chevron-left"/>
@@ -500,8 +531,14 @@ export function CardsGrid({
                           <PaginationLink
                             aria-current={currentPage === pageIndex + 1 ? "page" : undefined}
                             aria-label={`Vai alla pagina ${pageIndex + 1} di questa lista di notizie`}
-                            href={createPageURL(pageIndex + 1, news, itemsPerPage)}
-                          >
+                            // onClick={(e) => {
+                            //   e.preventDefault();
+                            //   const newPage = pageIndex + 1;
+                            //   const url = createPageURL(newPage, news, itemsPerPage);
+                            //   window.history.replaceState(null, "", url);
+                            //   setCurrentPage(newPage);
+                            // }}
+                            href={createPageURL(pageIndex + 1, news, itemsPerPage)}>
                             {pageIndex + 1}
                           </PaginationLink>
                         </PaginationItem>
@@ -509,6 +546,13 @@ export function CardsGrid({
                       <PaginationItem
                         disabled={currentPage >= Math.ceil(news.length / itemsPerPage)}>
                         <PaginationLink
+                          // onClick={(e) => {
+                          //   e.preventDefault();
+                          //   const newPage = currentPage + 1;
+                          //   const url = createPageURL(newPage, news, itemsPerPage);
+                          //   window.history.replaceState(null, "", url);
+                          //   setCurrentPage(newPage);
+                          // }}
                           href={createPageURL(currentPage + 1, news, itemsPerPage)}>
                           <span className="visually-hidden">Pagina successiva</span>
                           <Icon aria-hidden icon="it-chevron-right"/>
@@ -519,85 +563,86 @@ export function CardsGrid({
                 )}
               </>
             )
-
           })() || ""}
 
-          {cards !== null && (
-            <div className={"row h-100"}>
-              {cards.map((card, idx) => {
-                let colClasses = "";
-                const intColumns = columns;
-                if (intColumns === 1) {
-                  colClasses = "col-12";
-                } else if (intColumns === 2) {
-                  colClasses = "col-12 col-md-6";
-                } else if (intColumns === 3) {
-                  colClasses = "col-12 col-lg-4";
-                } else if (intColumns === 4) {
-                  colClasses = "col-12 col-lg-3";
-                }
-                if (card.__typename === "CardGenericRecord") {
-                  return (
-                    <div
-                      key={idx}
-                      className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-                    >
-                      <CardGeneric
-                        TitleTag={cardTitleTag}
-                        cardLayout={
-                          genericCardLayoutEnum[
-                            (cardLayout ??
-                              "bordered") as keyof typeof genericCardLayoutEnum
-                            ]
-                        }
-                        props={card}
-                      />
-                    </div>
-                  );
-                } else if (card.__typename === "CardAttachmentRecord") {
-                  return (
-                    <div
-                      key={idx}
-                      className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
-                    >
-                      <CardAttachment TitleTag={cardTitleTag} props={card}/>
-                    </div>
-                  );
-                } else if (card.__typename === "CardServiceRecord") {
-                  return (
-                    <Fragment key={idx}>
-                      {(idx === 0 || idx % 3 === 0) && (
-                        <div className={"col-12"}>
-                          <div className={"w-100 border-top-lg"}></div>
-                          {" "}
-                        </div>
-                      )}
+          {cards !== null && (() => {
+            if (columns === 1) {
+              colClasses = "col-12";
+            } else if (columns === 2) {
+              colClasses = "col-12 col-md-6";
+            } else if (columns === 3) {
+              colClasses = "col-12 col-lg-4";
+            } else if (columns === 4) {
+              colClasses = "col-12 col-lg-3";
+            }
+
+            return (
+              <div className={"row h-100"}>
+                {cards.map((card, idx) => {
+                  if (card.__typename === "CardGenericRecord") {
+                    return (
                       <div
-                        className={cn(
-                          "col-12 col-lg-4 d-flex flex-column pt-3 justify-content-stretch border-neutral-1-bg-a3",
-                          {
-                            "border-end-lg": (idx + 1) % 3 != 0,
-                          }
-                        )}
+                        key={idx}
+                        className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
                       >
-                        <CardService
-                          customClass={"border-bottom border-bottom-lg-0"}
+                        <CardGeneric
                           TitleTag={cardTitleTag}
+                          cardLayout={
+                            genericCardLayoutEnum[
+                              (cardLayout ??
+                                "bordered") as keyof typeof genericCardLayoutEnum
+                              ]
+                          }
                           props={card}
                         />
                       </div>
-                      {cards.length === idx + 1 && (
-                        <div className={"col-12"}>
-                          <div className={"w-100 border-top-lg"}></div>
-                          {" "}
+                    );
+                  } else if (card.__typename === "CardAttachmentRecord") {
+                    return (
+                      <div
+                        key={idx}
+                        className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                      >
+                        <CardAttachment TitleTag={cardTitleTag} props={card}/>
+                      </div>
+                    );
+                  } else if (card.__typename === "CardServiceRecord") {
+                    return (
+                      <Fragment key={idx}>
+                        {(idx === 0 || idx % 3 === 0) && (
+                          <div className={"col-12"}>
+                            <div className={"w-100 border-top-lg"}></div>
+                            {" "}
+                          </div>
+                        )}
+                        <div
+                          className={cn(
+                            "col-12 col-lg-4 d-flex flex-column pt-3 justify-content-stretch border-neutral-1-bg-a3",
+                            {
+                              "border-end-lg": (idx + 1) % 3 != 0,
+                            }
+                          )}
+                        >
+                          <CardService
+                            customClass={"border-bottom border-bottom-lg-0"}
+                            TitleTag={cardTitleTag}
+                            props={card}
+                          />
                         </div>
-                      )}
-                    </Fragment>
-                  );
-                }
-              })}
-            </div>
-          )}
+                        {cards.length === idx + 1 && (
+                          <div className={"col-12"}>
+                            <div className={"w-100 border-top-lg"}></div>
+                            {" "}
+                          </div>
+                        )}
+                      </Fragment>
+                    );
+                  }
+                })}
+              </div>
+            )
+          })() || ""}
+
           {button && (
             <div className={"row h-100"}>
               <div

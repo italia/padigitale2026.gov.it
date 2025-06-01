@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
+import {Icon} from "design-react-kit";
 
 const cn = classNames.bind(styles);
 
@@ -16,15 +17,18 @@ export function CardNews({
   props,
   cardLayout = newsCardLayoutEnum.borderBottom,
   TitleTag = "div",
+  parentId = null
 }: {
   props: NewsRecord;
   cardLayout?: newsCardLayoutEnum;
   TitleTag?: ElementType;
+  parentId: string|null
 }) {
-  const { title, summary, category, customUpdateDate, slug } = props;
+  const { id, title, summary, category, customUpdateDate, slug, externalLink } = props;
 
   return (
     <article
+      aria-labelledby={(parentId && title) ? `title-${parentId}-${id}` : undefined}
       className={cn("it-card--news it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
@@ -34,7 +38,7 @@ export function CardNews({
     >
       {title && (
         <TitleTag
-          className={cn("it-card-title fw-semibold pb-3 lh-sm", {
+          className={cn("it-card-title fw-semibold pb-3 lh-sm fs-3 d-flex justify-content-between", {
             "fs-3":
               cardLayout && ["borderBottom", "clean"].includes(cardLayout),
             "fs-4": cardLayout && cardLayout === "bordered",
@@ -42,12 +46,23 @@ export function CardNews({
           })}
         >
           <Link
-            href={`/${slug}`}
+            href={externalLink ?? `/${slug}`}
             className={cn("decoration-1")}
-            target={"_self"}
+            target={externalLink ? "_blank" : "_self"}
+            id={parentId && title ? `title-${parentId}-${id}` : undefined}
           >
             {title}
           </Link>
+
+          {externalLink && (
+            <span className={cn("icon")} aria-hidden={"true"}>
+              <Icon
+                className="my-0"
+                color="primary"
+                icon="it-external-link"
+              />
+            </span>
+          )}
         </TitleTag>
       )}
       <div
@@ -67,14 +82,17 @@ export function CardNews({
               </div>
             )}
             {customUpdateDate && (
-              <time className={"it-card-date"}>
-                {new Intl.DateTimeFormat("it-IT", {
-                  timeZone: "Europe/Rome",
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }).format(Date.parse(customUpdateDate))}
-              </time>
+              <>
+                <span className="visually-hidden">Data: </span>
+                <time className={"it-card-date"}>
+                  {new Intl.DateTimeFormat("it-IT", {
+                    timeZone: "Europe/Rome",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(Date.parse(customUpdateDate))}
+                </time>
+              </>
             )}
           </footer>
         )}

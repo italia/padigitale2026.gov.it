@@ -7,8 +7,10 @@ query AllNews {
   ) {
     _createdAt
     _updatedAt
+    id
     title
     slug
+    externalLink
     summary
     customUpdateDate
     body {
