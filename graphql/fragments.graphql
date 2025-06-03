@@ -691,3 +691,10 @@ fragment CardsListFilterFragment on CardsListFilterRecord {
     ...CardMisuraFragment
   }
 }
+
+fragment HeroSearchFragment on HeroSearchRecord {
+  __typename
+  hideBreadcrumbs
+  title
+  description
+}
