@@ -37,6 +37,8 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
     descrizione,
     plateaPotenziale,
     aggiornamenti,
+    link,
+    button,
   } = props;
   return (
     <div className={cn("border rounded-2 mb-4")}>
@@ -58,19 +60,25 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
                     RISORSE A DISPOSIZIONE
                   </small>
                   <div className="h4 mb-0">{risorseInEuro}</div>
-                  <a
-                    href="#"
-                    className="text-primary text-decoration-none d-inline-flex align-items-center fw-semibold"
-                    style={{ fontSize: "0.875rem" }}
-                  >
-                    Scopri come vengono utilizzate le risorse
-                    <Icon
-                      icon="it-arrow-right"
-                      size="sm"
-                      color="primary"
-                      className="ms-2"
-                    />
-                  </a>
+                  {link && (
+                    <Link
+                      href={link.href || ""}
+                      target={link.target || "_self"}
+                      title={link.text || ""}
+                      className="text-primary text-decoration-none d-inline-flex align-items-center fw-semibold"
+                      style={{ fontSize: "0.875rem" }}
+                    >
+                      {link.text || ""}
+                      {link.icon && (
+                        <Icon
+                          icon={link.icon || ""}
+                          size="sm"
+                          color="primary"
+                          className="ms-2"
+                        />
+                      )}
+                    </Link>
+                  )}
                 </div>
               )}
             </div>
@@ -159,22 +167,26 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
                 </div>
               )}
 
-              <div>
-                <Link
-                  className="btn btn-sm btn-outline-primary"
-                  href="#"
-                  target="_self"
-                  title="Vai agli avvisi"
-                >
-                  Vai agli avvisi
-                  <Icon
-                    icon="it-arrow-right"
-                    size="sm"
-                    color="primary"
-                    className="ms-2"
-                  />
-                </Link>
-              </div>
+              {button && (
+                <div>
+                  <Link
+                    className="btn btn-sm btn-outline-primary"
+                    href={button.href || ""}
+                    target={button.target || "_self"}
+                    title={button.text || ""}
+                  >
+                    {button.text || ""}
+                    {button.icon && (
+                      <Icon
+                        icon={button.icon || ""}
+                        size="sm"
+                        color="primary"
+                        className="ms-2"
+                      />
+                    )}
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

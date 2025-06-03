@@ -661,6 +661,9 @@ fragment CardMisuraFragment on CardMisuraRecord {
   __typename
   id
   risorseInEuro
+  link {
+    ...LinkFragment
+  }
   descrizione
   plateaPotenziale
   aggiornamenti
@@ -675,6 +678,9 @@ fragment CardMisuraFragment on CardMisuraRecord {
   entiBeneficiari {
     id
     label
+  }
+  button {
+    ...ButtonFragment
   }
 }
 
