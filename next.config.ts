@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
             // s-maxage=120 -> Indica alla CDN di Vercel una cache di 120s
             // stale-while-revalidate=120 -> Serve contenuto stale per 120s
             // mentre viene fatto rebuild in background.
-            value: 'public, max-age=0, s-maxage=120, stale-while-revalidate=120',
+            value: 'public, max-age=0, s-maxage=120, stale-while-revalidate=60',
           },
           {
             key: 'Vercel-CDN-Cache-Control',
