@@ -208,7 +208,13 @@ export function RichText({
           />
         );
       case "TableListRecord":
-        return <TableList key={record.id} props={record as TableListRecord} />;
+        return (
+          <TableList
+            key={record.id}
+            props={record as TableListRecord}
+            noPadding={true}
+          />
+        );
       case "TableListFaqRecord":
         return (
           <TableListFaq

@@ -8,7 +8,13 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
-export function TableList({ props }: { props: TableListRecord }) {
+export function TableList({
+  props,
+  noPadding = false,
+}: {
+  props: TableListRecord;
+  noPadding?: boolean;
+}) {
   const { title, showTableHead, alignment, items, button, id } = props;
 
   const getButtonHref = (button: TableListRecord["button"]) => {
@@ -53,14 +59,14 @@ export function TableList({ props }: { props: TableListRecord }) {
 
         {showTableHead && items[0].__typename !== "TableListLinkItemRecord" && (
           <div
-            className="row border-bottom border-2 py-4 mx-0"
+            className="row mx-0 d-none d-sm-flex"
             role="rowgroup"
             aria-hidden="true"
           >
-            <div className="col-12 col-sm-2 ps-0">
+            <div className="col-12 col-sm-2 ps-0 border-bottom-sm border-2 py-4">
               <span className="h6 text-secondary">Data</span>
             </div>
-            <div className="col-12 col-sm-10 ps-0">
+            <div className="col-12 col-sm-10 ps-0 border-bottom-sm border-2 py-4">
               <span className="h6 text-secondary">Descrizione</span>
             </div>
           </div>
@@ -69,7 +75,7 @@ export function TableList({ props }: { props: TableListRecord }) {
         <div
           role="list"
           aria-label={title ? `Lista ${title}` : "Lista elementi"}
-          className="col-12"
+          className={cn("col-12", { "px-0": noPadding })}
         >
           {items.map((item, idx) => (
             <div key={idx}>
