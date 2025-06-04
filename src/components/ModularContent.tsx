@@ -41,7 +41,7 @@ import { LayoutSidebarFilter } from "@/src/components/LayoutSidebarFilter";
 import { AccordionsFilter } from "@/src/components/AccordionsFilter";
 import { TableListUpdates } from "@/src/components/TableListUpdates";
 import { CardsListFilter } from "@/src/components/CardsListFilter";
-import { HeroSearch } from "./HeroSearch";
+import { HeroSearch } from "@/src/components/HeroSearch";
 
 export function ModularContent({
   content,

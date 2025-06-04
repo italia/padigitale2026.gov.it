@@ -697,4 +697,18 @@ fragment HeroSearchFragment on HeroSearchRecord {
   hideBreadcrumbs
   title
   description
+  suggestion {
+    ...SearchSuggestionFragment
+  }
+}
+
+fragment SearchSuggestionFragment on SearchSuggestionRecord {
+  __typename
+  id
+  title
+  items {
+    id
+    keyword
+    slug
+  }
 }
