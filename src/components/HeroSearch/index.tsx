@@ -164,6 +164,7 @@ function SearchResults() {
   const { results } = useHits();
   const { query } = useSearchBox();
 
+  console.log("results", results?.hits[0]);
   if (!query) return null;
 
   return (
@@ -176,8 +177,14 @@ function SearchResults() {
               : `Nessun risultato trovato per "${query}". Prova con altri termini di ricerca.`}
           </p>
           {results?.hits?.map((hit) => (
-            <div key={hit.objectID} className={cn("mb-3")}>
-              <div>{hit.title}</div>
+            <div
+              key={hit.objectID}
+              className={cn("mb-3")}
+              data-content-type={hit.content_type}
+            >
+              <h6 className={cn("fw-bold")}>{hit.title}</h6>
+              {/* <p>{hit.content}</p> */}
+              <small className={cn("text-muted")}>{hit.content_type}</small>
             </div>
           ))}
         </div>
