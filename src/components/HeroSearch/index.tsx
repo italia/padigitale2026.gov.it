@@ -15,7 +15,7 @@ import { useInstantSearch, useSearchBox, useHits } from "react-instantsearch";
 import { useRouter } from "next/navigation";
 
 import { liteClient as algoliasearch } from "algoliasearch/lite";
-import { InstantSearch, Hits } from "react-instantsearch";
+import { InstantSearch } from "react-instantsearch";
 
 // Algolia configuration
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
@@ -160,14 +160,9 @@ function SearchInput({
   );
 }
 
-function Hit({ hit }: { hit: SearchSuggestionRecord }) {
-  return <div>{hit.title}</div>;
-}
-
 function SearchResults() {
   const { results } = useHits();
   const { query } = useSearchBox();
-  const { status } = useInstantSearch();
 
   if (!query) return null;
 
@@ -175,16 +170,16 @@ function SearchResults() {
     <div className={cn("container-xxl")}>
       <div className={cn("row")}>
         <div className={cn("col-12")}>
-          <h1>Risultati della ricerca</h1>
-          <Hits hitComponent={Hit} />
-          {status === "idle" && !results?.hits?.length && (
-            <div className={cn("mt-4")}>
-              <p>
-                Nessun risultato trovato per &quot;{query}&quot;. Prova con
-                altri termini di ricerca.
-              </p>
+          <p className={cn("fw-bold mt-5 mb-3")}>
+            {results?.hits?.length && results?.hits?.length > 0
+              ? `${results?.hits?.length} Risultati per "${query}"`
+              : `Nessun risultato trovato per "${query}". Prova con altri termini di ricerca.`}
+          </p>
+          {results?.hits?.map((hit) => (
+            <div key={hit.objectID} className={cn("mb-3")}>
+              <div>{hit.title}</div>
             </div>
-          )}
+          ))}
         </div>
       </div>
     </div>
@@ -232,7 +227,6 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
               </section>
             )}
             {/* Body */}
-
             <div className={"pb-4 col-12 text-center"}>
               {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
               {description && <p className={cn("fs-6")}>{description}</p>}
