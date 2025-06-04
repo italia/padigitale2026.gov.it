@@ -52,7 +52,7 @@ export default function CenterHeader({
         <HeaderRightZone>
           <HeaderSearch
             role={"search"}
-            href={"#"}
+            href={"/cerca"}
             iconName="it-search"
             label="Cerca"
           />
