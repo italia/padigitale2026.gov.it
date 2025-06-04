@@ -11,20 +11,16 @@ import {
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 import { SearchSuggestion } from "@/src/components/SearchSuggestion";
 import { useEffect, useRef, useState } from "react";
-import { useInstantSearch, useSearchBox } from "react-instantsearch";
+import { useInstantSearch, useSearchBox, useHits } from "react-instantsearch";
 import { useRouter } from "next/navigation";
 
 import { liteClient as algoliasearch } from "algoliasearch/lite";
-import { InstantSearch } from "react-instantsearch";
+import { InstantSearch, Hits } from "react-instantsearch";
 
 // Algolia configuration
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const algoliaApiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY;
 const algoliaIndexName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME;
-
-console.log("algoliaAppId", algoliaAppId);
-console.log("algoliaApiKey", algoliaApiKey);
-console.log("algoliaIndexName", algoliaIndexName);
 
 if (!algoliaAppId || !algoliaApiKey || !algoliaIndexName) {
   throw new Error("Algolia environment variables are not set");
@@ -54,6 +50,7 @@ function SearchInput({
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [inputValue, setInputValue] = useState(initialQuery || "");
 
   // Focus the input on component mount
   useEffect(() => {
@@ -89,17 +86,25 @@ function SearchInput({
     };
   }, []);
 
-  const showSuggestions = isFocused && !query;
+  const showSuggestions = isFocused && (!query || !inputValue);
 
   const handleSearch = () => {
-    if (query) {
-      onSearch(query);
+    if (inputValue) {
+      refine(inputValue);
+      onSearch(inputValue);
     }
   };
 
   const handleSuggestionClick = (term: string) => {
+    setInputValue(term);
     refine(term);
     onSearch(term);
+  };
+
+  const handleReset = () => {
+    setInputValue("");
+    refine("");
+    onSearch("");
   };
 
   return (
@@ -121,8 +126,8 @@ function SearchInput({
         wrapperClassName={cn("mb-0")}
         innerRef={inputRef}
         onFocus={() => setIsFocused(true)}
-        value={query}
-        onChange={(e) => refine(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSearch();
@@ -140,6 +145,48 @@ function SearchInput({
           </div>
         </div>
       )}
+      {query && (
+        <Button
+          color="secondary"
+          size="xs"
+          onClick={handleReset}
+          className={cn("mt-2")}
+        >
+          <Icon icon="it-close" size="sm" />
+          Annulla ricerca
+        </Button>
+      )}
+    </div>
+  );
+}
+
+function Hit({ hit }: { hit: SearchSuggestionRecord }) {
+  return <div>{hit.title}</div>;
+}
+
+function SearchResults() {
+  const { results } = useHits();
+  const { query } = useSearchBox();
+  const { status } = useInstantSearch();
+
+  if (!query) return null;
+
+  return (
+    <div className={cn("container-xxl")}>
+      <div className={cn("row")}>
+        <div className={cn("col-12")}>
+          <h1>Risultati della ricerca</h1>
+          <Hits hitComponent={Hit} />
+          {status === "idle" && !results?.hits?.length && (
+            <div className={cn("mt-4")}>
+              <p>
+                Nessun risultato trovato per &quot;{query}&quot;. Prova con
+                altri termini di ricerca.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -174,34 +221,33 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
   };
 
   return (
-    <HeroComponent className={cn("wrapper")}>
-      <div className={"container-xxl position-relative"}>
-        <div className={"row"}>
-          {/* Breadcrumbs */}
-          {!hideBreadcrumbs && (
-            <section className={cn("pt-2 col-12")}>
-              <Breadcrumbs lightTheme />
-            </section>
-          )}
-          {/* Body */}
-          <div className={"pb-4 col-12 text-center"}>
-            {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
-            {description && <p className={cn("fs-6")}>{description}</p>}
-            <div className={cn("col-12 col-md-7 mx-auto my-5")}>
-              <InstantSearch
-                searchClient={searchClient}
-                indexName={algoliaIndexName}
-              >
+    <InstantSearch searchClient={searchClient} indexName={algoliaIndexName}>
+      <HeroComponent className={cn("wrapper")}>
+        <div className={"container-xxl position-relative"}>
+          <div className={"row"}>
+            {/* Breadcrumbs */}
+            {!hideBreadcrumbs && (
+              <section className={cn("pt-2 col-12")}>
+                <Breadcrumbs lightTheme />
+              </section>
+            )}
+            {/* Body */}
+
+            <div className={"pb-4 col-12 text-center"}>
+              {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
+              {description && <p className={cn("fs-6")}>{description}</p>}
+              <div className={cn("col-12 col-md-7 mx-auto my-5")}>
                 <SearchInput
                   suggestion={suggestion || ({} as SearchSuggestionRecord)}
                   onSearch={handleSearch}
                   initialQuery={initialQuery}
                 />
-              </InstantSearch>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </HeroComponent>
+      </HeroComponent>
+      <SearchResults />
+    </InstantSearch>
   );
 }
