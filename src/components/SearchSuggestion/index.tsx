@@ -6,8 +6,19 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
-export function SearchSuggestion({ props }: { props: SearchSuggestionRecord }) {
+export function SearchSuggestion({
+  props,
+  onSuggestionClick,
+}: {
+  props: SearchSuggestionRecord;
+  onSuggestionClick: (term: string) => void;
+}) {
   const { title, items, id } = props;
+
+  const handleClick = (e: React.MouseEvent, term: string) => {
+    e.preventDefault();
+    onSuggestionClick(term);
+  };
 
   return (
     <div
@@ -34,7 +45,11 @@ export function SearchSuggestion({ props }: { props: SearchSuggestionRecord }) {
             )}
           >
             <Icon icon="it-search" color="primary" size="sm" />
-            <Link href={item.slug || ""} className={cn("fw-semibold")}>
+            <Link
+              href={item.slug || ""}
+              className={cn("fw-semibold")}
+              onClick={(e) => handleClick(e, item.keyword || "")}
+            >
               {item.keyword}
             </Link>
           </li>

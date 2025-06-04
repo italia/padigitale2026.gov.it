@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@datocms/cda-client": "^0.2.7",
-    "algoliasearch": "^5.25.0",
+    "algoliasearch": "^5.26.0",
     "bootstrap-italia": "git+https://github.com/italia/bootstrap-italia.git#feat-card-to-be",
     "datocms-structured-text-to-plain-text": "^5.0.0",
     "design-react-kit": "5.7.0",
@@ -25,6 +25,7 @@
     "react": "19.1.0",
     "react-datocms": "^7.2.2",
     "react-dom": "19.1.0",
+    "react-instantsearch": "^7.15.8",
     "typeface-lora": "1.1.13",
     "typeface-roboto-mono": "1.1.13",
     "typeface-titillium-web": "1.1.13",
