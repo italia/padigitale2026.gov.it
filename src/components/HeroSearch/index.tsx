@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch";
 
-// Retrieve Algolia params
+// Algolia configuration
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const algoliaApiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY;
 const algoliaIndexName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME;
@@ -36,6 +36,10 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
+/**
+ * SearchInput component that handles the search functionality
+ * It integrates with Algolia for search and manages the search suggestions
+ */
 function SearchInput({
   suggestion,
   onSearch,
@@ -51,6 +55,7 @@ function SearchInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Focus the input on component mount
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -60,12 +65,14 @@ function SearchInput({
     }
   }, []);
 
+  // Set initial query from URL if present
   useEffect(() => {
     if (initialQuery) {
       refine(initialQuery);
     }
   }, [initialQuery, refine]);
 
+  // Handle clicks outside the search container
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -137,15 +144,19 @@ function SearchInput({
   );
 }
 
+/**
+ * HeroSearch component that provides a search interface in the hero section
+ * It integrates with Algolia for search functionality and manages URL updates
+ */
 export function HeroSearch({ props }: { props: HeroSearchRecord }) {
   const { title, description, hideBreadcrumbs = false, suggestion } = props;
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [initialQuery, setInitialQuery] = useState<string>();
 
+  // Initialize component and read query from URL
   useEffect(() => {
     setMounted(true);
-    // Leggi il parametro q dall'URL
     const searchParams = new URLSearchParams(window.location.search);
     const query = searchParams.get("q");
     if (query) {
@@ -153,6 +164,7 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
     }
   }, []);
 
+  // Update URL with search query
   const handleSearch = (query: string) => {
     if (mounted) {
       const searchParams = new URLSearchParams(window.location.search);
