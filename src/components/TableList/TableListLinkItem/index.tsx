@@ -88,7 +88,7 @@ export function TableListLinkItem({
             </div>
 
             {category && (
-              <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold">
+              <div className="text-secondary text-decoration-none text-uppercase fw-semibold">
                 <span className="visually-hidden">Categoria: </span>
                 {category.label}
               </div>

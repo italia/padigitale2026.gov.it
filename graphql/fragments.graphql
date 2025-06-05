@@ -323,9 +323,31 @@ fragment SplitBannerFragment on SplitBannerRecord {
   imgLeft
   lightTheme
   links {
-    id
-    slug
-    title
+    ... on PageRecord {
+      id
+      slug
+      title
+    }
+    ... on NewsRecord {
+      id
+      slug
+      title
+    }
+    ... on ResourceRecord {
+      id
+      slug
+      title
+    }
+    ... on FaqRecord {
+      id
+      slug
+      title
+    }
+    ... on SupportoRecord {
+      id
+      slug
+      title
+    }
   }
   image {
     responsiveImage {

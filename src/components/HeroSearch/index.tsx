@@ -10,7 +10,7 @@ import {
 } from "design-react-kit";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 import { SearchSuggestion } from "@/src/components/SearchSuggestion";
-import { useEffect, useRef, useState } from "react";
+import { HTMLAttributeAnchorTarget, useEffect, useRef, useState } from "react";
 import { useInstantSearch, useSearchBox, useHits } from "react-instantsearch";
 import { useRouter } from "next/navigation";
 
@@ -30,6 +30,7 @@ const searchClient = algoliasearch(algoliaAppId, algoliaApiKey);
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import Link from "next/link";
 const cn = classNames.bind(styles);
 
 /**
@@ -178,13 +179,59 @@ function SearchResults() {
           </p>
           {results?.hits?.map((hit) => (
             <div
+              role="listitem"
+              className="row border-bottom m-0 p-0 py-2 w-100"
               key={hit.objectID}
-              className={cn("mb-3")}
               data-content-type={hit.content_type}
             >
-              <h6 className={cn("fw-bold")}>{hit.title}</h6>
-              {/* <p>{hit.content}</p> */}
-              <small className={cn("text-muted")}>{hit.content_type}</small>
+              <div className="col ps-0">
+                <Link
+                  className="d-flex justify-content-between align-items-center text-decoration-none"
+                  href={hit.slug}
+                  title={hit.title}
+                  target={hit?.target as HTMLAttributeAnchorTarget}
+                  aria-label={`${hit.title}`}
+                >
+                  <div>
+                    <div
+                      className="fw-bold text-decoration-underline mb-1"
+                      style={{ fontSize: "1.125rem" }}
+                      dangerouslySetInnerHTML={{
+                        __html: hit?._highlightResult.title.value
+                          ? hit?._highlightResult.title.value
+                          : hit.title,
+                      }}
+                    />
+
+                    <div
+                      className="text-muted"
+                      dangerouslySetInnerHTML={{
+                        __html: hit?._highlightResult.content.value
+                          ? hit?._highlightResult.content.value
+                          : hit.content,
+                      }}
+                    />
+
+                    {hit.content_type && (
+                      <div className="text-secondary fw-semibold text-uppercase">
+                        <span className="visually-hidden">Content type: </span>
+                        {hit.content_type}
+                      </div>
+                    )}
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <Icon
+                      className="my-0"
+                      color="primary"
+                      icon="it-chevron-right"
+                      size="sm"
+                      aria-hidden="true"
+                      title="Freccia a destra"
+                      padding
+                    />
+                  </div>
+                </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -248,7 +295,9 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
           </div>
         </div>
       </HeroComponent>
-      <SearchResults />
+      <div className={cn("col-12 col-md-7 mx-auto my-5")}>
+        <SearchResults />
+      </div>
     </InstantSearch>
   );
 }
