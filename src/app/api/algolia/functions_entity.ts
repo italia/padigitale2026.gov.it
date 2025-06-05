@@ -129,7 +129,7 @@ export async function indexEntity(
   algoliaDocument["content"] = compressText(content);
 
   const response = await algoliaClient.addOrUpdateObject({
-    indexName: process.env.ALGOLIA_INDEX_NAME || "",
+    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "",
     objectID: id,
     body: algoliaDocument,
   });
@@ -157,7 +157,7 @@ export async function removeEntity(
   algoliaClient: Algoliasearch
 ): Promise<AlgoliaResponse> {
   const response = await algoliaClient.deleteObject({
-    indexName: process.env.ALGOLIA_INDEX_NAME || "",
+    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "",
     objectID: id,
   });
 

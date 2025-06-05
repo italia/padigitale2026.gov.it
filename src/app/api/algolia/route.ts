@@ -4,17 +4,18 @@ import type { Algoliasearch } from "algoliasearch";
 import type { ContentType, WebhookPayload } from "./types";
 
 if (
-  !process.env.ALGOLIA_APP_ID ||
-  !process.env.ALGOLIA_WRITE_API_KEY ||
-  !process.env.ALGOLIA_INDEX_NAME
+  !process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ||
+  !process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ||
+  !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY ||
+  !process.env.ALGOLIA_WRITE_API_KEY
 ) {
   throw Error(
-    "ALGOLIA_APP_ID, ALGOLIA_WRITE_API_KEY and ALGOLIA_INDEX_NAME, must be defined."
+    "NEXT_PUBLIC_ALGOLIA_APP_ID, ALGOLIA_WRITE_API_KEY, NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY and NEXT_PUBLIC_ALGOLIA_INDEX_NAME, must be defined."
   );
 }
 
 const algoliaClient: Algoliasearch = algoliasearch(
-  process.env.ALGOLIA_APP_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
   process.env.ALGOLIA_WRITE_API_KEY
 );
 
