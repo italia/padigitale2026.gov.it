@@ -1,5 +1,4 @@
 import { SearchSuggestionRecord } from "@/graphql/generated";
-import Link from "next/link";
 import { Icon } from "design-react-kit";
 
 import styles from "./index.module.scss";
@@ -43,15 +42,17 @@ export function SearchSuggestion({
             className={cn(
               "d-flex align-items-center gap-3 px-2 py-3 border-bottom"
             )}
+            role="button"
           >
             <Icon icon="it-search" color="primary" size="sm" />
-            <Link
-              href={item.slug || ""}
-              className={cn("fw-semibold")}
+            <div
+              className={cn(
+                "fw-semibold text-primary text-decoration-underline"
+              )}
               onClick={(e) => handleClick(e, item.keyword || "")}
             >
               {item.keyword}
-            </Link>
+            </div>
           </li>
         ))}
       </ul>
