@@ -3,10 +3,13 @@
 import { HeroSearchRecord, SearchSuggestionRecord } from "@/graphql/generated";
 import {
   Button,
+  Icon,
   Hero as HeroComponent,
   HeroTitle,
-  Icon,
+  Form,
+  FormGroup,
   Input,
+  Label,
 } from "design-react-kit";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 import { SearchSuggestion } from "@/src/components/SearchSuggestion";
@@ -41,10 +44,12 @@ function SearchInput({
   suggestion,
   onSearch,
   initialQuery,
+  onReset,
 }: {
   suggestion: SearchSuggestionRecord;
   onSearch: (query: string) => void;
   initialQuery?: string;
+  onReset: () => void;
 }) {
   const { query, refine } = useSearchBox();
   const { status } = useInstantSearch();
@@ -106,6 +111,7 @@ function SearchInput({
     setInputValue("");
     refine("");
     onSearch("");
+    onReset();
   };
 
   return (
@@ -137,7 +143,7 @@ function SearchInput({
       />
       {status === "loading" && <div>Caricamento...</div>}
       {suggestion && showSuggestions && (
-        <div className={cn("position-relative w-100")}>
+        <div className={cn("position-relative w-100")} style={{ zIndex: 1 }}>
           <div className={cn("position-absolute top-0 start-0 w-100 bg-white")}>
             <SearchSuggestion
               props={suggestion}
@@ -162,23 +168,97 @@ function SearchInput({
   );
 }
 
-function SearchResults() {
+// Utility function to get the display name for content types
+const getContentTypeDisplayName = (contentType: string): string => {
+  const contentTypeMap: Record<string, string> = {
+    page: "Pagina",
+    news: "Notizie",
+    faq: "Domande frequenti",
+    resource: "Risorse",
+    supporto: "Supporto",
+    update: "Aggiornamenti",
+    dati: "Dati",
+  };
+
+  return contentTypeMap[contentType] || contentType;
+};
+
+function Filters({
+  selectedFilters,
+  onFilterChange,
+}: {
+  selectedFilters: string[];
+  onFilterChange: (contentType: string, checked: boolean) => void;
+}) {
   const { results } = useHits();
   const { query } = useSearchBox();
 
-  console.log("results", results?.hits[0]);
+  // Don't show anything if there's no query or no results
+  if (!query || !results?.hits?.length) return null;
+
+  // Extract unique content types from results
+  const uniqueContentTypes = Array.from(
+    new Set(results?.hits?.map((hit) => hit.content_type))
+  ).filter(Boolean);
+
+  return (
+    <section>
+      <fieldset>
+        <legend>Filtra per:</legend>
+        <Form>
+          {uniqueContentTypes.map((contentType) => (
+            <FormGroup check inline key={contentType}>
+              <Input
+                id={contentType}
+                type="checkbox"
+                checked={selectedFilters.includes(contentType)}
+                onChange={(e) => onFilterChange(contentType, e.target.checked)}
+              />
+              <Label check for={contentType}>
+                {getContentTypeDisplayName(contentType)}
+              </Label>
+            </FormGroup>
+          ))}
+        </Form>
+      </fieldset>
+    </section>
+  );
+}
+
+function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
+  const { results } = useHits();
+  const { query } = useSearchBox();
+
   if (!query) return null;
+
+  // Extract unique content types from results
+  const uniqueContentTypes = Array.from(
+    new Set(results?.hits?.map((hit) => hit.content_type))
+  ).filter(Boolean);
+
+  // Filter results based on selected content types
+  const filteredHits = results?.hits?.filter((hit) => {
+    // Show all results if no filters are selected or if all types are selected
+    if (
+      selectedFilters.length === 0 ||
+      selectedFilters.length === uniqueContentTypes.length
+    ) {
+      return true;
+    }
+    // Otherwise show only results matching selected filters
+    return selectedFilters.includes(hit.content_type);
+  });
 
   return (
     <div className={cn("container-xxl")}>
       <div className={cn("row")}>
         <div className={cn("col-12")}>
           <p className={cn("fw-bold mt-5 mb-3")}>
-            {results?.hits?.length && results?.hits?.length > 0
-              ? `${results?.hits?.length} Risultati per "${query}"`
+            {filteredHits?.length && filteredHits?.length > 0
+              ? `${filteredHits?.length} Risultati per "${query}"`
               : `Nessun risultato trovato per "${query}". Prova con altri termini di ricerca.`}
           </p>
-          {results?.hits?.map((hit) => (
+          {filteredHits?.map((hit) => (
             <div
               role="listitem"
               className="row border-bottom m-0 p-0 py-2 w-100"
@@ -216,7 +296,7 @@ function SearchResults() {
                     {hit.content_type && (
                       <div className="text-secondary fw-semibold text-uppercase">
                         <span className="visually-hidden">Content type: </span>
-                        {hit.content_type}
+                        {getContentTypeDisplayName(hit.content_type)}
                       </div>
                     )}
                   </div>
@@ -250,23 +330,67 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [initialQuery, setInitialQuery] = useState<string>();
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
-  // Initialize component and read query from URL
+  // Initialize component and read query and filters from URL
   useEffect(() => {
     setMounted(true);
     const searchParams = new URLSearchParams(window.location.search);
     const query = searchParams.get("q");
+    const filters = searchParams.get("filters");
+
     if (query) {
       setInitialQuery(query);
     }
+    if (filters) {
+      setSelectedFilters(filters.split(","));
+    }
   }, []);
 
-  // Update URL with search query
+  // Update URL with search query and filters
   const handleSearch = (query: string) => {
     if (mounted) {
+      // Reset filters when performing a new search
+      setSelectedFilters([]);
+
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.set("q", query);
+      searchParams.delete("filters"); // Remove filters from URL
       router.push(`${window.location.pathname}?${searchParams.toString()}`);
+    }
+  };
+
+  const handleFilterChange = (contentType: string, checked: boolean) => {
+    let newFilters: string[];
+    if (checked) {
+      newFilters = [...selectedFilters, contentType];
+    } else {
+      newFilters = selectedFilters.filter((filter) => filter !== contentType);
+    }
+
+    setSelectedFilters(newFilters);
+
+    if (mounted) {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (newFilters.length > 0) {
+        searchParams.set("filters", newFilters.join(","));
+      } else {
+        searchParams.delete("filters");
+      }
+      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+    }
+  };
+
+  const handleReset = () => {
+    setSelectedFilters([]);
+    if (mounted) {
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.delete("q");
+      searchParams.delete("filters");
+      const newUrl = searchParams.toString()
+        ? `${window.location.pathname}?${searchParams.toString()}`
+        : window.location.pathname;
+      router.push(newUrl);
     }
   };
 
@@ -275,13 +399,11 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
       <HeroComponent className={cn("wrapper")}>
         <div className={"container-xxl position-relative"}>
           <div className={"row"}>
-            {/* Breadcrumbs */}
             {!hideBreadcrumbs && (
               <section className={cn("pt-2 col-12")}>
                 <Breadcrumbs lightTheme />
               </section>
             )}
-            {/* Body */}
             <div className={"pb-4 col-12 text-center"}>
               {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
               {description && <p className={cn("fs-6")}>{description}</p>}
@@ -290,6 +412,7 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
                   suggestion={suggestion || ({} as SearchSuggestionRecord)}
                   onSearch={handleSearch}
                   initialQuery={initialQuery}
+                  onReset={handleReset}
                 />
               </div>
             </div>
@@ -297,7 +420,11 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
         </div>
       </HeroComponent>
       <div className={cn("col-12 col-md-7 mx-auto my-5")}>
-        <SearchResults />
+        <Filters
+          selectedFilters={selectedFilters}
+          onFilterChange={handleFilterChange}
+        />
+        <SearchResults selectedFilters={selectedFilters} />
       </div>
     </InstantSearch>
   );
