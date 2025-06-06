@@ -154,11 +154,11 @@ export async function indexEntity(
  * @returns oggetto con stato dopo l'indicizzazione.
  */
 export async function indexAvvisi() {
-  if (!process.env.ALGOLIA_BUILD_TRIGGER_ID) {
-    throw Error("ALGOLIA_BUILD_TRIGGER_ID must be defined.");
+  if (!process.env.AVVISI_BUILD_TRIGGER_ID) {
+    throw Error("AVVISI_BUILD_TRIGGER_ID must be defined.");
   }
 
-  const result = await notifyDatoCMSDeploy("success", { webhookId: process.env.ALGOLIA_BUILD_TRIGGER_ID });
+  const result = await notifyDatoCMSDeploy("success", { webhookId: process.env.AVVISI_BUILD_TRIGGER_ID });
 
   return {
     message: "Avvisi indexed.",
