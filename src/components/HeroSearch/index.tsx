@@ -10,12 +10,20 @@ import {
   FormGroup,
   Input,
   Label,
+  Pager,
 } from "design-react-kit";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 import { SearchSuggestion } from "@/src/components/SearchSuggestion";
 import { HTMLAttributeAnchorTarget, useEffect, useRef, useState } from "react";
-import { useInstantSearch, useSearchBox, useHits } from "react-instantsearch";
+import {
+  useInstantSearch,
+  useSearchBox,
+  useHits,
+  usePagination,
+  Configure,
+} from "react-instantsearch";
 import { useRouter } from "next/navigation";
+import { PaginationItem, PaginationLink } from "reactstrap";
 
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch";
@@ -24,6 +32,7 @@ import { InstantSearch } from "react-instantsearch";
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
 const algoliaApiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY;
 const algoliaIndexName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME;
+const RESULTS_PER_PAGE = 8;
 
 if (!algoliaAppId || !algoliaApiKey || !algoliaIndexName) {
   throw new Error("Algolia environment variables are not set");
@@ -139,7 +148,7 @@ function SearchInput({
           <Icon aria-hidden color="primary" icon="it-search" size="sm" />
         }
         id="search"
-        label="Scrivi almeno 3 caratteri per iniziare la ricerca"
+        label="Scrivi almeno 3 caratteri per cercare"
         type="text"
         wrapperClassName={cn("mb-0")}
         innerRef={inputRef}
@@ -214,10 +223,10 @@ function Filters({
   ).filter(Boolean);
 
   return (
-    <section>
+    <section className="container-xxl">
       <fieldset>
-        <legend>Filtra per:</legend>
-        <Form>
+        <legend className="px-0">Filtra per:</legend>
+        <Form className="px-0" style={{ marginLeft: "-4px" }}>
           {uniqueContentTypes.map((contentType) => (
             <FormGroup check inline key={contentType}>
               <Input
@@ -234,6 +243,44 @@ function Filters({
         </Form>
       </fieldset>
     </section>
+  );
+}
+
+function Pagination() {
+  const { currentRefinement, nbPages, refine } = usePagination({
+    padding: 2,
+  });
+
+  if (nbPages <= 1) return null;
+
+  return (
+    <div className="d-flex justify-content-center mt-4">
+      <Pager aria-label="Naviga tra le pagine dei risultati">
+        <PaginationItem disabled={currentRefinement <= 0}>
+          <PaginationLink onClick={() => refine(currentRefinement - 1)}>
+            <span className="visually-hidden">Pagina precedente</span>
+            <Icon aria-hidden icon="it-chevron-left" />
+          </PaginationLink>
+        </PaginationItem>
+        {Array.from({ length: nbPages }, (_, i) => (
+          <PaginationItem key={i}>
+            <PaginationLink
+              aria-current={currentRefinement === i ? "page" : undefined}
+              aria-label={`Vai alla pagina ${i + 1}`}
+              onClick={() => refine(i)}
+            >
+              {i + 1}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        <PaginationItem disabled={currentRefinement >= nbPages - 1}>
+          <PaginationLink onClick={() => refine(currentRefinement + 1)}>
+            <span className="visually-hidden">Pagina successiva</span>
+            <Icon aria-hidden icon="it-chevron-right" />
+          </PaginationLink>
+        </PaginationItem>
+      </Pager>
+    </div>
   );
 }
 
@@ -267,7 +314,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
         <div className={cn("col-12")}>
           <p className={cn("fw-bold mt-5 mb-3")}>
             {filteredHits?.length && filteredHits?.length > 0
-              ? `${filteredHits?.length} Risultati per "${query}"`
+              ? `${results?.nbHits} Risultati per "${query}"`
               : `Nessun risultato trovato per "${query}". Prova con altri termini di ricerca.`}
           </p>
           {filteredHits?.map((hit) => (
@@ -380,6 +427,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
               </div>
             </div>
           ))}
+          <Pagination />
         </div>
       </div>
     </div>
@@ -460,7 +508,16 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
   };
 
   return (
-    <InstantSearch searchClient={searchClient} indexName={algoliaIndexName}>
+    <InstantSearch
+      searchClient={searchClient}
+      indexName={algoliaIndexName}
+      initialUiState={{
+        [algoliaIndexName as string]: {
+          page: 0,
+        },
+      }}
+    >
+      <Configure hitsPerPage={RESULTS_PER_PAGE} />
       <HeroComponent className={cn("wrapper")}>
         <div className={"container-xxl position-relative"}>
           <div className={"row"}>
