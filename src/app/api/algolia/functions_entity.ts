@@ -13,8 +13,9 @@ import {
 import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
 import { compressText, splitStringToChunks } from "./lib";
+import { getAvvisi } from "@/lib/salesforce";
 import type { Algoliasearch } from "algoliasearch";
-import type { AlgoliaResponse, ContentType, DeployConfig, DeployStatus } from "./types";
+import type { AlgoliaResponse, ContentType } from "./types";
 
 const CHUNK_MAX_LENGTH = 200;
 
@@ -151,18 +152,42 @@ export async function indexEntity(
 /**
  * Funzione che si occupa di indicizzare in Algolia tutti gli Avvisi (SF).
  * Questa funzionalità è esposta tramite un "build trigger in DatoCMS".
+ * @param algoliaClient client Algolia iniettato dal controller REST.
  * @returns oggetto con stato dopo l'indicizzazione.
  */
-export async function indexAvvisi() {
-  if (!process.env.AVVISI_BUILD_TRIGGER_ID) {
-    throw Error("AVVISI_BUILD_TRIGGER_ID must be defined.");
+export async function indexAvvisi(algoliaClient: Algoliasearch) {
+  if (!process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME) {
+    throw Error("process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME must be defined.");
   }
 
-  const result = await notifyDatoCMSDeploy("success", { webhookId: process.env.AVVISI_BUILD_TRIGGER_ID });
+  const avvisi = await getAvvisi();
+
+  algoliaClient.batch({
+    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME,
+
+    batchWriteParams: {
+      requests: avvisi.map((avviso) => {
+        return {
+          action: 'partialUpdateObject',
+          body: {
+            objectID: avviso.id,
+            title: avviso.name,
+            content: avviso.oggettoBando,
+            content_type: "avviso",
+            beneficiari: avviso.beneficiari,
+            misura: avviso.misura,
+            status: avviso.status,
+            start_date: avviso.startDate,
+            end_date: avviso.endDate,
+            ente_promotore: avviso.entePromotore,
+          }
+        }
+      })
+    }
+  })
 
   return {
-    message: "Avvisi indexed.",
-    status: result.status
+    message: `${avvisi.length} Avvisi indexed.`
   }
 }
 
@@ -191,34 +216,4 @@ export async function removeEntity(
   return {
     message: `Error indexing entity with id ${id}`,
   };
-}
-
-/**
- * Usato per build trigger di Algolia.
- * Notifica il risultato di un deploy a DatoCMS
- * @param status - Lo stato del deploy ('success' o 'error')
- * @param config - Configurazione per la notifica
- * @throws {Error} Se la richiesta fallisce
- * @returns Promise che si risolve con la risposta del server
- */
-async function notifyDatoCMSDeploy(
-  status: DeployStatus,
-  config: DeployConfig
-): Promise<Response> {
-  const baseUrl = 'https://webhooks.datocms.com';
-  const url = `${baseUrl}/${config.webhookId}/deploy-results`;
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ status }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to notify DatoCMS: ${response.statusText}`);
-  }
-
-  return response;
 }

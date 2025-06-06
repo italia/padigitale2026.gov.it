@@ -8,6 +8,7 @@ export type ContentType =
   | "dati";
 
 export type AlgoliaDocument = {
+  id?: string;
   title?: string;
   content_type?: ContentType;
   slug?: string;
@@ -117,18 +118,4 @@ export interface RelatedEntityRelationships {
   image_preview_field: Creator;
   excerpt_field: Creator;
   workflow: Creator;
-}
-
-/**
- * Usato per build trigger di Algolia.
- * Stato possibile del deploy
- */
-export type DeployStatus = 'success' | 'error';
-
-/**
- * Usato per build trigger di Algolia.
- * Configurazione per la notifica del deploy
- */
-export interface DeployConfig {
-  webhookId: string;
 }

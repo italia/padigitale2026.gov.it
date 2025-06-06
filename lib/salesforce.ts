@@ -4,13 +4,13 @@ type Sort = "ASC" | "DESC";
 
 /**
  * Recupera tutti gli avvisi in una lista di oggetti JSON.
- * @param n Il numero di avvisi da recuperare.
+ * @param n Il numero di avvisi da recuperare. Se 0, recupera tutti.
  * @param sort Specifica se ricevere i risultati ordinati per data ASC o DESC.
  * @param beneficiario Se specificato, filtra gli avvisi per il beneficiario indicato.
  * @returns Tutti gli avvisi in formato JSON.
  */
 export async function getAvvisi(
-  n: number = 3,
+  n: number = 0,
   sort: Sort = "DESC",
   beneficiario?: string
 ) {
@@ -79,7 +79,7 @@ export async function getAvvisi(
     });
 
     // Limita il numero di risultati a n
-    return sortedAvvisi.slice(0, n);
+    return n > 0 ? sortedAvvisi.slice(0, n) : sortedAvvisi;
   } catch (error) {
     console.error(error);
     // Restituisci un array vuoto in caso di errore

@@ -7,8 +7,7 @@ if (
   !process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ||
   !process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ||
   !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY ||
-  !process.env.ALGOLIA_WRITE_API_KEY ||
-  !process.env.ALGOLIA_BUILD_TRIGGER_ID
+  !process.env.ALGOLIA_WRITE_API_KEY
 ) {
   throw Error(
     "NEXT_PUBLIC_ALGOLIA_APP_ID, ALGOLIA_WRITE_API_KEY, NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY and NEXT_PUBLIC_ALGOLIA_INDEX_NAME, must be defined."
@@ -39,7 +38,7 @@ export async function POST(request: Request) {
 
     switch (data.event_type) {
       case "avvisi":
-        return Response.json(await indexAvvisi());
+        return Response.json(await indexAvvisi(algoliaClient));
       case "publish":
         return Response.json(
           await indexEntity(
