@@ -11,7 +11,7 @@ export type AlgoliaDocument = {
   title?: string;
   content_type?: ContentType;
   slug?: string;
-  content?: string;
+  content?: string[];
 };
 
 export type AlgoliaResponse = {

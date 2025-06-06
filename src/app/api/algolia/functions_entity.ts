@@ -12,9 +12,11 @@ import {
 } from "@/lib/datocms";
 import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
-import { compressText } from "./lib";
+import { compressText, splitStringByLength } from "./lib";
 import type { Algoliasearch } from "algoliasearch";
 import type { AlgoliaResponse, ContentType } from "./types";
+
+const CHUNK_MAX_LENGTH = 200;
 
 /**
  * Funzione per indicizzare una pagina (content type page) in Algolia.
@@ -58,7 +60,7 @@ export async function indexEntity(
   const algoliaDocument: AlgoliaDocument = {
     title: undefined,
     slug: undefined,
-    content: undefined,
+    content: [],
     content_type: content_type,
   };
 
@@ -126,7 +128,8 @@ export async function indexEntity(
     }
   });
 
-  algoliaDocument["content"] = compressText(content);
+  // Il contenuto testuale viene compresso e spezzettato in chunk.
+  algoliaDocument["content"] = splitStringByLength(compressText(content), CHUNK_MAX_LENGTH);
 
   const response = await algoliaClient.addOrUpdateObject({
     indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "",
