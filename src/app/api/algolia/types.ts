@@ -1,3 +1,10 @@
+/**
+ * Rappresenta un chunk di testo con la sua porzione di contenuto
+ */
+export type TextChunk = {
+  chunk: string;
+};
+
 export type ContentType =
   | "page"
   | "update"
@@ -11,7 +18,7 @@ export type AlgoliaDocument = {
   title?: string;
   content_type?: ContentType;
   slug?: string;
-  content?: string[];
+  content?: TextChunk[];
 };
 
 export type AlgoliaResponse = {

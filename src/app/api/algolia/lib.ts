@@ -1,3 +1,5 @@
+import { TextChunk } from "./types";
+
 export function compressText(text: string): string {
     if (!text) return '';
 
@@ -64,22 +66,24 @@ export function compressText(text: string): string {
 }
 
 /**
- * Divide una stringa in un array di sottostringhe di lunghezza massima specificata
+ * Divide una stringa in un array di chunk di lunghezza massima specificata
  * @param text - La stringa da suddividere
- * @param maxLength - La lunghezza massima di ogni sottostringa
- * @returns Array di sottostringhe di lunghezza massima specificata
+ * @param maxLength - La lunghezza massima di ogni chunk
+ * @returns Array di TextChunk contenenti le sottostringhe di lunghezza massima specificata
  * @throws {Error} Se maxLength è minore o uguale a 0
  */
-function splitStringByLength(text: string, maxLength: number): string[] {
+export function splitStringToChunks(text: string, maxLength: number): TextChunk[] {
     if (maxLength <= 0) {
         throw new Error('La lunghezza massima deve essere maggiore di 0');
     }
 
-    const result: string[] = [];
+    const result: TextChunk[] = [];
     let remainingText = text;
 
     while (remainingText.length > 0) {
-        result.push(remainingText.slice(0, maxLength));
+        result.push({
+            chunk: remainingText.slice(0, maxLength)
+        });
         remainingText = remainingText.slice(maxLength);
     }
 

@@ -12,7 +12,7 @@ import {
 } from "@/lib/datocms";
 import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
-import { compressText, splitStringByLength } from "./lib";
+import { compressText, splitStringToChunks } from "./lib";
 import type { Algoliasearch } from "algoliasearch";
 import type { AlgoliaResponse, ContentType } from "./types";
 
@@ -60,7 +60,7 @@ export async function indexEntity(
   const algoliaDocument: AlgoliaDocument = {
     title: undefined,
     slug: undefined,
-    content: [],
+    content: undefined,
     content_type: content_type,
   };
 
@@ -129,7 +129,7 @@ export async function indexEntity(
   });
 
   // Il contenuto testuale viene compresso e spezzettato in chunk.
-  algoliaDocument["content"] = splitStringByLength(compressText(content), CHUNK_MAX_LENGTH);
+  algoliaDocument["content"] = splitStringToChunks(compressText(content), CHUNK_MAX_LENGTH);
 
   const response = await algoliaClient.addOrUpdateObject({
     indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "",
