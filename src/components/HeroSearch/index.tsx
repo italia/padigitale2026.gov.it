@@ -36,6 +36,13 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 const cn = classNames.bind(styles);
 
+interface HighlightResult {
+  value: string;
+  matchLevel: string;
+  matchedWords: string[];
+  fullyHighlighted?: boolean;
+}
+
 /**
  * SearchInput component that handles the search functionality
  * It integrates with Algolia for search and manages the search suggestions
@@ -95,7 +102,7 @@ function SearchInput({
   const showSuggestions = isFocused && !inputValue;
 
   const handleSearch = () => {
-    if (inputValue) {
+    if (inputValue && inputValue.length >= 3) {
       refine(inputValue);
       onSearch(inputValue);
     }
@@ -118,7 +125,11 @@ function SearchInput({
     <div ref={containerRef} className={cn("search-container")}>
       <Input
         buttonRight={
-          <Button color="primary" onClick={handleSearch}>
+          <Button
+            color="primary"
+            onClick={handleSearch}
+            disabled={!inputValue || inputValue.length < 3}
+          >
             Cerca
           </Button>
         }
@@ -128,7 +139,7 @@ function SearchInput({
           <Icon aria-hidden color="primary" icon="it-search" size="sm" />
         }
         id="search"
-        label="Scrivi una parola per iniziare la ricerca"
+        label="Scrivi almeno 3 caratteri per iniziare la ricerca"
         type="text"
         wrapperClassName={cn("mb-0")}
         innerRef={inputRef}
@@ -136,7 +147,7 @@ function SearchInput({
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" && inputValue && inputValue.length >= 3) {
             handleSearch();
           }
         }}
@@ -178,6 +189,7 @@ const getContentTypeDisplayName = (contentType: string): string => {
     supporto: "Supporto",
     update: "Aggiornamenti",
     dati: "Dati",
+    avviso: "Avvisi",
   };
 
   return contentTypeMap[contentType] || contentType;
@@ -266,52 +278,105 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
               data-content-type={hit.content_type}
             >
               <div className="col ps-0">
-                <Link
-                  className="d-flex justify-content-between align-items-center text-decoration-none"
-                  href={hit.slug}
-                  title={hit.title}
-                  target={hit?.target as HTMLAttributeAnchorTarget}
-                  aria-label={`${hit.title}`}
-                >
-                  <div>
-                    <div
-                      className="fw-bold text-decoration-underline mb-1"
-                      style={{ fontSize: "1.125rem" }}
-                      dangerouslySetInnerHTML={{
-                        __html: hit?._highlightResult.title.value
-                          ? hit?._highlightResult.title.value
-                          : hit.title,
-                      }}
-                    />
+                {/* TO DO: ask for avvisi: do they have a slug? If yes we can remove the "else part" of this check (and the check itself) */}
+                {hit.slug ? (
+                  <Link
+                    className="d-flex justify-content-between align-items-center text-decoration-none"
+                    href={hit.slug}
+                    title={hit.title}
+                    target={hit?.target as HTMLAttributeAnchorTarget}
+                    aria-label={`${hit.title}`}
+                  >
+                    <div>
+                      <div
+                        className="fw-bold text-decoration-underline mb-1"
+                        style={{ fontSize: "1.125rem" }}
+                        dangerouslySetInnerHTML={{
+                          __html: hit?._highlightResult.title.value
+                            ? hit?._highlightResult.title.value
+                            : hit.title,
+                        }}
+                      />
 
-                    <div
-                      className="text-muted"
-                      dangerouslySetInnerHTML={{
-                        __html: hit?._highlightResult.content.value
-                          ? hit?._highlightResult.content.value
-                          : hit.content,
-                      }}
-                    />
+                      <div
+                        className="text-muted"
+                        dangerouslySetInnerHTML={{
+                          __html: hit?._highlightResult.content
+                            ? Array.isArray(hit._highlightResult.content)
+                              ? hit._highlightResult.content
+                                  .filter(
+                                    (item: HighlightResult) =>
+                                      item.matchedWords.length > 0
+                                  )
+                                  .map((item: HighlightResult) => item.value)
+                                  .join(" ")
+                              : hit._highlightResult.content.value
+                            : hit.content,
+                        }}
+                      />
 
-                    {hit.content_type && (
-                      <div className="text-secondary fw-semibold text-uppercase">
-                        <span className="visually-hidden">Content type: </span>
-                        {getContentTypeDisplayName(hit.content_type)}
-                      </div>
-                    )}
+                      {hit.content_type && (
+                        <div className="text-secondary fw-semibold text-uppercase">
+                          <span className="visually-hidden">
+                            Content type:{" "}
+                          </span>
+                          {getContentTypeDisplayName(hit.content_type)}
+                        </div>
+                      )}
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <Icon
+                        className="my-0"
+                        color="primary"
+                        icon="it-chevron-right"
+                        size="sm"
+                        aria-hidden="true"
+                        title="Freccia a destra"
+                        padding
+                      />
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="d-flex justify-content-between align-items-center">
+                    <div>
+                      <div
+                        className="fw-bold mb-1"
+                        style={{ fontSize: "1.125rem" }}
+                        dangerouslySetInnerHTML={{
+                          __html: hit?._highlightResult.title.value
+                            ? hit?._highlightResult.title.value
+                            : hit.title,
+                        }}
+                      />
+
+                      <div
+                        className="text-muted"
+                        dangerouslySetInnerHTML={{
+                          __html: hit?._highlightResult.content
+                            ? Array.isArray(hit._highlightResult.content)
+                              ? hit._highlightResult.content
+                                  .filter(
+                                    (item: HighlightResult) =>
+                                      item.matchedWords.length > 0
+                                  )
+                                  .map((item: HighlightResult) => item.value)
+                                  .join(" ")
+                              : hit._highlightResult.content.value
+                            : hit.content,
+                        }}
+                      />
+
+                      {hit.content_type && (
+                        <div className="text-secondary fw-semibold text-uppercase">
+                          <span className="visually-hidden">
+                            Content type:{" "}
+                          </span>
+                          {getContentTypeDisplayName(hit.content_type)}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="d-flex align-items-center">
-                    <Icon
-                      className="my-0"
-                      color="primary"
-                      icon="it-chevron-right"
-                      size="sm"
-                      aria-hidden="true"
-                      title="Freccia a destra"
-                      padding
-                    />
-                  </div>
-                </Link>
+                )}
               </div>
             </div>
           ))}
