@@ -731,6 +731,5 @@ fragment SearchSuggestionFragment on SearchSuggestionRecord {
   items {
     id
     keyword
-    slug
   }
 }

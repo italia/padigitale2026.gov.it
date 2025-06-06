@@ -87,7 +87,7 @@ function SearchInput({
     };
   }, []);
 
-  const showSuggestions = isFocused && (!query || !inputValue);
+  const showSuggestions = isFocused && !inputValue;
 
   const handleSearch = () => {
     if (inputValue) {
@@ -152,8 +152,9 @@ function SearchInput({
           size="xs"
           onClick={handleReset}
           className={cn("mt-2")}
+          outline
         >
-          <Icon icon="it-close" size="sm" />
+          <Icon icon="it-close" />
           Annulla ricerca
         </Button>
       )}
