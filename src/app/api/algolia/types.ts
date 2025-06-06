@@ -27,7 +27,7 @@ export interface WebhookPayload {
   environment: string;
   is_environment_primary: boolean;
   entity_type: string;
-  event_type: string;
+  event_type: "publish" | "unpublish" | "delete" | "avvisi";
   entity: Entity;
   related_entities: RelatedEntity[];
 }
@@ -117,4 +117,18 @@ export interface RelatedEntityRelationships {
   image_preview_field: Creator;
   excerpt_field: Creator;
   workflow: Creator;
+}
+
+/**
+ * Usato per build trigger di Algolia.
+ * Stato possibile del deploy
+ */
+export type DeployStatus = 'success' | 'error';
+
+/**
+ * Usato per build trigger di Algolia.
+ * Configurazione per la notifica del deploy
+ */
+export interface DeployConfig {
+  webhookId: string;
 }

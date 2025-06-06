@@ -14,7 +14,7 @@ import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
 import { compressText, splitStringToChunks } from "./lib";
 import type { Algoliasearch } from "algoliasearch";
-import type { AlgoliaResponse, ContentType } from "./types";
+import type { AlgoliaResponse, ContentType, DeployConfig, DeployStatus } from "./types";
 
 const CHUNK_MAX_LENGTH = 200;
 
@@ -149,6 +149,24 @@ export async function indexEntity(
 }
 
 /**
+ * Funzione che si occupa di indicizzare in Algolia tutti gli Avvisi (SF).
+ * Questa funzionalità è esposta tramite un "build trigger in DatoCMS".
+ * @returns oggetto con stato dopo l'indicizzazione.
+ */
+export async function indexAvvisi() {
+  if (!process.env.ALGOLIA_BUILD_TRIGGER_ID) {
+    throw Error("ALGOLIA_BUILD_TRIGGER_ID must be defined.");
+  }
+
+  const result = await notifyDatoCMSDeploy("success", { webhookId: process.env.ALGOLIA_BUILD_TRIGGER_ID });
+
+  return {
+    message: "Avvisi indexed.",
+    status: result.status
+  }
+}
+
+/**
  * Funzione per rimuovere una pagina (content type page) da Algolia.
  * La rimozione avviene se la pagina viene cancellata o depubblicata.
  * @param id id della pagina DatoCMS da rimuovere.
@@ -173,4 +191,34 @@ export async function removeEntity(
   return {
     message: `Error indexing entity with id ${id}`,
   };
+}
+
+/**
+ * Usato per build trigger di Algolia.
+ * Notifica il risultato di un deploy a DatoCMS
+ * @param status - Lo stato del deploy ('success' o 'error')
+ * @param config - Configurazione per la notifica
+ * @throws {Error} Se la richiesta fallisce
+ * @returns Promise che si risolve con la risposta del server
+ */
+async function notifyDatoCMSDeploy(
+  status: DeployStatus,
+  config: DeployConfig
+): Promise<Response> {
+  const baseUrl = 'https://webhooks.datocms.com';
+  const url = `${baseUrl}/${config.webhookId}/deploy-results`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to notify DatoCMS: ${response.statusText}`);
+  }
+
+  return response;
 }
