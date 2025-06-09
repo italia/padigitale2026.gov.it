@@ -315,8 +315,14 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
           <p className={cn("fw-bold mt-5 mb-3")}>
             {filteredHits?.length && filteredHits?.length > 0
               ? `${results?.nbHits} Risultati per "${query}"`
-              : `Nessun risultato trovato per "${query}". Prova con altri termini di ricerca.`}
+              : `Nessun risultato trovato per "${query}".`}
           </p>
+          {!filteredHits?.length && (
+            <p className={cn("mb-3")}>
+              Prova a usare parole chiave diverse o a cambiare i filtri di
+              ricerca.
+            </p>
+          )}
           {filteredHits?.map((hit) => (
             <div
               role="listitem"
@@ -325,105 +331,60 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
               data-content-type={hit.content_type}
             >
               <div className="col ps-0">
-                {/* TO DO: ask for avvisi: do they have a slug? If yes we can remove the "else part" of this check (and the check itself) */}
-                {hit.slug ? (
-                  <Link
-                    className="d-flex justify-content-between align-items-center text-decoration-none"
-                    href={hit.slug}
-                    title={hit.title}
-                    target={hit?.target as HTMLAttributeAnchorTarget}
-                    aria-label={`${hit.title}`}
-                  >
-                    <div>
-                      <div
-                        className="fw-bold text-decoration-underline mb-1"
-                        style={{ fontSize: "1.125rem" }}
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.title.value
-                            ? hit?._highlightResult.title.value
-                            : hit.title,
-                        }}
-                      />
+                <Link
+                  className="d-flex justify-content-between align-items-center text-decoration-none"
+                  href={hit.slug ? hit.slug : hit.url ? hit.url : "#"}
+                  title={hit.title}
+                  target={(hit?.target as HTMLAttributeAnchorTarget) || "_self"}
+                  aria-label={`${hit.title}`}
+                >
+                  <div>
+                    <div
+                      className="fw-bold text-decoration-underline mb-1"
+                      style={{ fontSize: "1.125rem" }}
+                      dangerouslySetInnerHTML={{
+                        __html: hit?._highlightResult.title.value
+                          ? hit?._highlightResult.title.value
+                          : hit.title,
+                      }}
+                    />
 
-                      <div
-                        className="text-muted"
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.content
-                            ? Array.isArray(hit._highlightResult.content)
-                              ? hit._highlightResult.content
-                                  .filter(
-                                    (item: HighlightResult) =>
-                                      item.matchedWords.length > 0
-                                  )
-                                  .map((item: HighlightResult) => item.value)
-                                  .join(" ")
-                              : hit._highlightResult.content.value
-                            : hit.content,
-                        }}
-                      />
+                    <div
+                      className="text-muted"
+                      dangerouslySetInnerHTML={{
+                        __html: hit?._highlightResult.content
+                          ? Array.isArray(hit._highlightResult.content)
+                            ? hit._highlightResult.content
+                                .filter(
+                                  (item: HighlightResult) =>
+                                    item.matchedWords.length > 0
+                                )
+                                .map((item: HighlightResult) => item.value)
+                                .join(" ")
+                            : hit._highlightResult.content.value
+                          : hit.content,
+                      }}
+                    />
 
-                      {hit.content_type && (
-                        <div className="text-secondary fw-semibold text-uppercase">
-                          <span className="visually-hidden">
-                            Content type:{" "}
-                          </span>
-                          {getContentTypeDisplayName(hit.content_type)}
-                        </div>
-                      )}
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <Icon
-                        className="my-0"
-                        color="primary"
-                        icon="it-chevron-right"
-                        size="sm"
-                        aria-hidden="true"
-                        title="Freccia a destra"
-                        padding
-                      />
-                    </div>
-                  </Link>
-                ) : (
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <div
-                        className="fw-bold mb-1"
-                        style={{ fontSize: "1.125rem" }}
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.title.value
-                            ? hit?._highlightResult.title.value
-                            : hit.title,
-                        }}
-                      />
-
-                      <div
-                        className="text-muted"
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.content
-                            ? Array.isArray(hit._highlightResult.content)
-                              ? hit._highlightResult.content
-                                  .filter(
-                                    (item: HighlightResult) =>
-                                      item.matchedWords.length > 0
-                                  )
-                                  .map((item: HighlightResult) => item.value)
-                                  .join(" ")
-                              : hit._highlightResult.content.value
-                            : hit.content,
-                        }}
-                      />
-
-                      {hit.content_type && (
-                        <div className="text-secondary fw-semibold text-uppercase">
-                          <span className="visually-hidden">
-                            Content type:{" "}
-                          </span>
-                          {getContentTypeDisplayName(hit.content_type)}
-                        </div>
-                      )}
-                    </div>
+                    {hit.content_type && (
+                      <div className="text-secondary fw-semibold text-uppercase">
+                        <span className="visually-hidden">Content type: </span>
+                        {getContentTypeDisplayName(hit.content_type)}
+                      </div>
+                    )}
                   </div>
-                )}
+                  <div className="d-flex align-items-center">
+                    <Icon
+                      className="my-0"
+                      color="primary"
+                      icon="it-chevron-right"
+                      size="sm"
+                      aria-hidden="true"
+                      title="Freccia a destra"
+                      padding
+                    />
+                  </div>
+                </Link>
               </div>
             </div>
           ))}
