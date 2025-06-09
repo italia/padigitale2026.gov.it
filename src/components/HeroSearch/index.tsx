@@ -267,6 +267,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
         scroll: false,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilters, mounted, router]);
 
   // Aggiorna l'URL quando cambia la pagina
@@ -465,7 +466,9 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.set("q", query);
       searchParams.delete("filters"); // Remove filters from URL
-      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
     }
   };
 
@@ -486,7 +489,9 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
       } else {
         searchParams.delete("filters");
       }
-      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
     }
   };
 
