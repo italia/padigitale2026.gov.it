@@ -171,6 +171,7 @@ export async function indexAvvisi(algoliaClient: Algoliasearch) {
           action: 'partialUpdateObject',
           body: {
             objectID: avviso.id,
+            url: `${process.env.SF_URL}?id=${avviso.id}`,
             title: avviso.name,
             content: avviso.oggettoBando,
             content_type: "avviso",
