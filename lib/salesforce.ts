@@ -1,6 +1,18 @@
 import jsforce from "jsforce";
 
-type Sort = "ASC" | "DESC";
+export type Sort = "ASC" | "DESC";
+
+export interface Avviso {
+  id: string | undefined;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  entePromotore: string;
+  beneficiari: string[];
+  plateaPotenziale: string;
+  oggettoBando: string;
+}
 
 /**
  * Recupera tutti gli avvisi in una lista di oggetti JSON.
