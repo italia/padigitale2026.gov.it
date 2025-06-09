@@ -263,7 +263,9 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
       setCurrentPage(1);
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.delete("page");
-      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
     }
   }, [selectedFilters, mounted, router]);
 
@@ -276,7 +278,9 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
       } else {
         searchParams.delete("page");
       }
-      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
     }
   }, [currentPage, mounted, router]);
 
