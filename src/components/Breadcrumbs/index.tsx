@@ -48,10 +48,10 @@ export function Breadcrumbs({
         if (segment === pathSegments[pathSegments.length - 1]) {
           switch (true) {
             case currentPath.includes("domande-frequenti/"):
-              const page = faqs.allFaqs.find(
+              const faqPage = faqs.allFaqs.find(
                 (p) => p.slug === currentPath.slice(1)
               );
-              pageTitle = page?.title || undefined;
+              pageTitle = faqPage?.title || undefined;
               break;
 
             case currentPath.includes("notizie/"):
@@ -69,7 +69,9 @@ export function Breadcrumbs({
               break;
 
             default:
-              const normalPage = pages.allPages.find((p) => p.slug === segment);
+              const normalPage = pages.allPages.find(
+                (p) => p.slug === currentPath.slice(1)
+              );
               pageTitle = normalPage?.title || undefined;
               break;
           }
@@ -102,6 +104,8 @@ export function Breadcrumbs({
   }, [pathname, pages, faqs, news, resources]);
 
   if (breadcrumbs.length <= 1) return null;
+
+  console.log("breadcrumbs", breadcrumbs);
 
   return (
     <Breadcrumb className={cn("w-100 mb-0", className)}>
