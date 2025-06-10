@@ -45,7 +45,7 @@ export function TableList({
       role="region"
       aria-labelledby={title ? `${id}-title` : undefined}
     >
-      <div className={cn("row pt-4")}>
+      <div className={cn("row py-4")}>
         {title && (
           <h2
             id={`${id}-title`}

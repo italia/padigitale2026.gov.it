@@ -105,8 +105,6 @@ export function Breadcrumbs({
 
   if (breadcrumbs.length <= 1) return null;
 
-  console.log("breadcrumbs", breadcrumbs);
-
   return (
     <Breadcrumb className={cn("w-100 mb-0", className)}>
       {breadcrumbs.map((item) => (
