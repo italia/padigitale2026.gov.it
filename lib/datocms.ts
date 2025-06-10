@@ -43,12 +43,7 @@ const baseOptions = {
 function getOptions(referer: string) {
   return {
     ...baseOptions,
-    requestInitOptions: {
-      headers: {
-        Authorization: `Bearer ${process.env.DATOCMS_API_TOKEN}`,
-        Referer: referer,
-      },
-    },
+    referer: referer
   };
 }
 
