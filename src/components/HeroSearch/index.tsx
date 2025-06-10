@@ -168,13 +168,13 @@ function SearchInput({
       )}
       {query && (
         <Button
-          color="secondary"
+          color="primary"
           size="xs"
           onClick={handleReset}
-          className={cn("mt-2")}
+          className={cn("custom-reset-button", "mt-2")}
           outline
         >
-          <Icon icon="it-close" />
+          <Icon icon="it-close" color="primary" size="sm" padding={false} />
           Annulla ricerca
         </Button>
       )}
