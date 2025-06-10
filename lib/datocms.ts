@@ -43,25 +43,23 @@ const baseOptions = {
 function getOptions(referer: string) {
   return {
     ...baseOptions,
+    referer: referer,
     requestInitOptions: {
-      headers: {
-        Authorization: `Bearer ${process.env.DATOCMS_API_TOKEN}`,
-        Referer: referer,
-      },
-    },
+      referrer: referer
+    }
   };
 }
 
 export async function getAllPages() {
   return executeQueryWithAutoPagination(
     AllPagesDocument,
-    getOptions(`fn_name:getAllPages`)
+    getOptions(`https://fn.getAllPages.org`)
   );
 }
 
 export async function page(slug: string) {
   return executeQuery(PageDocument, {
-    ...getOptions(`fn_name:page|slug:${slug}`),
+    ...getOptions(`https://fn.page.org/${slug}`),
     variables: {
       slug: slug,
       index: "2",
@@ -72,7 +70,7 @@ export async function page(slug: string) {
 export async function getAllFilteredUpdates(idBeneficiari: Array<string>) {
   return executeQuery(AllFilteredUpdatesDocument, {
     ...getOptions(
-      `fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`
+      `https://fn.allFilteredUpdates.org/${idBeneficiari.toString()}`
     ),
     variables: {
       idBeneficiari: idBeneficiari,
@@ -83,64 +81,64 @@ export async function getAllFilteredUpdates(idBeneficiari: Array<string>) {
 export async function getAllFaqs() {
   return executeQueryWithAutoPagination(
     AllFaqsDocument,
-    getOptions(`fn_name:getAllFaqs`)
+    getOptions(`https://fn.getAllFaqs.org`)
   );
 }
 
 export async function getAllNews() {
   return executeQueryWithAutoPagination(
     AllNewsDocument,
-    getOptions(`fn_name:getAllNews`)
+    getOptions(`https://fn.getAllNews.org`)
   );
 }
 
 export async function getAllResources() {
   return executeQueryWithAutoPagination(
     AllResourcesDocument,
-    getOptions(`fn_name:getAllResources`)
+    getOptions(`https://fn.getAllResources.org`)
   );
 }
 
 export async function getFooter() {
-  return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
+  return executeQuery(FooterDocument, getOptions(`https://fn.getFooter.org`));
 }
 
 export async function getHeader() {
-  return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
+  return executeQuery(HeaderDocument, getOptions(`https://fn.getHeader.org`));
 }
 
 export async function getSitemapPages() {
   return executeQueryWithAutoPagination(
     SitemapPagesDocument,
-    getOptions(`fn_name:getSitemapPages`)
+    getOptions(`https://fn.getSitemapPages.org`)
   );
 }
 
 export async function getAllEnteBeneficiarios() {
   return executeQueryWithAutoPagination(
     AllEnteBeneficiariosDocument,
-    getOptions(`fn_name:getAllEnteBeneficiarios`)
+    getOptions(`https://fn.getAllEnteBeneficiarios.org`)
   );
 }
 
 export async function getAllEntePromotores() {
   return executeQueryWithAutoPagination(
     AllEntePromotoresDocument,
-    getOptions(`fn_name:getAllEntePromotores`)
+    getOptions(`https://fn.getAllEntePromotores.org`)
   );
 }
 
 export async function getAllMisuras() {
   return executeQueryWithAutoPagination(
     AllMisurasDocument,
-    getOptions(`fn_name:getAllMisuras`)
+    getOptions(`https://fn.getAllMisuras.org`)
   );
 }
 
 export async function getAllUpdates() {
   return executeQueryWithAutoPagination(
     AllUpdatesDocument,
-    getOptions(`fn_name:getAllUpdates`)
+    getOptions(`https://fn.getAllUpdates.org`)
   );
 }
 
@@ -150,7 +148,7 @@ export async function getAllUpdates() {
 
 export async function getAlgoliaPage(id: string) {
   return executeQuery(AlgoliaPageDocument, {
-    ...getOptions(`fn_name:getAlgoliaPage|id:${id}`),
+    ...getOptions(`https://fn.getAlgoliaPage.org/${id}`),
     includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
     variables: {
       id: id,
@@ -160,7 +158,7 @@ export async function getAlgoliaPage(id: string) {
 
 export async function getAlgoliaResource(id: string) {
   return executeQuery(AlgoliaResourceDocument, {
-    ...getOptions(`fn_name:getAlgoliaResource|id:${id}`),
+    ...getOptions(`https://fn.getAlgoliaResource.org/${id}`),
     includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
     variables: {
       id: id,
@@ -170,7 +168,7 @@ export async function getAlgoliaResource(id: string) {
 
 export async function getAlgoliaNews(id: string) {
   return executeQuery(AlgoliaNewsDocument, {
-    ...getOptions(`fn_name:getAlgoliaNews|id:${id}`),
+    ...getOptions(`https://fn.getAlgoliaNews.org/${id}`),
     includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
     variables: {
       id: id,
@@ -180,7 +178,7 @@ export async function getAlgoliaNews(id: string) {
 
 export async function getAlgoliaFaq(id: string) {
   return executeQuery(AlgoliaFaqDocument, {
-    ...getOptions(`fn_name:getAlgoliaFaq|id:${id}`),
+    ...getOptions(`https://fn.getAlgoliaFaq.org/${id}`),
     includeDrafts: false, // Forzato a false perche' indicizziamo solo record pubblicati.
     variables: {
       id: id,
