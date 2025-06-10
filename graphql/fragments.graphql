@@ -733,3 +733,9 @@ fragment SearchSuggestionFragment on SearchSuggestionRecord {
     keyword
   }
 }
+
+fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
+  __typename
+  id
+  inputPlaceholder
+}

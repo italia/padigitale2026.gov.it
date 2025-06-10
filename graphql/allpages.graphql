@@ -65,6 +65,9 @@ query AllPages {
       ... on HeroSearchRecord {
         ...HeroSearchFragment
       }
+      ... on InstantSearchFaqRecord {
+        ...InstantSearchFaqFragment
+      }
     }
   }
   _allPagesMeta {
