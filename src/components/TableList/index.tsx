@@ -41,11 +41,11 @@ export function TableList({
 
   return (
     <div
-      className="container-xxl"
+      className={cn("container-xxl", { "my-5": !noPadding })}
       role="region"
       aria-labelledby={title ? `${id}-title` : undefined}
     >
-      <div className={cn("row pt-4")}>
+      <div className={cn("row py-4")}>
         {title && (
           <h2
             id={`${id}-title`}

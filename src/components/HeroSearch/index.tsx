@@ -15,18 +15,12 @@ import {
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 import { SearchSuggestion } from "@/src/components/SearchSuggestion";
 import { HTMLAttributeAnchorTarget, useEffect, useRef, useState } from "react";
-import {
-  useInstantSearch,
-  useSearchBox,
-  useHits,
-  usePagination,
-  Configure,
-} from "react-instantsearch";
+import { useInstantSearch, useSearchBox, useHits } from "react-instantsearch";
 import { useRouter } from "next/navigation";
 import { PaginationItem, PaginationLink } from "reactstrap";
 
 import { liteClient as algoliasearch } from "algoliasearch/lite";
-import { InstantSearch } from "react-instantsearch";
+import { InstantSearch, Configure } from "react-instantsearch";
 
 // Algolia configuration
 const algoliaAppId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID;
@@ -174,13 +168,13 @@ function SearchInput({
       )}
       {query && (
         <Button
-          color="secondary"
+          color="primary"
           size="xs"
           onClick={handleReset}
-          className={cn("mt-2")}
+          className={cn("custom-reset-button", "mt-2")}
           outline
         >
-          <Icon icon="it-close" />
+          <Icon icon="it-close" color="primary" size="sm" padding={false} />
           Annulla ricerca
         </Button>
       )}
@@ -246,47 +240,50 @@ function Filters({
   );
 }
 
-function Pagination() {
-  const { currentRefinement, nbPages, refine } = usePagination({
-    padding: 2,
-  });
-
-  if (nbPages <= 1) return null;
-
-  return (
-    <div className="d-flex justify-content-center mt-4">
-      <Pager aria-label="Naviga tra le pagine dei risultati">
-        <PaginationItem disabled={currentRefinement <= 0}>
-          <PaginationLink onClick={() => refine(currentRefinement - 1)}>
-            <span className="visually-hidden">Pagina precedente</span>
-            <Icon aria-hidden icon="it-chevron-left" />
-          </PaginationLink>
-        </PaginationItem>
-        {Array.from({ length: nbPages }, (_, i) => (
-          <PaginationItem key={i}>
-            <PaginationLink
-              aria-current={currentRefinement === i ? "page" : undefined}
-              aria-label={`Vai alla pagina ${i + 1}`}
-              onClick={() => refine(i)}
-            >
-              {i + 1}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-        <PaginationItem disabled={currentRefinement >= nbPages - 1}>
-          <PaginationLink onClick={() => refine(currentRefinement + 1)}>
-            <span className="visually-hidden">Pagina successiva</span>
-            <Icon aria-hidden icon="it-chevron-right" />
-          </PaginationLink>
-        </PaginationItem>
-      </Pager>
-    </div>
-  );
-}
-
 function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
   const { results } = useHits();
   const { query } = useSearchBox();
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Inizializza il componente e leggi la pagina dall'URL
+  useEffect(() => {
+    setMounted(true);
+    const searchParams = new URLSearchParams(window.location.search);
+    const page = searchParams.get("page");
+    if (page) {
+      setCurrentPage(parseInt(page, 10));
+    }
+  }, []);
+
+  // Resetta la paginazione quando cambiano i filtri
+  useEffect(() => {
+    if (mounted && currentPage > 1) {
+      setCurrentPage(1);
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.delete("page");
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilters, mounted, router]);
+
+  // Aggiorna l'URL quando cambia la pagina
+  useEffect(() => {
+    if (mounted) {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (currentPage > 1) {
+        searchParams.set("page", currentPage.toString());
+      } else {
+        searchParams.delete("page");
+      }
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
+    }
+  }, [currentPage, mounted, router]);
 
   if (!query) return null;
 
@@ -308,16 +305,29 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
     return selectedFilters.includes(hit.content_type);
   });
 
+  // Calculate pagination
+  const totalPages = Math.ceil((filteredHits?.length || 0) / RESULTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
+  const endIndex = startIndex + RESULTS_PER_PAGE;
+  const currentHits = filteredHits?.slice(startIndex, endIndex);
+
   return (
     <div className={cn("container-xxl")}>
       <div className={cn("row")}>
         <div className={cn("col-12")}>
           <p className={cn("fw-bold mt-5 mb-3")}>
             {filteredHits?.length && filteredHits?.length > 0
-              ? `${results?.nbHits} Risultati per "${query}"`
-              : `Nessun risultato trovato per "${query}". Prova con altri termini di ricerca.`}
+              ? // ? `${results?.nbHits} Risultati per "${query}"`
+                `${filteredHits?.length} Risultati per "${query}"`
+              : `Nessun risultato trovato per "${query}".`}
           </p>
-          {filteredHits?.map((hit) => (
+          {!filteredHits?.length && (
+            <p className={cn("mb-3")}>
+              Prova a usare parole chiave diverse o a cambiare i filtri di
+              ricerca.
+            </p>
+          )}
+          {currentHits?.map((hit) => (
             <div
               role="listitem"
               className="row border-bottom m-0 p-0 py-2 w-100"
@@ -325,109 +335,96 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
               data-content-type={hit.content_type}
             >
               <div className="col ps-0">
-                {/* TO DO: ask for avvisi: do they have a slug? If yes we can remove the "else part" of this check (and the check itself) */}
-                {hit.slug ? (
-                  <Link
-                    className="d-flex justify-content-between align-items-center text-decoration-none"
-                    href={hit.slug}
-                    title={hit.title}
-                    target={hit?.target as HTMLAttributeAnchorTarget}
-                    aria-label={`${hit.title}`}
-                  >
-                    <div>
-                      <div
-                        className="fw-bold text-decoration-underline mb-1"
-                        style={{ fontSize: "1.125rem" }}
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.title.value
-                            ? hit?._highlightResult.title.value
-                            : hit.title,
-                        }}
-                      />
+                <Link
+                  className="d-flex justify-content-between align-items-center text-decoration-none"
+                  href={hit.slug ? hit.slug : hit.url ? hit.url : "#"}
+                  title={hit.title}
+                  target={(hit?.target as HTMLAttributeAnchorTarget) || "_self"}
+                  aria-label={`${hit.title}`}
+                >
+                  <div>
+                    <div
+                      className="fw-bold text-decoration-underline mb-1"
+                      style={{ fontSize: "1.125rem" }}
+                      dangerouslySetInnerHTML={{
+                        __html: hit?._highlightResult.title.value
+                          ? hit?._highlightResult.title.value
+                          : hit.title,
+                      }}
+                    />
 
-                      <div
-                        className="text-muted"
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.content
-                            ? Array.isArray(hit._highlightResult.content)
-                              ? hit._highlightResult.content
-                                  .filter(
-                                    (item: HighlightResult) =>
-                                      item.matchedWords.length > 0
-                                  )
-                                  .map((item: HighlightResult) => item.value)
-                                  .join(" ")
-                              : hit._highlightResult.content.value
-                            : hit.content,
-                        }}
-                      />
+                    <div
+                      className="text-muted"
+                      dangerouslySetInnerHTML={{
+                        __html: hit?._highlightResult.content
+                          ? Array.isArray(hit._highlightResult.content)
+                            ? hit._highlightResult.content
+                                .filter(
+                                  (item: HighlightResult) =>
+                                    item.matchedWords.length > 0
+                                )
+                                .map((item: HighlightResult) => item.value)
+                                .join(" ")
+                            : hit._highlightResult.content.value
+                          : hit.content,
+                      }}
+                    />
 
-                      {hit.content_type && (
-                        <div className="text-secondary fw-semibold text-uppercase">
-                          <span className="visually-hidden">
-                            Content type:{" "}
-                          </span>
-                          {getContentTypeDisplayName(hit.content_type)}
-                        </div>
-                      )}
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <Icon
-                        className="my-0"
-                        color="primary"
-                        icon="it-chevron-right"
-                        size="sm"
-                        aria-hidden="true"
-                        title="Freccia a destra"
-                        padding
-                      />
-                    </div>
-                  </Link>
-                ) : (
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <div
-                        className="fw-bold mb-1"
-                        style={{ fontSize: "1.125rem" }}
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.title.value
-                            ? hit?._highlightResult.title.value
-                            : hit.title,
-                        }}
-                      />
-
-                      <div
-                        className="text-muted"
-                        dangerouslySetInnerHTML={{
-                          __html: hit?._highlightResult.content
-                            ? Array.isArray(hit._highlightResult.content)
-                              ? hit._highlightResult.content
-                                  .filter(
-                                    (item: HighlightResult) =>
-                                      item.matchedWords.length > 0
-                                  )
-                                  .map((item: HighlightResult) => item.value)
-                                  .join(" ")
-                              : hit._highlightResult.content.value
-                            : hit.content,
-                        }}
-                      />
-
-                      {hit.content_type && (
-                        <div className="text-secondary fw-semibold text-uppercase">
-                          <span className="visually-hidden">
-                            Content type:{" "}
-                          </span>
-                          {getContentTypeDisplayName(hit.content_type)}
-                        </div>
-                      )}
-                    </div>
+                    {hit.content_type && (
+                      <div className="text-secondary fw-semibold text-uppercase">
+                        <span className="visually-hidden">Content type: </span>
+                        {getContentTypeDisplayName(hit.content_type)}
+                      </div>
+                    )}
                   </div>
-                )}
+                  <div className="d-flex align-items-center">
+                    <Icon
+                      className="my-0"
+                      color="primary"
+                      icon="it-chevron-right"
+                      size="sm"
+                      aria-hidden="true"
+                      title="Freccia a destra"
+                      padding
+                    />
+                  </div>
+                </Link>
               </div>
             </div>
           ))}
-          <Pagination />
+          {totalPages > 1 && (
+            <div className="d-flex justify-content-center mt-4">
+              <Pager aria-label="Naviga tra le pagine dei risultati">
+                <PaginationItem disabled={currentPage <= 1}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  >
+                    <span className="visually-hidden">Pagina precedente</span>
+                    <Icon aria-hidden icon="it-chevron-left" />
+                  </PaginationLink>
+                </PaginationItem>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <PaginationItem key={i}>
+                    <PaginationLink
+                      aria-current={currentPage === i + 1 ? "page" : undefined}
+                      aria-label={`Vai alla pagina ${i + 1}`}
+                      onClick={() => setCurrentPage(i + 1)}
+                    >
+                      {i + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem disabled={currentPage >= totalPages}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  >
+                    <span className="visually-hidden">Pagina successiva</span>
+                    <Icon aria-hidden icon="it-chevron-right" />
+                  </PaginationLink>
+                </PaginationItem>
+              </Pager>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -469,7 +466,9 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.set("q", query);
       searchParams.delete("filters"); // Remove filters from URL
-      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
     }
   };
 
@@ -490,7 +489,9 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
       } else {
         searchParams.delete("filters");
       }
-      router.push(`${window.location.pathname}?${searchParams.toString()}`);
+      router.push(`${window.location.pathname}?${searchParams.toString()}`, {
+        scroll: false,
+      });
     }
   };
 
@@ -517,7 +518,7 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
         },
       }}
     >
-      <Configure hitsPerPage={RESULTS_PER_PAGE} />
+      <Configure hitsPerPage={1000} />
       <HeroComponent className={cn("wrapper")}>
         <div className={"container-xxl position-relative"}>
           <div className={"row"}>
