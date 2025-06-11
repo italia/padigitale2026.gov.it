@@ -1,0 +1,64 @@
+#import "./fragments.graphql"
+
+query Resource($slug: String) {
+  resource(filter: { slug: { eq: $slug } }) {
+    _createdAt
+    _updatedAt
+    title
+    slug
+    customUpdateDate
+    body {
+      ... on HeroRecord {
+        ...HeroFragment
+      }
+      ... on SplitBannerRecord {
+        ...SplitBannerFragment
+      }
+      ... on BannerRecord {
+        ...BannerFragment
+      }
+      ... on RichTextSectionRecord {
+        ...RichTextSectionFragment
+      }
+      ... on VideoPlayerRecord {
+        ...VideoPlayerFragment
+      }
+      ... on CardsGridGenericRecord {
+        ...CardsGridGenericFragment
+      }
+      ... on CardsGridAttachmentRecord {
+        ...CardsGridAttachmentFragment
+      }
+      ... on CardsGridServiceRecord {
+        ...CardsGridServiceFragment
+      }
+      ... on CardsGridNewsRecord {
+        ...CardsGridNewsFragment
+      }
+      ... on CardsGridResourceRecord {
+        ...CardsGridResourceFragment
+      }
+      ... on CardsGridAnnouncementRecord {
+        ...CardsGridAnnouncementFragment
+      }
+      ... on CardsGridImageRecord {
+        ...CardsGridImagesFragment
+      }
+      ... on LayoutSidebarRecord {
+        ...LayoutSidebarFragment
+      }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
+      ... on AccordionsFilterRecord {
+        ...AccordionsFilterFragment
+      }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
+    }
+  }
+}

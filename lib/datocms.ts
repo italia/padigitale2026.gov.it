@@ -5,16 +5,19 @@ import {
 import {
   AllPagesDocument,
   AllFaqsDocument,
-  PageDocument,
-  SitemapPagesDocument,
-  PageQueryVariables,
-  FooterDocument,
-  HeaderDocument,
   AllNewsDocument,
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
   AllEntePromotoresDocument,
   AllMisurasDocument,
+  PageDocument,
+  FaqDocument,
+  NewsDocument,
+  ResourceDocument,
+  SitemapPagesDocument,
+  PageQueryVariables,
+  FooterDocument,
+  HeaderDocument,  
   AlgoliaPageDocument,
   AlgoliaPageQueryVariables,
   AllUpdatesDocument,
@@ -27,6 +30,10 @@ import {
   AlgoliaFaqDocument,
   AlgoliaFaqQueryVariables,
 } from "@/graphql/generated";
+import { unstable_cache } from "next/cache";
+
+// Cache revalidation time in seconds (2 minutes)
+const CACHE_REVALIDATION_TIME = 120;
 
 if (!process.env.DATOCMS_API_TOKEN) {
   throw new Error(
@@ -50,97 +57,356 @@ function getOptions(referer: string) {
   };
 }
 
-export async function getAllPages() {
-  return executeQueryWithAutoPagination(
-    AllPagesDocument,
-    getOptions(`https://fn.getAllPages.org`)
-  );
-}
+export const getAllPages = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllPages called",
+      level: "info",
+      metadata: {
+        function: "getAllPages",
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllPagesDocument,
+      getOptions(`fn_name:getAllPages`)
+    );
+  },
+  ['getAllPages'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['pages']
+  }
+);
 
-export async function page(slug: string) {
-  return executeQuery(PageDocument, {
-    ...getOptions(`https://fn.page.org/${slug}`),
-    variables: {
-      slug: slug,
-      index: "2",
-    } as PageQueryVariables,
-  });
-}
+export const page = unstable_cache(
+  async (slug: string) => {
+    await sendPostToBetterStack({
+      message: "page called",
+      level: "info",
+      metadata: {
+        function: "page",
+        slug
+      }
+    });
+    return executeQuery(PageDocument, {
+      ...getOptions(`fn_name:page|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  },
+  ['page'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['pages']
+  }
+);
 
-export async function getAllFilteredUpdates(idBeneficiari: Array<string>) {
-  return executeQuery(AllFilteredUpdatesDocument, {
-    ...getOptions(
-      `https://fn.allFilteredUpdates.org/${idBeneficiari.toString()}`
-    ),
-    variables: {
-      idBeneficiari: idBeneficiari,
-    } as AllFilteredUpdatesQueryVariables,
-  });
-}
+export const getAllFilteredUpdates = unstable_cache(
+  async (idBeneficiari: Array<string>) => {
+    await sendPostToBetterStack({
+      message: "getAllFilteredUpdates called",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredUpdates",
+        idBeneficiari
+      }
+    });
+    return executeQuery(AllFilteredUpdatesDocument, {
+      ...getOptions(
+        `fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`
+      ),
+      variables: {
+        idBeneficiari: idBeneficiari,
+      } as AllFilteredUpdatesQueryVariables,
+    });
+  },
+  ['getAllFilteredUpdates'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['updates']
+  }
+);
 
-export async function getAllFaqs() {
-  return executeQueryWithAutoPagination(
-    AllFaqsDocument,
-    getOptions(`https://fn.getAllFaqs.org`)
-  );
-}
+export const getAllFaqs = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllFaqs called",
+      level: "info",
+      metadata: {
+        function: "getAllFaqs"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllFaqsDocument,
+      getOptions(`fn_name:getAllFaqs`)
+    );
+  },
+  ['getAllFaqs'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['faqs']
+  }
+);
 
-export async function getAllNews() {
-  return executeQueryWithAutoPagination(
-    AllNewsDocument,
-    getOptions(`https://fn.getAllNews.org`)
-  );
-}
+export const faq = unstable_cache(
+  async (slug: string) => {
+    await sendPostToBetterStack({
+      message: "faq called",
+      level: "info",
+      metadata: {
+        function: "faq",
+        slug
+      }
+    });    
+    return executeQuery(FaqDocument, {
+      ...getOptions(`fn_name:faq|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  },
+  ['faq'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['faqs']
+  }
+);
 
-export async function getAllResources() {
-  return executeQueryWithAutoPagination(
-    AllResourcesDocument,
-    getOptions(`https://fn.getAllResources.org`)
-  );
-}
+export const getAllNews = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllNews called",
+      level: "info",
+      metadata: {
+        function: "getAllNews"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllNewsDocument,
+      getOptions(`fn_name:getAllNews`)
+    );
+  },
+  ['getAllNews'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['news']
+  }
+);
 
-export async function getFooter() {
-  return executeQuery(FooterDocument, getOptions(`https://fn.getFooter.org`));
-}
+export const news = unstable_cache(
+  async (slug: string) => {
+    await sendPostToBetterStack({
+      message: "news called",
+      level: "info",
+      metadata: {
+        function: "news",
+        slug
+      }
+    });    
+    return executeQuery(NewsDocument, {
+      ...getOptions(`fn_name:news|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  },
+  ['news'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['news']
+  }
+);
 
-export async function getHeader() {
-  return executeQuery(HeaderDocument, getOptions(`https://fn.getHeader.org`));
-}
+export const getAllResources = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllResources called",
+      level: "info",
+      metadata: {
+        function: "getAllResources"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllResourcesDocument,
+      getOptions(`fn_name:getAllResources`)
+    );
+  },
+  ['getAllResources'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['resources']
+  }
+);
 
-export async function getSitemapPages() {
-  return executeQueryWithAutoPagination(
-    SitemapPagesDocument,
-    getOptions(`https://fn.getSitemapPages.org`)
-  );
-}
+export const resource = unstable_cache(
+  async (slug: string) => {
+    await sendPostToBetterStack({
+      message: "resource called",
+      level: "info",
+      metadata: {
+        function: "resource",
+        slug
+      }
+    });
+    return executeQuery(ResourceDocument, {
+      ...getOptions(`fn_name:resource|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  },
+  ['resource'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['resources']
+  }
+);
 
-export async function getAllEnteBeneficiarios() {
-  return executeQueryWithAutoPagination(
-    AllEnteBeneficiariosDocument,
-    getOptions(`https://fn.getAllEnteBeneficiarios.org`)
-  );
-}
+export const getFooter = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getFooter called",
+      level: "info",
+      metadata: {
+        function: "getFooter"
+      }
+    });
+    return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
+  },
+  ['getFooter'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['footer']
+  }
+);
 
-export async function getAllEntePromotores() {
-  return executeQueryWithAutoPagination(
-    AllEntePromotoresDocument,
-    getOptions(`https://fn.getAllEntePromotores.org`)
-  );
-}
+export const getHeader = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getHeader called",
+      level: "info",
+      metadata: {
+        function: "getHeader"
+      }
+    });
+    return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
+  },
+  ['getHeader'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['header']
+  }
+);
 
-export async function getAllMisuras() {
-  return executeQueryWithAutoPagination(
-    AllMisurasDocument,
-    getOptions(`https://fn.getAllMisuras.org`)
-  );
-}
+export const getSitemapPages = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getSitemapPages called",
+      level: "info",
+      metadata: {
+        function: "getSitemapPages"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      SitemapPagesDocument,
+      getOptions(`fn_name:getSitemapPages`)
+    );
+  },
+  ['getSitemapPages'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['sitemap']
+  }
+);
 
-export async function getAllUpdates() {
-  return executeQueryWithAutoPagination(
-    AllUpdatesDocument,
-    getOptions(`https://fn.getAllUpdates.org`)
-  );
-}
+export const getAllEnteBeneficiarios = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllEnteBeneficiarios called",
+      level: "info",
+      metadata: {
+        function: "getAllEnteBeneficiarios"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllEnteBeneficiariosDocument,
+      getOptions(`fn_name:getAllEnteBeneficiarios`)
+    );
+  },
+  ['getAllEnteBeneficiarios'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['beneficiari']
+  }
+);
+
+export const getAllEntePromotores = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllEntePromotores called",
+      level: "info",
+      metadata: {
+        function: "getAllEntePromotores"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllEntePromotoresDocument,
+      getOptions(`fn_name:getAllEntePromotores`)
+    );
+  },
+  ['getAllEntePromotores'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['promotores']
+  }
+);
+
+export const getAllMisuras = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllMisuras called",
+      level: "info",
+      metadata: {
+        function: "getAllMisuras"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllMisurasDocument,
+      getOptions(`fn_name:getAllMisuras`)
+    );
+  },
+  ['getAllMisuras'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['misuras']
+  }
+);
+
+export const getAllUpdates = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllUpdates called",
+      level: "info",
+      metadata: {
+        function: "getAllUpdates"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllUpdatesDocument,
+      getOptions(`fn_name:getAllUpdates`)
+    );
+  },
+  ['getAllUpdates'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['updates']
+  }
+);
 
 // ------------------------------------- //
 // Funzioni di indicizzazione in Algolia //
@@ -184,4 +450,87 @@ export async function getAlgoliaFaq(id: string) {
       id: id,
     } as AlgoliaFaqQueryVariables,
   });
+}
+
+/**
+ * Sends a log message to Better Stack with metadata and caller information
+ * @param data - The log data object containing:
+ *   - message: The main log message
+ *   - level: Optional log level ('info', 'warning', 'error')
+ *   - metadata: Optional additional metadata to include in the log
+ * @returns Promise<boolean> - Returns true if the log was sent successfully, false otherwise
+ */
+export async function sendPostToBetterStack(data: {
+  message: string;
+  level?: 'info' | 'warning' | 'error';
+  metadata?: Record<string, any>;
+}) {
+  // Get Better Stack configuration from environment variables
+  const url = process.env.BETTERSTACK_URL;
+  const token = process.env.BETTERSTACK_TOKEN;
+
+  // Return false if configuration is missing
+  if (!url || !token) {
+    return false;
+  }
+
+  // Format current timestamp in UTC
+  const now = new Date();
+  const dt = now.toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
+
+  // Get caller information from stack trace
+  const stack = new Error().stack;
+  
+  // Get all stack lines, skipping the first line (Error:)
+  const stackLines = stack?.split('\n').slice(1) || [];
+  
+  // Find the first line that doesn't contain internal Next.js or Node.js paths
+  const relevantStack = stackLines
+    .map(line => line.trim().replace('at ', ''))
+    .filter(line => {
+      // Only filter out pure Node.js internals
+      const isInternal = 
+        line.includes('node:async_hooks') ||
+        line.includes('AsyncLocalStorage') ||
+        line.includes('unstable-cache.js');
+      return !isInternal;
+    })
+    .slice(0, 6); // Take the first 6 relevant lines
+
+  // Clean up each line in the stack
+  const cleanStack = relevantStack.map(line => 
+    line
+      .replace('webpack-internal:///(rsc)/', '')
+      .replace('webpack-internal:///(ssr)/', '')
+      .replace('./', '') // Remove leading ./
+  );
+
+  // Prepare the log payload
+  const body = JSON.stringify({
+    message: data.message,
+    level: data.level || 'info',
+    metadata: {
+      ...data.metadata,
+      environment: process.env.NODE_ENV,
+      timestamp: dt,
+      user: process.env.BETTERSTACK_USER,
+      callStack: cleanStack
+    }
+  });
+
+  // Send the log to Better Stack
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body,
+  });
+
+  // Return true if the request was successful, false otherwise
+  if (!response.ok) {
+    return false;
+  }
+  return true;
 }
