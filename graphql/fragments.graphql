@@ -491,6 +491,7 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
   sectionFields {
     ...CardsGridFieldsetFragment
   }
+  cardLayout
   newsSelection
   news {
     __typename

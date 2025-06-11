@@ -291,6 +291,9 @@ export function CardsGrid({
       news = props.news as NewsRecord[];
     }
 
+    cardLayout =
+      typeof props.cardLayout !== "undefined" ? props.cardLayout : newsCardLayoutEnum.clean;
+
     newsSelection = typeof props.newsSelection !== "undefined" ? props.newsSelection : null;
 
     if (!news.length) {
@@ -450,7 +453,12 @@ export function CardsGrid({
                     >
                       <CardNews
                         TitleTag={cardTitleTag}
-                        cardLayout={newsCardLayoutEnum.clean}
+                        cardLayout={
+                          newsCardLayoutEnum[
+                            (cardLayout ??
+                              "bordered") as keyof typeof newsCardLayoutEnum
+                            ]
+                        }
                         props={record}
                         parentId={id}
                       />
@@ -497,7 +505,12 @@ export function CardsGrid({
                         >
                           <CardNews
                             TitleTag={cardTitleTag}
-                            cardLayout={newsCardLayoutEnum.clean}
+                            cardLayout={
+                              newsCardLayoutEnum[
+                                (cardLayout ??
+                                  "bordered") as keyof typeof newsCardLayoutEnum
+                                ]
+                            }
                             props={newsRecord}
                             parentId={id}
                           />
