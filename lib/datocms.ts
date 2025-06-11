@@ -48,11 +48,14 @@ const baseOptions = {
 };
 
 function getOptions(referer: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://padigitale2026.gov.it';
+  const refererUrl = `${baseUrl}/api/${referer}`;
+  
   return {
     ...baseOptions,
-    referer: referer,
+    referer: refererUrl,
     requestInitOptions: {
-      referrer: referer
+      referrer: refererUrl
     }
   };
 }
@@ -463,6 +466,7 @@ export async function getAlgoliaFaq(id: string) {
 export async function sendPostToBetterStack(data: {
   message: string;
   level?: 'info' | 'warning' | 'error';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: Record<string, any>;
 }) {
   // Get Better Stack configuration from environment variables
