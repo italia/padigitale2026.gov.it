@@ -216,7 +216,10 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
             <SearchInput inputPlaceholder={inputPlaceholder || "Cerca..."} />
           </div>
         </div>
-        <div className={cn("col-12 col-md-7 position-relative")}>
+        <div
+          className={cn("col-12 col-md-7 position-relative")}
+          style={{ zIndex: 10 }}
+        >
           <div
             className={cn(
               "search-results-container",
