@@ -1,7 +1,7 @@
 #import "./fragments.graphql"
 
-query AllPages {
-  allPages(first: 100) {
+query News($slug: String) {
+  news(filter: { slug: { eq: $slug } }) {
     _createdAt
     _updatedAt
     title
@@ -53,24 +53,9 @@ query AllPages {
       ... on TableListRecord {
         ...TableListFragment
       }
-      ... on TableListFaqRecord {
-        ...TableListFaqFragment
-      }
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
-      ... on CardsListFilterRecord {
-        ...CardsListFilterFragment
-      }
-      ... on HeroSearchRecord {
-        ...HeroSearchFragment
-      }
-      ... on InstantSearchFaqRecord {
-        ...InstantSearchFaqFragment
-      }
     }
-  }
-  _allPagesMeta {
-    count
   }
 }

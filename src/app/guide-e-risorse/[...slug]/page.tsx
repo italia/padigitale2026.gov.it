@@ -1,10 +1,10 @@
 import {
-  getAllPages,
-  page as getPage,
+  resource,
+  getAllResources
 } from "@/lib/datocms";
 import {
-  AllPagesQuery,
-  PageQuery,
+  AllResourcesQuery,
+  ResourceQuery,
 } from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
@@ -13,14 +13,17 @@ export const dynamicParams = true;
 export const revalidate = 120;
 
 export async function generateStaticParams() {
-  const pages = (await getAllPages()) as AllPagesQuery;
+  const pages = (await getAllResources()) as AllResourcesQuery;
 
-  return pages.allPages
+  return pages.allResources
     .filter((page) => page.slug)
-    .map((page) => ({
-      slug: page.slug!.split("/"),
-      customUpdateDate: page.customUpdateDate,
-    }));
+    .map((page) => {
+      const slug = page.slug!.replace(/^supporto\//, '');
+      return {
+        slug: slug.split("/"),
+        customUpdateDate: page.customUpdateDate,
+      };
+    });
 }
 
 export default async function Page({
@@ -29,13 +32,12 @@ export default async function Page({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const fullSlug = slug.join("/");
+  const fullSlug = `supporto/${slug.slice(1).join("/")}`;
 
-
-  const pages = (await getPage(fullSlug)) as PageQuery;
+  const pages = (await resource(fullSlug)) as ResourceQuery;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const page: any = pages.page;
-  const pageContentType = "page";
+  const page: any = pages.resource;
+  const pageContentType = "resource";
 
   if (!page) return notFound();
 

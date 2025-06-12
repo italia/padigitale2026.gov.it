@@ -491,6 +491,7 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
   sectionFields {
     ...CardsGridFieldsetFragment
   }
+  cardLayout
   newsSelection
   news {
     __typename
@@ -732,4 +733,10 @@ fragment SearchSuggestionFragment on SearchSuggestionRecord {
     id
     keyword
   }
+}
+
+fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
+  __typename
+  id
+  inputPlaceholder
 }

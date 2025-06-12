@@ -24,6 +24,7 @@ import {
   TableListUpdateRecord,
   CardsListFilterRecord,
   HeroSearchRecord,
+  InstantSearchFaqRecord,
 } from "@/graphql/generated";
 import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -42,6 +43,7 @@ import { AccordionsFilter } from "@/src/components/AccordionsFilter";
 import { TableListUpdates } from "@/src/components/TableListUpdates";
 import { CardsListFilter } from "@/src/components/CardsListFilter";
 import { HeroSearch } from "@/src/components/HeroSearch";
+import { InstantSearchFaq } from "@/src/components/InstantSearchFaq";
 
 export function ModularContent({
   content,
@@ -146,6 +148,13 @@ export function ModularContent({
             );
           case "HeroSearchRecord":
             return <HeroSearch key={idx} props={el as HeroSearchRecord} />;
+          case "InstantSearchFaqRecord":
+            return (
+              <InstantSearchFaq
+                key={idx}
+                props={el as InstantSearchFaqRecord}
+              />
+            );
           default:
             return null;
         }

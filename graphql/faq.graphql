@@ -1,12 +1,24 @@
 #import "./fragments.graphql"
 
-query AllPages {
-  allPages(first: 100) {
+query Faq($slug: String) {
+  faq(filter: { slug: { eq: $slug } }) {
     _createdAt
     _updatedAt
     title
     slug
     customUpdateDate
+    category {
+      label
+      slug
+    }
+    beneficiari {
+      label
+    }
+    misura {
+      label
+      slug
+      basePath
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment
@@ -59,18 +71,6 @@ query AllPages {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
-      ... on CardsListFilterRecord {
-        ...CardsListFilterFragment
-      }
-      ... on HeroSearchRecord {
-        ...HeroSearchFragment
-      }
-      ... on InstantSearchFaqRecord {
-        ...InstantSearchFaqFragment
-      }
     }
-  }
-  _allPagesMeta {
-    count
   }
 }
