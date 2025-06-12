@@ -17,14 +17,45 @@ export const dynamicParams = true;
 export const revalidate = 120;
 
 export async function generateStaticParams() {
-  const pages = (await getAllPages()) as AllPagesQuery;
+  const [pages, faqs, news, resources] = await Promise.all([
+    getAllPages() as Promise<AllPagesQuery>,
+    getAllFaqs() as Promise<AllFaqsQuery>,
+    getAllNews() as Promise<AllNewsQuery>,
+    getAllResources() as Promise<AllResourcesQuery>,
+  ]);
 
-  return pages.allPages
-    .filter((page) => page.slug)
-    .map((page) => ({
-      slug: page.slug!.split("/"),
-      customUpdateDate: page.customUpdateDate,
-    }));
+  const params = [
+    // Pagine normali
+    ...pages.allPages
+      .filter((page) => page.slug)
+      .map((page) => ({
+        slug: page.slug!.split("/"),
+        customUpdateDate: page.customUpdateDate,
+      })),
+    // FAQ
+    ...faqs.allFaqs
+      .filter((faq) => faq.slug)
+      .map((faq) => ({
+        slug: `domande-frequenti/${faq.slug}`.split("/"),
+        customUpdateDate: faq.customUpdateDate,
+      })),
+    // Notizie
+    ...news.allNews
+      .filter((news) => news.slug)
+      .map((news) => ({
+        slug: `notizie/${news.slug}`.split("/"),
+        customUpdateDate: news.customUpdateDate,
+      })),
+    // Risorse
+    ...resources.allResources
+      .filter((resource) => resource.slug)
+      .map((resource) => ({
+        slug: `guide-e-risorse/${resource.slug}`.split("/"),
+        customUpdateDate: resource.customUpdateDate,
+      })),
+  ];
+
+  return params;
 }
 
 export default async function Page({
