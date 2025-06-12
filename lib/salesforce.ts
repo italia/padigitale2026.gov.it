@@ -18,13 +18,13 @@ export interface Avviso {
  * Recupera tutti gli avvisi in una lista di oggetti JSON.
  * @param n Il numero di avvisi da recuperare. Se 0, recupera tutti.
  * @param sort Specifica se ricevere i risultati ordinati per data ASC o DESC.
- * @param beneficiario Se specificato, filtra gli avvisi per il beneficiario indicato.
+ * @param beneficiari Se specificato, filtra gli avvisi per i beneficiari indicati.
  * @returns Tutti gli avvisi in formato JSON.
  */
 export async function getAvvisi(
   n: number = 0,
   sort: Sort = "DESC",
-  beneficiario?: string
+  beneficiari?: string[]
 ) {
   if (!process.env.SF_USERNAME || !process.env.SF_PASSWORD) {
     console.error("SF_USERNAME and SF_PASSWORD, must be defined.");
@@ -69,14 +69,17 @@ export async function getAvvisi(
         )?.Name,
       }));
 
-    // Filtra per beneficiario se specificato
-    if (beneficiario) {
+    // Filtra per beneficiari se specificati
+    if (beneficiari && beneficiari.length > 0) {
       avvisi = avvisi.filter(
         (avviso) =>
           avviso.beneficiari &&
           avviso.beneficiari.some(
             (b: string) =>
-              b.trim().toLowerCase() === beneficiario.trim().toLowerCase()
+              beneficiari.some(
+                (beneficiario) =>
+                  b.trim().toLowerCase() === beneficiario.trim().toLowerCase()
+              )
           )
       );
     }
