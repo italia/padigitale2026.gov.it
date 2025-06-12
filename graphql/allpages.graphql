@@ -68,6 +68,9 @@ query AllPages {
       ... on InstantSearchFaqRecord {
         ...InstantSearchFaqFragment
       }
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
+      }
     }
   }
   _allPagesMeta {

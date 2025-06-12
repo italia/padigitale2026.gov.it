@@ -740,3 +740,16 @@ fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
   id
   inputPlaceholder
 }
+
+fragment BloccoGraficoFragment on BloccoGraficoRecord {
+  id
+  subtitle
+  title
+  chart {
+    title
+    id
+    chartDatasource
+    chartData
+    chartConfig
+  }
+}
