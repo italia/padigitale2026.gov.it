@@ -25,6 +25,7 @@ import {
   CardsListFilterRecord,
   HeroSearchRecord,
   InstantSearchFaqRecord,
+  BloccoGraficoRecord,
 } from "@/graphql/generated";
 import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -44,6 +45,7 @@ import { TableListUpdates } from "@/src/components/TableListUpdates";
 import { CardsListFilter } from "@/src/components/CardsListFilter";
 import { HeroSearch } from "@/src/components/HeroSearch";
 import { InstantSearchFaq } from "@/src/components/InstantSearchFaq";
+import { BloccoGrafico } from "@/src/components/BloccoGrafico";
 
 export function ModularContent({
   content,
@@ -154,6 +156,10 @@ export function ModularContent({
                 key={idx}
                 props={el as InstantSearchFaqRecord}
               />
+            );
+          case "BloccoGraficoRecord":
+            return (
+              <BloccoGrafico key={idx} props={el as BloccoGraficoRecord} />
             );
           default:
             return null;

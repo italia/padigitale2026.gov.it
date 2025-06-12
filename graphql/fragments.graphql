@@ -742,6 +742,7 @@ fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
 }
 
 fragment BloccoGraficoFragment on BloccoGraficoRecord {
+  __typename
   id
   subtitle
   title
