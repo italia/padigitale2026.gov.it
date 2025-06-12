@@ -32,11 +32,17 @@ export async function CardsGrid({
 
   if (__typename === "CardsGridAnnouncementRecord") {
     try {
-      announcements = await getAvvisi(Number(props.sectionFields?.columns));
+      const beneficiariLabels = props.beneficiari?.map(beneficiario => beneficiario.label).filter((label): label is string => label !== null && label !== undefined) || [];
+      announcements = await getAvvisi(Number(props.sectionFields?.columns), 'DESC', beneficiariLabels);
     } catch (error) {
       console.error("Error fetching announcements:", error);
     }
   }
 
-  return <CardsGridClient props={props} hasSidebar={hasSidebar} fetchedAnnouncements={announcements} />;
+  return <CardsGridClient 
+    props={props} 
+    hasSidebar={hasSidebar} 
+    fetchedAnnouncements={announcements} 
+    sfUrl={process.env.SF_URL || ''} 
+  />;
 }

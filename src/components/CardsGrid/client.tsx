@@ -43,7 +43,8 @@ const cn = classNames.bind(styles);
 export function CardsGridClient({
                             props,
                             hasSidebar = false,
-                            fetchedAnnouncements
+                            fetchedAnnouncements,
+                            sfUrl
                           }: {
   props:
     | CardsGridGenericRecord
@@ -54,6 +55,7 @@ export function CardsGridClient({
     | CardsGridAnnouncementRecord;
   hasSidebar?: boolean;
   fetchedAnnouncements?: Avviso[];
+  sfUrl?: string;
 }) {
   const allDatoObjects = usePages();
   const {__typename, id, sectionFields} = props;
@@ -233,7 +235,7 @@ export function CardsGridClient({
             month: 'long',
             year: 'numeric'
           }),
-          href: `${process.env.SF_URL}?id=${announcement.id}`,
+          href: `${sfUrl}?id=${announcement.id}`,
           target: "_blank",
         } as CardAnnouncementRecord;
       });
