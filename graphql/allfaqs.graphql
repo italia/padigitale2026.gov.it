@@ -4,6 +4,7 @@ query AllFaqs {
   allFaqs(first: 100) {
     _createdAt
     _updatedAt
+    id
     title
     slug
     customUpdateDate

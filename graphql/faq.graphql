@@ -4,6 +4,7 @@ query Faq($slug: String) {
   faq(filter: { slug: { eq: $slug } }) {
     _createdAt
     _updatedAt
+    id
     title
     slug
     customUpdateDate

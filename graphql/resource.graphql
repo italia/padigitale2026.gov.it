@@ -4,6 +4,7 @@ query Resource($slug: String) {
   resource(filter: { slug: { eq: $slug } }) {
     _createdAt
     _updatedAt
+    id
     title
     slug
     customUpdateDate
