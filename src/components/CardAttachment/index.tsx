@@ -45,7 +45,7 @@ export function CardAttachment({
       {title && (
         <TitleTag
           className={
-            "it-card-title fw-semibold pb-3 lh-sm d-flex justify-content-between fs-3"
+            "it-card-title fw-semibold pb-3 lh-sm d-flex justify-content-between h-3"
           }
         >
           {(href || cmsAsset?.url) && (
@@ -61,17 +61,13 @@ export function CardAttachment({
             <span className={cn("decoration-1", "text-primary")}>{title}</span>
           )}
           <span className={cn("icon")} aria-hidden={"true"}>
-            <Icon
-              className="my-0"
-              color="primary"
-              icon="it-clip"
-            />
+            <Icon className="my-0" color="primary" icon="it-clip" />
           </span>
         </TitleTag>
       )}
       <div className={"it-card-body d-flex flex-column pt-0 pb-0"}>
         {description && (
-          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">
+          <p className="it-card-text h-6 flex-grow-1 pb-4 mb-3">
             {description}
           </p>
         )}

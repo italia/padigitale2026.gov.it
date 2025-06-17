@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
-import {Icon} from "design-react-kit";
+import { Icon } from "design-react-kit";
 
 const cn = classNames.bind(styles);
 
@@ -63,9 +63,12 @@ export function CardGeneric({
     >
       {title && (
         <TitleTag
-          className={cn("it-card-title fw-semibold pb-3 lh-sm fs-3 d-flex justify-content-between", {
-            "px-0": cardLayout && cardLayout === "borderBottom",
-          })}
+          className={cn(
+            "it-card-title fw-semibold pb-3 lh-sm h-3 d-flex justify-content-between",
+            {
+              "px-0": cardLayout && cardLayout === "borderBottom",
+            }
+          )}
         >
           {iconBeforeTitle && (
             <div
@@ -87,11 +90,7 @@ export function CardGeneric({
           )}
           {iconAfterTitle && (
             <span className={cn("icon")} aria-hidden={"true"}>
-              <Icon
-                className="my-0"
-                color="primary"
-                icon={iconAfterTitle}
-              />
+              <Icon className="my-0" color="primary" icon={iconAfterTitle} />
             </span>
           )}
         </TitleTag>
@@ -102,7 +101,7 @@ export function CardGeneric({
         })}
       >
         {description && (
-          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">
+          <p className="it-card-text h-6 flex-grow-1 pb-4 mb-3">
             {description}
           </p>
         )}

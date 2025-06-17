@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { ElementType } from "react";
-import {Icon} from "design-react-kit";
+import { Icon } from "design-react-kit";
 
 const cn = classNames.bind(styles);
 
@@ -17,18 +17,21 @@ export function CardNews({
   props,
   cardLayout = newsCardLayoutEnum.borderBottom,
   TitleTag = "div",
-  parentId = null
+  parentId = null,
 }: {
   props: NewsRecord;
   cardLayout?: newsCardLayoutEnum;
   TitleTag?: ElementType;
-  parentId: string|null
+  parentId: string | null;
 }) {
-  const { id, title, summary, category, customUpdateDate, slug, externalLink } = props;
+  const { id, title, summary, category, customUpdateDate, slug, externalLink } =
+    props;
 
   return (
     <article
-      aria-labelledby={(parentId && title) ? `title-${parentId}-${id}` : undefined}
+      aria-labelledby={
+        parentId && title ? `title-${parentId}-${id}` : undefined
+      }
       className={cn("it-card--news it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
@@ -38,12 +41,15 @@ export function CardNews({
     >
       {title && (
         <TitleTag
-          className={cn("it-card-title fw-semibold pb-3 lh-sm fs-3 d-flex justify-content-between", {
-            "fs-3":
-              cardLayout && ["borderBottom", "clean"].includes(cardLayout),
-            "fs-4": cardLayout && cardLayout === "bordered",
-            "px-0": cardLayout && cardLayout === "borderBottom",
-          })}
+          className={cn(
+            "it-card-title fw-semibold pb-3 lh-sm h-3 d-flex justify-content-between",
+            {
+              "h-3":
+                cardLayout && ["borderBottom", "clean"].includes(cardLayout),
+              "h-4": cardLayout && cardLayout === "bordered",
+              "px-0": cardLayout && cardLayout === "borderBottom",
+            }
+          )}
         >
           <Link
             href={externalLink ?? `/${slug}`}
@@ -56,11 +62,7 @@ export function CardNews({
 
           {externalLink && (
             <span className={cn("icon")} aria-hidden={"true"}>
-              <Icon
-                className="my-0"
-                color="primary"
-                icon="it-external-link"
-              />
+              <Icon className="my-0" color="primary" icon="it-external-link" />
             </span>
           )}
         </TitleTag>
@@ -71,7 +73,7 @@ export function CardNews({
         })}
       >
         {summary && (
-          <p className="it-card-text fs-6 flex-grow-1 pb-4 mb-3">{summary}</p>
+          <p className="it-card-text h-6 flex-grow-1 pb-4 mb-3">{summary}</p>
         )}
         {(category || customUpdateDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>

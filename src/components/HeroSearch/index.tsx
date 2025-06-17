@@ -528,8 +528,8 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
               </section>
             )}
             <div className={"pb-4 col-12 text-center"}>
-              {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
-              {description && <p className={cn("fs-6")}>{description}</p>}
+              {title && <HeroTitle className={cn("h-1")}>{title}</HeroTitle>}
+              {description && <p className={cn("h-6")}>{description}</p>}
               <div className={cn("col-12 col-md-7 mx-auto my-5")}>
                 <SearchInput
                   suggestion={suggestion || ({} as SearchSuggestionRecord)}

@@ -1,1 +1,5 @@
-// .wrapper {}
+.wrapper {
+  &.bg-light-blue {
+    background-color: #f2f7fc;
+  }
+}

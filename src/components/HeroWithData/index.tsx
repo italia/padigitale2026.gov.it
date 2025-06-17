@@ -51,27 +51,27 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
           )}
           {/* Body */}
           <div className={"pb-4 col-12"}>
-            {title && <HeroTitle className={cn("fs-1")}>{title}</HeroTitle>}
+            {title && <HeroTitle className={cn("h-1")}>{title}</HeroTitle>}
             <div
               className={cn("d-flex flex-wrap my-4 pb-3")}
               style={{ columnGap: "4rem", rowGap: "1rem" }}
             >
               {argomento && (
                 <div
-                  className={cn("text-secondary fs-6")}
+                  className={cn("text-secondary h-6")}
                   style={{ minWidth: "114px" }}
                 >
-                  <div className="fw-normal fs-6">Argomento</div>
-                  <a className="fw-semibold fs-6" href={argomento.slug || ""}>
+                  <div className="fw-normal h-6">Argomento</div>
+                  <a className="fw-semibold h-6" href={argomento.slug || ""}>
                     {argomento.label}
                   </a>
                 </div>
               )}
               {misura && (
-                <div className={cn("text-secondary fs-6")}>
-                  <div className="fw-normal fs-6">Misura</div>
+                <div className={cn("text-secondary h-6")}>
+                  <div className="fw-normal h-6">Misura</div>
                   <a
-                    className="fw-semibold fs-6"
+                    className="fw-semibold h-6"
                     href={`${misura.basePath || ""}${misura.slug || ""}`}
                   >
                     {misura.label}
@@ -79,15 +79,15 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                 </div>
               )}
               {getBadge(props) && (
-                <div className={cn("text-secondary fs-6")}>
-                  <div className="fw-normal fs-6">Stato</div>
-                  <p className="fw-semibold fs-6 mb-0">{getBadge(props)}</p>
+                <div className={cn("text-secondary h-6")}>
+                  <div className="fw-normal h-6">Stato</div>
+                  <p className="fw-semibold h-6 mb-0">{getBadge(props)}</p>
                 </div>
               )}
               {beneficiari && (
-                <div className={cn("text-secondary fs-6")}>
-                  <div className="fw-normal fs-6">Beneficiari</div>
-                  <p className="fw-semibold fs-6 mb-0">
+                <div className={cn("text-secondary h-6")}>
+                  <div className="fw-normal h-6">Beneficiari</div>
+                  <p className="fw-semibold h-6 mb-0">
                     {beneficiari.map((ente, idx) => (
                       <span key={idx}>
                         {ente.label}
@@ -109,7 +109,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
               {updateDate && updateDate.length > 0 && (
                 <p
                   className={
-                    "font-sans-serif text-body-secondary m-0 fw-normal fs-6"
+                    "font-sans-serif text-body-secondary m-0 fw-normal h-6"
                   }
                 >
                   Aggiornato il{" "}

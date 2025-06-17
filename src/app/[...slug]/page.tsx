@@ -104,7 +104,7 @@ export default async function Page({
       <ModularContent content={{ page }} pageContentType={pageContentType} />
       {page.customUpdateDate && (
         <div className="container-xxl">
-          <p className="my-4 fs-6 text-secondary">
+          <p className="my-4 h-6 text-secondary">
             Aggiornato il{" "}
             <time dateTime={page.customUpdateDate}>
               {new Intl.DateTimeFormat("it-IT", {

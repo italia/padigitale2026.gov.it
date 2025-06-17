@@ -37,14 +37,14 @@ export function CardResource({
   return (
     <article className="it-card--resource it-card pb-0 bg-white flex-grow-1">
       {title && (
-        <TitleTag className="it-card-title px-0 fs-3 fw-semibold lh-sm">
+        <TitleTag className="it-card-title px-0 h-3 fw-semibold lh-sm">
           <Link href={`/${slug}`} className={cn("decoration-1")}>
             {title}
           </Link>
         </TitleTag>
       )}
       <div className="it-card-body px-0 pb-2 d-flex flex-column pt-3 pb-3 border-bottom border-neutral-1-bg-a3">
-        {summary && <p className="it-card-text fs-6 flex-grow-1">{summary}</p>}
+        {summary && <p className="it-card-text h-6 flex-grow-1">{summary}</p>}
         <footer className="it-card-related pb-2">
           {(() => {
             const badge = getBadge(_createdAt, _updatedAt);
