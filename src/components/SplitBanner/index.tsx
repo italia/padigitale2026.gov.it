@@ -68,7 +68,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
 
             {button && (
               <Link
-                className="btn btn-sm btn-outline-primary mt-2"
+                className="btn btn-sm btn-outline-primary mt-2 me-3"
                 href={getButtonHref(button)}
                 target={button.target || "_self"}
                 title={getButtonTitle(button)}

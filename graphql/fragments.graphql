@@ -745,13 +745,29 @@ fragment BloccoGraficoFragment on BloccoGraficoRecord {
   __typename
   id
   bgTransparent
+  titleBig
   title
   subtitle
+  textBottom
   chart {
     title
     id
     chartDatasource
     chartData
     chartConfig
+  }
+  kpi {
+    backgroundColor
+    flowDetail
+    flowDirection
+    flowValue
+    footerText
+    id
+    percentage
+    showFlow
+    title
+    value
+    valuePrefix
+    valueSuffix
   }
 }

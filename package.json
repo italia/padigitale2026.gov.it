@@ -15,7 +15,7 @@
     "@datocms/cda-client": "^0.2.7",
     "algoliasearch": "^5.26.0",
     "bootstrap-italia": "git+https://github.com/italia/bootstrap-italia.git#feat-card-to-be",
-    "dataviz-components": "^0.1.3",
+    "dataviz-components": "^0.1.5",
     "datocms-structured-text-to-plain-text": "^5.0.0",
     "design-react-kit": "5.7.0",
     "dotenv": "^16.5.0",
