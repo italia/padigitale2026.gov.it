@@ -4,6 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { buildClient } from "@datocms/cma-client";
 import { z } from "zod/v4";
 import Tokens from 'csrf';
+import { createClient } from "redis";
+
+const redis = createClient({ url: process.env.REDIS_URL });
+await redis.connect();
+
+const RATE_LIMIT = 10;
+const WINDOW_SECONDS = 300; // 5 minuti
 
 const FeedbackData = z.object({
     utile: z.boolean(),
@@ -11,18 +18,51 @@ const FeedbackData = z.object({
     link: z.string()
 });
 
+function getIP(req: NextRequest): string {
+    const xff = req.headers.get("x-forwarded-for");
+    return xff ? xff.split(",")[0].trim() : "unknown";
+}
+
 export async function POST(request: NextRequest) {
     if (!process.env.SESSION_SECRET || !process.env.FEEDBACK_API_TOKEN || !process.env.FEEDBACK_SCHEMA_ID) {
         throw new Error("SESSION_SECRET and FEEDBACK_API_TOKEN must be set.");
     }
 
+    // Rate limit
+    const ip = getIP(request);
+    const key = `rate_limit:${ip}`;
+
+    const count = await redis.incr(key);
+
+    if (count === 1) {
+        await redis.expire(key, WINDOW_SECONDS);
+    }
+
+    const ttl = await redis.ttl(key);
+    const remaining = Math.max(RATE_LIMIT - count, 0);
+
+    const headers = new Headers({
+        "X-RateLimit-Limit": RATE_LIMIT.toString(),
+        "X-RateLimit-Remaining": remaining.toString(),
+        "X-RateLimit-Reset": (Math.floor(Date.now() / 1000) + ttl).toString(), // UNIX timestamp
+        "Content-Type": "application/json",
+    });
+
+    if (count > RATE_LIMIT) {
+        return new NextResponse(
+            JSON.stringify({
+                message: "Too many requests. Try again later.",
+            }),
+            { status: 429, headers }
+        );
+    }
+    // END: Rate limit
+
     // Setup sessione
     const sessionOptions = { password: process.env.SESSION_SECRET, cookieName: "session" }
     const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
-
     const tokens = new Tokens();
     const secret = session.secret;
-
     const csrf_token = request.headers.get("X-CSRF-TOKEN");
 
     // Conterrà i dati in POST.
@@ -36,7 +76,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             message: e
         }, {
-            status: 400
+            status: 400, headers
         });
     }
 
@@ -45,7 +85,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             message: "Missing or mismatching CSRF Token."
         }, {
-            status: 400
+            status: 400, headers
         });
     }
 
@@ -68,7 +108,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
             message: "Error saving feedback."
-        }, { status: 500 });
+        }, { status: 500, headers });
     }
 
     // Alla fine delle operazioni, distrugge la sessione per prevenire richieste
@@ -77,5 +117,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
         message: "Feedback saved."
+    }, {
+        headers
     });
 }
