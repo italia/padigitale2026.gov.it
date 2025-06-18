@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { getIronSession } from 'iron-session';
 import { NextResponse } from 'next/server';
+import { SessionData } from '../types';
 import Tokens from 'csrf';
 
 if (!process.env.SESSION_SECRET) {

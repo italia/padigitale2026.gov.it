@@ -5,6 +5,7 @@ import { buildClient } from "@datocms/cma-client";
 import { z } from "zod/v4";
 import Tokens from 'csrf';
 import { createClient } from "redis";
+import { SessionData } from "../types";
 
 const redis = createClient({ url: process.env.REDIS_URL });
 await redis.connect();
@@ -66,7 +67,7 @@ export async function POST(request: NextRequest) {
     const csrf_token = request.headers.get("X-CSRF-TOKEN");
 
     // Conterrà i dati in POST.
-    var data;
+    let data;
 
     // Parsing dei dati in POST
     try {
@@ -103,7 +104,7 @@ export async function POST(request: NextRequest) {
             link: data.link
         })
     }
-    catch (e: any) {
+    catch (e) {
         console.error(e);
 
         return NextResponse.json({
