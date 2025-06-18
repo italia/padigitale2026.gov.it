@@ -1,18 +1,20 @@
-import { getIronSession } from "iron-session";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { buildClient } from "@datocms/cma-client";
-import { z } from "zod/v4";
+import { getIronSession } from "iron-session";
 import Tokens from 'csrf';
+import { z } from "zod/v4";
 import { createClient } from "redis";
 import { SessionData } from "../types";
 
 const redis = createClient({ url: process.env.REDIS_URL });
 await redis.connect();
 
+// TODO: Muovere in env var?
 const RATE_LIMIT = 10;
 const WINDOW_SECONDS = 300; // 5 minuti
 
+// Serve per validare i dati in POST che arrivano dal feedback
 const FeedbackData = z.object({
     utile: z.boolean(),
     commento: z.string().optional(),
@@ -29,7 +31,7 @@ export async function POST(request: NextRequest) {
         throw new Error("SESSION_SECRET and FEEDBACK_API_TOKEN must be set.");
     }
 
-    // Rate limit
+    // START: Rate limit
     const ip = getIP(request);
     const key = `rate_limit:${ip}`;
 
@@ -60,6 +62,9 @@ export async function POST(request: NextRequest) {
     // END: Rate limit
 
     // Setup sessione
+    // La validazione prevede che:
+    // 1. Il CSRF token sia valido
+    // 2. Il CSRF token inviato sia uguale a quello in sessione.
     const sessionOptions = { password: process.env.SESSION_SECRET, cookieName: "session" }
     const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
     const tokens = new Tokens();
@@ -81,7 +86,10 @@ export async function POST(request: NextRequest) {
         });
     }
 
-    // Fallisce se il CSRF token non è presente o non combacia con quello in sessione.
+    // Fallisce se il CSRF token:
+    // 1. non è presente 
+    // 2. non combacia con quello in sessione
+    // 3. non è valido.
     if (!csrf_token || csrf_token != session.csrf_token || !tokens.verify(secret, csrf_token)) {
         return NextResponse.json({
             message: "Missing or mismatching CSRF Token."
