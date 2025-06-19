@@ -16,7 +16,6 @@ const cn = classNames.bind(styles);
 export function TabsWrap({ props }: { props: TabsWrapRecord }) {
   const { tabs } = props;
 
-  console.log("tabs", tabs);
   return (
     <div className={cn("container-xxl py-5")}>
       <TabContainer defaultActiveKey={tabs[0].id}>

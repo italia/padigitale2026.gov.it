@@ -81,7 +81,11 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
               {isClient ? (
                 <ChartWrapper
                   data={chart?.chartData as FieldDataType}
-                  info={info ? { text: info } : { text: "Lorem ipsum" }}
+                  info={
+                    info
+                      ? { text: info }
+                      : { text: "Non ci sono informazioni aggiuntive" }
+                  }
                   enableDownloadData={false}
                   enableDownloadImage={false}
                 />
@@ -95,6 +99,18 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                   </div>
                 </div>
               )}
+            </div>
+          )}
+
+          {textBottom && (
+            <div className="text-center mt-3">
+              <p
+                className={"col-12 text-muted lh-sm mx-auto"}
+                style={{ fontSize: "0.875rem", maxWidth: "424px" }}
+                dangerouslySetInnerHTML={{
+                  __html: textBottom.replace(/\./g, ".<br />"),
+                }}
+              />
             </div>
           )}
 
@@ -113,18 +129,6 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                 </div>
               )}
             </>
-          )}
-
-          {textBottom && (
-            <div className="text-center mt-3">
-              <p
-                className={"col-12 text-muted lh-sm mx-auto"}
-                style={{ fontSize: "0.875rem", maxWidth: "424px" }}
-                dangerouslySetInnerHTML={{
-                  __html: textBottom.replace(/\./g, ".<br />"),
-                }}
-              />
-            </div>
           )}
         </div>
       </div>
