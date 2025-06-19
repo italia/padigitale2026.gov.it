@@ -26,14 +26,12 @@ export function FormNewsletter() {
                 label="Rappresento*"
                 onChange={() => {}}
               >
-                <option label="Scegli una voce dall'elenco">
-                  Scegli una voce dall&apos;elenco
-                </option>
+                <option label="Scegli una voce dall'elenco"></option>
                 <option label="Pubblica amministrazione">
-                  Pubblica amministrazione
+                  pubblica-amministrazione
                 </option>
-                <option label="Fornitore IT">Fornitore IT</option>
-                <option label="Altro">Altro</option>
+                <option label="Fornitore IT">fornitore-it</option>
+                <option label="Altro">altro</option>
               </Select>
             </Col>
           </Row>
@@ -45,19 +43,17 @@ export function FormNewsletter() {
           </Row>
           <Row className="mt-5">
             <Select id="selectEnte" label="In quanto*" onChange={() => {}}>
-              <option label="Scegli una voce dall'elenco">
-                Scegli una voce dall&apos;elenco
-              </option>
+              <option label="Scegli una voce dall'elenco"></option>
               <option label="Dirigente dell'amministrazione">
-                Dirigente dell&apos;amministrazione
+                dirigente-dell-amministrazione
               </option>
               <option label="Dirigente sistemi IT dell'amministrazione">
-                Dirigente sistemi IT dell&apos;amministrazione
+                dirigente-sistemi-it-dell-amministrazione
               </option>
               <option label="Dipendente dell'amministrazione">
-                Dipendente dell&apos;amministrazione
+                dipendente-dell-amministrazione
               </option>
-              <option label="Altro">Altro</option>
+              <option label="Altro">altro</option>
             </Select>
           </Row>
 
