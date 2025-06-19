@@ -106,6 +106,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
             <div className="mx-auto" style={{ maxWidth: "950px" }}>
               {isClient ? (
                 <ChartWrapper
+                  id={id}
                   data={chart?.chartData as FieldDataType}
                   info={
                     info
