@@ -48,6 +48,7 @@ import { HeroSearch } from "@/src/components/HeroSearch";
 import { InstantSearchFaq } from "@/src/components/InstantSearchFaq";
 import { BloccoGrafico } from "@/src/components/BloccoGrafico";
 import { TabsWrap } from "./TabsWrap";
+import { FormNewsletter } from "./FormNewsletter";
 
 export function ModularContent({
   content,
@@ -165,6 +166,8 @@ export function ModularContent({
             );
           case "TabsWrapRecord":
             return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
+          case "FormNewsletterRecord":
+            return <FormNewsletter key={idx} />;
           default:
             return null;
         }

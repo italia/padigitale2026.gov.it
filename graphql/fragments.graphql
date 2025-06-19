@@ -789,3 +789,7 @@ fragment TabsWrapFragment on TabsWrapRecord {
     }
   }
 }
+
+fragment FormNewsletterFragment on FormNewsletterRecord {
+  __typename
+}
