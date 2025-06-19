@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BloccoGraficoRecord } from "@/graphql/generated";
 
 import {
@@ -6,7 +7,8 @@ import {
   RenderChart,
 } from "dataviz-components";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Icon } from "design-react-kit";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -19,12 +21,35 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     titleBig,
     title,
     subtitle,
+    button,
     chart,
     kpi,
     info,
     textBottom,
   } = props;
   const [isClient, setIsClient] = useState(false);
+
+  const getButtonHref = (button: BloccoGraficoRecord["button"]) => {
+    // href link > cms page
+    if (button?.href) {
+      return `${button.href}`;
+    }
+    if (button?.cmsPage?.slug) {
+      return `/${button.cmsPage.slug}`;
+    }
+    return "";
+  };
+
+  const getButtonTitle = (button: BloccoGraficoRecord["button"]) => {
+    // href link > cms page
+    if (button?.href) {
+      return button.text || "";
+    }
+    if (button?.cmsPage?.title) {
+      return `Vai alla pagina ${button.cmsPage.title}`;
+    }
+    return "";
+  };
 
   // TO DO: ask to the team if we need to use the kpi component or not
   const kpiData: FieldDataType = {
@@ -130,6 +155,29 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                 </div>
               )}
             </>
+          )}
+
+          {button && (
+            <div className="text-center">
+              <Link
+                className="btn btn-sm btn-outline-primary mt-2"
+                href={getButtonHref(button)}
+                target={button.target || "_self"}
+                title={getButtonTitle(button)}
+              >
+                {button.text}
+                {button.icon && (
+                  <Icon
+                    className="my-0"
+                    color="primary"
+                    icon={button.icon}
+                    size="sm"
+                    title=""
+                    padding
+                  />
+                )}
+              </Link>
+            </div>
           )}
         </div>
       </div>

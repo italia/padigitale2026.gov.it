@@ -750,6 +750,9 @@ fragment BloccoGraficoFragment on BloccoGraficoRecord {
   subtitle
   textBottom
   info
+  button {
+    ...ButtonFragment
+  }
   chart {
     title
     id
