@@ -26,6 +26,7 @@ import {
   HeroSearchRecord,
   InstantSearchFaqRecord,
   BloccoGraficoRecord,
+  TabsWrapRecord,
 } from "@/graphql/generated";
 import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -46,6 +47,7 @@ import { CardsListFilter } from "@/src/components/CardsListFilter";
 import { HeroSearch } from "@/src/components/HeroSearch";
 import { InstantSearchFaq } from "@/src/components/InstantSearchFaq";
 import { BloccoGrafico } from "@/src/components/BloccoGrafico";
+import { TabsWrap } from "./TabsWrap";
 
 export function ModularContent({
   content,
@@ -161,6 +163,8 @@ export function ModularContent({
             return (
               <BloccoGrafico key={idx} props={el as BloccoGraficoRecord} />
             );
+          case "TabsWrapRecord":
+            return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
           default:
             return null;
         }

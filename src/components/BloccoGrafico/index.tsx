@@ -13,24 +13,30 @@ import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
 export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
-  const { bgTransparent, titleBig, title, subtitle, chart, textBottom, kpi } =
-    props;
+  const {
+    id,
+    bgTransparent,
+    titleBig,
+    title,
+    subtitle,
+    chart,
+    kpi,
+    textBottom,
+  } = props;
   const [isClient, setIsClient] = useState(false);
 
-  console.log("kpi", kpi);
-
-  const data1: FieldDataType = {
-    id: "kpi-group1",
+  const kpiData: FieldDataType = {
+    id: `kpi-group-${id}`,
     dataSource: kpi,
     chart: "kpi",
     config: {
       direction: "horizontal",
       h: 0,
-      labeLine: false,
-      legend: false,
+      labeLine: true,
+      legend: true,
       legendPosition: "",
       palette: [],
-      tooltip: false,
+      tooltip: true,
       tooltipFormatter: "",
       valueFormatter: "",
       totalLabel: "",
@@ -39,6 +45,9 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     },
     data: null,
   };
+
+  console.log("kpi", kpi);
+  console.log("chart", chart);
 
   useEffect(() => {
     setIsClient(true);
@@ -87,8 +96,22 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
             </div>
           )}
 
-          {kpi && <RenderChart {...data1} />}
-          {/* {kpi && <ChartWrapper data={kpi[0] as KpiItemType} />} */}
+          {kpi && (
+            <>
+              {isClient ? (
+                <RenderChart {...kpiData} />
+              ) : (
+                <div
+                  style={{ height: "300px" }}
+                  className="d-flex align-items-center justify-content-center"
+                >
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Caricamento...</span>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
 
           {textBottom && (
             <div className="text-center mt-3">

@@ -72,6 +72,9 @@ query AllPages {
       ... on BloccoGraficoRecord {
         ...BloccoGraficoFragment
       }
+      ... on TabsWrapRecord {
+        ...TabsWrapFragment
+      }
     }
   }
   _allPagesMeta {

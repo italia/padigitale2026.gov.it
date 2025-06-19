@@ -771,3 +771,17 @@ fragment BloccoGraficoFragment on BloccoGraficoRecord {
     valueSuffix
   }
 }
+
+fragment TabsWrapFragment on TabsWrapRecord {
+  __typename
+  id
+  tabs {
+    id
+    title
+    content {
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
+      }
+    }
+  }
+}
