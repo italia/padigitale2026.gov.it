@@ -21,6 +21,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     subtitle,
     chart,
     kpi,
+    info,
     textBottom,
   } = props;
   const [isClient, setIsClient] = useState(false);
@@ -46,8 +47,9 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     data: null,
   };
 
-  console.log("kpi", kpi);
-  console.log("chart", chart);
+  // console.log("kpi", kpi);
+  // console.log("chart", chart);
+  console.log("info", info);
 
   useEffect(() => {
     setIsClient(true);
@@ -79,7 +81,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
               {isClient ? (
                 <ChartWrapper
                   data={chart?.chartData as FieldDataType}
-                  info={{ text: "custom info" }}
+                  info={info ? { text: info } : { text: "Lorem ipsum" }}
                   enableDownloadData={false}
                   enableDownloadImage={false}
                 />
