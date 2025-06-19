@@ -26,6 +26,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
   } = props;
   const [isClient, setIsClient] = useState(false);
 
+  // TO DO: ask to the team if we need to use the kpi component or not
   const kpiData: FieldDataType = {
     id: `kpi-group-${id}`,
     dataSource: kpi,
@@ -49,7 +50,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
 
   // console.log("kpi", kpi);
   // console.log("chart", chart);
-  console.log("info", info);
+  // console.log("info", info);
 
   useEffect(() => {
     setIsClient(true);
