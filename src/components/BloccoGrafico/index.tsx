@@ -14,6 +14,30 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
+// Tipo per la struttura del chartData
+type ChartDataStructure = {
+  chart: string;
+  config: {
+    h?: number;
+    w?: number | null;
+    colors?: string[];
+    direction?: string;
+    labeLine?: boolean;
+    legend?: boolean;
+    legendPosition?: string;
+    tooltip?: boolean;
+    tooltipFormatter?: string;
+    valueFormatter?: string;
+    totalLabel?: string;
+    tooltipTrigger?: string;
+    responsive?: boolean;
+    showPieLabels?: boolean;
+    palette?: string;
+    background?: string;
+  };
+  data: (string | number)[][];
+};
+
 export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
   const {
     id,
@@ -69,6 +93,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
       totalLabel: "",
       tooltipTrigger: "",
       colors: [],
+      background: "transparent",
     },
     data: null,
   };
@@ -76,6 +101,18 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
   // console.log("kpi", kpi);
   // console.log("chart", chart);
   // console.log("info", info);
+
+  // Aggiungi il parametro background alla configurazione del chart
+  // RICHIESTA DI INTERVENTO LATO CODICE PER MANCANZA DI PERSONALIZZAZIONE LATO PLUGIN
+  const chartDataWithBackground = chart?.chartData
+    ? {
+        ...(chart.chartData as ChartDataStructure),
+        config: {
+          ...(chart.chartData as ChartDataStructure).config,
+          background: "transparent",
+        },
+      }
+    : null;
 
   useEffect(() => {
     setIsClient(true);
@@ -107,7 +144,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
               {isClient ? (
                 <ChartWrapper
                   id={id}
-                  data={chart?.chartData as FieldDataType}
+                  data={chartDataWithBackground as FieldDataType}
                   info={
                     info
                       ? { text: info }
