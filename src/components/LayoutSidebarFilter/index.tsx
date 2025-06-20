@@ -125,7 +125,7 @@ export function LayoutSidebarFilter({
             aria-describedby="filter-description"
           >
             <>
-              <option value="">Scegli beneficiario</option>
+              <option value="">Tutti i beneficiari</option>
               {enteBeneficiarios.allEnteBeneficiarios.map((ente) => (
                 <option
                   key={ente.id}
