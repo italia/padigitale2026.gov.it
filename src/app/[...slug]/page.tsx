@@ -86,6 +86,15 @@ export default async function Page({
   let pageContentType: "page" | "faq" | "news" | "resource" | "supporto" =
     "page";
 
+  const supportoFaqExceptions = [
+    "supporto/domande-frequenti/utilizzo-della-piattaforma",
+    "supporto/domande-frequenti/piani-di-migrazione",
+    "supporto/domande-frequenti/fondo-innovazione",
+    "supporto/domande-frequenti/generali",
+    "supporto/domande-frequenti/classificazione-dati-e-servizi",
+    "supporto/domande-frequenti/rendicontazione",
+  ];
+
   switch (true) {
     // eccezione per la pagina supporto/domande-frequenti (non c'è "/" alla fine)
     case fullSlug.includes("supporto/domande-frequenti"):
@@ -94,36 +103,7 @@ export default async function Page({
       pageContentType = "page";
       break;
     // eccezioni per slug specifici
-    case fullSlug.includes(
-      "supporto/domande-frequenti/utilizzo-della-piattaforma"
-    ):
-      pages = (await getAllSupportos()) as AllSupportosQuery;
-      page = pages.allSupportos.find((p) => p.slug === fullSlug);
-      pageContentType = "supporto";
-      break;
-    case fullSlug.includes("supporto/domande-frequenti/piani-di-migrazione"):
-      pages = (await getAllSupportos()) as AllSupportosQuery;
-      page = pages.allSupportos.find((p) => p.slug === fullSlug);
-      pageContentType = "supporto";
-      break;
-    case fullSlug.includes("supporto/domande-frequenti/fondo-innovazione"):
-      pages = (await getAllSupportos()) as AllSupportosQuery;
-      page = pages.allSupportos.find((p) => p.slug === fullSlug);
-      pageContentType = "supporto";
-      break;
-    case fullSlug.includes("supporto/domande-frequenti/generali"):
-      pages = (await getAllSupportos()) as AllSupportosQuery;
-      page = pages.allSupportos.find((p) => p.slug === fullSlug);
-      pageContentType = "supporto";
-      break;
-    case fullSlug.includes(
-      "supporto/domande-frequenti/classificazione-dati-e-servizi"
-    ):
-      pages = (await getAllSupportos()) as AllSupportosQuery;
-      page = pages.allSupportos.find((p) => p.slug === fullSlug);
-      pageContentType = "supporto";
-      break;
-    case fullSlug.includes("supporto/domande-frequenti/rendicontazione"):
+    case supportoFaqExceptions.some((slug) => fullSlug.includes(slug)):
       pages = (await getAllSupportos()) as AllSupportosQuery;
       page = pages.allSupportos.find((p) => p.slug === fullSlug);
       pageContentType = "supporto";
