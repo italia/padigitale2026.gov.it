@@ -12,6 +12,7 @@ export interface Avviso {
   beneficiari: string[];
   plateaPotenziale: string;
   oggettoBando: string;
+  url?: string;
 }
 
 /**
@@ -64,6 +65,7 @@ export async function getAvvisi(
         beneficiari: r.SOGGETTI_DESTINATARI__c?.split(";"),
         plateaPotenziale: r.Platea_potenziale__c,
         oggettoBando: r.Oggetto_Bando__c,
+        url: process.env.SF_URL,
         misura: misure.find(
           ({ Id }) => r.outfunds__Parent_Funding_Program__c === Id
         )?.Name,
