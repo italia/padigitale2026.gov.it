@@ -10,11 +10,13 @@ import {
   AllEntePromotoresQuery,
   AllMisurasQuery,
   AllUpdatesQuery,
+  AllSupportosQuery,
 } from "@/graphql/generated";
 
 interface PagesContextType {
   pages: AllPagesQuery;
   faqs: AllFaqsQuery;
+  supportos: AllSupportosQuery;
   news: AllNewsQuery;
   resources: AllResourcesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
@@ -39,6 +41,7 @@ interface PagesProviderProps {
   children: React.ReactNode;
   pages: AllPagesQuery;
   faqs: AllFaqsQuery;
+  supportos: AllSupportosQuery;
   news: AllNewsQuery;
   resources: AllResourcesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
@@ -51,6 +54,7 @@ export function PagesProvider({
   children,
   pages,
   faqs,
+  supportos,
   news,
   resources,
   enteBeneficiarios,
@@ -63,6 +67,7 @@ export function PagesProvider({
       value={{
         pages,
         faqs,
+        supportos,
         news,
         resources,
         enteBeneficiarios,

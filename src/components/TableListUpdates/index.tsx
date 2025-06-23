@@ -1,42 +1,31 @@
 "use client";
 
-import {ButtonRecord, TableListUpdateRecord, UpdateRecord} from "@/graphql/generated";
+import {
+  ButtonRecord,
+  TableListUpdateRecord,
+  UpdateRecord,
+} from "@/graphql/generated";
 import Link from "next/link";
-import {
-  Col,
-  Icon,
-  Pager,
-  Row
-} from "design-react-kit";
-import {
-  PaginationItem,
-  PaginationLink
-} from "reactstrap";
+import { Col, Icon, Pager, Row } from "design-react-kit";
+import { PaginationItem, PaginationLink } from "reactstrap";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import {usePages} from "@/src/contexts/PagesContext";
-import {usePathname} from "next/navigation";
-import {useCallback, useEffect, useState} from "react";
+import { usePages } from "@/src/contexts/PagesContext";
+import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 const cn = classNames.bind(styles);
 
-export function TableListUpdates(
-  {
-    props,
-    hasSidebar = false,
-  }: {
-    props: TableListUpdateRecord,
-    hasSidebar?: boolean;
-  }) {
-  const {
-    alignment,
-    button,
-    filterByInstitute,
-    id,
-    showLastItems,
-    title
-  } = props;
+export function TableListUpdates({
+  props,
+  hasSidebar = false,
+}: {
+  props: TableListUpdateRecord;
+  hasSidebar?: boolean;
+}) {
+  const { alignment, button, filterByInstitute, id, showLastItems, title } =
+    props;
 
   const itemsPerPage = 12;
   const pathname = usePathname();
@@ -47,7 +36,7 @@ export function TableListUpdates(
   const getPageFromHash = useCallback(() => {
     const hash = window?.location.hash?.substring(1);
     const params = new URLSearchParams(hash);
-    const page = parseInt(params.get(`${id}-page`) || '1');
+    const page = parseInt(params.get(`${id}-page`) || "1");
     return isNaN(page) ? 1 : page;
   }, [id]);
 
@@ -91,26 +80,28 @@ export function TableListUpdates(
     // remove before commit
   }
 
-
   if (showLastItems) {
     if (updates.length > 6) {
-      updates = updates.splice(0, 6);
+      updates = updates.slice(0, 6);
     }
   }
 
-  const filtersIds: string[] = filterByInstitute && filterByInstitute.length ? filterByInstitute.map(i => i.id) : [];
+  const filtersIds: string[] =
+    filterByInstitute && filterByInstitute.length
+      ? filterByInstitute.map((i) => i.id)
+      : [];
   if (filtersIds.length) {
-    updates = updates.filter(update => {
+    updates = updates.filter((update) => {
       let found = false;
       if (update.beneficiari && update.beneficiari.length) {
-        update.beneficiari.forEach(b => {
+        update.beneficiari.forEach((b) => {
           if (filtersIds.includes(b.id)) {
             found = true;
           }
         });
       }
       return found;
-    })
+    });
   }
 
   const getButtonHref = (button: ButtonRecord) => {
@@ -121,19 +112,17 @@ export function TableListUpdates(
 
   const getButtonTitle = (button: ButtonRecord) => {
     if (button?.href) return button.text || "";
-    if (button?.cmsPage?.title) return `Vai alla pagina ${button.cmsPage.title}`;
+    if (button?.cmsPage?.title)
+      return `Vai alla pagina ${button.cmsPage.title}`;
     return "";
   };
 
   return (
     <div
       id={id}
-      className={cn(
-        "pb-5",
-        {
-          "container-xxl container-fluid": !hasSidebar
-        }
-      )}
+      className={cn("pb-5", {
+        "container-xxl container-fluid": !hasSidebar,
+      })}
       role="region"
       aria-labelledby={`${id}-title`}
     >
@@ -141,14 +130,12 @@ export function TableListUpdates(
         <Col>
           <h2
             id={`${id}-title`}
-            className={cn(
-              "col-12 h-1 pb-4",
-              {
-                "text-center": alignment === "center",
-                "visually-hidden": !title
-              }
-            )}>
-            {title ?? 'Ultimi aggiornamenti'}
+            className={cn("col-12 h-1 pb-4", {
+              "text-center": alignment === "center",
+              "visually-hidden": !title,
+            })}
+          >
+            {title ?? "Ultimi aggiornamenti"}
           </h2>
         </Col>
       </Row>
@@ -156,7 +143,10 @@ export function TableListUpdates(
         <>
           <div className={cn("tableList")}>
             <div className={cn("tableListInner")}>
-              <Row className="border-bottom border-2 py-4 px-0 mx-0" aria-hidden={true}>
+              <Row
+                className="border-bottom border-2 py-4 px-0 mx-0"
+                aria-hidden={true}
+              >
                 <Col className="col-3 col-md-2 ps-0">
                   <span className="h6 text-secondary">Data</span>
                 </Col>
@@ -164,94 +154,144 @@ export function TableListUpdates(
                   <span className="h6 text-secondary">Descrizione</span>
                 </Col>
               </Row>
-              <div role="region" aria-label="Lista aggiornamenti" aria-live="polite">
+              <div
+                role="region"
+                aria-label="Lista aggiornamenti"
+                aria-live="polite"
+              >
                 <div role="list">
-                  {(updates as UpdateRecord[]).map((update: UpdateRecord, itemIndex) => {
-                    const {cta, customUpdateDate, id: updateId, title: itemTitle} = update;
-                    let shouldHide =
-                      !showLastItems &&
-                      (itemIndex < (currentPage - 1) * itemsPerPage || itemIndex >= currentPage * itemsPerPage);
+                  {(updates as UpdateRecord[]).map(
+                    (update: UpdateRecord, itemIndex) => {
+                      const {
+                        cta,
+                        customUpdateDate,
+                        id: updateId,
+                        title: itemTitle,
+                      } = update;
+                      let shouldHide =
+                        !showLastItems &&
+                        (itemIndex < (currentPage - 1) * itemsPerPage ||
+                          itemIndex >= currentPage * itemsPerPage);
 
-                    if (showLastItems) {
-                      shouldHide = false;
-                    }
+                      if (showLastItems) {
+                        shouldHide = false;
+                      }
 
-                    if (shouldHide) return null;
+                      if (shouldHide) return null;
 
-                    return (
-                      <div
-                        key={updateId}
-                        role="listitem"
-                        className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap">
-                        {customUpdateDate && (
-                          <div className="col-3 col-md-2 ps-0">
-                            <span className="visually-hidden">Data di aggiornamento:</span>
-                            <time>
-                              {new Intl.DateTimeFormat("it-IT", {
-                                timeZone: "Europe/Rome",
-                                day: "2-digit",
-                                month: "long",
-                                year: "numeric",
-                              }).format(Date.parse(customUpdateDate))}
-                            </time>
-                          </div>
-                        )}
-                        <div className={`${customUpdateDate ? "col-9 col-md-10" : "col-12"} ps-0`}>
-                          <div className="d-flex justify-content-between align-items-center">
-                          <span className="me-3">
-                            <span className="visually-hidden">Descrizione dell&apos;aggiornamento:</span>
-                            {itemTitle}
-                          </span>
-                            <Link
-                              className="fw-bold text-nowrap"
-                              href={cta?.href ? `/${cta.href}` : cta?.cmsPage ? `/${cta.cmsPage.slug}` : ""}
-                              aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
-                              target={"_self"}
-                            >
-                              {cta?.href && <span className="small">Vai alla risorsa aggiornata</span>}
-                              {cta?.cmsPage && cta?.text && <span className="small">{cta.text}</span>}
-                              {cta?.cmsPage && !cta?.text && cta?.cmsPage?.title && (
-                                <span className="small">{cta.cmsPage.title}</span>
-                              )}
-                              {cta?.cmsPage && !cta?.text && !cta?.cmsPage?.title && (
-                                <span className="small">
-                                {cta.cmsPage.__typename === "PageRecord" && "Vai alla pagina aggiornata"}
+                      return (
+                        <div
+                          key={updateId}
+                          role="listitem"
+                          className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap"
+                        >
+                          {customUpdateDate && (
+                            <div className="col-3 col-md-2 ps-0">
+                              <span className="visually-hidden">
+                                Data di aggiornamento:
                               </span>
-                              )}
-                              {cta?.icon && (
-                                <Icon
-                                  className="my-0"
-                                  color="primary"
-                                  icon={cta.icon}
-                                  size="sm"
-                                  aria-hidden
-                                  padding
-                                />
-                              )}
-                            </Link>
+                              <time>
+                                {new Intl.DateTimeFormat("it-IT", {
+                                  timeZone: "Europe/Rome",
+                                  day: "2-digit",
+                                  month: "long",
+                                  year: "numeric",
+                                }).format(Date.parse(customUpdateDate))}
+                              </time>
+                            </div>
+                          )}
+                          <div
+                            className={`${
+                              customUpdateDate ? "col-9 col-md-10" : "col-12"
+                            } ps-0`}
+                          >
+                            <div className="d-flex justify-content-between align-items-center">
+                              <span className="me-3">
+                                <span className="visually-hidden">
+                                  Descrizione dell&apos;aggiornamento:
+                                </span>
+                                {itemTitle}
+                              </span>
+                              {(() => {
+                                const buttonHref = getButtonHref(
+                                  cta as ButtonRecord
+                                );
+                                return buttonHref.length > 0 ? (
+                                  <Link
+                                    className="fw-bold text-nowrap"
+                                    href={buttonHref}
+                                    aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
+                                    target={"_self"}
+                                  >
+                                    {cta?.href && (
+                                      <span className="small">
+                                        Vai alla risorsa aggiornata
+                                      </span>
+                                    )}
+                                    {cta?.cmsPage && cta?.text && (
+                                      <span className="small">{cta.text}</span>
+                                    )}
+                                    {cta?.cmsPage &&
+                                      !cta?.text &&
+                                      cta?.cmsPage?.title && (
+                                        <span className="small">
+                                          {cta.cmsPage.title}
+                                        </span>
+                                      )}
+                                    {cta?.cmsPage &&
+                                      !cta?.text &&
+                                      !cta?.cmsPage?.title && (
+                                        <span className="small">
+                                          {cta.cmsPage.__typename ===
+                                            "PageRecord" &&
+                                            "Vai alla pagina aggiornata"}
+                                        </span>
+                                      )}
+                                    {cta?.icon && (
+                                      <Icon
+                                        className="my-0"
+                                        color="primary"
+                                        icon={cta.icon}
+                                        size="sm"
+                                        aria-hidden
+                                        padding
+                                      />
+                                    )}
+                                  </Link>
+                                ) : null;
+                              })()}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                 </div>
               </div>
             </div>
           </div>
           {!showLastItems && updates?.length > itemsPerPage && (
             <Row>
-              <Col className={cn("col-12 pt-5", {"d-flex justify-content-center": alignment === "center"})}>
+              <Col
+                className={cn("col-12 pt-5", {
+                  "d-flex justify-content-center": alignment === "center",
+                })}
+              >
                 <Pager aria-label="Naviga tra le pagine della lista aggiornamenti">
                   <PaginationItem disabled={currentPage <= 1}>
                     <PaginationLink href={createPageURL(currentPage - 1)}>
                       <span className="visually-hidden">Pagina precedente</span>
-                      <Icon aria-hidden icon="it-chevron-left"/>
+                      <Icon aria-hidden icon="it-chevron-left" />
                     </PaginationLink>
                   </PaginationItem>
-                  {Array.from({length: Math.ceil(updates.length / itemsPerPage)}).map((_, pageIndex) => (
+                  {Array.from({
+                    length: Math.ceil(updates.length / itemsPerPage),
+                  }).map((_, pageIndex) => (
                     <PaginationItem key={pageIndex}>
                       <PaginationLink
-                        aria-current={currentPage === pageIndex + 1 ? "page" : undefined}
+                        aria-current={
+                          currentPage === pageIndex + 1 ? "page" : undefined
+                        }
                         aria-label={`Vai alla pagina ${pageIndex + 1}`}
                         href={createPageURL(pageIndex + 1)}
                       >
@@ -259,10 +299,14 @@ export function TableListUpdates(
                       </PaginationLink>
                     </PaginationItem>
                   ))}
-                  <PaginationItem disabled={currentPage >= Math.ceil(updates.length / itemsPerPage)}>
+                  <PaginationItem
+                    disabled={
+                      currentPage >= Math.ceil(updates.length / itemsPerPage)
+                    }
+                  >
                     <PaginationLink href={createPageURL(currentPage + 1)}>
                       <span className="visually-hidden">Pagina successiva</span>
-                      <Icon aria-hidden icon="it-chevron-right"/>
+                      <Icon aria-hidden icon="it-chevron-right" />
                     </PaginationLink>
                   </PaginationItem>
                 </Pager>
@@ -274,10 +318,11 @@ export function TableListUpdates(
 
       {(!updates || updates?.length <= 0) && (
         <Row role="region" aria-label="Nessun aggiornamento disponibile">
-          <Col className={cn({"text-center": alignment === "center"})}>
+          <Col className={cn({ "text-center": alignment === "center" })}>
             <p>
-              <strong>Non ci sono aggiornamenti al momento.</strong> <br/>
-              Iscriviti alla newsletter per ricevere aggiornamenti sulle opportunità in arrivo.
+              <strong>Non ci sono aggiornamenti al momento.</strong> <br />
+              Iscriviti alla newsletter per ricevere aggiornamenti sulle
+              opportunità in arrivo.
             </p>
           </Col>
         </Row>
@@ -285,7 +330,11 @@ export function TableListUpdates(
 
       {button && (
         <Row>
-          <Col className={cn("col-12 pt-5", {"text-center": alignment === "center"})}>
+          <Col
+            className={cn("col-12 pt-5", {
+              "text-center": alignment === "center",
+            })}
+          >
             <Link
               className="btn btn-sm btn-outline-primary"
               href={getButtonHref(button)}

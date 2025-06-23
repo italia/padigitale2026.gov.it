@@ -167,7 +167,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
             aria-describedby="misura-description"
           >
             <>
-              <option value="">Scegli misura</option>
+              <option value="">Tutte le misure</option>
               {misuras.allMisuras
                 .filter(
                   (misura) =>
@@ -210,7 +210,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
             aria-describedby="beneficiario-description"
           >
             <>
-              <option value="">Scegli beneficiario</option>
+              <option value="">Tutti i beneficiari</option>
               {enteBeneficiarios.allEnteBeneficiarios.map((ente) => (
                 <option
                   key={ente.id}

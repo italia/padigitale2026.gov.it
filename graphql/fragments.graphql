@@ -744,3 +744,56 @@ fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
   id
   inputPlaceholder
 }
+
+fragment BloccoGraficoFragment on BloccoGraficoRecord {
+  __typename
+  id
+  bgTransparent
+  titleBig
+  title
+  subtitle
+  textBottom
+  info
+  button {
+    ...ButtonFragment
+  }
+  chart {
+    title
+    id
+    chartDatasource
+    chartData
+    chartConfig
+  }
+  kpi {
+    backgroundColor
+    flowDetail
+    flowDirection
+    flowValue
+    footerText
+    id
+    percentage
+    showFlow
+    title
+    value
+    valuePrefix
+    valueSuffix
+  }
+}
+
+fragment TabsWrapFragment on TabsWrapRecord {
+  __typename
+  id
+  tabs {
+    id
+    title
+    content {
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
+      }
+    }
+  }
+}
+
+fragment FormNewsletterFragment on FormNewsletterRecord {
+  __typename
+}

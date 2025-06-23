@@ -1,25 +1,12 @@
 #import "./fragments.graphql"
 
-query Faq($slug: String) {
-  faq(filter: { slug: { eq: $slug } }) {
+query allSupportos {
+  allSupportos(first: 100) {
     _createdAt
     _updatedAt
     id
     title
     slug
-    customUpdateDate
-    category {
-      label
-      slug
-    }
-    beneficiari {
-      label
-    }
-    misura {
-      label
-      slug
-      basePath
-    }
     body {
       ... on HeroRecord {
         ...HeroFragment
@@ -66,12 +53,9 @@ query Faq($slug: String) {
       ... on TableListRecord {
         ...TableListFragment
       }
-      ... on TableListFaqRecord {
-        ...TableListFaqFragment
-      }
-      ... on TableListUpdateRecord {
-        ...TableListUpdateFragment
-      }
     }
+  }
+  _allPagesMeta {
+    count
   }
 }

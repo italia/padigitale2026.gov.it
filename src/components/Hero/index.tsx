@@ -42,7 +42,11 @@ export function Hero({ props }: { props: HeroRecord }) {
   } = props;
   return (
     <HeroComponent className={cn("wrapper", { "light-theme": lightTheme })}>
-      <div className={"row container-xxl px-0 mx-auto position-relative"}>
+      <div
+        className={
+          "row container-xxl px-0 mx-auto position-relative flex-grow-1"
+        }
+      >
         <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
@@ -61,7 +65,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             )}
             {description && (
               <p
-                className={cn("fs-4 font-sans-serif", {
+                className={cn("h-4 font-sans-serif", {
                   "neutral-1-color-a9": lightTheme,
                 })}
               >

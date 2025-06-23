@@ -2,10 +2,10 @@
 
 query AllUpdates {
   allUpdates(first: 200, orderBy: customUpdateDate_DESC) {
-    id
     __typename
     _createdAt
     _updatedAt
+    id
     title
     customUpdateDate
     beneficiari {

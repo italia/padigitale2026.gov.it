@@ -4,6 +4,7 @@ query AllPages {
   allPages(first: 100) {
     _createdAt
     _updatedAt
+    id
     title
     slug
     customUpdateDate
@@ -67,6 +68,15 @@ query AllPages {
       }
       ... on InstantSearchFaqRecord {
         ...InstantSearchFaqFragment
+      }
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
+      }
+      ... on TabsWrapRecord {
+        ...TabsWrapFragment
+      }
+      ... on FormNewsletterRecord {
+        ...FormNewsletterFragment
       }
     }
   }

@@ -107,7 +107,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     className="me-1"
                   />
                   <div className="it-brand-text ms-2 pt-1">
-                    <h3 className="m-0 fs-5 fw-semibold">{title}</h3>
+                    <h3 className="m-0 h-5 fw-semibold">{title}</h3>
                   </div>
                 </div>
               </Col>
@@ -119,6 +119,13 @@ export default function Footer({ props }: { props: FooterQuery }) {
                 <Col className="pb-2" lg={3} md={6}>
                   <h4>{titleColonna1}</h4>
                   <LinkList className="footer-list clearfix">
+                    <LinkListItem
+                      tag={Link}
+                      href="https://padigitale2026--collaudo.sandbox.my.site.com/Pa_digitale2026_avvisi"
+                      title={"Vai alla pagina: Avvisi"}
+                    >
+                      Avvisi
+                    </LinkListItem>
                     {linkColonna1.map((link) => (
                       <LinkListItem
                         key={link.id}

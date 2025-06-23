@@ -76,16 +76,44 @@ export function Breadcrumbs({
               break;
           }
         } else {
-          // Per le pagine intermedie, usa sempre getAllPages
-          // Prima cerca una corrispondenza esatta
-          let page = pages.allPages.find((p) => p.slug === segment);
+          // Per le pagine intermedie, cerca in base al contesto del percorso
 
-          // Se non trova una corrispondenza esatta, cerca una corrispondenza parziale
-          if (!page) {
-            page = pages.allPages.find((p) => p.slug?.endsWith(`/${segment}`));
+          // Se siamo nel contesto di guide-e-risorse, cerca anche nelle risorse
+          if (currentPath.includes("guide-e-risorse/")) {
+            // Prima cerca nelle risorse
+            const resource = resources.allResources.find(
+              (r) => r.slug === currentPath.slice(1)
+            );
+
+            // Se non trova nelle risorse, cerca nelle pagine normali
+            if (!resource) {
+              let page = pages.allPages.find((p) => p.slug === segment);
+
+              // Se non trova una corrispondenza esatta, cerca una corrispondenza parziale
+              if (!page) {
+                page = pages.allPages.find((p) =>
+                  p.slug?.endsWith(`/${segment}`)
+                );
+              }
+
+              pageTitle = page?.title || undefined;
+            } else {
+              pageTitle = resource.title || undefined;
+            }
+          } else {
+            // Per altri contesti, usa sempre getAllPages
+            // Prima cerca una corrispondenza esatta
+            let page = pages.allPages.find((p) => p.slug === segment);
+
+            // Se non trova una corrispondenza esatta, cerca una corrispondenza parziale
+            if (!page) {
+              page = pages.allPages.find((p) =>
+                p.slug?.endsWith(`/${segment}`)
+              );
+            }
+
+            pageTitle = page?.title || undefined;
           }
-
-          pageTitle = page?.title || undefined;
         }
 
         if (pageTitle) {

@@ -25,6 +25,8 @@ import {
   CardsListFilterRecord,
   HeroSearchRecord,
   InstantSearchFaqRecord,
+  BloccoGraficoRecord,
+  TabsWrapRecord,
 } from "@/graphql/generated";
 import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -44,13 +46,16 @@ import { TableListUpdates } from "@/src/components/TableListUpdates";
 import { CardsListFilter } from "@/src/components/CardsListFilter";
 import { HeroSearch } from "@/src/components/HeroSearch";
 import { InstantSearchFaq } from "@/src/components/InstantSearchFaq";
+import { BloccoGrafico } from "@/src/components/BloccoGrafico";
+import { TabsWrap } from "./TabsWrap";
+import { FormNewsletter } from "./FormNewsletter";
 
 export function ModularContent({
   content,
   pageContentType,
 }: {
   content: PageQuery;
-  pageContentType: "page" | "faq" | "news" | "resource";
+  pageContentType: "page" | "faq" | "news" | "resource" | "supporto";
 }) {
   return (
     <>
@@ -155,6 +160,14 @@ export function ModularContent({
                 props={el as InstantSearchFaqRecord}
               />
             );
+          case "BloccoGraficoRecord":
+            return (
+              <BloccoGrafico key={idx} props={el as BloccoGraficoRecord} />
+            );
+          case "TabsWrapRecord":
+            return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
+          case "FormNewsletterRecord":
+            return <FormNewsletter key={idx} />;
           default:
             return null;
         }

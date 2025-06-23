@@ -4,6 +4,7 @@ query Page($slug: String) {
   page(filter: { slug: { eq: $slug } }) {
     _createdAt
     _updatedAt
+    id
     title
     slug
     customUpdateDate
@@ -55,6 +56,9 @@ query Page($slug: String) {
       }
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
+      }
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
       }
     }
   }
