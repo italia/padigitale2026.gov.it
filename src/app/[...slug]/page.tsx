@@ -4,6 +4,7 @@ import {
   getAllNews,
   getAllResources,
   getAllSupportos,
+  getAllDatis,
 } from "@/lib/datocms";
 import {
   AllPagesQuery,
@@ -11,6 +12,7 @@ import {
   AllNewsQuery,
   AllResourcesQuery,
   AllSupportosQuery,
+  AllDatisQuery,
 } from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
@@ -81,10 +83,16 @@ export default async function Page({
     | AllFaqsQuery
     | AllNewsQuery
     | AllResourcesQuery
-    | AllSupportosQuery;
+    | AllSupportosQuery
+    | AllDatisQuery;
 
-  let pageContentType: "page" | "faq" | "news" | "resource" | "supporto" =
-    "page";
+  let pageContentType:
+    | "page"
+    | "faq"
+    | "news"
+    | "resource"
+    | "supporto"
+    | "dati" = "page";
 
   const supportoFaqExceptions = [
     "supporto/domande-frequenti/utilizzo-della-piattaforma",
@@ -101,6 +109,12 @@ export default async function Page({
       pages = (await getAllPages()) as AllPagesQuery;
       page = pages.allPages.find((p) => p.slug === fullSlug);
       pageContentType = "page";
+      break;
+    // eccezione per open-data
+    case fullSlug.includes("open-data"):
+      pages = (await getAllDatis()) as AllDatisQuery;
+      page = pages.allDatis.find((p) => p.slug === fullSlug);
+      pageContentType = "dati";
       break;
     // eccezioni per slug specifici
     case supportoFaqExceptions.some((slug) => fullSlug.includes(slug)):
