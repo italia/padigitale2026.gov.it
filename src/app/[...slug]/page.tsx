@@ -111,13 +111,13 @@ export default async function Page({
       pageContentType = "page";
       break;
     // eccezione per open-data
-    case fullSlug.includes("open-data"):
+    case fullSlug === "open-data":
       pages = (await getAllDatis()) as AllDatisQuery;
       page = pages.allDatis.find((p) => p.slug === fullSlug);
       pageContentType = "dati";
       break;
     // eccezioni per slug specifici
-    case supportoFaqExceptions.some((slug) => fullSlug.includes(slug)):
+    case supportoFaqExceptions.some((slug) => fullSlug === slug):
       pages = (await getAllSupportos()) as AllSupportosQuery;
       page = pages.allSupportos.find((p) => p.slug === fullSlug);
       pageContentType = "supporto";
