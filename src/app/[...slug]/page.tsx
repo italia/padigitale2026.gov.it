@@ -105,7 +105,7 @@ export default async function Page({
 
   switch (true) {
     // eccezione per la pagina supporto/domande-frequenti (non c'è "/" alla fine)
-    case fullSlug.includes("supporto/domande-frequenti"):
+    case fullSlug === "supporto/domande-frequenti":
       pages = (await getAllPages()) as AllPagesQuery;
       page = pages.allPages.find((p) => p.slug === fullSlug);
       pageContentType = "page";

@@ -443,11 +443,17 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
       iconBeforeTitle
       iconAfterTitle
       href
-      cmsPage {
-        title
-        slug
-      }
       target
+      cmsPage {
+        ... on PageRecord {
+          title
+          slug
+        }
+        ... on FaqRecord {
+          title
+          slug
+        }
+      }
     }
   }
 }
