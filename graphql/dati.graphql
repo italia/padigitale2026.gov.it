@@ -1,0 +1,58 @@
+#import "./fragments.graphql"
+
+query Dati($slug: String) {
+  dati(filter: { slug: { eq: $slug } }) {
+    _createdAt
+    _updatedAt
+    id
+    title
+    slug
+    body {
+      ... on HeroRecord {
+        ...HeroFragment
+      }
+      ... on SplitBannerRecord {
+        ...SplitBannerFragment
+      }
+      ... on BannerRecord {
+        ...BannerFragment
+      }
+      ... on RichTextSectionRecord {
+        ...RichTextSectionFragment
+      }
+      ... on VideoPlayerRecord {
+        ...VideoPlayerFragment
+      }
+      ... on CardsGridGenericRecord {
+        ...CardsGridGenericFragment
+      }
+      ... on CardsGridAttachmentRecord {
+        ...CardsGridAttachmentFragment
+      }
+      ... on CardsGridServiceRecord {
+        ...CardsGridServiceFragment
+      }
+      ... on CardsGridNewsRecord {
+        ...CardsGridNewsFragment
+      }
+      ... on CardsGridResourceRecord {
+        ...CardsGridResourceFragment
+      }
+      ... on LayoutSidebarRecord {
+        ...LayoutSidebarFragment
+      }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
+      ... on CardsGridAnnouncementRecord {
+        ...CardsGridAnnouncementFragment
+      }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
+      }
+    }
+  }
+}
