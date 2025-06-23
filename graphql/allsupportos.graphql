@@ -1,0 +1,61 @@
+#import "./fragments.graphql"
+
+query allSupportos {
+  allSupportos(first: 100) {
+    _createdAt
+    _updatedAt
+    id
+    title
+    slug
+    body {
+      ... on HeroRecord {
+        ...HeroFragment
+      }
+      ... on SplitBannerRecord {
+        ...SplitBannerFragment
+      }
+      ... on BannerRecord {
+        ...BannerFragment
+      }
+      ... on RichTextSectionRecord {
+        ...RichTextSectionFragment
+      }
+      ... on VideoPlayerRecord {
+        ...VideoPlayerFragment
+      }
+      ... on CardsGridGenericRecord {
+        ...CardsGridGenericFragment
+      }
+      ... on CardsGridAttachmentRecord {
+        ...CardsGridAttachmentFragment
+      }
+      ... on CardsGridServiceRecord {
+        ...CardsGridServiceFragment
+      }
+      ... on CardsGridNewsRecord {
+        ...CardsGridNewsFragment
+      }
+      ... on CardsGridResourceRecord {
+        ...CardsGridResourceFragment
+      }
+      ... on CardsGridAnnouncementRecord {
+        ...CardsGridAnnouncementFragment
+      }
+      ... on CardsGridImageRecord {
+        ...CardsGridImagesFragment
+      }
+      ... on LayoutSidebarRecord {
+        ...LayoutSidebarFragment
+      }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
+    }
+  }
+  _allPagesMeta {
+    count
+  }
+}

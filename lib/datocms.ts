@@ -5,12 +5,14 @@ import {
 import {
   AllPagesDocument,
   AllFaqsDocument,
+  AllSupportosDocument,
   AllNewsDocument,
   AllResourcesDocument,
   AllEnteBeneficiariosDocument,
   AllEntePromotoresDocument,
   AllMisurasDocument,
   PageDocument,
+  SupportoDocument,
   FaqDocument,
   NewsDocument,
   ResourceDocument,
@@ -129,6 +131,52 @@ export const getAllFilteredUpdates = unstable_cache(
   {
     revalidate: CACHE_REVALIDATION_TIME,
     tags: ['updates']
+  }
+);
+
+export const getAllSupportos = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllSupportos called",
+      level: "info",
+      metadata: {
+        function: "getAllSupportos"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllSupportosDocument,
+      getOptions(`fn_name:getAllSupportos`)
+    );
+  },
+  ['getAllSupportos'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['supportos']
+  }
+);
+
+export const supporto = unstable_cache(
+  async (slug: string) => {
+    await sendPostToBetterStack({
+      message: "supporto called",
+      level: "info",
+      metadata: {
+        function: "supporto",
+        slug
+      }
+    });    
+    return executeQuery(SupportoDocument, {
+      ...getOptions(`fn_name:supporto|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  },
+  ['faq'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['faqs']
   }
 );
 

@@ -3,12 +3,14 @@ import {
   getAllFaqs,
   getAllNews,
   getAllResources,
+  getAllSupportos,
 } from "@/lib/datocms";
 import {
   AllPagesQuery,
   AllFaqsQuery,
   AllNewsQuery,
   AllResourcesQuery,
+  AllSupportosQuery,
 } from "@/graphql/generated";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
@@ -17,9 +19,10 @@ export const dynamicParams = true;
 export const revalidate = 120;
 
 export async function generateStaticParams() {
-  const [pages, faqs, news, resources] = await Promise.all([
+  const [pages, faqs, supportos, news, resources] = await Promise.all([
     getAllPages() as Promise<AllPagesQuery>,
     getAllFaqs() as Promise<AllFaqsQuery>,
+    getAllSupportos() as Promise<AllSupportosQuery>,
     getAllNews() as Promise<AllNewsQuery>,
     getAllResources() as Promise<AllResourcesQuery>,
   ]);
@@ -38,6 +41,11 @@ export async function generateStaticParams() {
       .map((faq) => ({
         slug: `domande-frequenti/${faq.slug}`.split("/"),
         customUpdateDate: faq.customUpdateDate,
+      })),
+    ...supportos.allSupportos
+      .filter((supporto) => supporto.slug)
+      .map((supporto) => ({
+        slug: `supporto/${supporto.slug}`.split("/"),
       })),
     // Notizie
     ...news.allNews
@@ -68,11 +76,22 @@ export default async function Page({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let page: any;
-  let pages: AllPagesQuery | AllFaqsQuery | AllNewsQuery | AllResourcesQuery;
+  let pages:
+    | AllPagesQuery
+    | AllFaqsQuery
+    | AllNewsQuery
+    | AllResourcesQuery
+    | AllSupportosQuery;
 
-  let pageContentType: "page" | "faq" | "news" | "resource" = "page";
+  let pageContentType: "page" | "faq" | "news" | "resource" | "supporto" =
+    "page";
 
   switch (true) {
+    case fullSlug.includes("supporto/domande-frequenti"):
+      pages = (await getAllPages()) as AllPagesQuery;
+      page = pages.allPages.find((p) => p.slug === fullSlug);
+      pageContentType = "page";
+      break;
     case fullSlug.includes("domande-frequenti/"):
       pages = (await getAllFaqs()) as AllFaqsQuery;
       page = pages.allFaqs.find((p) => p.slug === fullSlug);
@@ -87,6 +106,11 @@ export default async function Page({
       pages = (await getAllResources()) as AllResourcesQuery;
       page = pages.allResources.find((p) => p.slug === fullSlug);
       pageContentType = "resource";
+      break;
+    case fullSlug.includes("supporto/"):
+      pages = (await getAllSupportos()) as AllSupportosQuery;
+      page = pages.allSupportos.find((p) => p.slug === fullSlug);
+      pageContentType = "supporto";
       break;
     default:
       pages = (await getAllPages()) as AllPagesQuery;
