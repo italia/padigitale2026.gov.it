@@ -11,6 +11,7 @@ import {
   AllMisurasQuery,
   AllUpdatesQuery,
   AllSupportosQuery,
+  AllDatisQuery,
 } from "@/graphql/generated";
 
 interface PagesContextType {
@@ -23,6 +24,7 @@ interface PagesContextType {
   entePromotores: AllEntePromotoresQuery;
   misuras: AllMisurasQuery;
   updates: AllUpdatesQuery;
+  datis: AllDatisQuery;
 }
 
 export const PagesContext = createContext<PagesContextType | null>(null);
@@ -48,6 +50,7 @@ interface PagesProviderProps {
   entePromotores: AllEntePromotoresQuery;
   misuras: AllMisurasQuery;
   updates: AllUpdatesQuery;
+  datis: AllDatisQuery;
 }
 
 export function PagesProvider({
@@ -61,6 +64,7 @@ export function PagesProvider({
   entePromotores,
   misuras,
   updates,
+  datis,
 }: PagesProviderProps) {
   return (
     <PagesContext.Provider
@@ -74,6 +78,7 @@ export function PagesProvider({
         entePromotores,
         misuras,
         updates,
+        datis,
       }}
     >
       {children}

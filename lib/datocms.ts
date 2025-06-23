@@ -11,6 +11,7 @@ import {
   AllEnteBeneficiariosDocument,
   AllEntePromotoresDocument,
   AllMisurasDocument,
+  AllDatisDocument,
   PageDocument,
   SupportoDocument,
   FaqDocument,
@@ -31,6 +32,7 @@ import {
   AlgoliaNewsQueryVariables,
   AlgoliaFaqDocument,
   AlgoliaFaqQueryVariables,
+  DatiDocument,
 } from "@/graphql/generated";
 import { unstable_cache } from "next/cache";
 
@@ -269,6 +271,52 @@ export const news = unstable_cache(
   {
     revalidate: CACHE_REVALIDATION_TIME,
     tags: ['news']
+  }
+);
+
+export const getAllDatis = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllDatis called",
+      level: "info",
+      metadata: {
+        function: "getAllDatis"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllDatisDocument,
+      getOptions(`fn_name:getAllDatis`)
+    );
+  },
+  ['getAllResources'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['resources']
+  }
+);
+
+export const dati = unstable_cache(
+  async (slug: string) => {
+    await sendPostToBetterStack({
+      message: "dati called",
+      level: "info",
+      metadata: {
+        function: "dati",
+        slug
+      }
+    });
+    return executeQuery(DatiDocument, {
+      ...getOptions(`fn_name:dati|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  },
+  ['dati'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['dati']
   }
 );
 
