@@ -404,14 +404,13 @@ export function CardsGrid({
                   })}
                 </div>
               );
-            })()) || (
-            <div
-              className="col-12 text-center my-5"
-              style={{ minHeight: "200px" }}
-            >
-              <span>Caricamento...</span>
-            </div>
-          )}
+            })()) ||
+            (__typename === "CardsGridAnnouncementRecord" &&
+              fetchedAnnouncements === null && (
+                <div className="col-12 text-center my-5" role="status">
+                  <span>Caricamento...</span>
+                </div>
+              ))}
 
           {(resources &&
             (() => {
