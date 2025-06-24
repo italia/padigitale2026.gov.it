@@ -12,7 +12,7 @@ export default function NotFound() {
             404
           </h1>
           <h2 className="h3 mb-4 text-primary">Pagina non trovata</h2>
-          <p className="lead mb-4">
+          <p className="mb-4 text-muted">
             Utilizza il menu per riprendere la navigazione
           </p>
           <Link href="/" className="btn btn-primary">
