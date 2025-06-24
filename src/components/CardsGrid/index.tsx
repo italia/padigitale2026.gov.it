@@ -1,3 +1,5 @@
+'use client'
+
 import {
   CardsGridGenericRecord,
   CardsGridAttachmentRecord,
@@ -12,7 +14,7 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import {Col, Icon, Pager, Row} from "design-react-kit";
-import {ElementType, Fragment, useCallback, useEffect, useState} from "react";
+import {ElementType, Fragment, startTransition, useCallback, useEffect, useState} from "react";
 import {
   PaginationItem,
   PaginationLink
@@ -34,6 +36,8 @@ import {
 import {newsCardLayoutEnum, CardNews} from "@/src/components/CardNews";
 import {usePathname} from "next/navigation";
 import {usePages} from "@/src/contexts/PagesContext";
+import { fetchAnnouncements } from "@/src/app/actions";
+import { Avviso } from "@/lib/salesforce";
 
 const cn = classNames.bind(styles);
 
@@ -177,95 +181,71 @@ export function CardsGrid({
 
 
   let resources = null;
-  let announcements: CardAnnouncementRecord[] | null = null;
   let borderOnTop = false;
+  let announcements: CardAnnouncementRecord[] | null = null;
+  const [fetchedAnnouncements, setAnnouncements] = useState<Avviso[] | null>(null);
+
+  useEffect(() => {
+    if (__typename === "CardsGridAnnouncementRecord") {
+      startTransition(async () => {
+        const updatedViews = await fetchAnnouncements(props)
+        setAnnouncements(updatedViews)
+      })
+    }
+  }, [props, __typename])
 
   if (__typename === "CardsGridAnnouncementRecord") {
     borderOnTop =
       typeof props.borderOnTop !== "undefined" ? props.borderOnTop : false;
-    announcements = [];
-    if (columns === 3) {
-      announcements.push({
-        __typename: "CardAnnouncementRecord",
-        badge: "Nuovo",
-        istituto: "Dipartimento della funzione pubblica",
-        beneficiari: "ASL, Province, Città Metropolitane",
-        stato: CardAnnouncementStatusType.Aperto,
-        titolo:
-          'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)"',
-        dataDiPubblicazione: "15 maggio 2025",
-        dataDiScadenza: "28 luglio 2025",
-        href: "",
-        target: "_blank",
-      } as CardAnnouncementRecord);
 
-      announcements.push({
-        __typename: "CardAnnouncementRecord",
-        istituto: "Dipartimento della funzione pubblica",
-        beneficiari: "Province",
-        stato: CardAnnouncementStatusType.Chiuso,
-        titolo:
-          '2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" - Enti Terzi - Regioni',
-        dataDiPubblicazione: "2 febbraio 2025",
-        dataDiScadenza: "15 maggio 2025",
-        href: "",
-        target: "_self",
-      } as CardAnnouncementRecord);
+    if(fetchedAnnouncements) {
+      const today = new Date();
+      announcements = fetchedAnnouncements.map((announcement: Avviso) => {
+        // Parse start and end dates from the announcement
+        const startDate = new Date(announcement.startDate);
+        const endDate = new Date(announcement.endDate);
+        
+        // Calculate days difference between today and start date
+        const diffTime = Math.abs(today.getTime() - startDate.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        // Show "Nuovo" badge if announcement was published within last 15 days
+        const isNew = diffDays <= 15;
 
-      announcements.push({
-        __typename: "CardAnnouncementRecord",
-        badge: "In scadenza",
-        istituto: "Dipartimento per la trasformazione digitale",
-        beneficiari: "Comuni",
-        stato: CardAnnouncementStatusType.Aperto,
-        titolo:
-          'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)"',
-        dataDiPubblicazione: "5 gennaio 2025",
-        dataDiScadenza: "30 maggio 2025",
-        href: "",
-        target: "_self",
-      } as CardAnnouncementRecord);
-    } else {
-      announcements.push({
-        __typename: "CardAnnouncementRecord",
-        badge: "Nuovo",
-        istituto: "Dipartimento della funzione pubblica",
-        beneficiari: "Comuni, ASL",
-        stato: CardAnnouncementStatusType.Aperto,
-        titolo:
-          'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" -Enti Terzi - Comuni',
-        dataDiPubblicazione: "15 maggio 2025",
-        dataDiScadenza: "28 luglio 2025",
-        href: "",
-        target: "_self",
-      } as CardAnnouncementRecord);
-      announcements.push({
-        __typename: "CardAnnouncementRecord",
-        istituto: "Dipartimento della funzione pubblica",
-        beneficiari:
-          "Comuni, ASL, Regioni e province autonome, Città metropolitane",
-        stato: CardAnnouncementStatusType.Chiuso,
-        titolo:
-          'Avviso Misura 2.2.3 "Digitalizzazione delle procedure (SUAP e SUE)" Comuni - Seconda edizione',
-        dataDiPubblicazione: "2 febbraio 2025",
-        dataDiScadenza: "15 maggio 2025",
-        href: "",
-        target: "_self",
-      } as CardAnnouncementRecord);
-      announcements.push({
-        __typename: "CardAnnouncementRecord",
-        badge: "In scadenza",
-        istituto: "Dipartimento per la trasformazione digitale",
-        beneficiari:
-          "Comuni, ASL, Regioni e province autonome, Città metropolitane",
-        stato: CardAnnouncementStatusType.Aperto,
-        titolo:
-          "Avviso Investimento 1.2 “Abilitazione al Cloud per le PA Locali ” Comuni settembre 2024",
-        dataDiPubblicazione: "5 gennaio 2025",
-        dataDiScadenza: "30 maggio 2025",
-        href: "",
-        target: "_self",
-      } as CardAnnouncementRecord);
+        // Calculate days difference between today and end date
+        const diffTimeEnd = Math.abs(endDate.getTime() - today.getTime());
+        const diffDaysEnd = Math.ceil(diffTimeEnd / (1000 * 60 * 60 * 24));
+        // Show "In scadenza" badge if end date is in the future and within 15 days
+        const isEnding = endDate >= today && diffDaysEnd <= 15;
+
+        // Determine badge text with priority: "Nuovo" takes precedence over "In scadenza"
+        let badgeText = undefined;
+        if (isNew) {
+          badgeText = "Nuovo";
+        } else if (isEnding) {
+          badgeText = "In scadenza";
+        }
+    
+        return {
+          __typename: "CardAnnouncementRecord",
+          badge: badgeText,
+          istituto: announcement.entePromotore,
+          beneficiari: announcement.beneficiari.join(', '),
+          stato: announcement.status === 'PUBBLICATO' ? CardAnnouncementStatusType.Aperto : CardAnnouncementStatusType.Chiuso,
+          titolo: announcement.oggettoBando,
+          dataDiPubblicazione: new Date(announcement.startDate).toLocaleDateString('it-IT', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          }),
+          dataDiScadenza: new Date(announcement.endDate).toLocaleDateString('it-IT', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          }),
+          href: `${announcement.url}?id=${announcement.id}`,
+          target: "_blank",
+        } as CardAnnouncementRecord;
+      });
     }
   }
 
