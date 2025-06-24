@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { makeApiRequest, ApiResponse, ApiError, isSuccessStatus, validateJwt, createErrorResponse } from "../lib";
 
-// GET /api/newsletter/confirm?jwt=...
+// GET /api/newsletter/confirm?jwt=<...>
+
+// Esempio sito vecchio:
+// https://padigitale2026.gov.it/conferma?jwt=<...>
 
 export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse>> {
     try {

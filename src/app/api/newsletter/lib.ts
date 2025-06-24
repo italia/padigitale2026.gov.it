@@ -64,14 +64,19 @@ export function validateJwt(token: string | null): { payload: JwtPayload; token:
     }
 };
 
-export async function makeApiRequest(method: METHOD, address: string, action: ACTION, uuid: string, jwt: string): Promise<Response> {
+export async function makeApiRequest(method: METHOD, address: string, action: ACTION, uuid: string, jwt?: string): Promise<Response> {
     const requestOptions: RequestInit = {
         method: method,
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jwt }),
+        }
     };
+
+    if (jwt) {
+        requestOptions.body = JSON.stringify({ jwt })
+    }
+
+    console.log(`${API_BASE_URL}/users/${address}/${uuid}/${action}`);
 
     return fetch(
         `${API_BASE_URL}/users/${address}/${uuid}/${action}`,
