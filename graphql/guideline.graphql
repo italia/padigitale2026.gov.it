@@ -8,11 +8,13 @@ query Guideline($id: ItemId) {
     id
     title
     descrizione
+    customUpdateDate
     allegato {
       id
       size
       filename
       url
+      format
     }
     idAvvisoSalesforce
     beneficiari {
