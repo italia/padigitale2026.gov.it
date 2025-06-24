@@ -55,7 +55,7 @@ export function ModularContent({
   pageContentType,
 }: {
   content: PageQuery;
-  pageContentType: "page" | "faq" | "news" | "resource" | "supporto";
+  pageContentType: "page" | "faq" | "news" | "resource" | "supporto" | "dati";
 }) {
   return (
     <>

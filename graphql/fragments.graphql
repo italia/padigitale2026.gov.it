@@ -62,6 +62,14 @@ fragment ButtonFragment on ButtonRecord {
       slug
       id
     }
+    ... on DatiRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
   }
 }
 
@@ -134,6 +142,14 @@ fragment LinkFragment on LinkRecord {
       id
     }
     ... on SupportoRecord {
+      __typename
+      _createdAt
+      _updatedAt
+      title
+      slug
+      id
+    }
+    ... on DatiRecord {
       __typename
       _createdAt
       _updatedAt
@@ -427,11 +443,17 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
       iconBeforeTitle
       iconAfterTitle
       href
-      cmsPage {
-        title
-        slug
-      }
       target
+      cmsPage {
+        ... on PageRecord {
+          title
+          slug
+        }
+        ... on FaqRecord {
+          title
+          slug
+        }
+      }
     }
   }
 }
