@@ -60,6 +60,7 @@ export function validateJwt(token: string | null): { payload: JwtPayload; token:
         const payload = jwtDecode<JwtPayload>(token);
         return { payload, token };
     } catch (error) {
+        console.error('Invalid JWT token format', error);
         throw new ApiError('Invalid JWT token format');
     }
 };
