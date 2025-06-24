@@ -453,6 +453,10 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
           title
           slug
         }
+        ... on SupportoRecord {
+          title
+          slug
+        }
       }
     }
   }
