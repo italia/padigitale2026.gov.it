@@ -5392,6 +5392,7 @@ export type UpdateModelFilter = {
   beneficiari?: InputMaybe<LinksFilter>;
   customUpdateDate?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  idAvvisoSalesforce?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
 };
 
@@ -5414,6 +5415,8 @@ export enum UpdateModelOrderBy {
   UpdatedAtDesc = '_updatedAt_DESC',
   CustomUpdateDateAsc = 'customUpdateDate_ASC',
   CustomUpdateDateDesc = 'customUpdateDate_DESC',
+  IdAvvisoSalesforceAsc = 'idAvvisoSalesforce_ASC',
+  IdAvvisoSalesforceDesc = 'idAvvisoSalesforce_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
   TitleAsc = 'title_ASC',
@@ -5440,6 +5443,7 @@ export type UpdateRecord = RecordInterface & {
   cta?: Maybe<ButtonRecord>;
   customUpdateDate?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ItemId']['output'];
+  idAvvisoSalesforce?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
