@@ -1,7 +1,7 @@
 #import "./fragments.graphql"
 
-query AllUpdates {
-  allUpdates(first: 200, orderBy: customUpdateDate_DESC) {
+query Update($id: ItemId) {
+  update(filter: { id: { eq: $id } }) {
     __typename
     _createdAt
     _updatedAt
@@ -12,6 +12,7 @@ query AllUpdates {
     beneficiari {
       label
       id
+      labelSalesforce
     }
     cta {
       ...ButtonFragment

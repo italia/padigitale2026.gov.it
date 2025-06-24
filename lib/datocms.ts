@@ -33,6 +33,10 @@ import {
   AlgoliaFaqDocument,
   AlgoliaFaqQueryVariables,
   DatiDocument,
+  UpdateDocument,
+  UpdateQueryVariables,
+  AllGuidelinesDocument,
+  GuidelineDocument
 } from "@/graphql/generated";
 import { unstable_cache } from "next/cache";
 
@@ -486,6 +490,31 @@ export const getAllMisuras = unstable_cache(
   }
 );
 
+export const update = unstable_cache(
+  async (id: string) => {
+    await sendPostToBetterStack({
+      message: "update called",
+      level: "info",
+      metadata: {
+        function: "update",
+        id
+      }
+    });
+    return executeQuery(UpdateDocument, {
+      ...getOptions(`fn_name:update|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as UpdateQueryVariables,
+    });
+  },
+  ['update'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['update']
+  }
+);
+
 export const getAllUpdates = unstable_cache(
   async () => {
     await sendPostToBetterStack({
@@ -507,6 +536,51 @@ export const getAllUpdates = unstable_cache(
   }
 );
 
+export const guideline = unstable_cache(
+  async (id: string) => {
+    await sendPostToBetterStack({
+      message: "guideline called",
+      level: "info",
+      metadata: {
+        function: "update",
+        id
+      }
+    });
+    return executeQuery(GuidelineDocument, {
+      ...getOptions(`fn_name:guideline|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as UpdateQueryVariables,
+    });
+  },
+  ['guideline'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['guidelines']
+  }
+);
+
+export const getAllGuidelines = unstable_cache(
+  async () => {
+    await sendPostToBetterStack({
+      message: "getAllGuidelines called",
+      level: "info",
+      metadata: {
+        function: "getAllGuidelines"
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllGuidelinesDocument,
+      getOptions(`fn_name:getAllGuidelines`)
+    );
+  },
+  ['getAllGuidelines'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['guidelines']
+  }
+);
 // ------------------------------------- //
 // Funzioni di indicizzazione in Algolia //
 // ------------------------------------- //
