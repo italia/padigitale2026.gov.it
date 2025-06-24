@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { makeApiRequest, ApiResponse, ApiError, isSuccessStatus, validateJwt, createErrorResponse } from "../lib";
+import { makeApiRequest, ApiResponse, ApiError, isSuccessStatus, createErrorResponse } from "../lib";
 
 // GET /api/newsletter/unsubscribe?jwt=...
 
