@@ -893,6 +893,24 @@ export type DatavizRecord_SeoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+/** Specifies how to filter Date fields */
+export type DateFilter = {
+  /** Search for records with an exact match */
+  eq?: InputMaybe<Scalars['Date']['input']>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records with a value that's strictly greater than the one specified */
+  gt?: InputMaybe<Scalars['Date']['input']>;
+  /** Filter records with a value that's greater than or equal to the one specified */
+  gte?: InputMaybe<Scalars['Date']['input']>;
+  /** Filter records with a value that's less than the one specified */
+  lt?: InputMaybe<Scalars['Date']['input']>;
+  /** Filter records with a value that's less or equal than the one specified */
+  lte?: InputMaybe<Scalars['Date']['input']>;
+  /** Exclude records with an exact match */
+  neq?: InputMaybe<Scalars['Date']['input']>;
+};
+
 /** Specifies how to filter DateTime fields */
 export type DateTimeFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
@@ -1436,6 +1454,20 @@ export type FileFieldInterfaceUrlArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
 };
 
+/** Specifies how to filter Single-file/image fields */
+export type FileFilter = {
+  /** Search for records with an exact match. The specified value must be an Upload ID */
+  eq?: InputMaybe<Scalars['UploadId']['input']>;
+  /** Filter records with the specified field defined (i.e. with any value) or not */
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
+  /** Filter records that have one of the specified uploads */
+  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
+  /** Exclude records with an exact match. The specified value must be an Upload ID */
+  neq?: InputMaybe<Scalars['UploadId']['input']>;
+  /** Filter records that do not have one of the specified uploads */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
+};
+
 export type FooterModelLinkColonna1Field = FaqRecord | NewsRecord | PageRecord | ResourceRecord | SupportoRecord;
 
 export type FooterModelLinkColonna2Field = FaqRecord | NewsRecord | PageRecord | ResourceRecord | SupportoRecord;
@@ -1541,6 +1573,86 @@ export type GlobalSeoField = {
   siteName?: Maybe<Scalars['String']['output']>;
   titleSuffix?: Maybe<Scalars['String']['output']>;
   twitterAccount?: Maybe<Scalars['String']['output']>;
+};
+
+export type GuidelineModelFilter = {
+  AND?: InputMaybe<Array<InputMaybe<GuidelineModelFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<GuidelineModelFilter>>>;
+  _createdAt?: InputMaybe<CreatedAtFilter>;
+  _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
+  _isValid?: InputMaybe<BooleanFilter>;
+  _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _publishedAt?: InputMaybe<PublishedAtFilter>;
+  _status?: InputMaybe<StatusFilter>;
+  _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
+  _updatedAt?: InputMaybe<UpdatedAtFilter>;
+  allegato?: InputMaybe<FileFilter>;
+  beneficiari?: InputMaybe<LinksFilter>;
+  customUpdateDate?: InputMaybe<DateFilter>;
+  descrizione?: InputMaybe<StringFilter>;
+  id?: InputMaybe<ItemIdFilter>;
+  idAvvisoSalesforce?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+};
+
+export enum GuidelineModelOrderBy {
+  CreatedAtAsc = '_createdAt_ASC',
+  CreatedAtDesc = '_createdAt_DESC',
+  FirstPublishedAtAsc = '_firstPublishedAt_ASC',
+  FirstPublishedAtDesc = '_firstPublishedAt_DESC',
+  IsValidAsc = '_isValid_ASC',
+  IsValidDesc = '_isValid_DESC',
+  PublicationScheduledAtAsc = '_publicationScheduledAt_ASC',
+  PublicationScheduledAtDesc = '_publicationScheduledAt_DESC',
+  PublishedAtAsc = '_publishedAt_ASC',
+  PublishedAtDesc = '_publishedAt_DESC',
+  StatusAsc = '_status_ASC',
+  StatusDesc = '_status_DESC',
+  UnpublishingScheduledAtAsc = '_unpublishingScheduledAt_ASC',
+  UnpublishingScheduledAtDesc = '_unpublishingScheduledAt_DESC',
+  UpdatedAtAsc = '_updatedAt_ASC',
+  UpdatedAtDesc = '_updatedAt_DESC',
+  CustomUpdateDateAsc = 'customUpdateDate_ASC',
+  CustomUpdateDateDesc = 'customUpdateDate_DESC',
+  DescrizioneAsc = 'descrizione_ASC',
+  DescrizioneDesc = 'descrizione_DESC',
+  IdAvvisoSalesforceAsc = 'idAvvisoSalesforce_ASC',
+  IdAvvisoSalesforceDesc = 'idAvvisoSalesforce_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
+/** Record of type 📝 Linee guida (guideline) */
+export type GuidelineRecord = RecordInterface & {
+  __typename?: 'GuidelineRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  allegato?: Maybe<FileField>;
+  beneficiari: Array<EnteBeneficiarioRecord>;
+  customUpdateDate?: Maybe<Scalars['Date']['output']>;
+  descrizione?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  idAvvisoSalesforce?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Record of type 📝 Linee guida (guideline) */
+export type GuidelineRecord_SeoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
 };
 
 export type HeaderModelMainLinksField = DatiRecord | PageRecord;
@@ -4084,6 +4196,8 @@ export type Query = {
   /** Returns meta information regarding a record collection */
   _allFeedbacksMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
+  _allGuidelinesMeta: CollectionMetadata;
+  /** Returns meta information regarding a record collection */
   _allKpiElementsMeta: CollectionMetadata;
   /** Returns meta information regarding a record collection */
   _allMisurasMeta: CollectionMetadata;
@@ -4116,6 +4230,8 @@ export type Query = {
   /** Returns a collection of records */
   allFeedbacks: Array<FeedbackRecord>;
   /** Returns a collection of records */
+  allGuidelines: Array<GuidelineRecord>;
+  /** Returns a collection of records */
   allKpiElements: Array<KpiElementRecord>;
   /** Returns a collection of records */
   allMisuras: Array<MisuraRecord>;
@@ -4147,6 +4263,8 @@ export type Query = {
   feedback?: Maybe<FeedbackRecord>;
   /** Returns the single instance record */
   footer?: Maybe<FooterRecord>;
+  /** Returns a specific record */
+  guideline?: Maybe<GuidelineRecord>;
   /** Returns the single instance record */
   header?: Maybe<HeaderRecord>;
   /** Returns a specific record */
@@ -4213,6 +4331,13 @@ export type Query_AllFaqsMetaArgs = {
 /** The query root for this schema */
 export type Query_AllFeedbacksMetaArgs = {
   filter?: InputMaybe<FeedbackModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+export type Query_AllGuidelinesMetaArgs = {
+  filter?: InputMaybe<GuidelineModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -4353,6 +4478,17 @@ export type QueryAllFeedbacksArgs = {
   first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<FeedbackModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+};
+
+
+/** The query root for this schema */
+export type QueryAllGuidelinesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<GuidelineModelFilter>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<GuidelineModelOrderBy>>>;
   skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
@@ -4512,6 +4648,15 @@ export type QueryFeedbackArgs = {
 export type QueryFooterArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+export type QueryGuidelineArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  filter?: InputMaybe<GuidelineModelFilter>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<GuidelineModelOrderBy>>>;
 };
 
 

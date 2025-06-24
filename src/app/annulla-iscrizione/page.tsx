@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "design-react-kit";
 import Link from "next/link";
 
 type Status = "loading" | "success" | "error";
 
-export default function AnnullaIscrizionePage() {
+function AnnullaIscrizioneContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<Status>("loading");
   const [message, setMessage] = useState("");
@@ -99,5 +99,28 @@ export default function AnnullaIscrizionePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="container-xxl py-5 my-5 mx-auto">
+      <div className="row justify-content-center">
+        <div className="col-md-8 text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Caricamento...</span>
+          </div>
+          <p className="mt-3">Caricamento...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function AnnullaIscrizionePage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <AnnullaIscrizioneContent />
+    </Suspense>
   );
 }
