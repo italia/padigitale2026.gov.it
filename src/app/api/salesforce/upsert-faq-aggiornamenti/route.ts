@@ -24,8 +24,6 @@ export async function POST(request: Request) {
     const data: WebhookPayload = await request.json();
     const content_type: ContentType = data.related_entities.pop()?.attributes.api_key as ContentType;
 
-    console.log(data);
-
     switch (content_type) {
       case "update":
         entity = (await update(data.entity.attributes.id!)) as UpdateQuery;
@@ -68,10 +66,7 @@ export async function POST(request: Request) {
 
     // Aggiorna i record su Salesforce
     const result = await upsertFaqAggiornamenti(records);
-
-    console.log(records)
-    console.log(result[0].errors);
-
+    
     return Response.json({ 
       success: true, 
       message: 'Dati sincronizzati con successo su Salesforce',

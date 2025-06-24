@@ -68,10 +68,6 @@ export async function POST(request: Request) {
     // Aggiorna il record su Salesforce
     const result = await creazioneLineeGuida(record);
 
-    console.log(record)
-    console.log(result)
-    console.log(result[0].errors);
-
     return Response.json({ 
       success: true, 
       message: 'Dati sincronizzati con successo su Salesforce',
