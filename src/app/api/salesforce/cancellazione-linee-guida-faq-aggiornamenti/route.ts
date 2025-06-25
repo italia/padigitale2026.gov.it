@@ -19,8 +19,6 @@ export async function POST(request: Request) {
     let records = [];
     const data: WebhookPayload = await request.json();
 
-    console.log(data);
-
     records.push({
       attributes: { "type": "Informazione_CMS_Avviso__c" },
       External_ID__c: data.entity.attributes.id,
@@ -29,9 +27,6 @@ export async function POST(request: Request) {
 
     // Elimina i record da Salesforce
     const result = await cancellazioneLineeGuidaFaqAggiornamenti(records);
-
-    console.log(records)
-    console.log(result[0].errors);
 
     return Response.json({ 
       success: true, 
