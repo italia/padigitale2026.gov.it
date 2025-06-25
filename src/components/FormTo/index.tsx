@@ -1,16 +1,148 @@
+"use client";
+
 // import { FormToRecord } from "@/graphql/generated";
 
 import Link from "next/link";
 import { Button, Input, Select, TextArea } from "design-react-kit";
 import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
+import { useState } from "react";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 const cn = classNames.bind(styles);
 
-export function FormTo() {
-  const handleSubmit = async () => {};
+type FormStatus = "idle" | "loading" | "success" | "error";
+
+function FormToContent() {
+  const [formState, setFormState] = useState({
+    contact: "",
+    name: "",
+    address: "",
+    phone: "",
+    area: "",
+    description: "",
+  });
+
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [message, setMessage] = useState("");
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  // Logica per abilitare il bottone
+  const isFormValid = () => {
+    const requiredFields = [
+      formState.contact,
+      formState.name,
+      formState.address,
+      formState.phone,
+      formState.area,
+      formState.description,
+    ];
+
+    // Controlla che tutti i campi obbligatori siano compilati
+    const allFieldsFilled = requiredFields.every(
+      (field) => field && field.length > 0
+    );
+
+    // Controlla che la descrizione non superi i 300 caratteri
+    const descriptionValid = formState.description.length <= 300;
+
+    return allFieldsFilled && descriptionValid;
+  };
+
+  const handleSubmit = async () => {
+    if (!isFormValid() || !executeRecaptcha) return;
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      // Genera token reCAPTCHA
+      const captchaToken = await executeRecaptcha("submit");
+
+      const response = await fetch("/api/territory/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contact: formState.contact,
+          name: formState.name,
+          address: formState.address,
+          phone: formState.phone,
+          area: formState.area,
+          description: formState.description,
+          captcha: captchaToken,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setMessage(data.message);
+        // Reset del form
+        setFormState({
+          contact: "",
+          name: "",
+          address: "",
+          phone: "",
+          area: "",
+          description: "",
+        });
+      } else {
+        setStatus("error");
+        setMessage(data.message || "Errore durante l'invio del form");
+      }
+    } catch (error) {
+      setStatus("error");
+      console.error(error);
+      setMessage("Errore di connessione o reCAPTCHA. Riprova più tardi.");
+    }
+  };
+
+  const resetForm = () => {
+    setStatus("idle");
+    setMessage("");
+  };
+
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const value = e.target.value;
+    // Limita a 300 caratteri
+    if (value.length <= 300) {
+      setFormState({
+        ...formState,
+        description: value,
+      });
+    }
+  };
+
+  // Mostra messaggio di successo
+  if (status === "success") {
+    return (
+      <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
+        <h2 className="mb-5">Lascia i tuoi dati per essere contattato</h2>
+        <div className="row">
+          <div className="col-10">
+            <div className="alert alert-success" role="alert">
+              <h4 className="alert-heading">Messaggio inviato!</h4>
+              <p>{message}</p>
+              <hr />
+              <Button color="primary" onClick={resetForm}>
+                Invia un altro messaggio
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
@@ -19,6 +151,12 @@ export function FormTo() {
         <div className="col-10">
           <p className="text-muted">I campi con asterisco sono obbligatori</p>
 
+          {status === "error" && (
+            <div className="alert alert-danger mt-3" role="alert">
+              {message}
+            </div>
+          )}
+
           <Row className="mt-5">
             <Col md="6">
               <Input
@@ -26,10 +164,14 @@ export function FormTo() {
                 name="contact"
                 label="Nome referente*"
                 type="text"
-                value=""
+                value={formState.contact}
                 required
-                // validationText="Inserisci il nome del referente"
-                onChange={() => {}}
+                onChange={(e) => {
+                  setFormState({
+                    ...formState,
+                    contact: e.target.value,
+                  });
+                }}
               />
             </Col>
             <Col md="6">
@@ -38,10 +180,14 @@ export function FormTo() {
                 name="name"
                 label="Nome ente*"
                 type="text"
-                value=""
+                value={formState.name}
                 required
-                // validationText="Inserisci il nome dell'ente"
-                onChange={() => {}}
+                onChange={(e) => {
+                  setFormState({
+                    ...formState,
+                    name: e.target.value,
+                  });
+                }}
               />
             </Col>
           </Row>
@@ -53,10 +199,14 @@ export function FormTo() {
                 name="address"
                 label="Email*"
                 type="email"
-                value=""
+                value={formState.address}
                 required
-                // validationText="Inserisci un'email valida"
-                onChange={() => {}}
+                onChange={(e) => {
+                  setFormState({
+                    ...formState,
+                    address: e.target.value,
+                  });
+                }}
               />
             </Col>
             <Col md="6">
@@ -65,10 +215,14 @@ export function FormTo() {
                 name="phone"
                 label="Contatto telefonico*"
                 type="text"
-                value=""
+                value={formState.phone}
                 required
-                // validationText="Inserisci un numero di telefono valido"
-                onChange={() => {}}
+                onChange={(e) => {
+                  setFormState({
+                    ...formState,
+                    phone: e.target.value,
+                  });
+                }}
               />
             </Col>
           </Row>
@@ -78,9 +232,14 @@ export function FormTo() {
               <Select
                 id="territory-select"
                 label="Territorio*"
-                value=""
+                value={formState.area}
                 required
-                onChange={() => {}}
+                onChange={(value) => {
+                  setFormState({
+                    ...formState,
+                    area: value,
+                  });
+                }}
               >
                 <option label="Seleziona un'area locale"></option>
                 <option label="Nord est">nord-est</option>
@@ -100,7 +259,21 @@ export function FormTo() {
                 name="description"
                 label="Note per essere contattati*"
                 rows={3}
+                value={formState.description}
+                onChange={handleDescriptionChange}
               />
+              <div className="d-flex justify-content-between align-items-center mt-2">
+                <p className="text-muted mb-0">300 caratteri a disposizione</p>
+                <p
+                  className={`${
+                    formState.description.length > 250
+                      ? "text-warning"
+                      : "text-muted"
+                  }`}
+                >
+                  {formState.description.length}/300
+                </p>
+              </div>
             </Col>
           </Row>
 
@@ -114,15 +287,30 @@ export function FormTo() {
               <Button
                 color="primary"
                 type="submit"
-                disabled={true}
+                disabled={!isFormValid() || status === "loading"}
                 onClick={handleSubmit}
               >
-                Invia
+                {status === "loading" ? "Invio in corso..." : "Invia"}
               </Button>
             </Col>
           </Row>
         </div>
       </div>
     </div>
+  );
+}
+
+export function FormTo() {
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey="6Ldj-g4eAAAAAN0ee9NiyA28zbF6TD8cjjFxaOX0"
+      scriptProps={{
+        async: true,
+        defer: true,
+        appendTo: "body",
+      }}
+    >
+      <FormToContent />
+    </GoogleReCaptchaProvider>
   );
 }
