@@ -22,6 +22,7 @@
         "react": "19.1.0",
         "react-datocms": "^7.2.2",
         "react-dom": "19.1.0",
+        "react-google-recaptcha-v3": "^1.11.0",
         "react-instantsearch": "^7.15.8",
         "redis": "^5.5.6",
         "typeface-lora": "1.1.13",
@@ -1140,6 +1141,8 @@
 
     "hogan.js": ["hogan.js@3.0.2", "", { "dependencies": { "mkdirp": "0.3.0", "nopt": "1.0.10" }, "bin": { "hulk": "./bin/hulk" } }, "sha512-RqGs4wavGYJWE07t35JQccByczmNUXQT0E12ZYV1VKYu5UiAU9lsos/yBAcf840+zrUQQxgVduCR5/B8nNtibg=="],
 
+    "hoist-non-react-statics": ["hoist-non-react-statics@3.3.2", "", { "dependencies": { "react-is": "^16.7.0" } }, "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="],
+
     "htm": ["htm@3.1.1", "", {}, "sha512-983Vyg8NwUE7JkZ6NmOqpCZ+sh1bKv2iYTlUkzlWmA5JD2acKoxd4KVxbMmxX/85mtfdnDmTFoNKcg5DGAvxNQ=="],
 
     "html-url-attributes": ["html-url-attributes@3.0.1", "", {}, "sha512-ol6UPyBWqsrO6EJySPz2O7ZSr856WDrEzM5zMqp+FJJLGMW35cLYmmZnl0vztAZxRUoNZJFTCohfjuIJ8I4QBQ=="],
@@ -1671,6 +1674,8 @@
     "react-error-boundary": ["react-error-boundary@6.0.0", "", { "dependencies": { "@babel/runtime": "^7.12.5" }, "peerDependencies": { "react": ">=16.13.1" } }, "sha512-gdlJjD7NWr0IfkPlaREN2d9uUZUlksrfOx7SX62VRerwXbMY6ftGCIZua1VG1aXFNOimhISsTq+Owp725b9SiA=="],
 
     "react-fast-compare": ["react-fast-compare@3.2.2", "", {}, "sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ=="],
+
+    "react-google-recaptcha-v3": ["react-google-recaptcha-v3@1.11.0", "", { "dependencies": { "hoist-non-react-statics": "^3.3.2" }, "peerDependencies": { "react": "^16.3 || ^17.0 || ^18.0 || ^19.0", "react-dom": "^17.0 || ^18.0 || ^19.0" } }, "sha512-kLQqpz/77m8+trpBwzqcxNtvWZYoZ/YO6Vm2cVTHW8hs80BWUfDpC7RDwuAvpswwtSYApWfaSpIDFWAIBNIYxQ=="],
 
     "react-instantsearch": ["react-instantsearch@7.15.8", "", { "dependencies": { "@babel/runtime": "^7.1.2", "instantsearch-ui-components": "0.11.1", "instantsearch.js": "4.78.3", "react-instantsearch-core": "7.15.8" }, "peerDependencies": { "algoliasearch": ">= 3.1 < 6", "react": ">= 16.8.0 < 20", "react-dom": ">= 16.8.0 < 20" } }, "sha512-mQUQ32e60dLp/Cumw02OAmcEZox1QeaVrjf/YonEywtYQdJR/tUIuctP3g6yJcWxsRg5gmAWprGrpYMY0OQZFQ=="],
 
