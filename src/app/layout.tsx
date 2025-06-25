@@ -93,6 +93,43 @@ export default async function RootLayout({
           <Footer props={footerProps} />
         </PagesProvider>
         <BootstrapInit />
+
+        {/* Script Matomo */}
+        <Script
+          id="matomo-tracking"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dev = undefined;
+              if (window.dev === true || !(navigator.doNotTrack === '1' || window.doNotTrack === '1')) {
+                window._paq = window._paq || [];
+                window._paq.push(['enableJSErrorTracking']);
+                window._paq.push(['setTrackerUrl', 'https://ingestion.webanalytics.italia.it//matomo.php']);
+                window._paq.push(['setSiteId', 'R9pxNNv0Xm']);
+                window._paq.push(['enableHeartBeatTimer']);
+                window.start = new Date();
+                (function () {
+                  var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                  g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = '/assets/matomo.js'; s.parentNode.insertBefore(g, s);
+                })();
+                if (window.dev === true) {
+                  console.debug('[Matomo] Tracking initialized');
+                  console.debug('[Matomo] matomoUrl: https://ingestion.webanalytics.italia.it/, siteId: R9pxNNv0Xm');
+                }
+              }
+            `,
+          }}
+        />
+
+        {/* Noscript fallback */}
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://ingestion.webanalytics.italia.it//matomo.php?idsite=R9pxNNv0Xm&rec=1&url=https://padigitale2026.gov.it/"
+            style={{ border: 0 }}
+            alt="tracker"
+          />
+        </noscript>
       </body>
     </html>
   );
