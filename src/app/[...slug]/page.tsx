@@ -95,6 +95,7 @@ export default async function Page({
     | "dati" = "page";
 
   const supportoFaqExceptions = [
+    "supporto/domande-frequenti/misure-e-avvisi",
     "supporto/domande-frequenti/utilizzo-della-piattaforma",
     "supporto/domande-frequenti/piani-di-migrazione",
     "supporto/domande-frequenti/fondo-innovazione",
