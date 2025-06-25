@@ -640,11 +640,12 @@ export async function sendPostToBetterStack(data: {
   metadata?: Record<string, any>;
 }) {
   // Get Better Stack configuration from environment variables
+  const enable = process.env.BETTERSTACK_ENABLE === 'true';
   const url = process.env.BETTERSTACK_URL;
   const token = process.env.BETTERSTACK_TOKEN;
 
   // Return false if configuration is missing
-  if (!url || !token) {
+  if (!url || !token || !enable) {
     return false;
   }
 
