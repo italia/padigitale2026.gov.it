@@ -1,4 +1,5 @@
 import jsforce from "jsforce";
+import { createClient } from "redis";
 
 export type Sort = "ASC" | "DESC";
 
@@ -20,24 +21,59 @@ export interface Avviso {
  * @param n Il numero di avvisi da recuperare. Se 0, recupera tutti.
  * @param sort Specifica se ricevere i risultati ordinati per data ASC o DESC.
  * @param beneficiari Se specificato, filtra gli avvisi per i beneficiari indicati.
+ * @param useCache Se true, utilizza la cache Redis (default: true).
+ * @param cacheTTL Time to live della cache in secondi (default: 3600 = 1 ora).
  * @returns Tutti gli avvisi in formato JSON.
  */
 export async function getAvvisi(
   n: number = 0,
   sort: Sort = "DESC",
-  beneficiari?: string[]
+  beneficiari?: string[],
+  useCache: boolean = true,
+  cacheTTL: number = 3600
 ) {
   if (!process.env.SF_USERNAME || !process.env.SF_PASSWORD) {
     console.error("SF_USERNAME and SF_PASSWORD, must be defined.");
     return [];
   }
 
-  const conn = new jsforce.Connection();
+  // Inizializza Redis se non è già connesso
+  let redis: any = null;
+  if (useCache) {
+    try {
+      redis = createClient({ url: process.env.REDIS_URL });
+      await redis.connect();
+    } catch (error) {
+      console.warn("Redis connection failed, proceeding without cache:", error);
+      useCache = false;
+    }
+  }
 
-  // Utilizziamo process.env invece di Deno.env
-  const username = process.env.SF_USERNAME || "";
-  const password = process.env.SF_PASSWORD || "";
   try {
+    // Genera una chiave di cache basata sui parametri
+    const cacheKey = `avvisi:${n}:${sort}:${beneficiari?.join(',') || 'all'}`;
+    
+    // Prova a recuperare dalla cache
+    if (useCache && redis) {
+      try {
+        const cachedData = await redis.get(cacheKey);
+        if (cachedData) {
+          console.log("Cache hit for key:", cacheKey);
+          return JSON.parse(cachedData);
+        }
+      } catch (cacheError) {
+        console.warn("Cache read error:", cacheError);
+      }
+    }
+
+    console.log("Cache miss, fetching from Salesforce...");
+
+    const conn = new jsforce.Connection();
+
+    // Utilizziamo process.env invece di Deno.env
+    const username = process.env.SF_USERNAME || "";
+    const password = process.env.SF_PASSWORD || "";
+    
     await conn.login(username, password);
 
     const records = await conn
@@ -96,10 +132,66 @@ export async function getAvvisi(
     });
 
     // Limita il numero di risultati a n
-    return n > 0 ? sortedAvvisi.slice(0, n) : sortedAvvisi;
+    const result = n > 0 ? sortedAvvisi.slice(0, n) : sortedAvvisi;
+
+    // Salva nella cache
+    if (useCache && redis) {
+      try {
+        await redis.set(cacheKey, JSON.stringify(result), { EX: cacheTTL });
+        console.log("Data cached with key:", cacheKey, "TTL:", cacheTTL);
+      } catch (cacheError) {
+        console.warn("Cache write error:", cacheError);
+      }
+    }
+
+    return result;
   } catch (error) {
     console.error(error);
     // Restituisci un array vuoto in caso di errore
     return [];
+  } finally {
+    // Chiudi la connessione Redis se aperta
+    if (redis) {
+      try {
+        await redis.quit();
+      } catch (error) {
+        console.warn("Error closing Redis connection:", error);
+      }
+    }
+  }
+}
+
+/**
+ * Invalida la cache per tutti gli avvisi o per una chiave specifica
+ * @param specificKey Chiave specifica da invalidare (opzionale)
+ */
+export async function invalidateAvvisiCache(specificKey?: string) {
+  let redis: any = null;
+  try {
+    redis = createClient({ url: process.env.REDIS_URL });
+    await redis.connect();
+
+    if (specificKey) {
+      // Invalida una chiave specifica
+      await redis.del(specificKey);
+      console.log("Cache invalidated for key:", specificKey);
+    } else {
+      // Invalida tutte le chiavi che iniziano con "avvisi:"
+      const keys = await redis.keys("avvisi:*");
+      if (keys.length > 0) {
+        await redis.del(...keys);
+        console.log("All avvisi cache invalidated. Keys removed:", keys.length);
+      }
+    }
+  } catch (error) {
+    console.error("Error invalidating cache:", error);
+  } finally {
+    if (redis) {
+      try {
+        await redis.quit();
+      } catch (error) {
+        console.warn("Error closing Redis connection:", error);
+      }
+    }
   }
 }
