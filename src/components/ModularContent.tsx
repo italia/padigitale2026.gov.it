@@ -47,8 +47,9 @@ import { CardsListFilter } from "@/src/components/CardsListFilter";
 import { HeroSearch } from "@/src/components/HeroSearch";
 import { InstantSearchFaq } from "@/src/components/InstantSearchFaq";
 import { BloccoGrafico } from "@/src/components/BloccoGrafico";
-import { TabsWrap } from "./TabsWrap";
-import { FormNewsletter } from "./FormNewsletter";
+import { TabsWrap } from "@/src/components/TabsWrap";
+import { FormNewsletter } from "@/src/components/FormNewsletter";
+import { FormTo } from "@/src/components/FormTo";
 
 export function ModularContent({
   content,
@@ -168,6 +169,8 @@ export function ModularContent({
             return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
           case "FormNewsletterRecord":
             return <FormNewsletter key={idx} />;
+          case "FormToRecord":
+            return <FormTo key={idx} />;
           default:
             return null;
         }

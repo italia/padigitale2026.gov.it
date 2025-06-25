@@ -823,3 +823,7 @@ fragment TabsWrapFragment on TabsWrapRecord {
 fragment FormNewsletterFragment on FormNewsletterRecord {
   __typename
 }
+
+fragment FormToFragment on FormToRecord {
+  __typename
+}

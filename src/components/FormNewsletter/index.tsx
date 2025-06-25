@@ -140,6 +140,8 @@ export function FormNewsletter() {
                 label="Email*"
                 type="email"
                 value={formState.email}
+                required
+                // validationText="Inserisci un'email valida"
                 onChange={(e) => {
                   setFormState({
                     ...formState,
@@ -153,6 +155,7 @@ export function FormNewsletter() {
                 id="selectRepresent"
                 label="Rappresento*"
                 value={formState.rappresento}
+                required
                 onChange={(value) => {
                   setFormState({
                     ...formState,
@@ -176,6 +179,8 @@ export function FormNewsletter() {
                 label="Tipo di ente/struttura*"
                 type="text"
                 value={formState.tipoEnte}
+                required
+                // validationText="Inserisci il nome dell'ente/struttura"
                 onChange={(e) => {
                   setFormState({
                     ...formState,
@@ -191,6 +196,8 @@ export function FormNewsletter() {
               label="Nome struttura*"
               type="text"
               value={formState.nomeStruttura}
+              required
+              // validationText="Inserisci il nome della struttura"
               onChange={(e) => {
                 setFormState({
                   ...formState,
@@ -206,6 +213,7 @@ export function FormNewsletter() {
                 id="selectEnte"
                 label="In quanto*"
                 value={formState.inQuanto}
+                required
                 onChange={(value) => {
                   setFormState({
                     ...formState,
