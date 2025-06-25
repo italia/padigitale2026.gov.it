@@ -28,7 +28,10 @@ function ConfermaContent() {
 
         if (response.ok) {
           setStatus("success");
-          setMessage(data.message || "Iscrizione confermata con successo!");
+          //   setMessage(data.message || "Iscrizione confermata con successo!");
+          setMessage(
+            "L'indirizzo email che hai scelto per ricevere comunicazioni da PA Digitale 2026 è stato confermato."
+          );
         } else {
           setStatus("error");
           setMessage(
@@ -65,12 +68,10 @@ function ConfermaContent() {
         <div className="col-md-8">
           {status === "success" ? (
             <div className="alert alert-success" role="alert">
-              <h4 className="alert-heading">Iscrizione confermata!</h4>
+              <h4 className="alert-heading">Indirizzo confermato</h4>
               <p>{message}</p>
               <hr />
-              <p className="mb-0">
-                Ora riceverai le nostre newsletter. Grazie per esserti iscritto!
-              </p>
+              <p className="mb-0">Grazie per esserti iscritto!</p>
               <div className="mt-3">
                 <Link href="/">
                   <Button color="primary">Torna alla home</Button>
