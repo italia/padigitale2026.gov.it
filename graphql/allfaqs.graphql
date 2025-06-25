@@ -8,6 +8,7 @@ query AllFaqs {
     title
     slug
     customUpdateDate
+    idAvvisoSalesforce
     category {
       label
       slug

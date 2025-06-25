@@ -42,10 +42,13 @@ export interface Entity {
 }
 
 export interface EntityAttributes {
+  id?: string;
   title: string;
   slug: string;
   custom_update_date: null;
   seo: null;
+  id_avviso_salesforce?: string;
+  descrizione?: string;
 }
 
 export interface EntityMeta {
