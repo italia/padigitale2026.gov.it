@@ -1,6 +1,6 @@
-import { WebhookPayload, ContentType } from "../../algolia/types";
-import { creazioneLineeGuida, upsertFaqAggiornamenti } from "../api";
-import { FaqQuery, GuidelineQuery, UpdateQuery } from "@/graphql/generated";
+import { WebhookPayload } from "../../algolia/types";
+import { creazioneLineeGuida } from "../api";
+import { GuidelineQuery } from "@/graphql/generated";
 import { guideline } from "@/lib/datocms";
 
 async function getFileBase64(url: string) {
@@ -42,13 +42,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    let entity;
-    let entity_content;
     let record = {};
     const data: WebhookPayload = await request.json();
 
-    entity = (await guideline(data.entity.attributes.id!)) as GuidelineQuery;
-    entity_content = entity.guideline;
+    const entity = (await guideline(data.entity.attributes.id!)) as GuidelineQuery;
+    const entity_content = entity.guideline;
 
     if (entity_content) {
       const fileData = await getFileBase64(entity_content.allegato?.url || '');

@@ -2,6 +2,7 @@ import { WebhookPayload, ContentType } from "../../algolia/types";
 import { upsertFaqAggiornamenti } from "../api";
 import { FaqQuery, UpdateQuery } from "@/graphql/generated";
 import { faq, update } from "@/lib/datocms";
+import { records } from "../types";
 
 export async function POST(request: Request) {
   const secret = request.headers.get("X-Webhook-Secret");
@@ -20,7 +21,7 @@ export async function POST(request: Request) {
   try {
     let entity;
     let entity_content;
-    let records = [];
+    const records: records[] = [];
     const data: WebhookPayload = await request.json();
     const content_type: ContentType = data.related_entities.pop()?.attributes.api_key as ContentType;
 
@@ -50,12 +51,12 @@ export async function POST(request: Request) {
             attributes: { "type": "Informazione_CMS_Avviso__c" },
             External_ID__c: entity_content.id,
             Type__c: "Domande frequenti",
-            Category__c: entity_content.category?.label,
+            Category__c: entity_content.category?.label || '',
             URL__c: `${entity_content.slug}`,
-            URL_Label__c: entity_content.title,
+            URL_Label__c: entity_content.title || '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
-            Misura__c: entity_content.misura?.idSalesforce,
-            Pacchetto__c: entity_content.misura?.pacchetto,
+            Misura__c: entity_content.misura?.idSalesforce || '',
+            Pacchetto__c: entity_content.misura?.pacchetto || '',
             Avviso__c: data.entity.attributes.id_avviso_salesforce,
           });
         }
@@ -66,7 +67,7 @@ export async function POST(request: Request) {
 
     // Aggiorna i record su Salesforce
     const result = await upsertFaqAggiornamenti(records);
-    
+
     return Response.json({ 
       success: true, 
       message: 'Dati sincronizzati con successo su Salesforce',

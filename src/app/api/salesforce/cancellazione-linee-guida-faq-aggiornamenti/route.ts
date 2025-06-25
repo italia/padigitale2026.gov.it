@@ -1,5 +1,6 @@
-import { WebhookPayload, ContentType } from "../../algolia/types";
+import { WebhookPayload } from "../../algolia/types";
 import { cancellazioneLineeGuidaFaqAggiornamenti } from "../api";
+import { records } from "../types";
 
 export async function POST(request: Request) {
   const secret = request.headers.get("X-Webhook-Secret");
@@ -16,14 +17,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    let records = [];
-    const data: WebhookPayload = await request.json();
 
-    records.push({
-      attributes: { "type": "Informazione_CMS_Avviso__c" },
-      External_ID__c: data.entity.attributes.id,
-      Deleted__c: "true"
-    })
+    const data: WebhookPayload = await request.json();
+    
+    const records: records[] = [
+      {
+        attributes: { "type": "Informazione_CMS_Avviso__c" },
+        External_ID__c: data.entity.attributes.id,
+        Deleted__c: "true"
+      }
+    ];
 
     // Elimina i record da Salesforce
     const result = await cancellazioneLineeGuidaFaqAggiornamenti(records);

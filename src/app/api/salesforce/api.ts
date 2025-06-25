@@ -1,8 +1,9 @@
 import { getSalesforceToken } from './auth';
+import { records } from './types';
 
 const version = 'v57.0';
 
-export async function upsertFaqAggiornamenti(records: any) {
+export async function upsertFaqAggiornamenti(records: records[]) {
   try {
     // Ottieni il token di autenticazione
     const authData = await getSalesforceToken();
@@ -39,7 +40,7 @@ export async function upsertFaqAggiornamenti(records: any) {
   }
 }
 
-export async function cancellazioneLineeGuidaFaqAggiornamenti(records: any) {
+export async function cancellazioneLineeGuidaFaqAggiornamenti(records: records[]) {
   try {
     // Ottieni il token di autenticazione
     const authData = await getSalesforceToken();
@@ -76,7 +77,7 @@ export async function cancellazioneLineeGuidaFaqAggiornamenti(records: any) {
   }
 }
 
-export async function creazioneLineeGuida(record: any) {
+export async function creazioneLineeGuida(record: object) {
   try {
     // Ottieni il token di autenticazione
     const authData = await getSalesforceToken();
