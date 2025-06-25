@@ -18,6 +18,7 @@ import { HTMLAttributeAnchorTarget, useEffect, useRef, useState } from "react";
 import { useInstantSearch, useSearchBox, useHits } from "react-instantsearch";
 import { useRouter } from "next/navigation";
 import { PaginationItem, PaginationLink } from "reactstrap";
+import { useViewport } from "@/src/hooks/useViewport";
 
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 import { InstantSearch, Configure } from "react-instantsearch";
@@ -67,6 +68,7 @@ function SearchInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState(initialQuery || "");
+  const { isMobile, isTablet } = useViewport();
 
   // Focus the input on component mount
   useEffect(() => {
@@ -124,9 +126,21 @@ function SearchInput({
     onReset();
   };
 
+  // Label dinamica in base alla viewport
+  const getSearchLabel = () => {
+    if (isMobile) {
+      return "Cerca...";
+    } else if (isTablet) {
+      return "Inserisci almeno 3 caratteri";
+    } else {
+      return "Scrivi almeno 3 caratteri per cercare";
+    }
+  };
+
   return (
     <div ref={containerRef} className={cn("search-container")}>
       <Input
+        className={cn("black")}
         buttonRight={
           <Button
             color="primary"
@@ -142,7 +156,7 @@ function SearchInput({
           <Icon aria-hidden color="primary" icon="it-search" size="sm" />
         }
         id="search"
-        label="Scrivi almeno 3 caratteri per cercare"
+        label={getSearchLabel()}
         type="text"
         wrapperClassName={cn("mb-0")}
         innerRef={inputRef}

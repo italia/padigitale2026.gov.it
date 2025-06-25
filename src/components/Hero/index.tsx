@@ -47,7 +47,7 @@ export function Hero({ props }: { props: HeroRecord }) {
           "row container-xxl px-0 mx-auto position-relative flex-grow-1"
         }
       >
-        <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
+        <div className={cn("colonna-testo", "col-12 col-md-6 px-0")}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section
@@ -134,7 +134,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             )}
           </div>
         </div>
-        <div className={cn("colonna-immagine", "col-12 col-lg-6 px-0")}>
+        <div className={cn("colonna-immagine", "col-12 col-md-6 px-0")}>
           {/* Image */}
           {image?.responsiveImage && (
             <div className={"h-100 w-100"}>
