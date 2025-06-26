@@ -6,6 +6,7 @@ fragment CardsGridFieldsetFragment on CardsGridFieldsetRecord {
   description
   alignment
   columns
+  number
   singleCardsTitleTag
   button {
     ...ButtonFragment
