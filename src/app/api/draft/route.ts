@@ -2,7 +2,7 @@ import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
-  const PREVIEW_DOMAIN = "https://padigitale2026-gov-it-develop.vercel.app/";
+  const PREVIEW_DOMAIN = "https://padigitale2026-gov-it-preview.vercel.app";
   const TS = Date.now();
   // Parse query string parameters
   const { searchParams } = new URL(request.url);
