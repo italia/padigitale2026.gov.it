@@ -14,6 +14,7 @@ export interface Avviso {
   plateaPotenziale: string;
   oggettoBando: string;
   url?: string;
+  misura?: string;
 }
 
 /**
@@ -38,6 +39,7 @@ export async function getAvvisi(
   }
 
   // Inizializza Redis se non è già connesso
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let redis: any = null;
   if (useCache) {
     try {
@@ -166,6 +168,7 @@ export async function getAvvisi(
  * @param specificKey Chiave specifica da invalidare (opzionale)
  */
 export async function invalidateAvvisiCache(specificKey?: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let redis: any = null;
   try {
     redis = createClient({ url: process.env.REDIS_URL });
