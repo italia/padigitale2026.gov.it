@@ -509,6 +509,7 @@ export type CardsGridFieldsetRecord = RecordInterface & {
   columns?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ItemId']['output'];
+  number?: Maybe<Scalars['IntType']['output']>;
   singleCardsTitleTag?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   titleHtmlTag?: Maybe<Scalars['String']['output']>;
