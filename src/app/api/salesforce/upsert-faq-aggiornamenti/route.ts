@@ -52,7 +52,7 @@ export async function POST(request: Request) {
             External_ID__c: entity_content.id,
             Type__c: "Domande frequenti",
             Category__c: entity_content.category?.label || '',
-            URL__c: `${entity_content.slug}`,
+            URL__c: `${process.env.NEXT_PUBLIC_DOMAIN}/${entity_content.slug}`,
             URL_Label__c: entity_content.title || '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Misura__c: entity_content.misura?.idSalesforce || '',
