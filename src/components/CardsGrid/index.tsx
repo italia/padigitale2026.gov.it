@@ -7,7 +7,10 @@ import {
   CardsGridResourceRecord,
   CardsGridNewsRecord,
   CardsGridAnnouncementRecord,
+  CardsGridGuidelineRecord,
   NewsRecord,
+  GuidelineRecord,
+  CardAttachmentRecord,
 } from "@/graphql/generated";
 
 import styles from "./index.module.scss";
@@ -55,7 +58,8 @@ export function CardsGrid({
     | CardsGridServiceRecord
     | CardsGridResourceRecord
     | CardsGridNewsRecord
-    | CardsGridAnnouncementRecord;
+    | CardsGridAnnouncementRecord
+    | CardsGridGuidelineRecord;
   hasSidebar?: boolean;
 }) {
   const allDatoObjects = usePages();
@@ -133,6 +137,8 @@ export function CardsGrid({
 
   let news: NewsRecord[] = [];
   let newsSelection: string | null = null;
+
+  let guidelines: GuidelineRecord[] = [];
 
   const pathname = usePathname();
 
@@ -304,6 +310,18 @@ export function CardsGrid({
         } else if (newsSelection === "latest_6") {
           news = news.slice(0, 6);
         }
+      }
+    }
+  }
+
+  if (__typename === "CardsGridGuidelineRecord") {
+    if (typeof props.guidelines !== "undefined" && props.guidelines.length) {
+      guidelines = props.guidelines as GuidelineRecord[];
+    }
+
+    if (!guidelines.length) {
+      if (allDatoObjects.guidelines?.allGuidelines) {
+        guidelines = allDatoObjects.guidelines.allGuidelines as GuidelineRecord[];
       }
     }
   }
@@ -714,7 +732,50 @@ export function CardsGrid({
                 </div>
               );
             })()) ||
-            ""}
+          ""}
+
+          {(guidelines !== null &&
+            (() => {
+              if (columns === 1) {
+                colClasses = "col-12";
+              } else if (columns === 2) {
+                colClasses = "col-12 col-md-6";
+              } else if (columns === 3) {
+                colClasses = "col-12 col-lg-4";
+              } else if (columns === 4) {
+                colClasses = "col-12 col-lg-3";
+              }
+
+              return (
+                <div className={"row h-100"}>
+                  {guidelines.map((card, idx) => {
+
+                    const props = {
+                      __typename: "CardAttachmentRecord" as const,
+                      id: card.id,
+                      title: card.title,
+                      description: card.descrizione,
+                      label: `${card.allegato?.format}${card.allegato?.size ? `, ${(card.allegato.size / 1048576).toFixed(2)} MB` : ''}`,
+                      date: card.customUpdateDate,
+                      href: card.allegato?.url || "",
+                    } as CardAttachmentRecord;
+
+                    return (
+                      <div
+                        key={idx}
+                        className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
+                      >
+                        <CardAttachment
+                            TitleTag={cardTitleTag}
+                            props={props}
+                          />
+                        </div>
+                      );
+                  })}
+                </div>
+              );
+            })()) ||
+          ""}
 
           {button && (
             <div className={"row h-100"}>

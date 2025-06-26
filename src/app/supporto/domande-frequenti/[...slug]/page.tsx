@@ -1,4 +1,4 @@
-import { getPageData, generateAllStaticParams } from "@/lib/pageHelpers";
+import { getFaqData, generateAllStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { UpdateDate } from "@/src/components/UpdateDate";
 import { notFound } from "next/navigation";
@@ -8,36 +8,15 @@ export const revalidate = 120;
 
 export async function generateStaticParams() {
   const allParams = await generateAllStaticParams();
-
-  // Lista delle eccezioni che devono essere gestite dalla pagina principale
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-  ];
-
-  return allParams.filter((param) => {
-    const fullSlug = param.slug.join("/");
-
-    // Solo pagine normali (non supporto, notizie, risorse, FAQ)
-    const isNormalPage =
-      !param.slug.includes("supporto") &&
-      !param.slug.includes("notizie") &&
-      !param.slug.includes("guide-e-risorse") &&
-      param.slug[0] !== "open-data";
-
-    // Includi anche le eccezioni
-    const isException = supportoFaqExceptions.includes(fullSlug);
-
-    return isNormalPage || isException;
-  });
+  return allParams.filter(
+    (param) =>
+      param.slug[0] === "supporto" &&
+      param.slug[1] === "domande-frequenti" &&
+      param.slug.length > 2
+  );
 }
 
-export default async function Page({
+export default async function FaqPage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
@@ -45,7 +24,7 @@ export default async function Page({
   const { slug } = await params;
   const fullSlug = slug.join("/");
 
-  // Gestione delle eccezioni
+  // Lista delle eccezioni che devono essere gestite come supporto
   const supportoFaqExceptions = [
     "supporto/domande-frequenti/misure-e-avvisi",
     "supporto/domande-frequenti/utilizzo-della-piattaforma",
@@ -56,10 +35,13 @@ export default async function Page({
     "supporto/domande-frequenti/rendicontazione",
   ];
 
-  // Se è un'eccezione, usa getSupportoData
-  if (supportoFaqExceptions.includes(fullSlug)) {
+  // Costruisci il slug completo per il controllo delle eccezioni
+  const fullSlugForCheck = `supporto/domande-frequenti/${fullSlug}`;
+
+  // Se è un'eccezione, gestiscila come supporto
+  if (supportoFaqExceptions.includes(fullSlugForCheck)) {
     const { getSupportoData } = await import("@/lib/pageHelpers");
-    const pageData = await getSupportoData(fullSlug);
+    const pageData = await getSupportoData(fullSlugForCheck);
 
     if (!pageData) return notFound();
 
@@ -76,8 +58,8 @@ export default async function Page({
     );
   }
 
-  // Per tutte le altre pagine, usa getPageData
-  const pageData = await getPageData(fullSlug);
+  // Per le FAQ vere, usa getFaqData
+  const pageData = await getFaqData(fullSlug);
 
   if (!pageData) return notFound();
 
@@ -86,7 +68,7 @@ export default async function Page({
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <ModularContent content={{ page } as any} pageContentType="page" />
+      <ModularContent content={{ page } as any} pageContentType="faq" />
       {"customUpdateDate" in page && page.customUpdateDate && (
         <UpdateDate date={page.customUpdateDate} />
       )}

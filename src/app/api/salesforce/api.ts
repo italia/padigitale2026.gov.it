@@ -16,7 +16,7 @@ export async function upsertFaqAggiornamenti(records: records[]) {
 
     // Esegui la richiesta PATCH a Salesforce
     const response = await fetch(`${authData.instanceUrl}/services/data/${version}/composite/sobjects/Informazione_CMS_Avviso__c/External_ID__c`, {
-      method: 'patch',
+      method: 'PATCH',
       headers: {
         'Authorization': `${authData.tokenType} ${authData.accessToken}`,
         'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ export async function cancellazioneLineeGuidaFaqAggiornamenti(records: records[]
 
     // Esegui la richiesta PATCH a Salesforce
     const response = await fetch(`${authData.instanceUrl}/services/data/${version}/composite/sobjects/Informazione_CMS_Avviso__c/External_ID__c`, {
-      method: 'patch',
+      method: 'PATCH',
       headers: {
         'Authorization': `${authData.tokenType} ${authData.accessToken}`,
         'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ export async function creazioneLineeGuida(record: object) {
 
     // Esegui la richiesta POST a Salesforce
     const response = await fetch(`${authData.instanceUrl}/services/data/${version}/sobjects/ContentVersion`, {
-      method: 'post',
+      method: 'POST',
       headers: {
         'Authorization': `${authData.tokenType} ${authData.accessToken}`,
         'Content-Type': 'application/json'

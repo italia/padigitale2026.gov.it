@@ -13,6 +13,7 @@ import {
   CardsGridServiceRecord,
   CardsGridResourceRecord,
   CardsGridNewsRecord,
+  CardsGridGuidelineRecord,
   LayoutSidebarRecord,
   TableListRecord,
   TableListFaqRecord,
@@ -115,6 +116,8 @@ export function ModularContent({
             );
           case "CardsGridNewsRecord":
             return <CardsGrid key={idx} props={el as CardsGridNewsRecord} />;
+          case "CardsGridGuidelineRecord":
+            return <CardsGrid key={idx} props={el as CardsGridGuidelineRecord} />;
           case "CardsGridImageRecord":
             return (
               <CardsGridImages

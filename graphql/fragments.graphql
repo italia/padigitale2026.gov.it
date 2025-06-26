@@ -6,6 +6,7 @@ fragment CardsGridFieldsetFragment on CardsGridFieldsetRecord {
   description
   alignment
   columns
+  number
   singleCardsTitleTag
   button {
     ...ButtonFragment
@@ -188,6 +189,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on CardsGridNewsRecord {
     ...CardsGridNewsFragment
   }
+  # ... on CardsGridGuidelineRecord {
+  #   ...CardsGridGuidelineFragment
+  # }
   ... on CardsGridResourceRecord {
     ...CardsGridResourceFragment
   }
@@ -531,6 +535,33 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
   }
 }
 
+fragment CardsGridGuidelineFragment on CardsGridGuidelineRecord {
+  __typename
+  id
+  sectionFields {
+    ...CardsGridFieldsetFragment
+  }
+  guidelines {
+    __typename
+    id
+    title
+    descrizione
+    customUpdateDate
+    allegato {
+      id
+      size
+      filename
+      url
+      format
+    }
+    beneficiari {
+      label
+      id
+      labelSalesforce
+    }
+  }
+}
+
 fragment CardsGridResourceFragment on CardsGridResourceRecord {
   __typename
   id
@@ -822,8 +853,10 @@ fragment TabsWrapFragment on TabsWrapRecord {
 
 fragment FormNewsletterFragment on FormNewsletterRecord {
   __typename
+  id
 }
 
 fragment FormToFragment on FormToRecord {
   __typename
+  id
 }

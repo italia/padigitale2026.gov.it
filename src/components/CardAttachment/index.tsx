@@ -60,7 +60,7 @@ export function CardAttachment({
           {!href && !cmsAsset?.url && (
             <span className={cn("decoration-1", "text-primary")}>{title}</span>
           )}
-          <span className={cn("icon")} aria-hidden={"true"}>
+          <span className={cn("icon", "flex-shrink-0")} aria-hidden={"true"}>
             <Icon className="my-0" color="primary" icon="it-clip" />
           </span>
         </TitleTag>

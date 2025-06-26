@@ -13,7 +13,7 @@ import {
 import { AlgoliaDocument } from "./types";
 import { render } from "datocms-structured-text-to-plain-text";
 import { compressText, splitStringToChunks } from "./lib";
-import { getAvvisi } from "@/lib/salesforce";
+import { getAvvisi, type Avviso } from "@/lib/salesforce";
 import type { Algoliasearch } from "algoliasearch";
 import type { AlgoliaResponse, ContentType } from "./types";
 
@@ -166,7 +166,7 @@ export async function indexAvvisi(algoliaClient: Algoliasearch) {
     indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME,
 
     batchWriteParams: {
-      requests: avvisi.map((avviso) => {
+      requests: avvisi.map((avviso: Avviso) => {
         return {
           action: 'partialUpdateObject',
           body: {

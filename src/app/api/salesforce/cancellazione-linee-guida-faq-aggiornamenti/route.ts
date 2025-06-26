@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const records: records[] = [
       {
         attributes: { "type": "Informazione_CMS_Avviso__c" },
-        External_ID__c: data.entity.attributes.id,
+        External_ID__c: data.entity.id,
         Deleted__c: "true"
       }
     ];

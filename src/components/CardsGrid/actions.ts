@@ -11,7 +11,7 @@ export async function fetchAnnouncements(props: CardsGridAnnouncementRecord) {
     }
 
     const beneficiariLabels = props.beneficiari?.map(beneficiario => beneficiario.label).filter((label): label is string => label !== null && label !== undefined) || [];
-    const avvisi = await getAvvisi(Number(props.sectionFields?.columns) ?? 3, 'DESC', beneficiariLabels);
+    const avvisi = await getAvvisi(Number(props.sectionFields?.number) ?? 3, 'DESC', beneficiariLabels);
     return avvisi;
   } catch (error) {
     console.error("Error fetching announcements:", error);
