@@ -3,8 +3,6 @@ import { ModularContent } from "@/src/components/ModularContent";
 import { UpdateDate } from "@/src/components/UpdateDate";
 import { notFound } from "next/navigation";
 
-export const revalidate = 120;
-
 export default async function OpenDataPage() {
   const pageData = await getDatiData("open-data");
 
