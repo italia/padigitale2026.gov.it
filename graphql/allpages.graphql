@@ -78,9 +78,6 @@ query AllPages {
       ... on FormNewsletterRecord {
         ...FormNewsletterFragment
       }
-      ... on FormToRecord {
-        ...FormToFragment
-      }
     }
   }
   _allPagesMeta {
