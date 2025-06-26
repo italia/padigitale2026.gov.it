@@ -105,7 +105,9 @@ export default async function RootLayout({
                 window._paq = window._paq || [];
                 window._paq.push(['enableJSErrorTracking']);
                 window._paq.push(['setTrackerUrl', 'https://ingestion.webanalytics.italia.it//matomo.php']);
-                window._paq.push(['setSiteId', 'R9pxNNv0Xm']);
+                window._paq.push(['setSiteId', '${
+                  process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "R9pxNNv0Xm"
+                }']);
                 window._paq.push(['enableHeartBeatTimer']);
                 window.start = new Date();
                 (function () {
@@ -114,7 +116,9 @@ export default async function RootLayout({
                 })();
                 if (window.dev === true) {
                   console.debug('[Matomo] Tracking initialized');
-                  console.debug('[Matomo] matomoUrl: https://ingestion.webanalytics.italia.it/, siteId: R9pxNNv0Xm');
+                  console.debug('[Matomo] matomoUrl: https://ingestion.webanalytics.italia.it/, siteId: ${
+                    process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "R9pxNNv0Xm"
+                  }');
                 }
               }
             `,
@@ -125,7 +129,7 @@ export default async function RootLayout({
         <noscript>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://ingestion.webanalytics.italia.it//matomo.php?idsite=R9pxNNv0Xm&rec=1&url=https://padigitale2026.gov.it/"
+            src="https://ingestion.webanalytics.italia.it//matomo.php?idsite=${process.env.NEXT_PUBLIC_MATOMO_SITE_ID || 'R9pxNNv0Xm'}&rec=1&url=https://padigitale2026.gov.it/"
             style={{ border: 0 }}
             alt="tracker"
           />
