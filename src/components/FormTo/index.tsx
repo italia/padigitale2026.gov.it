@@ -129,7 +129,7 @@ function FormToContent() {
       <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
         <h2 className="mb-5">Lascia i tuoi dati per essere contattato</h2>
         <div className="row">
-          <div className="col-10">
+          <div className="col-12 col-md-10">
             <div className="alert alert-success" role="alert">
               <h4 className="alert-heading">Messaggio inviato!</h4>
               <p>{message}</p>
@@ -148,7 +148,7 @@ function FormToContent() {
     <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
       <h2 className="mb-5">Lascia i tuoi dati per essere contattato</h2>
       <div className="row">
-        <div className="col-10">
+        <div className="col-12 col-md-10">
           <p className="text-muted">I campi con asterisco sono obbligatori</p>
 
           {status === "error" && (
