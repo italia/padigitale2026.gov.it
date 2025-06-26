@@ -12,6 +12,7 @@ import {
   AllUpdatesQuery,
   AllSupportosQuery,
   AllDatisQuery,
+  AllGuidelinesQuery,
 } from "@/graphql/generated";
 
 interface PagesContextType {
@@ -20,6 +21,7 @@ interface PagesContextType {
   supportos: AllSupportosQuery;
   news: AllNewsQuery;
   resources: AllResourcesQuery;
+  guidelines: AllGuidelinesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
   entePromotores: AllEntePromotoresQuery;
   misuras: AllMisurasQuery;
@@ -46,6 +48,7 @@ interface PagesProviderProps {
   supportos: AllSupportosQuery;
   news: AllNewsQuery;
   resources: AllResourcesQuery;
+  guidelines: AllGuidelinesQuery;
   enteBeneficiarios: AllEnteBeneficiariosQuery;
   entePromotores: AllEntePromotoresQuery;
   misuras: AllMisurasQuery;
@@ -60,6 +63,7 @@ export function PagesProvider({
   supportos,
   news,
   resources,
+  guidelines,
   enteBeneficiarios,
   entePromotores,
   misuras,
@@ -74,6 +78,7 @@ export function PagesProvider({
         supportos,
         news,
         resources,
+        guidelines,
         enteBeneficiarios,
         entePromotores,
         misuras,

@@ -188,6 +188,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on CardsGridNewsRecord {
     ...CardsGridNewsFragment
   }
+  # ... on CardsGridGuidelineRecord {
+  #   ...CardsGridGuidelineFragment
+  # }
   ... on CardsGridResourceRecord {
     ...CardsGridResourceFragment
   }
@@ -528,6 +531,33 @@ fragment CardsGridNewsFragment on CardsGridNewsRecord {
     summary
     category
     customUpdateDate
+  }
+}
+
+fragment CardsGridGuidelineFragment on CardsGridGuidelineRecord {
+  __typename
+  id
+  sectionFields {
+    ...CardsGridFieldsetFragment
+  }
+  guidelines {
+    __typename
+    id
+    title
+    descrizione
+    customUpdateDate
+    allegato {
+      id
+      size
+      filename
+      url
+      format
+    }
+    beneficiari {
+      label
+      id
+      labelSalesforce
+    }
   }
 }
 

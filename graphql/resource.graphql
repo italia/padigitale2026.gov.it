@@ -36,6 +36,9 @@ query Resource($slug: String) {
       ... on CardsGridNewsRecord {
         ...CardsGridNewsFragment
       }
+      ... on CardsGridGuidelineRecord {
+        ...CardsGridGuidelineFragment
+      }
       ... on CardsGridResourceRecord {
         ...CardsGridResourceFragment
       }

@@ -36,6 +36,9 @@ query AllPages {
       ... on CardsGridNewsRecord {
         ...CardsGridNewsFragment
       }
+      ... on CardsGridGuidelineRecord {
+        ...CardsGridGuidelineFragment
+      }      
       ... on CardsGridResourceRecord {
         ...CardsGridResourceFragment
       }
