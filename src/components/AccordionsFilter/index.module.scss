@@ -1,0 +1,20 @@
+// .wrapper {}
+.custom-accordion-header {
+  border: none !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  padding-inline: 0 !important;
+  margin-block: 16px !important;
+  color: var(--color-text-secondary, #2f475e) !important;
+
+  &::before {
+    color: #06c !important;
+  }
+}
+
+.custom-accordion-body > div {
+  padding-inline: 0;
+  padding-top: 0;
+  padding-bottom: 64px;
+}

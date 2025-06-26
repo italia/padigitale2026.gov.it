@@ -3,31 +3,141 @@ query Footer {
     title
     titleColonna1
     linkColonna1 {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on NewsRecord {
+        id
+        slug
+        title
+      }
+      ... on ResourceRecord {
+        id
+        slug
+        title
+      }
+      ... on FaqRecord {
+        id
+        slug
+        title
+      }
+      ... on SupportoRecord {
+        id
+        slug
+        title
+      }
     }
     titleColonna2
     linkColonna2 {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on NewsRecord {
+        id
+        slug
+        title
+      }
+      ... on ResourceRecord {
+        id
+        slug
+        title
+      }
+      ... on FaqRecord {
+        id
+        slug
+        title
+      }
+      ... on SupportoRecord {
+        id
+        slug
+        title
+      }
     }
     titleColonna3
     linkColonna3 {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on NewsRecord {
+        id
+        slug
+        title
+      }
+      ... on ResourceRecord {
+        id
+        slug
+        title
+      }
+      ... on FaqRecord {
+        id
+        slug
+        title
+      }
+      ... on SupportoRecord {
+        id
+        slug
+        title
+      }
     }
     linkNewsletter {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on NewsRecord {
+        id
+        slug
+        title
+      }
+      ... on ResourceRecord {
+        id
+        slug
+        title
+      }
+      ... on FaqRecord {
+        id
+        slug
+        title
+      }
+      ... on SupportoRecord {
+        id
+        slug
+        title
+      }
     }
     linkUtili {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on NewsRecord {
+        id
+        slug
+        title
+      }
+      ... on ResourceRecord {
+        id
+        slug
+        title
+      }
+      ... on FaqRecord {
+        id
+        slug
+        title
+      }
+      ... on SupportoRecord {
+        id
+        slug
+        title
+      }
     }
   }
 }

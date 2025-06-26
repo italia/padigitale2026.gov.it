@@ -3,14 +3,28 @@ query Header {
     title
     subtitle
     mainLinks {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on DatiRecord {
+        id
+        slug
+        title
+      }
     }
     secondaryLinks {
-      id
-      slug
-      title
+      ... on PageRecord {
+        id
+        slug
+        title
+      }
+      ... on DatiRecord {
+        id
+        slug
+        title
+      }
     }
   }
 }

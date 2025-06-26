@@ -1,1 +1,2 @@
-@import "./mq";
+@use "./mq" as *;
+@forward "./mq" show mb;

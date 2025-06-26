@@ -1,0 +1,5 @@
+query AlgoliaNews($id: ItemId) {
+  news(filter: { id: { eq: $id } }) {
+    ...NewsFields
+  }
+}

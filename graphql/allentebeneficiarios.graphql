@@ -1,0 +1,6 @@
+query AllEnteBeneficiarios {
+  allEnteBeneficiarios(orderBy: label_ASC) {
+    label
+    id
+  }
+}

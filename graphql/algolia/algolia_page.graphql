@@ -1,0 +1,5 @@
+query AlgoliaPage($id: ItemId) {
+  page(filter: { id: { eq: $id } }) {
+    ...PageFields
+  }
+}

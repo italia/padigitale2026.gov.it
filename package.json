@@ -2,28 +2,42 @@
   "name": "next-starter-designkit",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/copy-bootstrap.js && next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "postinstall": "cd node_modules/bootstrap-italia && npm install && npm run build"
   },
   "dependencies": {
     "@datocms/cda-client": "^0.2.7",
-    "bootstrap-italia": "2.14.0",
-    "design-react-kit": "5.7.1",
-    "dotenv": "^16.4.7",
-    "graphql": "^16.10.0",
-    "next": "15.3.0",
+    "@datocms/cma-client": "^4.0.1",
+    "algoliasearch": "^5.26.0",
+    "bootstrap-italia": "git+https://github.com/italia/bootstrap-italia.git#feat-card-to-be",
+    "csrf": "^3.1.0",
+    "dataviz-components": "^0.1.7",
+    "datocms-structured-text-to-plain-text": "^5.0.0",
+    "design-react-kit": "5.7.0",
+    "dotenv": "^16.5.0",
+    "graphql": "^16.11.0",
+    "iron-session": "^8.0.4",
+    "jsforce": "^3.8.2",
+    "jwt-decode": "^4.0.0",
+    "next": "15.2.4",
     "next-sitemap": "^4.2.3",
     "react": "19.1.0",
     "react-datocms": "^7.2.2",
     "react-dom": "19.1.0",
+    "react-google-recaptcha-v3": "^1.11.0",
+    "react-instantsearch": "^7.15.8",
+    "redis": "^5.5.6",
     "typeface-lora": "1.1.13",
     "typeface-roboto-mono": "1.1.13",
     "typeface-titillium-web": "1.1.13",
-    "vercel": "^41.6.2"
+    "vercel": "^41.7.0",
+    "zod": "^3.25.64"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
@@ -38,8 +52,8 @@
     "@types/react-dom": "19.1.1",
     "classnames": "^2.5.1",
     "eslint": "9.24.0",
-    "eslint-config-next": "15.3.0",
-    "sass": "^1.86.3",
+    "eslint-config-next": "15.2.4",
+    "sass": "^1.87.0",
     "typescript": "5.8.3"
   }
 }

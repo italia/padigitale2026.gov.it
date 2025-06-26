@@ -1,5 +1,3 @@
-"use client";
-
 import { SRCImage } from "react-datocms";
 import { HeroRecord } from "@/graphql/generated";
 import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";
@@ -44,8 +42,12 @@ export function Hero({ props }: { props: HeroRecord }) {
   } = props;
   return (
     <HeroComponent className={cn("wrapper", { "light-theme": lightTheme })}>
-      <div className={"row container-xxl px-0 mx-auto position-relative"}>
-        <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
+      <div
+        className={
+          "row container-xxl px-0 mx-auto position-relative flex-grow-1"
+        }
+      >
+        <div className={cn("colonna-testo", "col-12 col-md-6 px-0")}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section
@@ -57,14 +59,14 @@ export function Hero({ props }: { props: HeroRecord }) {
           {/* Body */}
           <div className="it-hero-text-wrapper container-xxl px-lg-2 mx-lg-1">
             {title && (
-              <HeroTitle className={cn({ "text-secondary": lightTheme })}>
+              <HeroTitle className={cn({ "neutral-1-color-a9": lightTheme })}>
                 {title}
               </HeroTitle>
             )}
             {description && (
               <p
-                className={cn("fs-4 font-sans-serif", {
-                  "text-secondary": lightTheme,
+                className={cn("h-4 font-sans-serif", {
+                  "neutral-1-color-a9": lightTheme,
                 })}
               >
                 {description}
@@ -86,8 +88,8 @@ export function Hero({ props }: { props: HeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        className="mb-2"
-                        color={"currentColor"}
+                        className="my-0"
+                        color="primary"
                         icon={button.icon}
                         size="sm"
                         title=""
@@ -105,8 +107,8 @@ export function Hero({ props }: { props: HeroRecord }) {
                     {button.text}
                     {button.icon && (
                       <Icon
-                        className="mb-2"
-                        color={"currentColor"}
+                        className="my-0"
+                        color="primary"
                         icon={button.icon}
                         size="sm"
                         title=""
@@ -132,7 +134,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             )}
           </div>
         </div>
-        <div className={cn("colonna-immagine", "col-12 col-lg-6 px-0")}>
+        <div className={cn("colonna-immagine", "col-12 col-md-6 px-0")}>
           {/* Image */}
           {image?.responsiveImage && (
             <div className={"h-100 w-100"}>

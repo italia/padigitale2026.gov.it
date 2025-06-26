@@ -16,9 +16,9 @@ import {
 
 export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
   return (
-    <Header theme={theme || ""} type="slim">
-      <HeaderContent>
-        <HeaderBrand responsive href="/">
+    <Header theme={theme || ""} type="slim" className={"px-0"}>
+      <HeaderContent className={"px-0"}>
+        <HeaderBrand responsive href="/" className={"fw-semibold"}>
           Dipartimento per la trasformazione digitale
         </HeaderBrand>
         <HeaderRightZone>
@@ -28,7 +28,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
               style={{ fontSize: "0.875rem" }}
             >
               <Link
-                href="#"
+                href="https://innovazione.gov.it/italia-digitale-2026/"
                 title="Italia digitale 2026"
                 className="text-decoration-underline"
               >
@@ -40,7 +40,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
               style={{ fontSize: "0.875rem" }}
             >
               <Link
-                href="#"
+                href="https://www.italiadomani.gov.it/it/home.html"
                 title="Italia domani - PNRR"
                 className="text-decoration-underline"
               >
@@ -64,7 +64,12 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
               </LinkList>
             </DropdownMenu>
           </Dropdown> */}
-          <Button className="btn-icon btn-full" color="primary" href="#">
+          <Button
+            className="btn-icon btn-full"
+            color="primary"
+            title={"Clicca qui per accedere all&#39;area personale"}
+            href="#"
+          >
             <span className="rounded-icon">
               <Icon color="primary" icon="it-user" />
             </span>

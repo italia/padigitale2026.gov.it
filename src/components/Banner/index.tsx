@@ -1,11 +1,5 @@
-"use client";
-
 import { BannerRecord } from "@/graphql/generated";
-import {
-  Hero as BannerComponent,
-  HeroTitle as BannerTitle,
-  Icon,
-} from "design-react-kit";
+import { Icon } from "design-react-kit";
 import Link from "next/link";
 
 import styles from "./index.module.scss";
@@ -37,7 +31,7 @@ const getButtonTitle = (button: BannerRecord["button"]) => {
 export function Banner({ props }: { props: BannerRecord }) {
   const { lightTheme = false, title, description, button } = props;
   return (
-    <BannerComponent
+    <div
       className={cn(
         "wrapper",
         {
@@ -46,40 +40,38 @@ export function Banner({ props }: { props: BannerRecord }) {
         "p-0"
       )}
     >
-      <div className={cn("row w-100 h-100 mx-auto container-xxl")}>
+      <div className={cn("container-xxl")}>
         {/* Body */}
-        <div className="p-4">
-          {title && (
-            <BannerTitle className={"text-secondary mb-3 fs-1 lh-sm"}>
-              {title}
-            </BannerTitle>
-          )}
+        <div className="row h-100 py-4">
+          {title && <h2 className={"col-12 mb-3 h-2 lh-sm"}>{title}</h2>}
           {description && (
-            <p className={"font-sans-serif text-secondary"}>{description}</p>
+            <p className={"col-12 font-sans-serif"}>{description}</p>
           )}
 
           {button && (
-            <Link
-              className="btn btn-sm btn-outline-primary mt-2"
-              href={getButtonHref(button)}
-              target={button.target || "_self"}
-              title={getButtonTitle(button)}
-            >
-              {button.text}
-              {button.icon && (
-                <Icon
-                  className="mb-2"
-                  color=""
-                  icon={button.icon}
-                  size="sm"
-                  title=""
-                  padding
-                />
-              )}
-            </Link>
+            <div className={"col-12"}>
+              <Link
+                className="btn btn-sm btn-outline-primary mt-2"
+                href={getButtonHref(button)}
+                target={button.target || "_self"}
+                title={getButtonTitle(button)}
+              >
+                {button.text}
+                {button.icon && (
+                  <Icon
+                    className="my-0"
+                    color="primary"
+                    icon={button.icon}
+                    size="sm"
+                    title=""
+                    padding
+                  />
+                )}
+              </Link>
+            </div>
           )}
         </div>
       </div>
-    </BannerComponent>
+    </div>
   );
 }

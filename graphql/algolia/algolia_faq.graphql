@@ -1,0 +1,5 @@
+query AlgoliaFaq($id: ItemId) {
+  faq(filter: { id: { eq: $id } }) {
+    ...FaqFields
+  }
+}

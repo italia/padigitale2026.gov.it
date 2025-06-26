@@ -1,140 +1,88 @@
+#import "./fragments.graphql"
+
 query AllPages {
   allPages(first: 100) {
+    _createdAt
+    _updatedAt
+    id
     title
     slug
+    customUpdateDate
     body {
-      ... on AlertRecord {
-        __typename
-        text
-        color
-      }
-      ... on ButtonRecord {
-        __typename
-        id
-        href
-        target
-        text
-        icon
-        cmsPage {
-          title
-          slug
-        }
-      }
       ... on HeroRecord {
-        __typename
-        lightTheme
-        hideBreadcrumbs
-        title
-        description
-        updateDate
-        image {
-          responsiveImage {
-            __typename
-            src
-            alt
-            aspectRatio
-            width
-            height
-          }
-        }
-        button {
-          __typename
-          id
-          href
-          target
-          text
-          icon
-          cmsPage {
-            title
-            slug
-          }
-        }
-      }
-      ... on DataHeroRecord {
-        __typename
-        hideBreadcrumbs
-        title
-        updateDate
-        button {
-          __typename
-          icon
-          href
-          target
-          text
-          cmsPage {
-            slug
-            title
-          }
-        }
-        argomento {
-          label
-          slug
-        }
-        badge {
-          label
-        }
-        beneficiari {
-          label
-        }
-        misura {
-          label
-          slug
-          basePath
-        }
+        ...HeroFragment
       }
       ... on SplitBannerRecord {
-        __typename
-        id
-        title
-        description
-        imgLeft
-        lightTheme
-        links {
-          id
-          slug
-          title
-        }
-        image {
-          responsiveImage {
-            __typename
-            src
-            alt
-            aspectRatio
-            width
-            height
-          }
-        }
-        button {
-          __typename
-          id
-          href
-          target
-          text
-          icon
-          cmsPage {
-            title
-            slug
-          }
-        }
+        ...SplitBannerFragment
       }
       ... on BannerRecord {
-        __typename
-        id
-        title
-        description
-        lightTheme
-        button {
-          __typename
-          id
-          href
-          target
-          text
-          icon
-          cmsPage {
-            title
-            slug
-          }
-        }
+        ...BannerFragment
+      }
+      ... on RichTextSectionRecord {
+        ...RichTextSectionFragment
+      }
+      ... on VideoPlayerRecord {
+        ...VideoPlayerFragment
+      }
+      ... on CardsGridGenericRecord {
+        ...CardsGridGenericFragment
+      }
+      ... on CardsGridAttachmentRecord {
+        ...CardsGridAttachmentFragment
+      }
+      ... on CardsGridServiceRecord {
+        ...CardsGridServiceFragment
+      }
+      ... on CardsGridNewsRecord {
+        ...CardsGridNewsFragment
+      }
+      ... on CardsGridGuidelineRecord {
+        ...CardsGridGuidelineFragment
+      }
+      ... on CardsGridResourceRecord {
+        ...CardsGridResourceFragment
+      }
+      ... on CardsGridAnnouncementRecord {
+        ...CardsGridAnnouncementFragment
+      }
+      ... on CardsGridImageRecord {
+        ...CardsGridImagesFragment
+      }
+      ... on LayoutSidebarRecord {
+        ...LayoutSidebarFragment
+      }
+      ... on LayoutSidebarFilterRecord {
+        ...LayoutSidebarFilterFragment
+      }
+      ... on TableListRecord {
+        ...TableListFragment
+      }
+      ... on TableListFaqRecord {
+        ...TableListFaqFragment
+      }
+      ... on TableListUpdateRecord {
+        ...TableListUpdateFragment
+      }
+      ... on CardsListFilterRecord {
+        ...CardsListFilterFragment
+      }
+      ... on HeroSearchRecord {
+        ...HeroSearchFragment
+      }
+      ... on InstantSearchFaqRecord {
+        ...InstantSearchFaqFragment
+      }
+      ... on BloccoGraficoRecord {
+        ...BloccoGraficoFragment
+      }
+      ... on TabsWrapRecord {
+        ...TabsWrapFragment
+      }
+      ... on FormNewsletterRecord {
+        ...FormNewsletterFragment
+      }
+      ... on FormToRecord {
+        ...FormToFragment
       }
     }
   }

@@ -1,0 +1,5 @@
+query AlgoliaResource($id: ItemId) {
+  resource(filter: { id: { eq: $id } }) {
+    ...ResourceFields
+  }
+}

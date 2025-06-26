@@ -1,0 +1,24 @@
+#import "./fragments.graphql"
+
+query Update($id: ItemId) {
+  update(filter: { id: { eq: $id } }) {
+    __typename
+    _createdAt
+    _updatedAt
+    id
+    title
+    customUpdateDate
+    idAvvisoSalesforce
+    beneficiari {
+      label
+      id
+      labelSalesforce
+    }
+    cta {
+      ...ButtonFragment
+    }
+  }
+  _allUpdatesMeta {
+    count
+  }
+}

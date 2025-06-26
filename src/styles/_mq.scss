@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Breakpoint variables
 $grid-breakpoints: (
   xs: 0,
@@ -15,8 +17,8 @@ $grid-breakpoints: (
 //   // stili
 // }
 @mixin mb($breakpoint) {
-  @if map-has-key($grid-breakpoints, $breakpoint) {
-    @media (min-width: map-get($grid-breakpoints, $breakpoint)) {
+  @if map.has-key($grid-breakpoints, $breakpoint) {
+    @media (min-width: map.get($grid-breakpoints, $breakpoint)) {
       @content;
     }
   } @else {

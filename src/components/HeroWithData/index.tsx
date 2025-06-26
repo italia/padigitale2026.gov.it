@@ -1,100 +1,100 @@
-"use client";
-
 import { DataHeroRecord } from "@/graphql/generated";
-import { Hero as HeroComponent, HeroTitle, Icon } from "design-react-kit";
-import Link from "next/link";
+import { Hero as HeroComponent, HeroTitle } from "design-react-kit";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
+import { CopyLinkButton } from "@/src/components/CopyLinkButton";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 const cn = classNames.bind(styles);
 
-const getButtonHref = (button: DataHeroRecord["button"]) => {
-  // href link > cms page
-  if (button?.href) {
-    return `${button.href}`;
-  }
-  if (button?.cmsPage?.slug) {
-    return `/${button.cmsPage.slug}`;
-  }
-  return "";
-};
+const getBadge = (item: DataHeroRecord) => {
+  const createdAt = item._createdAt;
+  const updatedAt = item._updatedAt;
+  const now = new Date();
+  const createdDate = new Date(createdAt);
+  const updatedDate = new Date(updatedAt);
 
-const getButtonTitle = (button: DataHeroRecord["button"]) => {
-  // href link > cms page
-  if (button?.href) {
-    return button.text || "";
+  // Badge "Nuovo" wins over "Aggiornato" (if both are true)
+
+  // if createdDate is < of 60 days return "Nuovo"
+  if (createdDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)) {
+    return "Nuovo";
   }
-  if (button?.cmsPage?.title) {
-    return `Vai alla pagina ${button.cmsPage.title}`;
+
+  // if updatedDate is < of 60 days return "Aggiornato"
+  if (updatedDate > new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000)) {
+    return "Aggiornato";
   }
-  return "";
+
+  return null;
 };
 
 export function HeroWithData({ props }: { props: DataHeroRecord }) {
   const {
     title,
-    button,
     hideBreadcrumbs = false,
     updateDate,
     argomento,
     misura,
     beneficiari,
-    badge,
   } = props;
+
   return (
     <HeroComponent className={cn("wrapper")}>
-      <div className={"row container-xxl px-0 mx-auto position-relative"}>
-        <div className={"px-0"}>
+      <div className={"container-xxl position-relative"}>
+        <div className={"row"}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
-            <section className={cn("pt-2 px-4")}>
+            <section className={cn("pt-2 col-12")}>
               <Breadcrumbs lightTheme />
             </section>
           )}
           {/* Body */}
-          <div className={"pb-4 px-4"}>
-            {title && (
-              <HeroTitle className={cn("text-secondary fs-1")}>
-                {title}
-              </HeroTitle>
-            )}
+          <div className={"pb-4 col-12"}>
+            {title && <HeroTitle className={cn("h-1")}>{title}</HeroTitle>}
             <div
               className={cn("d-flex flex-wrap my-4 pb-3")}
               style={{ columnGap: "4rem", rowGap: "1rem" }}
             >
               {argomento && (
                 <div
-                  className={cn("text-secondary fs-6")}
+                  className={cn("text-secondary h-6")}
                   style={{ minWidth: "114px" }}
                 >
-                  <h6 className="fw-normal fs-6">Argomento</h6>
-                  <a className="fw-semibold fs-6" href={argomento.slug || ""}>
+                  <div className="fw-normal h-6">Argomento</div>
+                  <a className="fw-semibold h-6" href={argomento.slug || ""}>
                     {argomento.label}
                   </a>
                 </div>
               )}
               {misura && (
-                <div className={cn("text-secondary fs-6")}>
-                  <h6 className="fw-normal fs-6">Misura</h6>
+                <div className={cn("text-secondary h-6")}>
+                  <div className="fw-normal h-6">Misura</div>
                   <a
-                    className="fw-semibold fs-6"
+                    className="fw-semibold h-6"
                     href={`${misura.basePath || ""}${misura.slug || ""}`}
                   >
                     {misura.label}
                   </a>
                 </div>
               )}
-              {beneficiari && (
-                <div className={cn("text-secondary fs-6")}>
-                  <h6 className="fw-normal fs-6">Beneficiari</h6>
-                  <p className="fw-semibold fs-6 mb-0">{beneficiari.label}</p>
+              {getBadge(props) && (
+                <div className={cn("text-secondary h-6")}>
+                  <div className="fw-normal h-6">Stato</div>
+                  <p className="fw-semibold h-6 mb-0">{getBadge(props)}</p>
                 </div>
               )}
-              {badge && (
-                <div className={cn("text-secondary fs-6")}>
-                  <h6 className="fw-normal fs-6">Stato</h6>
-                  <p className="fw-semibold fs-6 mb-0">{badge.label}</p>
+              {beneficiari && (
+                <div className={cn("text-secondary h-6")}>
+                  <div className="fw-normal h-6">Beneficiari</div>
+                  <p className="fw-semibold h-6 mb-0">
+                    {beneficiari.map((ente, idx) => (
+                      <span key={idx}>
+                        {ente.label}
+                        {idx < beneficiari.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </p>
                 </div>
               )}
             </div>
@@ -102,35 +102,25 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
               className={cn("d-flex flex-wrap align-items-center")}
               style={{ columnGap: "4rem", rowGap: "1rem" }}
             >
-              {button && (
-                <div className={cn("it-btn-container")}>
-                  <Link
-                    className="btn btn-sm btn-outline-primary btn-mini"
-                    href={getButtonHref(button)}
-                    target={button.target || "_self"}
-                    title={getButtonTitle(button)}
-                  >
-                    {button.text}
-                    {button.icon && (
-                      <Icon
-                        className="mb-2"
-                        color=""
-                        icon={button.icon}
-                        size="sm"
-                        title=""
-                        padding
-                      />
-                    )}
-                  </Link>
-                </div>
-              )}
+              <div className={cn("it-btn-container")}>
+                <CopyLinkButton />
+              </div>
+
               {updateDate && updateDate.length > 0 && (
                 <p
                   className={
-                    "font-sans-serif text-body-secondary text-secondary m-0 fw-normal fs-6"
+                    "font-sans-serif text-body-secondary m-0 fw-normal h-6"
                   }
                 >
-                  {updateDate}
+                  Aggiornato il{" "}
+                  <time dateTime={updateDate}>
+                    {new Intl.DateTimeFormat("it-IT", {
+                      timeZone: "Europe/Rome",
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    }).format(new Date(updateDate))}
+                  </time>
                 </p>
               )}
             </div>

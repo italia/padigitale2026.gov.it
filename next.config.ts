@@ -7,6 +7,29 @@ const nextConfig: NextConfig = {
     DATOCMS_INCLUDE_DRAFTS: process.env.DATOCMS_INCLUDE_DRAFTS,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: 'Cache-Control',
+            // max-age=0 -> Indica di disattivare la cache del browser
+            // s-maxage=120 -> Indica alla CDN di Vercel una cache di 120s
+            // stale-while-revalidate=120 -> Serve contenuto stale per 120s
+            // mentre viene fatto rebuild in background.
+            value: 'public, max-age=0, s-maxage=120, stale-while-revalidate=60',
+          },
+          {
+            key: 'Vercel-CDN-Cache-Control',
+            // max-age=120 -> Header specifico per Vercel Edge, ha la precedenza
+            // su Cache-Control.
+            value: 'max-age=120',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

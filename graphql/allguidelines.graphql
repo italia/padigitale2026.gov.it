@@ -1,0 +1,29 @@
+#import "./fragments.graphql"
+
+query AllGuidelines {
+  allGuidelines(first: 200) {
+    __typename
+    _createdAt
+    _updatedAt
+    id
+    title
+    descrizione
+    customUpdateDate
+    allegato {
+      id
+      size
+      filename
+      url
+      format
+    }
+    idAvvisoSalesforce
+    beneficiari {
+      label
+      id
+      labelSalesforce
+    }
+  }
+  _allUpdatesMeta {
+    count
+  }
+}
