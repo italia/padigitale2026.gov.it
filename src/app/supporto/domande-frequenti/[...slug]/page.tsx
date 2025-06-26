@@ -41,7 +41,9 @@ export default async function FaqPage({
   // Se è un'eccezione, gestiscila come supporto
   if (supportoFaqExceptions.includes(fullSlugForCheck)) {
     const { getSupportoData } = await import("@/lib/pageHelpers");
-    const pageData = await getSupportoData(fullSlugForCheck);
+    // Per le eccezioni, passa solo domande-frequenti/misure-e-avvisi (senza il prefisso supporto/)
+    const exceptionSlug = `domande-frequenti/${fullSlug}`;
+    const pageData = await getSupportoData(exceptionSlug);
 
     if (!pageData) return notFound();
 
