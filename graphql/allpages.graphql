@@ -84,6 +84,9 @@ query AllPages {
       ... on FormToRecord {
         ...FormToFragment
       }
+      ... on FormValutazioneRecord {
+        ...FormValutazioneFragment
+      }
     }
   }
   _allPagesMeta {

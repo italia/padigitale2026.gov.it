@@ -96,7 +96,11 @@ export function TableListFaq({
                     href={`/${item.slug}`}
                     title={item.title || ""}
                     key={`faq-link-${item.id || idx}`}
-                    aria-label={`Vai alla domanda: ${item.title}`}
+                    aria-label={
+                      item.category
+                        ? `Categoria: ${item.category.label}`
+                        : undefined
+                    }
                   >
                     <div>
                       <div
@@ -125,6 +129,7 @@ export function TableListFaq({
                                 "neutral-1-bg-a2 text-dark":
                                   badge === "Aggiornato",
                               })}
+                              aria-label={`Contenuto ${badge.toLowerCase()}`}
                             >
                               {badge}
                             </Badge>

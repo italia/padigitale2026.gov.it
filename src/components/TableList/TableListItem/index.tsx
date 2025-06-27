@@ -32,7 +32,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
       {date && (
         <div className="col-12 col-sm-2 ps-0">
           <span className="visually-hidden">Data: </span>
-          <time>
+          <time dateTime={date}>
             {new Intl.DateTimeFormat("it-IT", {
               timeZone: "Europe/Rome",
               day: "2-digit",
@@ -49,7 +49,16 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
             className="fw-semibold text-nowrap"
             href={getHref(link)}
             title={getTitle(link)}
-            aria-label={`${getTitle(link)}: ${title}`}
+            aria-label={
+              date
+                ? `Data: ${new Intl.DateTimeFormat("it-IT", {
+                    timeZone: "Europe/Rome",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(Date.parse(date))}`
+                : undefined
+            }
           >
             <span style={{ fontSize: "0.875rem", lineHeight: "1.556" }}>
               {link?.text}

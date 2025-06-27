@@ -62,6 +62,9 @@ query allDatis {
       ... on TabsWrapRecord {
         ...TabsWrapFragment
       }
+      ... on FormValutazioneRecord {
+        ...FormValutazioneFragment
+      }
     }
   }
   _allPagesMeta {

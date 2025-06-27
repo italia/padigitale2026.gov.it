@@ -190,7 +190,7 @@ export function TableListUpdates({
                               <span className="visually-hidden">
                                 Data di aggiornamento:
                               </span>
-                              <time>
+                              <time dateTime={customUpdateDate}>
                                 {new Intl.DateTimeFormat("it-IT", {
                                   timeZone: "Europe/Rome",
                                   day: "2-digit",
@@ -220,7 +220,21 @@ export function TableListUpdates({
                                   <Link
                                     className="fw-semibold text-nowrap"
                                     href={buttonHref}
-                                    aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
+                                    aria-label={
+                                      customUpdateDate
+                                        ? `Aggiornato il ${new Intl.DateTimeFormat(
+                                            "it-IT",
+                                            {
+                                              timeZone: "Europe/Rome",
+                                              day: "2-digit",
+                                              month: "long",
+                                              year: "numeric",
+                                            }
+                                          ).format(
+                                            Date.parse(customUpdateDate)
+                                          )}`
+                                        : undefined
+                                    }
                                     target={"_self"}
                                   >
                                     {cta?.href && (
@@ -340,6 +354,7 @@ export function TableListUpdates({
               href={getButtonHref(button)}
               target={button.target || "_self"}
               title={getButtonTitle(button)}
+              aria-label={getButtonTitle(button)}
             >
               {button.text}
               {button.icon && (

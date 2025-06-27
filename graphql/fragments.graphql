@@ -860,3 +860,8 @@ fragment FormToFragment on FormToRecord {
   __typename
   id
 }
+
+fragment FormValutazioneFragment on FormValutazioneRecord {
+  __typename
+  id
+}

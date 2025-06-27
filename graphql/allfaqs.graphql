@@ -73,6 +73,9 @@ query AllFaqs {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on FormValutazioneRecord {
+        ...FormValutazioneFragment
+      }
     }
   }
   _allFaqsMeta {

@@ -51,6 +51,7 @@ import { BloccoGrafico } from "@/src/components/BloccoGrafico";
 import { TabsWrap } from "@/src/components/TabsWrap";
 import { FormNewsletter } from "@/src/components/FormNewsletter";
 import { FormTo } from "@/src/components/FormTo";
+import { FormValutazione } from "./FormValutazione";
 
 export function ModularContent({
   content,
@@ -117,7 +118,9 @@ export function ModularContent({
           case "CardsGridNewsRecord":
             return <CardsGrid key={idx} props={el as CardsGridNewsRecord} />;
           case "CardsGridGuidelineRecord":
-            return <CardsGrid key={idx} props={el as CardsGridGuidelineRecord} />;
+            return (
+              <CardsGrid key={idx} props={el as CardsGridGuidelineRecord} />
+            );
           case "CardsGridImageRecord":
             return (
               <CardsGridImages
@@ -174,6 +177,8 @@ export function ModularContent({
             return <FormNewsletter key={idx} />;
           case "FormToRecord":
             return <FormTo key={idx} />;
+          case "FormValutazioneRecord":
+            return <FormValutazione key={idx} />;
           default:
             return null;
         }

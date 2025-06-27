@@ -77,7 +77,7 @@ export function TableListLinkItem({
           href={getHref(link)}
           title={getTitle(link)}
           target={link?.target as HTMLAttributeAnchorTarget}
-          aria-label={`${getTitle(link)}: ${link?.text}`}
+          aria-label={category ? `Categoria: ${category.label}` : undefined}
         >
           <div>
             <div
@@ -104,7 +104,7 @@ export function TableListLinkItem({
                       "lightgrey-bg-a3 text-primary": badge === "Nuovo",
                       "neutral-1-bg-a2 text-dark": badge === "Aggiornato",
                     })}
-                    aria-label={`Stato: ${badge}`}
+                    aria-label={`Contenuto ${badge.toLowerCase()}`}
                   >
                     {badge}
                   </Badge>
