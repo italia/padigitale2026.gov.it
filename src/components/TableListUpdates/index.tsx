@@ -183,7 +183,7 @@ export function TableListUpdates({
                         <div
                           key={updateId}
                           role="listitem"
-                          className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap"
+                          className="row border-bottom m-0 p-0 py-3 w-100 flex-nowrap"
                         >
                           {customUpdateDate && (
                             <div className="col-3 col-md-2 ps-0">
@@ -218,7 +218,7 @@ export function TableListUpdates({
                                 );
                                 return buttonHref.length > 0 ? (
                                   <Link
-                                    className="fw-bold text-nowrap"
+                                    className="fw-semibold text-nowrap"
                                     href={buttonHref}
                                     aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
                                     target={"_self"}

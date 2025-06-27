@@ -89,7 +89,7 @@ export function TableListFaq({
                 )
                 .join(" ")}
             >
-              <div className="row border-bottom m-0 p-0 py-2 w-100">
+              <div className="row border-bottom m-0 p-0 py-3 w-100">
                 <div className="col ps-0">
                   <Link
                     className="d-flex justify-content-between align-items-center text-decoration-none"
@@ -100,14 +100,14 @@ export function TableListFaq({
                   >
                     <div>
                       <div
-                        className="fw-bold text-decoration-underline mb-1"
-                        style={{ fontSize: "1.125rem" }}
+                        className="fw-semibold text-decoration-underline mb-1 lh-base"
+                        style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
                       >
                         {item.title}
                       </div>
 
                       {item.category && (
-                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold">
+                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
                           <span className="visually-hidden">Categoria: </span>
                           {item.category.label}
                         </div>
