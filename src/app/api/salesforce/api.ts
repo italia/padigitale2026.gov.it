@@ -7,9 +7,11 @@ const version = 'v57.0';
 // Funzione helper per il logging con BetterStack
 async function logToBetterStack(
   functionName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any,
   response: Response,
   responseText: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   responseData: any
 ) {
   await sendPostToBetterStack({
@@ -55,6 +57,7 @@ export async function upsertFaqAggiornamenti(records: records[]) {
     try {
       responseData = JSON.parse(responseText);
     } catch (e) {
+      console.log(e);
       responseData = null;
     }
 
@@ -99,6 +102,7 @@ export async function cancellazioneLineeGuidaFaqAggiornamenti(records: records[]
     try {
       responseData = JSON.parse(responseText);
     } catch (e) {
+      console.log(e);
       responseData = null;
     }
 
@@ -137,6 +141,7 @@ export async function creazioneLineeGuida(record: object) {
     try {
       responseData = JSON.parse(responseText);
     } catch (e) {
+      console.log(e);
       responseData = null;
     }
 
