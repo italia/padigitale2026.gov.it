@@ -28,6 +28,9 @@ import {
   InstantSearchFaqRecord,
   BloccoGraficoRecord,
   TabsWrapRecord,
+  FormValutazioneRecord,
+  FormToRecord,
+  FormNewsletterRecord,
 } from "@/graphql/generated";
 import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -174,11 +177,15 @@ export function ModularContent({
           case "TabsWrapRecord":
             return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
           case "FormNewsletterRecord":
-            return <FormNewsletter key={idx} />;
+            return (
+              <FormNewsletter key={idx} props={el as FormNewsletterRecord} />
+            );
           case "FormToRecord":
-            return <FormTo key={idx} />;
+            return <FormTo key={idx} props={el as FormToRecord} />;
           case "FormValutazioneRecord":
-            return <FormValutazione key={idx} />;
+            return (
+              <FormValutazione key={idx} props={el as FormValutazioneRecord} />
+            );
           default:
             return null;
         }
