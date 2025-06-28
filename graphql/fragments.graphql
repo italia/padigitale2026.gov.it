@@ -162,6 +162,9 @@ fragment LinkFragment on LinkRecord {
 }
 
 fragment RichTextContentFragment on RichTextModelContentBlocksField {
+  ... on AlertRecord {
+    ...AlertFragment
+  }
   ... on ImagesGridRecord {
     ...ImagesGridFragment
   }
@@ -864,4 +867,16 @@ fragment FormToFragment on FormToRecord {
 fragment FormValutazioneFragment on FormValutazioneRecord {
   __typename
   id
+}
+
+fragment AlertFragment on AlertRecord {
+  __typename
+  id
+  colore {
+    colore
+  }
+  title
+  testo {
+    value
+  }
 }

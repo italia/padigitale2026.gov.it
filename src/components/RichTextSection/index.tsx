@@ -8,9 +8,11 @@ import {
   RichTextModelContentField,
   RichTextSectionRecord,
   StepperRecord,
+  AlertRecord,
 } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
+import { Alert } from "@/src/components/Alert";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -19,6 +21,7 @@ const cn = classNames.bind(styles);
 
 type BlockContext = {
   record:
+    | AlertRecord
     | ImagesGridRecord
     | {
         __typename?: string;
@@ -103,6 +106,8 @@ export function RichTextSection({
     if (!record?.__typename) return null;
 
     switch (record.__typename) {
+      case "AlertRecord":
+        return <Alert key={record.id} props={record as AlertRecord} />;
       case "ImagesGridRecord":
         return (
           <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
