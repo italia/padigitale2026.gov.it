@@ -165,6 +165,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on AlertRecord {
     ...AlertFragment
   }
+  ... on ImmagineRecord {
+    ...ImmagineFragment
+  }
   ... on ImagesGridRecord {
     ...ImagesGridFragment
   }
@@ -878,5 +881,23 @@ fragment AlertFragment on AlertRecord {
   title
   testo {
     value
+  }
+}
+
+fragment ImmagineFragment on ImmagineRecord {
+  __typename
+  id
+  immagine {
+    id
+    format
+    responsiveImage {
+      sizes
+      src
+      width
+      height
+      alt
+      title
+      base64
+    }
   }
 }
