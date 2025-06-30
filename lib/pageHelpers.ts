@@ -98,7 +98,95 @@ export async function getDatiData(slug: string): Promise<{ page: PageRecord } | 
   return { page };
 }
 
-// Funzione per generare tutti i parametri statici
+// Funzione per generare parametri statici specifici per le FAQ
+export async function generateFaqStaticParams() {
+  const faqs = (await getAllFaqs()) as AllFaqsQuery;
+  
+  // Lista delle eccezioni che devono essere gestite come supporto
+  const supportoFaqExceptions = [
+    "supporto/domande-frequenti/misure-e-avvisi",
+    "supporto/domande-frequenti/utilizzo-della-piattaforma",
+    "supporto/domande-frequenti/piani-di-migrazione",
+    "supporto/domande-frequenti/fondo-innovazione",
+    "supporto/domande-frequenti/generali",
+    "supporto/domande-frequenti/classificazione-dati-e-servizi",
+    "supporto/domande-frequenti/rendicontazione",
+  ];
+
+  return faqs.allFaqs
+    .filter((faq) => faq.slug && !supportoFaqExceptions.includes(faq.slug))
+    .map((faq) => ({
+      slug: faq.slug!.split("/").slice(2), // Rimuovi "supporto/domande-frequenti" dal slug
+      customUpdateDate: faq.customUpdateDate,
+    }));
+}
+
+// Funzione per generare parametri statici specifici per il supporto
+export async function generateSupportoStaticParams() {
+  const supportos = (await getAllSupportos()) as AllSupportosQuery;
+  
+  return supportos.allSupportos
+    .filter((supporto) => supporto.slug)
+    .map((supporto) => {
+      // Se il slug già inizia con "supporto/", rimuovi il prefisso
+      const cleanSlug = supporto.slug!.startsWith("supporto/") 
+        ? supporto.slug!.replace("supporto/", "") 
+        : supporto.slug!;
+      return {
+        slug: [cleanSlug],
+      };
+    });
+}
+
+// Funzione per generare parametri statici specifici per le notizie
+export async function generateNewsStaticParams() {
+  const news = (await getAllNews()) as AllNewsQuery;
+  
+  return news.allNews
+    .filter((news) => news.slug)
+    .map((news) => {
+      // Se il slug già inizia con "notizie/", rimuovi il prefisso
+      const cleanSlug = news.slug!.startsWith("notizie/") 
+        ? news.slug!.replace("notizie/", "") 
+        : news.slug!;
+      return {
+        slug: [cleanSlug],
+        customUpdateDate: news.customUpdateDate,
+      };
+    });
+}
+
+// Funzione per generare parametri statici specifici per le risorse
+export async function generateResourceStaticParams() {
+  const resources = (await getAllResources()) as AllResourcesQuery;
+  
+  return resources.allResources
+    .filter((resource) => resource.slug)
+    .map((resource) => {
+      // Se il slug già inizia con "guide-e-risorse/", rimuovi il prefisso
+      const cleanSlug = resource.slug!.startsWith("guide-e-risorse/") 
+        ? resource.slug!.replace("guide-e-risorse/", "") 
+        : resource.slug!;
+      return {
+        slug: [cleanSlug],
+        customUpdateDate: resource.customUpdateDate,
+      };
+    });
+}
+
+// Funzione per generare parametri statici per le pagine normali
+export async function generatePageStaticParams() {
+  const pages = (await getAllPages()) as AllPagesQuery;
+  
+  return pages.allPages
+    .filter((page) => page.slug)
+    .map((page) => ({
+      slug: page.slug!.split("/"),
+      customUpdateDate: page.customUpdateDate,
+    }));
+}
+
+// Funzione per generare tutti i parametri statici (per la route principale)
 export async function generateAllStaticParams() {
   const [pages, faqs, supportos, news, resources] = await Promise.all([
     getAllPages() as Promise<AllPagesQuery>,
@@ -134,26 +222,44 @@ export async function generateAllStaticParams() {
         slug: faq.slug!.split("/"),
         customUpdateDate: faq.customUpdateDate,
       })),
-    // Supporto
+    // Supporto - evita duplicazione del prefisso
     ...supportos.allSupportos
       .filter((supporto) => supporto.slug)
-      .map((supporto) => ({
-        slug: `supporto/${supporto.slug}`.split("/"),
-      })),
-    // Notizie
+      .map((supporto) => {
+        // Se il slug già inizia con "supporto/", non aggiungere il prefisso
+        const fullSlug = supporto.slug!.startsWith("supporto/") 
+          ? supporto.slug! 
+          : `supporto/${supporto.slug}`;
+        return {
+          slug: fullSlug.split("/"),
+        };
+      }),
+    // Notizie - evita duplicazione del prefisso
     ...news.allNews
       .filter((news) => news.slug)
-      .map((news) => ({
-        slug: `notizie/${news.slug}`.split("/"),
-        customUpdateDate: news.customUpdateDate,
-      })),
-    // Risorse
+      .map((news) => {
+        // Se il slug già inizia con "notizie/", non aggiungere il prefisso
+        const fullSlug = news.slug!.startsWith("notizie/") 
+          ? news.slug! 
+          : `notizie/${news.slug}`;
+        return {
+          slug: fullSlug.split("/"),
+          customUpdateDate: news.customUpdateDate,
+        };
+      }),
+    // Risorse - evita duplicazione del prefisso
     ...resources.allResources
       .filter((resource) => resource.slug)
-      .map((resource) => ({
-        slug: `guide-e-risorse/${resource.slug}`.split("/"),
-        customUpdateDate: resource.customUpdateDate,
-      })),
+      .map((resource) => {
+        // Se il slug già inizia con "guide-e-risorse/", non aggiungere il prefisso
+        const fullSlug = resource.slug!.startsWith("guide-e-risorse/") 
+          ? resource.slug! 
+          : `guide-e-risorse/${resource.slug}`;
+        return {
+          slug: fullSlug.split("/"),
+          customUpdateDate: resource.customUpdateDate,
+        };
+      }),
   ];
 
   return params;

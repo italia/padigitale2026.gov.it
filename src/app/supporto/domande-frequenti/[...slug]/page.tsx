@@ -1,17 +1,11 @@
-import { getFaqData, generateAllStaticParams } from "@/lib/pageHelpers";
+import { getFaqData, generateFaqStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const allParams = await generateAllStaticParams();
-  return allParams.filter(
-    (param) =>
-      param.slug[0] === "supporto" &&
-      param.slug[1] === "domande-frequenti" &&
-      param.slug.length > 2
-  );
+  return await generateFaqStaticParams();
 }
 
 export default async function FaqPage({
