@@ -1,6 +1,5 @@
 "use client";
 
-import { FormValutazioneRecord } from "@/graphql/generated";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { usePages } from "@/src/contexts/PagesContext";
@@ -28,8 +27,7 @@ const cn = classNames.bind(styles);
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-export function FormValutazione({ props }: { props: FormValutazioneRecord }) {
-  const { id } = props;
+export function FormValutazione({ id }: { id: string }) {
   const pathname = usePathname();
   const { pages, faqs, news, resources, supportos, datis } = usePages();
   const [isOpen, toggleModal] = useState<boolean>(false);

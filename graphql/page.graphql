@@ -8,6 +8,7 @@ query Page($slug: String) {
     title
     slug
     customUpdateDate
+    nascondiValutazione
     body {
       ... on HeroRecord {
         ...HeroFragment

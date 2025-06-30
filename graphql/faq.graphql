@@ -8,6 +8,7 @@ query Faq($slug: String) {
     title
     slug
     customUpdateDate
+    nascondiValutazione
     idAvvisoSalesforce
     category {
       label

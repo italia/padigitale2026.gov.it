@@ -10,6 +10,7 @@ query AllNews {
     externalLink
     summary
     customUpdateDate
+    nascondiValutazione
     body {
       ... on HeroRecord {
         ...HeroFragment
@@ -58,9 +59,6 @@ query AllNews {
       }
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
-      }
-      ... on FormValutazioneRecord {
-        ...FormValutazioneFragment
       }
     }
   }

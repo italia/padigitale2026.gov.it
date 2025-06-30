@@ -867,11 +867,6 @@ fragment FormToFragment on FormToRecord {
   id
 }
 
-fragment FormValutazioneFragment on FormValutazioneRecord {
-  __typename
-  id
-}
-
 fragment AlertFragment on AlertRecord {
   __typename
   id

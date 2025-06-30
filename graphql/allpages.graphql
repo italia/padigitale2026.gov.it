@@ -8,6 +8,7 @@ query AllPages {
     title
     slug
     customUpdateDate
+    nascondiValutazione
     body {
       ... on HeroRecord {
         ...HeroFragment
@@ -83,9 +84,6 @@ query AllPages {
       }
       ... on FormToRecord {
         ...FormToFragment
-      }
-      ... on FormValutazioneRecord {
-        ...FormValutazioneFragment
       }
     }
   }

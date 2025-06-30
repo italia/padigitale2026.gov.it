@@ -28,7 +28,6 @@ import {
   InstantSearchFaqRecord,
   BloccoGraficoRecord,
   TabsWrapRecord,
-  FormValutazioneRecord,
   FormToRecord,
   FormNewsletterRecord,
 } from "@/graphql/generated";
@@ -192,13 +191,9 @@ export function ModularContent({
         content.page.customUpdateDate && (
           <UpdateDate date={content.page.customUpdateDate} />
         )}
-      <FormValutazione
-        props={
-          content.page?.body.find(
-            (el) => el.__typename === "FormValutazioneRecord"
-          ) as FormValutazioneRecord
-        }
-      />
+      {content.page?.nascondiValutazione === false && content.page?.id && (
+        <FormValutazione id={content.page?.id} />
+      )}
       <BackToTop ariaLabel={"Clicca qui per tornare in alto"} shadow={true} />
     </>
   );

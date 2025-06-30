@@ -8,6 +8,7 @@ query AllFaqs {
     title
     slug
     customUpdateDate
+    nascondiValutazione
     idAvvisoSalesforce
     category {
       label
@@ -72,9 +73,6 @@ query AllFaqs {
       }
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
-      }
-      ... on FormValutazioneRecord {
-        ...FormValutazioneFragment
       }
     }
   }
