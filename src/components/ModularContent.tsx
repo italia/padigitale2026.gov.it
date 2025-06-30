@@ -30,6 +30,7 @@ import {
   TabsWrapRecord,
   FormToRecord,
   FormNewsletterRecord,
+  FormAssistanceRecord,
 } from "@/graphql/generated";
 import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
@@ -54,6 +55,7 @@ import { TabsWrap } from "@/src/components/TabsWrap";
 import { FormNewsletter } from "@/src/components/FormNewsletter";
 import { FormTo } from "@/src/components/FormTo";
 import { FormValutazione } from "./FormValutazione";
+import { FormAssistenza } from "./FormAssistenza";
 import { UpdateDate } from "@/src/components/UpdateDate";
 
 export function ModularContent({
@@ -182,6 +184,8 @@ export function ModularContent({
             );
           case "FormToRecord":
             return <FormTo key={idx} props={el as FormToRecord} />;
+          case "FormAssistanceRecord":
+            return <FormAssistenza key={idx} props={el as FormAssistanceRecord} />;
           default:
             return null;
         }
