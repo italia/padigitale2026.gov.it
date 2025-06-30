@@ -32,7 +32,6 @@ import {
   FormNewsletterRecord,
   FormAssistanceRecord,
 } from "@/graphql/generated";
-import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
 import { SplitBanner } from "@/src/components/SplitBanner";
@@ -198,7 +197,6 @@ export function ModularContent({
       {content.page?.nascondiValutazione === false && content.page?.id && (
         <FormValutazione id={content.page?.id} />
       )}
-      <BackToTop ariaLabel={"Clicca qui per tornare in alto"} shadow={true} />
     </>
   );
 }

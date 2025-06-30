@@ -120,9 +120,9 @@ export async function generateAllStaticParams() {
   ];
 
   const params = [
-    // Pagine normali
+    // Pagine normali (escludendo la homepage e altre pagine speciali)
     ...pages.allPages
-      .filter((page) => page.slug)
+      .filter((page) => page.slug && page.slug !== "homepage" && page.slug !== "" && page.slug !== "/")
       .map((page) => ({
         slug: page.slug!.split("/"),
         customUpdateDate: page.customUpdateDate,
@@ -130,30 +130,50 @@ export async function generateAllStaticParams() {
     // FAQ (escludendo le eccezioni)
     ...faqs.allFaqs
       .filter((faq) => faq.slug && !supportoFaqExceptions.includes(faq.slug))
-      .map((faq) => ({
-        slug: faq.slug!.split("/"),
-        customUpdateDate: faq.customUpdateDate,
-      })),
+      .map((faq) => {
+        // Estrai solo la parte finale dello slug (senza supporto/domande-frequenti/)
+        const slugParts = faq.slug!.split("/");
+        const finalSlug = slugParts.slice(2).join("/"); // Rimuovi i primi due segmenti
+        return {
+          slug: finalSlug.split("/"),
+          customUpdateDate: faq.customUpdateDate,
+        };
+      }),
     // Supporto
     ...supportos.allSupportos
       .filter((supporto) => supporto.slug)
-      .map((supporto) => ({
-        slug: `supporto/${supporto.slug}`.split("/"),
-      })),
+      .map((supporto) => {
+        // Estrai solo la parte finale dello slug (senza supporto/)
+        const slugParts = supporto.slug!.split("/");
+        const finalSlug = slugParts.slice(2).join("/"); // Rimuovi i primi due segmenti
+        return {
+          slug: finalSlug.split("/"),
+        };
+      }),
     // Notizie
     ...news.allNews
       .filter((news) => news.slug)
-      .map((news) => ({
-        slug: `notizie/${news.slug}`.split("/"),
-        customUpdateDate: news.customUpdateDate,
-      })),
+      .map((news) => {
+        // Estrai solo la parte finale dello slug (senza notizie/)
+        const slugParts = news.slug!.split("/");
+        const finalSlug = slugParts.slice(2).join("/"); // Rimuovi i primi due segmenti
+        return {
+          slug: finalSlug.split("/"),
+          customUpdateDate: news.customUpdateDate,
+        };
+      }),
     // Risorse
     ...resources.allResources
       .filter((resource) => resource.slug)
-      .map((resource) => ({
-        slug: `guide-e-risorse/${resource.slug}`.split("/"),
-        customUpdateDate: resource.customUpdateDate,
-      })),
+      .map((resource) => {
+        // Estrai solo la parte finale dello slug (senza guide-e-risorse/)
+        const slugParts = resource.slug!.split("/");
+        const finalSlug = slugParts.slice(2).join("/"); // Rimuovi i primi due segmenti
+        return {
+          slug: finalSlug.split("/"),
+          customUpdateDate: resource.customUpdateDate,
+        };
+      }),
   ];
 
   return params;
