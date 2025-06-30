@@ -57,6 +57,9 @@ query allSupportos {
       ... on FormToRecord {
         ...FormToFragment
       }
+      ... on FormAssistanceRecord {
+        ...FormAssistanceFragment
+      }
     }
   }
   _allPagesMeta {
