@@ -38,7 +38,14 @@ export function FormValutazione({ id }: { id: string }) {
 
   // Funzione helper per trovare l'ID della pagina corrente
   const getCurrentPageId = (): string => {
-    const currentSlug = pathname.slice(1); // Rimuove il primo "/"
+    let currentSlug: string;
+
+    // Gestione speciale per l'homepage
+    if (pathname === "/") {
+      currentSlug = "homepage";
+    } else {
+      currentSlug = pathname.slice(1); // Rimuove il primo "/"
+    }
 
     // Cerca nelle pagine normali
     const normalPage = pages.allPages.find((p) => p.slug === currentSlug);
