@@ -55,6 +55,7 @@ import { TabsWrap } from "@/src/components/TabsWrap";
 import { FormNewsletter } from "@/src/components/FormNewsletter";
 import { FormTo } from "@/src/components/FormTo";
 import { FormValutazione } from "./FormValutazione";
+import { UpdateDate } from "@/src/components/UpdateDate";
 
 export function ModularContent({
   content,
@@ -182,14 +183,22 @@ export function ModularContent({
             );
           case "FormToRecord":
             return <FormTo key={idx} props={el as FormToRecord} />;
-          case "FormValutazioneRecord":
-            return (
-              <FormValutazione key={idx} props={el as FormValutazioneRecord} />
-            );
           default:
             return null;
         }
       })}
+      {content.page &&
+        "customUpdateDate" in content.page &&
+        content.page.customUpdateDate && (
+          <UpdateDate date={content.page.customUpdateDate} />
+        )}
+      <FormValutazione
+        props={
+          content.page?.body.find(
+            (el) => el.__typename === "FormValutazioneRecord"
+          ) as FormValutazioneRecord
+        }
+      />
       <BackToTop ariaLabel={"Clicca qui per tornare in alto"} shadow={true} />
     </>
   );

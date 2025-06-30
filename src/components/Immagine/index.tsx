@@ -9,5 +9,9 @@ export function Immagine({ props }: { props: ImmagineRecord }) {
     return null; // Non renderizzare nulla se l'immagine non è disponibile
   }
 
-  return <SRCImage data={immagine.responsiveImage as ResponsiveImageType} />;
+  return (
+    <div className="w-100">
+      <SRCImage data={immagine.responsiveImage as ResponsiveImageType} />
+    </div>
+  );
 }
