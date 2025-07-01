@@ -94,7 +94,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 
       if (result.success) {
         setStatus("success");
-        setMessage("Messaggio inviato con successo!");
+        setMessage("Abbiamo ricevuto la tua richiesta di assistenza su PA digitale 2026. Riceverai una risposta al più presto ai contatti indicati.");
         // Reset del form
         setFormState({
           applicant: "",
@@ -158,7 +158,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
         <div className="row">
           <div className="col-12 col-md-10">
             <div className="alert alert-success" role="alert">
-              <h4 className="alert-heading">Messaggio inviato!</h4>
+              <h4 className="alert-heading">Richiesta di assistenza inviata</h4>
               <p>{message}</p>
               <hr />
               <Button color="primary" onClick={resetForm}>
@@ -352,7 +352,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   disabled={!isFormValid() || status === "loading"}
                   onClick={handleSubmit}
                 >
-                  {status === "loading" ? "Invio in corso..." : "Invia"}
+                  {status === "loading" ? "Invio in corso..." : "Invia Richiesta"}
                 </Button>
               </Col>
             </Row>
