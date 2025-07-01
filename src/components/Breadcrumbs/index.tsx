@@ -153,7 +153,7 @@ export function Breadcrumbs({
     };
 
     generateBreadcrumbs();
-  }, [pathname, pages, faqs, news, resources]);
+  }, [pathname, pages, faqs, news, resources, supportos]);
 
   if (breadcrumbs.length <= 1) return null;
 
