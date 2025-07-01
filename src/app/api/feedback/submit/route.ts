@@ -14,6 +14,14 @@ await redis.connect();
 const RATE_LIMIT = 10;
 const WINDOW_SECONDS = 300; // 5 minuti
 
+const cors_headers = {
+  "Access-Control-Allow-Origin":
+    "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Max-Age": "86400",
+};
+
 // Serve per validare i dati in POST che arrivano dal feedback
 const FeedbackData = z.object({
   utile: z.boolean(),
@@ -24,6 +32,15 @@ const FeedbackData = z.object({
 function getIP(req: NextRequest): string {
   const xff = req.headers.get("x-forwarded-for");
   return xff ? xff.split(",")[0].trim() : "unknown";
+}
+
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      headers: cors_headers,
+    },
+  );
 }
 
 export async function POST(request: NextRequest) {
@@ -53,11 +70,7 @@ export async function POST(request: NextRequest) {
     "X-RateLimit-Remaining": remaining.toString(),
     "X-RateLimit-Reset": (Math.floor(Date.now() / 1000) + ttl).toString(), // UNIX timestamp
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin":
-      "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Access-Control-Max-Age": "86400",
+    ...cors_headers,
   });
 
   if (count > RATE_LIMIT) {
@@ -65,7 +78,7 @@ export async function POST(request: NextRequest) {
       JSON.stringify({
         message: "Too many requests. Try again later.",
       }),
-      { status: 429, headers }
+      { status: 429, headers },
     );
   }
   // END: Rate limit
@@ -80,7 +93,7 @@ export async function POST(request: NextRequest) {
   };
   const session = await getIronSession<SessionData>(
     await cookies(),
-    sessionOptions
+    sessionOptions,
   );
   const tokens = new Tokens();
   const secret = session.secret;
@@ -100,7 +113,7 @@ export async function POST(request: NextRequest) {
       {
         status: 400,
         headers,
-      }
+      },
     );
   }
 
@@ -120,7 +133,7 @@ export async function POST(request: NextRequest) {
       {
         status: 400,
         headers,
-      }
+      },
     );
   }
 
@@ -144,7 +157,7 @@ export async function POST(request: NextRequest) {
       {
         message: "Error saving feedback.",
       },
-      { status: 500, headers }
+      { status: 500, headers },
     );
   }
 
@@ -158,6 +171,6 @@ export async function POST(request: NextRequest) {
     },
     {
       headers,
-    }
+    },
   );
 }
