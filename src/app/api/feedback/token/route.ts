@@ -13,19 +13,13 @@ const sessionOptions = {
   cookieName: "session",
 };
 
-const headers = {
-  "Access-Control-Allow-Origin":
-    "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  "Access-Control-Max-Age": "86400",
-};
+import cors_headers from "../cors_headers.json";
 
 export async function OPTIONS() {
   return NextResponse.json(
     {},
     {
-      headers: headers,
+      headers: cors_headers,
     },
   );
 }
@@ -55,7 +49,7 @@ export async function POST() {
       csrf_token: token,
     },
     {
-      headers: headers,
+      headers: cors_headers,
     },
   );
 }

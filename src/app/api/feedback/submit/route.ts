@@ -14,13 +14,7 @@ await redis.connect();
 const RATE_LIMIT = 10;
 const WINDOW_SECONDS = 300; // 5 minuti
 
-const cors_headers = {
-  "Access-Control-Allow-Origin":
-    "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  "Access-Control-Max-Age": "86400",
-};
+import cors_headers from "../cors_headers.json";
 
 // Serve per validare i dati in POST che arrivano dal feedback
 const FeedbackData = z.object({
