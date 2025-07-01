@@ -13,11 +13,28 @@ const sessionOptions = {
   cookieName: "session",
 };
 
+const headers = {
+  "Access-Control-Allow-Origin":
+    "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Max-Age": "86400",
+};
+
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      headers: headers,
+    },
+  );
+}
+
 export async function POST() {
   // questo endpoint crea un CSRF token, lo restituisce e lo mette in sessione.
   const session = await getIronSession<SessionData>(
     await cookies(),
-    sessionOptions
+    sessionOptions,
   );
   const tokens = new Tokens();
 
@@ -38,13 +55,7 @@ export async function POST() {
       csrf_token: token,
     },
     {
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Max-Age": "86400",
-      },
-    }
+      headers: headers,
+    },
   );
 }
