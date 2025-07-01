@@ -1,33 +1,61 @@
-import { cookies } from 'next/headers';
-import { getIronSession } from 'iron-session';
-import { NextResponse } from 'next/server';
-import { SessionData } from '../types';
-import Tokens from 'csrf';
+import { cookies } from "next/headers";
+import { getIronSession } from "iron-session";
+import { NextResponse } from "next/server";
+import { SessionData } from "../types";
+import Tokens from "csrf";
 
 if (!process.env.SESSION_SECRET) {
-    throw new Error("SESSION_SECRET must be set.");
+  throw new Error("SESSION_SECRET must be set.");
 }
 
-const sessionOptions = { password: process.env.SESSION_SECRET, cookieName: "session" }
+const sessionOptions = {
+  password: process.env.SESSION_SECRET,
+  cookieName: "session",
+};
+
+const headers = {
+  "Access-Control-Allow-Origin":
+    "https://padigitale2026--collaudo.sandbox.my.site.com https://padigitale2026.gov.it/ https://padigitale2026-gov-it-develop.vercel.app/",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Max-Age": "86400",
+};
+
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      headers: headers,
+    },
+  );
+}
 
 export async function POST() {
-    // questo endpoint crea un CSRF token, lo restituisce e lo mette in sessione.
-    const session = await getIronSession<SessionData>(await cookies(), sessionOptions);
-    const tokens = new Tokens();
+  // questo endpoint crea un CSRF token, lo restituisce e lo mette in sessione.
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions,
+  );
+  const tokens = new Tokens();
 
-    // Secret non presente in sessione, ne creiamo uno.
-    // Il secret non viene esposto, è legato alla sessione utente.
-    if (!session.secret) {
-        session.secret = tokens.secretSync();
-    }
+  // Secret non presente in sessione, ne creiamo uno.
+  // Il secret non viene esposto, è legato alla sessione utente.
+  if (!session.secret) {
+    session.secret = tokens.secretSync();
+  }
 
-    const token = tokens.create(session.secret);
+  const token = tokens.create(session.secret);
 
-    session.csrf_token = token;
+  session.csrf_token = token;
 
-    await session.save();
+  await session.save();
 
-    return NextResponse.json({
-        csrf_token: token
-    })
+  return NextResponse.json(
+    {
+      csrf_token: token,
+    },
+    {
+      headers: headers,
+    },
+  );
 }

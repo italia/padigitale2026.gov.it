@@ -467,6 +467,18 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
           title
           slug
         }
+        ... on NewsRecord {
+          title
+          slug
+        }
+        ... on ResourceRecord {
+          title
+          slug
+        }
+        ... on DatiRecord {
+          title
+          slug
+        }
       }
     }
   }
@@ -688,6 +700,8 @@ fragment StepperFragment on StepperRecord {
 fragment TableListFaqFragment on TableListFaqRecord {
   __typename
   id
+  title
+  alignment
   questionsRef {
     _createdAt
     _updatedAt

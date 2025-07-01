@@ -27,7 +27,7 @@ export function Breadcrumbs({
 }: BreadcrumbsProps) {
   const pathname = usePathname();
   const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([]);
-  const { pages, faqs, news, resources } = usePages();
+  const { pages, faqs, news, resources, supportos } = usePages();
 
   useEffect(() => {
     const generateBreadcrumbs = () => {
@@ -68,6 +68,14 @@ export function Breadcrumbs({
               pageTitle = resourcePage?.title || undefined;
               break;
 
+            case currentPath.includes("supporto/"):
+              // Qui puoi aggiungere eccezioni future se necessario
+              const supportPage = supportos.allSupportos.find(
+                (p) => p.slug === currentPath.slice(1)
+              );
+              pageTitle = supportPage?.title || undefined;
+              break;
+
             default:
               const normalPage = pages.allPages.find(
                 (p) => p.slug === currentPath.slice(1)
@@ -100,6 +108,22 @@ export function Breadcrumbs({
             } else {
               pageTitle = resource.title || undefined;
             }
+          } else if (currentPath.includes("supporto/")) {
+            // Qui puoi aggiungere eccezioni future se necessario
+            const supportPage = supportos.allSupportos.find(
+              (p) => p.slug === currentPath.slice(1)
+            );
+            if (!supportPage) {
+              let page = pages.allPages.find((p) => p.slug === segment);
+              if (!page) {
+                page = pages.allPages.find((p) =>
+                  p.slug?.endsWith(`/${segment}`)
+                );
+              }
+              pageTitle = page?.title || undefined;
+            } else {
+              pageTitle = supportPage.title || undefined;
+            }
           } else {
             // Per altri contesti, usa sempre getAllPages
             // Prima cerca una corrispondenza esatta
@@ -129,7 +153,7 @@ export function Breadcrumbs({
     };
 
     generateBreadcrumbs();
-  }, [pathname, pages, faqs, news, resources]);
+  }, [pathname, pages, faqs, news, resources, supportos]);
 
   if (breadcrumbs.length <= 1) return null;
 

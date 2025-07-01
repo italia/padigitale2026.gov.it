@@ -14,7 +14,7 @@ export function TableListFaq({
   props: TableListFaqRecord;
   noPadding?: boolean;
 }) {
-  const { questionsRef, id } = props;
+  const { title, alignment, questionsRef, id } = props;
 
   const getBadge = (item: FaqRecord) => {
     const createdAt = item._createdAt;
@@ -59,9 +59,16 @@ export function TableListFaq({
       role="region"
       aria-labelledby={`${id}-title`}
     >
-      <h2 id={`${id}-title`} className="visually-hidden">
-        Lista delle domande frequenti
-      </h2>
+      {title && (
+        <h2
+          id={`${id}-title`}
+          className={cn("col-12 h-1 pb-4", {
+            "text-center": alignment === "center",
+          })}
+        >
+          {title}
+        </h2>
+      )}
       <div
         role="list"
         aria-label="Lista domande frequenti"
