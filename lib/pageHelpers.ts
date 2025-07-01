@@ -128,10 +128,21 @@ export async function generateSupportoStaticParams() {
   return supportos.allSupportos
     .filter((supporto) => supporto.slug)
     .map((supporto) => {
-      // Se il slug già inizia con "supporto/", rimuovi il prefisso
-      const cleanSlug = supporto.slug!.startsWith("supporto/") 
-        ? supporto.slug!.replace("supporto/", "") 
-        : supporto.slug!;
+      let cleanSlug: string;
+      
+      if (supporto.slug!.startsWith("supporto/")) {
+        // Se il slug già inizia con "supporto/", rimuovi il prefisso
+        cleanSlug = supporto.slug!.replace("supporto/", "");
+      } else {
+        // Altrimenti usa il slug così com'è
+        cleanSlug = supporto.slug!;
+      }
+      
+      // Se il cleanSlug contiene ancora "/", prendi solo l'ultima parte
+      if (cleanSlug.includes("/")) {
+        cleanSlug = cleanSlug.split("/").pop() || cleanSlug;
+      }
+      
       return {
         slug: [cleanSlug],
       };
@@ -145,10 +156,21 @@ export async function generateNewsStaticParams() {
   return news.allNews
     .filter((news) => news.slug)
     .map((news) => {
-      // Se il slug già inizia con "notizie/", rimuovi il prefisso
-      const cleanSlug = news.slug!.startsWith("notizie/") 
-        ? news.slug!.replace("notizie/", "") 
-        : news.slug!;
+      let cleanSlug: string;
+      
+      if (news.slug!.startsWith("notizie/")) {
+        // Se il slug già inizia con "notizie/", rimuovi il prefisso
+        cleanSlug = news.slug!.replace("notizie/", "");
+      } else {
+        // Altrimenti usa il slug così com'è
+        cleanSlug = news.slug!;
+      }
+      
+      // Se il cleanSlug contiene ancora "/", prendi solo l'ultima parte
+      if (cleanSlug.includes("/")) {
+        cleanSlug = cleanSlug.split("/").pop() || cleanSlug;
+      }
+      
       return {
         slug: [cleanSlug],
         customUpdateDate: news.customUpdateDate,
@@ -163,10 +185,21 @@ export async function generateResourceStaticParams() {
   return resources.allResources
     .filter((resource) => resource.slug)
     .map((resource) => {
-      // Se il slug già inizia con "guide-e-risorse/", rimuovi il prefisso
-      const cleanSlug = resource.slug!.startsWith("guide-e-risorse/") 
-        ? resource.slug!.replace("guide-e-risorse/", "") 
-        : resource.slug!;
+      let cleanSlug: string;
+      
+      if (resource.slug!.startsWith("guide-e-risorse/")) {
+        // Se il slug già inizia con "guide-e-risorse/", rimuovi il prefisso
+        cleanSlug = resource.slug!.replace("guide-e-risorse/", "");
+      } else {
+        // Altrimenti usa il slug così com'è
+        cleanSlug = resource.slug!;
+      }
+      
+      // Se il cleanSlug contiene ancora "/", prendi solo l'ultima parte
+      if (cleanSlug.includes("/")) {
+        cleanSlug = cleanSlug.split("/").pop() || cleanSlug;
+      }
+      
       return {
         slug: [cleanSlug],
         customUpdateDate: resource.customUpdateDate,
