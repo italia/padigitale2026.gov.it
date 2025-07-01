@@ -136,7 +136,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                       <LinkListItem
                         key={link.id}
                         tag={Link}
-                        href={link.slug || "#"}
+                        href={`/${link.slug}` || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
                         {link.title}
@@ -153,7 +153,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                       <LinkListItem
                         key={link.id}
                         tag={Link}
-                        href={link.slug || "#"}
+                        href={`/${link.slug}` || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
                         {link.title}
@@ -170,7 +170,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                       <LinkListItem
                         key={link.id}
                         tag={Link}
-                        href={link.slug || "#"}
+                        href={`/${link.slug}` || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
                         {link.title}
@@ -190,7 +190,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     className="btn-icon"
                     color="primary"
                     outline
-                    href={`${linkNewsletter.slug}` || "#"}
+                    href={`/${linkNewsletter.slug}` || "#"}
                     title={`Vai alla pagina: ${linkNewsletter.title || ""}`}
                   >
                     <span>Iscriviti</span>
@@ -207,7 +207,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
           <ul className="it-footer-small-prints-list list-inline px-0 mb-0 d-flex flex-column flex-md-row">
             {linkUtili.map((link) => (
               <li key={link.id} className="list-inline-item">
-                <Link href={link.slug || "#"} title={link.title || ""}>
+                <Link href={`/${link.slug}` || "#"} title={link.title || ""}>
                   {link.title}
                 </Link>
               </li>
