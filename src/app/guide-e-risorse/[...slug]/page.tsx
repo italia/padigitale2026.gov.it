@@ -1,11 +1,14 @@
-import { getResourceData, generateResourceStaticParams } from "@/lib/pageHelpers";
+import { getResourceData, generateAllStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return await generateResourceStaticParams();
+  const allParams = await generateAllStaticParams();
+  return allParams.filter(
+    (param) => param.slug[0] === "guide-e-risorse" && param.slug.length === 2
+  );
 }
 
 export default async function ResourcePage({

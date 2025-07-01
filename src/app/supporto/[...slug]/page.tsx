@@ -1,11 +1,14 @@
-import { getSupportoData, generateSupportoStaticParams } from "@/lib/pageHelpers";
+import { getSupportoData, generateAllStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return await generateSupportoStaticParams();
+  const allParams = await generateAllStaticParams();
+  return allParams.filter(
+    (param) => param.slug[0] === "supporto" && param.slug.length === 2
+  );
 }
 
 export default async function SupportoPage({

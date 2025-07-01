@@ -1,11 +1,14 @@
-import { getNewsData, generateNewsStaticParams } from "@/lib/pageHelpers";
+import { getNewsData, generateAllStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return await generateNewsStaticParams();
+  const allParams = await generateAllStaticParams();
+  return allParams.filter(
+    (param) => param.slug[0] === "notizie" && param.slug.length === 2
+  );
 }
 
 export default async function NewsPage({
