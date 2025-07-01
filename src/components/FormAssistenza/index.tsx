@@ -26,6 +26,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
     subject: "",
     object: "",
     description: "",
+    notice: "",
   });
 
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -39,6 +40,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
       formState.subject,
       formState.object,
       formState.description,
+      formState.notice,
     ];
 
     // Controlla che tutti i campi obbligatori siano compilati
@@ -63,6 +65,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 
     try {
       // Prepara i dati del form per Salesforce
+      // @todo: sono i dati di collaudo o produzione? forse vanno cambiati a seconda dell'ambiente
       const formData = {
         orgid: "00D7Q000001NvsR",
         subject: formState.object,
@@ -75,6 +78,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
         "00N7Q000007qqts": formState.phone,
         "00N7Q0000015NGO": formState.applicant,
         "00N7Q000007qqtk": formState.subject,
+        "00N7Q000007qqu3": formState.notice,
         "g-recaptcha-response": captchaToken,
         'captcha_settings': JSON.stringify({ keyname: "reCAPTCHA_prod", fallback: true, orgId: "00D7Q000001NvsR", ts: Date.now().toString() }),
         'debug': "1",
@@ -103,6 +107,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
           subject: "",
           object: "",
           description: "",
+          notice: "",
         });
 
         // Reset captcha after submission
@@ -270,7 +275,32 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                 </Select>
               </Col>
               <Col md="6">
-                
+              <Select
+                  id="notice-select"
+                  label="Avviso*"
+                  value={formState.notice}
+                  required
+                  onChange={(value) => {
+                    setFormState({
+                      ...formState,
+                      notice: value,
+                    });
+                  }}
+                >
+                  <option label="Non applicabile"></option>
+                  <option label="1.1 Infrastrutture digitali">1.1 Infrastrutture digitali (Altre PAC)</option>
+                  <option label="1.2 Abilitazione Cloud">1.2 Abilitazione e facilitazione migrazione al Cloud</option>
+                  <option label="1.1 e 1.2 Multimisura ASL/AO">1.1 e 1.2 Multimisura (ASL/AO)</option>
+                  <option label="1.3.1 ANNCSU">1.3.1 ANNCSU</option>
+                  <option label="1.3.1 Piattaforma Digitale Nazionale Dati">1.3.1 Piattaforma Digitale Nazionale Dati</option>
+                  <option label="1.4.1 Esperienza dei servizi pubblici">1.4.1 Esperienza dei servizi pubblici</option>
+                  <option label="1.4.3 Adozione app IO">1.4.3 Adozione appIO</option>
+                  <option label="1.4.3 Adozione pagoPA">1.4.3 Adozione pagoPA</option>
+                  <option label="1.4.4 Adozione SPID e CIE">1.4.4 Adozione identità digitale</option>
+                  <option label="1.4.4 Adozione ANSC (ANPR)">1.4.4 Adozione ANPR ANSC</option>
+                  <option label="1.4.5 Digitalizzazione avvisi pubblici">1.4.5 Digitalizzazione degli avvisi pubblici</option>
+                  <option label="2.2.3 Digitalizzazione SUAP e SUE">2.2.3 Digitalizzazione delle procedure SUAP e SUE</option>
+                </Select>                
               </Col>
             </Row>
 
