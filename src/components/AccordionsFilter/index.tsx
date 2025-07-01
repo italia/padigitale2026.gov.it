@@ -42,6 +42,8 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   const [statusMessageMisura, setStatusMessageMisura] = useState<string>("");
   const [statusMessageBeneficiario, setStatusMessageBeneficiario] =
     useState<string>("");
+  const [selectedBeneficiario, setSelectedBeneficiario] = useState<string>("");
+  const [selectedMisura, setSelectedMisura] = useState<string>("");
 
   const updateVisibleCards = () => {
     const newVisibleCards: { [key: string]: boolean } = {};
@@ -73,6 +75,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   };
 
   const handleChangeMisura = (selectedOption: string) => {
+    setSelectedMisura(selectedOption);
     const accordions = document.querySelectorAll(".accordion");
 
     // Update status message for screen readers
@@ -118,6 +121,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   };
 
   const handleChangeBeneficiario = (selectedOption: string) => {
+    setSelectedBeneficiario(selectedOption);
     // Update status message for screen readers
     if (selectedOption === "") {
       setStatusMessageBeneficiario("Tutti i beneficiari sono visibili");
@@ -146,6 +150,37 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
         }
       }
     });
+
+    // --- LOGICA AGGIUNTA: nascondi accordion senza risultati se Misura è "" e beneficiario selezionato ---
+    const misuraSelect = document.getElementById(
+      "select-misura"
+    ) as HTMLSelectElement;
+    const selectedMisura = misuraSelect ? misuraSelect.value : "";
+    const accordions = document.querySelectorAll(".accordion");
+    if (selectedMisura === "" && selectedOption !== "") {
+      accordions.forEach((accordion, index) => {
+        if (index === 0) {
+          // Primo accordion sempre visibile
+          accordion.classList.remove("d-none");
+        } else {
+          // Controlla se ci sono risorse visibili in questo accordion
+          const visibleResources = accordion.querySelectorAll(
+            "[data-beneficiari]:not(.d-none)"
+          );
+          if (visibleResources.length === 0) {
+            accordion.classList.add("d-none");
+          } else {
+            accordion.classList.remove("d-none");
+          }
+        }
+      });
+    } else if (selectedOption === "") {
+      // Se beneficiario torna su "", mostra tutti gli accordion
+      accordions.forEach((accordion) => {
+        accordion.classList.remove("d-none");
+      });
+    }
+
     updateVisibleCards();
   };
 
@@ -237,82 +272,115 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
       </div>
       <div className="row">
         <div className="col-12 it-page-sections-container">
-          {items.map((item, index) => (
-            <Accordion iconLeft key={index} className={cn("border-0")}>
-              <AccordionItem>
-                <AccordionHeader
-                  className={cn("custom-accordion-header")}
-                  active={
-                    collapseElementOpen ===
-                    createSlug(item.titleMisura?.slug ?? index.toString())
-                  }
-                  onToggle={() =>
-                    setCollapseElement(
-                      collapseElementOpen !==
-                        createSlug(item.titleMisura?.slug ?? index.toString())
-                        ? createSlug(item.titleMisura?.slug ?? index.toString())
-                        : ""
-                    )
-                  }
-                >
-                  {item.titleMisura?.label}
-                </AccordionHeader>
-                <AccordionBody
-                  className={cn("custom-accordion-body")}
-                  active={
-                    collapseElementOpen ===
-                    createSlug(item.titleMisura?.slug ?? index.toString())
-                  }
-                  aria-expanded={
-                    collapseElementOpen ===
-                    createSlug(item.titleMisura?.slug ?? index.toString())
-                  }
-                >
-                  {item.resources && (
-                    <div className={"row"} role="list">
-                      {item.resources.map((resource, idx) => {
-                        return (
+          {items.map((item, index) => {
+            // Logica per mostrare/nascondere gli accordion in base ai filtri
+            if (
+              selectedMisura === "" &&
+              selectedBeneficiario !== "" &&
+              index !== 0
+            ) {
+              // Mostra solo gli accordion che hanno almeno una risorsa visibile per il beneficiario selezionato
+              const hasVisibleResource = item.resources?.some((resource) =>
+                resource.entiBeneficiari?.some(
+                  (b) => createSlug(b.label || "") === selectedBeneficiario
+                )
+              );
+              if (!hasVisibleResource) {
+                return null;
+              }
+            }
+            // Gli altri casi: mostra normalmente
+            return (
+              <Accordion iconLeft key={index} className={cn("border-0")}>
+                <AccordionItem>
+                  <AccordionHeader
+                    className={cn("custom-accordion-header")}
+                    active={
+                      collapseElementOpen ===
+                      createSlug(item.titleMisura?.slug ?? index.toString())
+                    }
+                    onToggle={() =>
+                      setCollapseElement(
+                        collapseElementOpen !==
+                          createSlug(item.titleMisura?.slug ?? index.toString())
+                          ? createSlug(
+                              item.titleMisura?.slug ?? index.toString()
+                            )
+                          : ""
+                      )
+                    }
+                  >
+                    {item.titleMisura?.label}
+                  </AccordionHeader>
+                  <AccordionBody
+                    className={cn("custom-accordion-body")}
+                    active={
+                      collapseElementOpen ===
+                      createSlug(item.titleMisura?.slug ?? index.toString())
+                    }
+                    aria-expanded={
+                      collapseElementOpen ===
+                      createSlug(item.titleMisura?.slug ?? index.toString())
+                    }
+                  >
+                    {item.resources && (
+                      <div className={"row"} role="list">
+                        {item.resources.map((resource, idx) => {
+                          // Mostra solo le risorse che corrispondono al beneficiario selezionato (se presente)
+                          if (
+                            selectedBeneficiario !== "" &&
+                            selectedMisura === "" &&
+                            !resource.entiBeneficiari?.some(
+                              (b) =>
+                                createSlug(b.label || "") ===
+                                selectedBeneficiario
+                            )
+                          ) {
+                            return null;
+                          }
+                          return (
+                            <div
+                              key={idx}
+                              className={`col-12 col-md-6 pt-4 d-flex flex-column justify-content-stretch`}
+                              data-beneficiari={resource.entiBeneficiari
+                                ?.map((b) =>
+                                  b.label
+                                    ?.toLowerCase()
+                                    .replace(/à/g, "a")
+                                    .replace(/è/g, "e")
+                                    .replace(/ì/g, "i")
+                                    .replace(/ò/g, "o")
+                                    .replace(/ù/g, "u")
+                                    .replace(/[^a-z0-9]+/g, "-")
+                                    .replace(/(^-|-$)/g, "")
+                                )
+                                .join(" ")}
+                              role="listitem"
+                            >
+                              <CardResource TitleTag={"h3"} props={resource} />
+                            </div>
+                          );
+                        })}
+                        {!visibleCards[
+                          createSlug(item.titleMisura?.slug ?? index.toString())
+                        ] && (
                           <div
-                            key={idx}
-                            className={`col-12 col-md-6 pt-4 d-flex flex-column justify-content-stretch`}
-                            data-beneficiari={resource.entiBeneficiari
-                              ?.map((b) =>
-                                b.label
-                                  ?.toLowerCase()
-                                  .replace(/à/g, "a")
-                                  .replace(/è/g, "e")
-                                  .replace(/ì/g, "i")
-                                  .replace(/ò/g, "o")
-                                  .replace(/ù/g, "u")
-                                  .replace(/[^a-z0-9]+/g, "-")
-                                  .replace(/(^-|-$)/g, "")
-                              )
-                              .join(" ")}
-                            role="listitem"
+                            className="col-12 text-center py-1"
+                            role="status"
+                            aria-live="polite"
                           >
-                            <CardResource TitleTag={"h3"} props={resource} />
+                            <p className="h5 text-muted">
+                              Nessun risultato trovato con i filtri attuali
+                            </p>
                           </div>
-                        );
-                      })}
-                      {!visibleCards[
-                        createSlug(item.titleMisura?.slug ?? index.toString())
-                      ] && (
-                        <div
-                          className="col-12 text-center py-1"
-                          role="status"
-                          aria-live="polite"
-                        >
-                          <p className="h5 text-muted">
-                            Nessun risultato trovato con i filtri attuali
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </AccordionBody>
-              </AccordionItem>
-            </Accordion>
-          ))}
+                        )}
+                      </div>
+                    )}
+                  </AccordionBody>
+                </AccordionItem>
+              </Accordion>
+            );
+          })}
         </div>
       </div>
     </div>
