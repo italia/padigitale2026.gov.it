@@ -79,7 +79,7 @@ export function TableListLinkItem({
           target={link?.target as HTMLAttributeAnchorTarget}
           aria-label={category ? `Categoria: ${category.label}` : undefined}
         >
-          <div>
+          <div className="me-4">
             <div
               className="fw-semibold text-decoration-underline mb-1"
               style={{ fontSize: "1.125rem", lineHeight: "1.556" }}

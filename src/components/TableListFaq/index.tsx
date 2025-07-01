@@ -109,7 +109,7 @@ export function TableListFaq({
                         : undefined
                     }
                   >
-                    <div>
+                    <div className="me-4">
                       <div
                         className="fw-semibold text-decoration-underline mb-1 lh-base"
                         style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
