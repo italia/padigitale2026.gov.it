@@ -217,6 +217,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   id="address"
                   name="address"
                   label="Email*"
+                  placeholder="Inserisci un indirizzo email"
                   type="email"
                   value={formState.address}
                   required
@@ -233,6 +234,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   id="phone"
                   name="phone"
                   label="Telefono"
+                  placeholder="Inserisci un numero di telefono"
                   type="text"
                   value={formState.phone}
                   onChange={(e) => {
@@ -278,7 +280,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                 <TextArea
                   id="object"
                   name="object"
-                  label="Inserisci l'oggetto della richiesta*"
+                  label="Oggetto*"
+                  placeholder="Inserisci l'oggetto della richiesta"
                   rows={2}
                   maxLength={150}
                   value={formState.object}
@@ -306,7 +309,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                 <TextArea
                   id="description"
                   name="description"
-                  label="Inserisci i dettagli della richiesta*"
+                  label="Richiesta*"
+                  placeholder="Inserisci i dettagli della richiesta"
                   required
                   rows={5}
                   maxLength={32000}
