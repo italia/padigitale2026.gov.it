@@ -204,6 +204,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     });
                   }}
                 >
+                  <option label="Seleziona un richiedente"></option>
                   <option label="Pubblica Amministrazione">pubblica-amministrazione</option>
                   <option label="Fornitore">fornitore</option>
                 </Select>
@@ -258,6 +259,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     });
                   }}
                 >
+                  <option label="Seleziona un argomento"></option>
                   <option label="Amministrazione">amministrazione</option>
                   <option label="Implementazione e sviluppo progetto">implementazione-sviluppo-progetto</option>
                   <option label="Malfunzionamento piattaforma">malfunzionamento-piattaforma</option>
@@ -276,7 +278,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                 <TextArea
                   id="object"
                   name="object"
-                  label="Oggetto*"
+                  label="Inserisci l'oggetto della richiesta*"
                   rows={2}
                   maxLength={150}
                   value={formState.object}
@@ -304,7 +306,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                 <TextArea
                   id="description"
                   name="description"
-                  label="Richiesta*"
+                  label="Inserisci i dettagli della richiesta*"
                   required
                   rows={5}
                   maxLength={32000}
