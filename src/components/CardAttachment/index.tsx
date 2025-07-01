@@ -75,13 +75,15 @@ export function CardAttachment({
           <footer className={cn("it-card-related pb-4 pt-0 mt-0 flex-wrap")}>
             {label && (
               <div className={"it-card-taxonomy"}>
-                <span className="visually-hidden">Categoria correlata: </span>
+                <span className="visually-hidden me-1">
+                  Categoria correlata:{" "}
+                </span>
                 <span className={"it-card-category"}>{label}</span>
               </div>
             )}
             {badge && (
               <div className={"it-card-taxonomy"}>
-                <span className="visually-hidden">Stato risorsa: </span>
+                <span className="visually-hidden me-1">Stato risorsa: </span>
                 <CardBadge content={badge} />
               </div>
             )}

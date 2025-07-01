@@ -50,7 +50,7 @@ export default function NavHeader({
           width: 100%;
         }
       `}</style>
-      <Header theme={openNav ? "light" : theme} type="navbar">
+      <Header theme={openNav ? "light" : theme} type="navbar" className="px-0">
         <HeaderContent expand="lg" className="px-0">
           <HeaderToggler
             aria-controls="nav1"
@@ -66,8 +66,12 @@ export default function NavHeader({
             navbar
             onOverlayClick={() => toggle()}
           >
-            <div className="menu-wrapper">
-              <Nav navbar>
+            <div
+              className="menu-wrapper"
+              role="navigation"
+              aria-label="Menu principale"
+            >
+              <Nav navbar aria-label="Menu principale" className="w-100">
                 <NavItem>
                   <NavLink href="https://padigitale2026--collaudo.sandbox.my.site.com/Pa_digitale2026_avvisi">
                     <span className="fw-semibold">Avvisi</span>
@@ -86,10 +90,12 @@ export default function NavHeader({
                     </NavLink>
                   </NavItem>
                 ))}
-              </Nav>
-              <Nav navbar>
-                {secondaryLinks.map((link) => (
-                  <NavItem key={link.id} active={isActiveLink(link.slug)}>
+                {secondaryLinks.map((link, index) => (
+                  <NavItem
+                    key={link.id}
+                    active={isActiveLink(link.slug)}
+                    className={index === 0 ? "ms-lg-auto" : ""}
+                  >
                     <NavLink
                       active={isActiveLink(link.slug)}
                       href={`/${link.slug || "#"}`}

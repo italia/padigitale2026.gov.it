@@ -109,7 +109,9 @@ export function CardGeneric({
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
             {label && (
               <div className={"it-card-taxonomy"}>
-                <span className="visually-hidden">Categoria correlata: </span>
+                <span className="visually-hidden me-1">
+                  Categoria correlata:{" "}
+                </span>
                 <span className={"it-card-category"}>{label}</span>
               </div>
             )}

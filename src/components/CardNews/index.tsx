@@ -79,13 +79,15 @@ export function CardNews({
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
             {category && (
               <div className={"it-card-taxonomy"}>
-                <span className="visually-hidden">Categoria correlata: </span>
+                <span className="visually-hidden me-1">
+                  Categoria correlata:{" "}
+                </span>
                 <span className={"it-card-category"}>{category}</span>
               </div>
             )}
             {customUpdateDate && (
               <>
-                <span className="visually-hidden">Data: </span>
+                <span className="visually-hidden me-1">Data: </span>
                 <time className={"it-card-date"}>
                   {new Intl.DateTimeFormat("it-IT", {
                     timeZone: "Europe/Rome",

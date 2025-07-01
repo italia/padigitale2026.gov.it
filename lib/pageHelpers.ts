@@ -208,9 +208,19 @@ export async function generateAllStaticParams() {
   ];
 
   const params = [
-    // Pagine normali
+    // Pagine normali (escludendo la homepage e altre pagine speciali)
     ...pages.allPages
-      .filter((page) => page.slug)
+      .filter((page) => {
+        // Escludi slug problematici
+        if (!page.slug || page.slug === "homepage" || page.slug === "" || page.slug === "/") {
+          return false;
+        }
+        // Escludi slug che iniziano con / o che potrebbero essere interpretati come homepage
+        if (page.slug.startsWith("/") || page.slug === "index") {
+          return false;
+        }
+        return true;
+      })
       .map((page) => ({
         slug: page.slug!.split("/"),
         customUpdateDate: page.customUpdateDate,

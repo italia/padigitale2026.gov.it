@@ -21,6 +21,16 @@ export async function generateStaticParams() {
   return allParams.filter((param) => {
     const fullSlug = param.slug.join("/");
 
+    // Escludi esplicitamente la homepage e altri slug problematici
+    if (
+      fullSlug === "homepage" ||
+      fullSlug === "" ||
+      fullSlug === "/" ||
+      param.slug.length === 0
+    ) {
+      return false;
+    }
+
     // Solo pagine normali (non supporto, notizie, risorse, FAQ)
     const isNormalPage =
       !param.slug.includes("supporto") &&

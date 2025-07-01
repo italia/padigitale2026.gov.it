@@ -29,20 +29,23 @@ export default function CenterHeader({
         <Link
           href="/"
           className="d-flex align-items-center gap-4 text-decoration-none ms-4 ms-lg-0 ps-3 ps-lg-0"
+          aria-label={`${title} - ${subtitle} - Torna alla home page`}
         >
           <Image
             src="/images/logo-ri.svg"
-            alt="Logo Repubblica Italiana"
-            title="Logo Repubblica Italiana"
+            alt=""
+            title=""
             width={56}
             height={63}
+            aria-hidden="true"
           />
           <Image
             src="/images/site-logo.svg"
-            alt="Logo PA digitale"
-            title="Logo PA digitale"
+            alt=""
+            title=""
             width={56}
             height={56}
+            aria-hidden="true"
           />
           <div className="">
             <h1 className="mb-0 d-none d-sm-block h3">{title}</h1>
@@ -55,6 +58,7 @@ export default function CenterHeader({
             href={"/cerca"}
             iconName="it-search"
             label="Cerca"
+            aria-label="Cerca negli avvisi, notizie, guide e risorse - Apri la pagina di ricerca"
           />
         </HeaderRightZone>
       </HeaderContent>
