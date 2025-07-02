@@ -1,6 +1,7 @@
 "use client";
 
 import { FormAssistanceRecord } from "@/graphql/generated";
+import { mapFormDataToSalesforce } from "./salesforce-field-mapping";
 
 import Link from "next/link";
 import { Button, Input, Select, TextArea, Form } from "design-react-kit";
@@ -64,25 +65,28 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
     setMessage("");
 
     try {
-      // Prepara i dati del form per Salesforce
-      // @todo: sono i dati di collaudo o produzione? forse vanno cambiati a seconda dell'ambiente
+      // Prepara i dati del form per Salesforce usando la mappatura dinamica
+      const mappedFields = mapFormDataToSalesforce({
+        applicant: formState.applicant,
+        address: formState.address,
+        phone: formState.phone,
+        subject: formState.subject,
+        object: formState.object,
+        description: formState.description,
+        notice: formState.notice,
+      });
+
       const formData = {
         orgid: "00D7Q000001NvsR",
-        subject: formState.object,
-        description: formState.description,
         external: "1",
         origin: "Area pubblica",
         recordType: "0127Q0000001c35",
         priority: "Medium",
-        "00N7Q000007qqu1": formState.address,
-        "00N7Q000007qqts": formState.phone,
-        "00N7Q0000015NGO": formState.applicant,
-        "00N7Q000007qqtk": formState.subject,
-        "00N7Q000007qqu3": formState.notice,
+        ...mappedFields,
         "g-recaptcha-response": captchaToken,
-        'captcha_settings': JSON.stringify({ keyname: "reCAPTCHA_prod", fallback: true, orgId: "00D7Q000001NvsR", ts: Date.now().toString() }),
-        'debug': "1",
-        'submit': "INVIA",
+        captcha_settings: JSON.stringify({ keyname: "reCAPTCHA_prod", fallback: true, orgId: "00D7Q000001NvsR", ts: Date.now().toString() }),
+        debug: "1",
+        submit: "INVIA",
       };
 
       // Chiama Salesforce tramite API route
