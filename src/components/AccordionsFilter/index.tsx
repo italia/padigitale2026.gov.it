@@ -36,6 +36,8 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   const [collapseElementOpen, setCollapseElement] = useState(
     items[0]?.titleMisura?.slug ? createSlug(items[0].titleMisura.slug) : ""
   );
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isUserClick, setIsUserClick] = useState(false);
   const [visibleCards, setVisibleCards] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -190,6 +192,29 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Scroll automatico all'apertura di un accordion
+  useEffect(() => {
+    if (collapseElementOpen && !isInitialLoad && isUserClick) {
+      const el = document.getElementById(collapseElementOpen);
+      if (el) {
+        setTimeout(() => {
+          const elementPosition = el.offsetTop - 20;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
+        }, 300);
+      }
+    }
+    if (isInitialLoad) {
+      setIsInitialLoad(false);
+    }
+    // Reset isUserClick dopo lo scroll
+    if (isUserClick) {
+      setIsUserClick(false);
+    }
+  }, [collapseElementOpen, isInitialLoad, isUserClick]);
+
   return (
     <div className={cn("container-xxl py-lg-5")}>
       <div className="row my-4">
@@ -291,7 +316,12 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
             }
             // Gli altri casi: mostra normalmente
             return (
-              <Accordion iconLeft key={index} className={cn("border-0")}>
+              <Accordion
+                id={createSlug(item.titleMisura?.slug ?? index.toString())}
+                iconLeft
+                key={index}
+                className={cn("border-0")}
+              >
                 <AccordionItem>
                   <AccordionHeader
                     className={cn("custom-accordion-header")}
@@ -299,7 +329,8 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
                       collapseElementOpen ===
                       createSlug(item.titleMisura?.slug ?? index.toString())
                     }
-                    onToggle={() =>
+                    onToggle={() => {
+                      setIsUserClick(true);
                       setCollapseElement(
                         collapseElementOpen !==
                           createSlug(item.titleMisura?.slug ?? index.toString())
@@ -307,8 +338,8 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
                               item.titleMisura?.slug ?? index.toString()
                             )
                           : ""
-                      )
-                    }
+                      );
+                    }}
                   >
                     {item.titleMisura?.label}
                   </AccordionHeader>
