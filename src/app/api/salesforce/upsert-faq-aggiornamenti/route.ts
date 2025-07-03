@@ -36,7 +36,7 @@ export async function POST(request: Request) {
             External_ID__c: entity_content.id,
             Type__c: "Ultimi aggiornamenti",
             Description__c: data.entity.attributes.title,
-            Date_Latest_Update__c: data.entity.attributes.custom_update_date ? new Date(data.entity.attributes.custom_update_date).toISOString().split('T')[0] : '',
+            Date_Latest_Update__c: data.entity.attributes.custom_update_date ? (data.entity.attributes.custom_update_date as string).split('T')[0] : '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Avviso__c: data.entity.attributes.id_avviso_salesforce,
           });
