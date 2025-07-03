@@ -64,7 +64,7 @@ export async function upsertFaqAggiornamenti(records: records[]) {
     await logToBetterStack('upsertFaqAggiornamenti', payload, response, responseText, responseData);
 
     // Verifica se la richiesta è andata a buon fine
-    if (!response.ok) {
+    if (!response.ok || (responseData[0].errors && responseData[0].errors.length > 0)) {
       throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${responseText}`);
     }    
 
@@ -109,7 +109,7 @@ export async function cancellazioneLineeGuidaFaqAggiornamenti(records: records[]
     await logToBetterStack('cancellazioneLineeGuidaFaqAggiornamenti', payload, response, responseText, responseData);
 
     // Verifica se la richiesta è andata a buon fine
-    if (!response.ok) {
+    if (!response.ok || (responseData[0].errors && responseData[0].errors.length > 0)) {
       throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${responseText}`);
     }    
 
@@ -148,7 +148,7 @@ export async function creazioneLineeGuida(record: object) {
     await logToBetterStack('creazioneLineeGuida', record, response, responseText, responseData);
 
     // Verifica se la richiesta è andata a buon fine
-    if (!response.ok) {
+    if (!response.ok || (responseData[0].errors && responseData[0].errors.length > 0)) {
       throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${responseText}`);
     }
 
