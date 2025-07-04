@@ -966,6 +966,7 @@ export type DatavizModelFilter = {
   chartData?: InputMaybe<JsonFilter>;
   chartDatasource?: InputMaybe<JsonFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  openDataPath?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
 };
 
@@ -988,6 +989,8 @@ export enum DatavizModelOrderBy {
   UpdatedAtDesc = '_updatedAt_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  OpenDataPathAsc = 'openDataPath_ASC',
+  OpenDataPathDesc = 'openDataPath_DESC',
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
@@ -1012,6 +1015,7 @@ export type DatavizRecord = RecordInterface & {
   chartData?: Maybe<Scalars['JsonField']['output']>;
   chartDatasource?: Maybe<Scalars['JsonField']['output']>;
   id: Scalars['ItemId']['output'];
+  openDataPath?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -3879,6 +3883,7 @@ export type KpiElementModelFilter = {
   flowValue?: InputMaybe<StringFilter>;
   footerText?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
+  openDataPath?: InputMaybe<StringFilter>;
   percentage?: InputMaybe<StringFilter>;
   showFlow?: InputMaybe<BooleanFilter>;
   title?: InputMaybe<StringFilter>;
@@ -3916,6 +3921,8 @@ export enum KpiElementModelOrderBy {
   FooterTextDesc = 'footerText_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  OpenDataPathAsc = 'openDataPath_ASC',
+  OpenDataPathDesc = 'openDataPath_DESC',
   PercentageAsc = 'percentage_ASC',
   PercentageDesc = 'percentage_DESC',
   ShowFlowAsc = 'showFlow_ASC',
@@ -3952,6 +3959,7 @@ export type KpiElementRecord = RecordInterface & {
   flowValue?: Maybe<Scalars['String']['output']>;
   footerText?: Maybe<Scalars['String']['output']>;
   id: Scalars['ItemId']['output'];
+  openDataPath?: Maybe<Scalars['String']['output']>;
   percentage?: Maybe<Scalars['String']['output']>;
   showFlow: Scalars['BooleanType']['output'];
   title?: Maybe<Scalars['String']['output']>;
