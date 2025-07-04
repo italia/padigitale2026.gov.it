@@ -8,6 +8,17 @@ query allSupportos {
     title
     slug
     nascondiValutazione
+    seo {
+      description
+      noIndex
+      title
+      twitterCard
+      image {
+        responsiveImage {
+          ...ImageFragment
+        }
+      }
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment

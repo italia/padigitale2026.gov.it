@@ -76,11 +76,17 @@ fragment ButtonFragment on ButtonRecord {
 
 fragment ImageFragment on ResponsiveImage {
   __typename
-  src
   alt
   aspectRatio
-  width
+  base64
+  bgColor
   height
+  sizes
+  src
+  srcSet
+  title
+  webpSrcSet
+  width
 }
 
 fragment ImagesGridFragment on ImagesGridRecord {
@@ -905,13 +911,9 @@ fragment ImmagineFragment on ImmagineRecord {
     id
     format
     responsiveImage {
-      sizes
-      src
-      width
-      height
-      alt
-      title
-      base64
+      ...ImageFragment
     }
   }
 }
+
+# Fragment SEO rimosso - i campi SEO sono integrati direttamente nei modelli
