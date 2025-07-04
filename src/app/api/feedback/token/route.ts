@@ -11,6 +11,9 @@ if (!process.env.SESSION_SECRET) {
 const sessionOptions = {
   password: process.env.SESSION_SECRET,
   cookieName: "session",
+  cookieOptions: {
+    sameSite: "none",
+  },
 };
 
 import cors_headers from "../cors_headers.json";
