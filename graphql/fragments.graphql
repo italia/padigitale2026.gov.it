@@ -915,5 +915,3 @@ fragment ImmagineFragment on ImmagineRecord {
     }
   }
 }
-
-# Fragment SEO rimosso - i campi SEO sono integrati direttamente nei modelli
