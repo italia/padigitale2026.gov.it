@@ -1,8 +1,101 @@
 import { getFaqData, generateFaqStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const fullSlug = slug.join("/");
+
+  // Lista delle eccezioni che devono essere gestite come supporto
+  const supportoFaqExceptions = [
+    "supporto/domande-frequenti/misure-e-avvisi",
+    "supporto/domande-frequenti/utilizzo-della-piattaforma",
+    "supporto/domande-frequenti/piani-di-migrazione",
+    "supporto/domande-frequenti/fondo-innovazione",
+    "supporto/domande-frequenti/generali",
+    "supporto/domande-frequenti/classificazione-dati-e-servizi",
+    "supporto/domande-frequenti/rendicontazione",
+  ];
+
+  // Costruisci il slug completo per il controllo delle eccezioni
+  const fullSlugForCheck = `supporto/domande-frequenti/${fullSlug}`;
+
+  let pageData;
+  let pageType: "faq" | "supporto" = "faq";
+
+  // Se è un'eccezione, gestiscila come supporto
+  if (supportoFaqExceptions.includes(fullSlugForCheck)) {
+    const { getSupportoData } = await import("@/lib/pageHelpers");
+    const exceptionSlug = `domande-frequenti/${fullSlug}`;
+    pageData = await getSupportoData(exceptionSlug);
+    pageType = "supporto";
+  } else {
+    // Per le FAQ vere, usa getFaqData
+    pageData = await getFaqData(fullSlug);
+  }
+
+  if (!pageData) {
+    return {
+      title: "FAQ non trovata - PA digitale 2026",
+      description: "La FAQ richiesta non esiste.",
+    };
+  }
+
+  const { page } = pageData;
+  const seo = page.seo;
+
+  const baseTitle =
+    pageType === "faq"
+      ? "FAQ - PA digitale 2026"
+      : "Supporto - PA digitale 2026";
+  const baseDescription =
+    pageType === "faq"
+      ? "Domande frequenti su PA digitale 2026"
+      : "Supporto e assistenza per PA digitale 2026";
+  const baseUrl =
+    pageType === "faq"
+      ? `https://padigitale2026.gov.it/supporto/domande-frequenti/${fullSlug}`
+      : `https://padigitale2026.gov.it/supporto/domande-frequenti/${fullSlug}`;
+
+  return {
+    title: seo?.title || page.title || baseTitle,
+    description: seo?.description || baseDescription,
+    robots: seo?.noIndex ? "noindex, nofollow" : "index, follow",
+    openGraph: {
+      title: seo?.title || page.title || baseTitle,
+      description: seo?.description || baseDescription,
+      type: "website",
+      url: baseUrl,
+      images: seo?.image?.responsiveImage
+        ? [
+            {
+              url: seo.image.responsiveImage.src,
+              width: seo.image.responsiveImage.width,
+              height: seo.image.responsiveImage.height,
+              alt: seo.image.responsiveImage.alt || page.title || baseTitle,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card:
+        (seo?.twitterCard as "summary" | "summary_large_image") ||
+        "summary_large_image",
+      title: seo?.title || page.title || baseTitle,
+      description: seo?.description || baseDescription,
+      images: seo?.image?.responsiveImage
+        ? [seo.image.responsiveImage.src]
+        : undefined,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   return await generateFaqStaticParams();
