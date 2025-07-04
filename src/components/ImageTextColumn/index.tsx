@@ -18,11 +18,11 @@ export function ImageTextColumn({ props }: { props: ImageTextColumnRecord }) {
         </Row>
         <Row>
           {image && (
-            <Col className="pe-0 pe-md-5 mb-3" lg="6" xs="12">
+            <Col className="pe-0 pe-md-3 mb-3" lg="6" xs="12">
               <SRCImage data={image.responsiveImage as ResponsiveImageType} />
             </Col>
           )}
-          <Col className="pe-0 pe-md-5 mb-3" lg="3" xs="12">
+          <Col className="pe-0 pe-md-3 mb-3" lg="3" xs="12">
             <h4>Accesso semplificato alle opportunità</h4>
             <p>
               Tutti gli avvisi di finanziamento vengono pubblicati sul sito di
@@ -36,7 +36,7 @@ export function ImageTextColumn({ props }: { props: ImageTextColumnRecord }) {
               delle candidature ammesse.
             </p>
           </Col>
-          <Col className="pe-0 pe-md-5 mb-3" lg="3" xs="12">
+          <Col className="pe-0 pe-md-3 mb-3" lg="3" xs="12">
             <h4>Gestione di candidature e finanziamenti</h4>
             <p>
               La piattaforma raccoglie e monitora i dati sull’avanzamento e il
