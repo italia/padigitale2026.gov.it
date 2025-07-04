@@ -31,6 +31,7 @@ import {
   FormToRecord,
   FormNewsletterRecord,
   FormAssistanceRecord,
+  ImageTextColumnRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -56,6 +57,7 @@ import { FormTo } from "@/src/components/FormTo";
 import { FormValutazione } from "./FormValutazione";
 import { FormAssistenza } from "./FormAssistenza";
 import { UpdateDate } from "@/src/components/UpdateDate";
+import { ImageTextColumn } from "./ImageTextColumn";
 
 export function ModularContent({
   content,
@@ -95,11 +97,7 @@ export function ModularContent({
             return <Banner key={idx} props={el as BannerRecord} />;
           case "RichTextSectionRecord":
             return (
-              <RichTextSection
-                key={idx}
-                isPageSection={true}
-                props={el as RichTextSectionRecord}
-              />
+              <RichTextSection key={idx} props={el as RichTextSectionRecord} />
             );
           case "VideoPlayerRecord":
             return <VideoPlayer key={idx} props={el as VideoPlayerRecord} />;
@@ -184,7 +182,13 @@ export function ModularContent({
           case "FormToRecord":
             return <FormTo key={idx} props={el as FormToRecord} />;
           case "FormAssistanceRecord":
-            return <FormAssistenza key={idx} props={el as FormAssistanceRecord} />;
+            return (
+              <FormAssistenza key={idx} props={el as FormAssistanceRecord} />
+            );
+          case "ImageTextColumnRecord":
+            return (
+              <ImageTextColumn key={idx} props={el as ImageTextColumnRecord} />
+            );
           default:
             return null;
         }

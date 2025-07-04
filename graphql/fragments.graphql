@@ -915,3 +915,14 @@ fragment ImmagineFragment on ImmagineRecord {
     }
   }
 }
+
+fragment ImageTextColumnFragment on ImageTextColumnRecord {
+  __typename
+  id
+  title
+  image {
+    responsiveImage {
+      ...ImageFragment
+    }
+  }
+}

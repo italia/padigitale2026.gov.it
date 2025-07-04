@@ -60,7 +60,7 @@ export function CardService({
             {button && (
               <Link
                 href={button.href || `/${button.cmsPage?.slug || ""}`}
-                className={"text-decoration-none fw-semibold"}
+                className={"fw-semibold"}
               >
                 <small>{button.text}</small>
                 {button.icon && (

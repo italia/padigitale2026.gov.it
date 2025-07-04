@@ -11,7 +11,7 @@ import {
   AlertRecord,
   ImmagineRecord,
 } from "@/graphql/generated";
-import { Icon } from "design-react-kit";
+import { Icon, Section, Container, Row, Col } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { Alert } from "@/src/components/Alert";
 
@@ -62,15 +62,7 @@ interface RichTextProps extends RichTextSectionRecord {
   richTextContent?: RichTextModelContentField;
 }
 
-export function RichTextSection({
-  props,
-  padding = false,
-  isPageSection = false,
-}: {
-  props: RichTextSectionRecord;
-  padding?: boolean;
-  isPageSection?: boolean;
-}) {
+export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
 
@@ -141,7 +133,7 @@ export function RichTextSection({
         return (
           <Link
             key={record.id}
-            className="btn btn-sm btn-outline-primary btn-mini"
+            className="btn btn-sm btn-outline-primary btn-mini mt-2"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
             {record.text}
@@ -167,26 +159,27 @@ export function RichTextSection({
   };
 
   return (
-    <div
-      className={cn("it-section container-xxl", {
-        "text-center": alignment === "center",
-        "text-end": alignment === "right",
-        "py-4": padding || isPageSection,
-      })}
-    >
-      <div className={"row"}>
-        <div className={"col-12"}>
-          {content && (
-            <StructuredText
-              key={JSON.stringify(content)}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              data={content as any}
-              renderBlock={renderBlock}
-              customNodeRules={customNodeRules}
-            />
-          )}
-        </div>
-      </div>
-    </div>
+    <Section>
+      <Container
+        className={cn("", {
+          "text-center": alignment === "center",
+          "text-end": alignment === "right",
+        })}
+      >
+        <Row>
+          <Col>
+            {content && (
+              <StructuredText
+                key={JSON.stringify(content)}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                data={content as any}
+                renderBlock={renderBlock}
+                customNodeRules={customNodeRules}
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </Section>
   );
 }

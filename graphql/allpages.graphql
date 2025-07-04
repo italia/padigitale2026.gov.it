@@ -99,6 +99,9 @@ query AllPages {
       ... on FormAssistanceRecord {
         ...FormAssistanceFragment
       }
+      ... on ImageTextColumnRecord {
+        ...ImageTextColumnFragment
+      }
     }
   }
   _allPagesMeta {

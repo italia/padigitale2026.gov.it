@@ -9,7 +9,7 @@ import {
   AlertRecord,
   ImmagineRecord,
 } from "@/graphql/generated";
-import { Icon } from "design-react-kit";
+import { Col, Container, Icon, Row, Section } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { Alert } from "@/src/components/Alert";
 
@@ -155,21 +155,27 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
   };
 
   return (
-    <div
-      className={cn({
-        "text-center": alignment === "center",
-        "text-end": alignment === "right",
-      })}
-    >
-      {content && (
-        <StructuredText
-          key={JSON.stringify(content)}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data={content as any}
-          renderBlock={renderBlock}
-          customNodeRules={customNodeRules}
-        />
-      )}
-    </div>
+    <Section wrapperClassName={cn("p-0")}>
+      <Container
+        className={cn("p-0", {
+          "text-center": alignment === "center",
+          "text-end": alignment === "right",
+        })}
+      >
+        <Row>
+          <Col>
+            {content && (
+              <StructuredText
+                key={JSON.stringify(content)}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                data={content as any}
+                renderBlock={renderBlock}
+                customNodeRules={customNodeRules}
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </Section>
   );
 }
