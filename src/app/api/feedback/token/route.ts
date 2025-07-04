@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { SessionData } from "../types";
 import Tokens from "csrf";
 
@@ -15,17 +15,24 @@ const sessionOptions = {
 
 import cors_headers from "../cors_headers.json";
 
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get("Origin") as string;
+
   return NextResponse.json(
     {},
     {
-      headers: cors_headers,
+      headers: {
+        ...cors_headers,
+        "Access-Control-Allow-Origin": origin,
+      },
     },
   );
 }
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   // questo endpoint crea un CSRF token, lo restituisce e lo mette in sessione.
+  const origin = request.headers.get("Origin") as string;
+
   const session = await getIronSession<SessionData>(
     await cookies(),
     sessionOptions,
@@ -49,7 +56,10 @@ export async function POST() {
       csrf_token: token,
     },
     {
-      headers: cors_headers,
+      headers: {
+        ...cors_headers,
+        "Access-Control-Allow-Origin": origin,
+      },
     },
   );
 }

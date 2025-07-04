@@ -28,11 +28,16 @@ function getIP(req: NextRequest): string {
   return xff ? xff.split(",")[0].trim() : "unknown";
 }
 
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get("Origin") as string;
+
   return NextResponse.json(
     {},
     {
-      headers: cors_headers,
+      headers: {
+        ...cors_headers,
+        "Access-Control-Allow-Origin": origin,
+      },
     },
   );
 }
@@ -45,6 +50,8 @@ export async function POST(request: NextRequest) {
   ) {
     throw new Error("SESSION_SECRET and FEEDBACK_API_TOKEN must be set.");
   }
+
+  const origin = request.headers.get("Origin") as string;
 
   // START: Rate limit
   const ip = getIP(request);
@@ -64,6 +71,7 @@ export async function POST(request: NextRequest) {
     "X-RateLimit-Remaining": remaining.toString(),
     "X-RateLimit-Reset": (Math.floor(Date.now() / 1000) + ttl).toString(), // UNIX timestamp
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": origin,
     ...cors_headers,
   });
 
