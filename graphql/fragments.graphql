@@ -931,3 +931,8 @@ fragment TextColumnFragment on TextColumnRecord {
   __typename
   id
 }
+
+fragment TextBicolumnFragment on TextBicolumnRecord {
+  __typename
+  id
+}

@@ -33,6 +33,7 @@ import {
   FormAssistanceRecord,
   ImageTextColumnRecord,
   TextColumnRecord,
+  TextBicolumnRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -60,6 +61,7 @@ import { FormAssistenza } from "./FormAssistenza";
 import { UpdateDate } from "@/src/components/UpdateDate";
 import { ImageTextColumn } from "@/src/components/ImageTextColumn";
 import { TextColumn } from "@/src/components/TextColumn";
+import { TextBicolumn } from "@/src/components/TextBicolumn";
 
 export function ModularContent({
   content,
@@ -193,6 +195,8 @@ export function ModularContent({
             );
           case "TextColumnRecord":
             return <TextColumn key={idx} props={el as TextColumnRecord} />;
+          case "TextBicolumnRecord":
+            return <TextBicolumn key={idx} props={el as TextBicolumnRecord} />;
           default:
             return null;
         }

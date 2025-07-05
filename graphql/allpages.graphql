@@ -105,6 +105,9 @@ query AllPages {
       ... on TextColumnRecord {
         ...TextColumnFragment
       }
+      ... on TextBicolumnRecord {
+        ...TextBicolumnFragment
+      }
     }
   }
   _allPagesMeta {
