@@ -102,6 +102,9 @@ query AllPages {
       ... on ImageTextColumnRecord {
         ...ImageTextColumnFragment
       }
+      ... on TextColumnRecord {
+        ...TextColumnFragment
+      }
     }
   }
   _allPagesMeta {

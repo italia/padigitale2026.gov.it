@@ -926,3 +926,8 @@ fragment ImageTextColumnFragment on ImageTextColumnRecord {
     }
   }
 }
+
+fragment TextColumnFragment on TextColumnRecord {
+  __typename
+  id
+}
