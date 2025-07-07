@@ -108,6 +108,9 @@ query AllPages {
       ... on TextBicolumnRecord {
         ...TextBicolumnFragment
       }
+      ... on TimelineRecord {
+        ...TimelineFragment
+      }
     }
   }
   _allPagesMeta {

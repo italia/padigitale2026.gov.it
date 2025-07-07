@@ -936,3 +936,8 @@ fragment TextBicolumnFragment on TextBicolumnRecord {
   __typename
   id
 }
+
+fragment TimelineFragment on TimelineRecord {
+  __typename
+  id
+}

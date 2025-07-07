@@ -23,11 +23,6 @@ export function ImageTextColumn({ props }: { props: ImageTextColumnRecord }) {
           </Col>
         </Row>
         <Row>
-          {image && (
-            <Col className="pe-0 pe-md-3 mb-5 mb-lg-0" lg="6">
-              <SRCImage data={image.responsiveImage as ResponsiveImageType} />
-            </Col>
-          )}
           <Col className="pe-0 pe-md-3 mb-0" lg="6">
             <Row>
               <Col md="6">
@@ -67,6 +62,11 @@ export function ImageTextColumn({ props }: { props: ImageTextColumnRecord }) {
               </Col>
             </Row>
           </Col>
+          {image && (
+            <Col className="pe-0 pe-md-3 mb-5 mb-lg-0 text-center" lg="6">
+              <SRCImage data={image.responsiveImage as ResponsiveImageType} />
+            </Col>
+          )}
         </Row>
       </Container>
     </Section>
