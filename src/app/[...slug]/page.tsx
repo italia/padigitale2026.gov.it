@@ -45,7 +45,7 @@ export async function generateMetadata({
   const seo = page.seo;
 
   const nextSeo = toNextMetadata(seo as SeoOrFaviconTag[]);
-  console.log("nextSeo", nextSeo);
+
   return nextSeo;
 }
 

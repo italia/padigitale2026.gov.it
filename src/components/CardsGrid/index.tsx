@@ -304,7 +304,7 @@ export function CardsGrid({
 
     if (!news.length) {
       if (allDatoObjects.news?.allNews) {
-        news = allDatoObjects.news.allNews as NewsRecord[];
+        news = allDatoObjects.news.allNews as unknown as NewsRecord[];
         if (newsSelection === "latest_3") {
           news = news.slice(0, 3);
         } else if (newsSelection === "latest_6") {
