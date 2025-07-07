@@ -22,7 +22,7 @@ export function TextColumn({ props }: { props: TextColumnRecord }) {
           </Col>
         </Row>
         <Row>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
+          <Col className="pe-0 pe-md-3 mb-md-3 position-relative" md="6" lg="3">
             <h4>Unica registrazione</h4>
             <p>
               Le amministrazioni possono accedere con un’unica registrazione a
@@ -30,8 +30,11 @@ export function TextColumn({ props }: { props: TextColumnRecord }) {
               finanziate, produrre i dati relativi all’avanzamento dei progetti
               e ricevere comunicazioni personalizzate.
             </p>
+            <hr
+              style={{ position: "absolute", bottom: "-128px", width: "90%" }}
+            />
           </Col>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
+          <Col className="pe-0 pe-md-3 mb-md-3 position-relative" md="6" lg="3">
             <h4>Selezione dei servizi</h4>
             <p>
               Ogni PA può selezionare i servizi di interesse e comporre il
@@ -39,21 +42,30 @@ export function TextColumn({ props }: { props: TextColumnRecord }) {
               economico predefinito. Non sarà necessario scrivere e presentare
               progetti per ricevere finanziamenti.
             </p>
+            <hr
+              style={{ position: "absolute", bottom: "-128px", width: "90%" }}
+            />
           </Col>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
+          <Col className="pe-0 pe-md-3 mb-md-3 position-relative" md="6" lg="3">
             <h4>Ingaggio dei fornitori</h4>
             <p>
               Le PA possono scegliere i propri fornitori direttamente in area
               riservata, avvalendosi anche di fornitori certificati Consip.
             </p>
+            <hr
+              style={{ position: "absolute", bottom: "-128px", width: "90%" }}
+            />
           </Col>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
+          <Col className="pe-0 pe-md-3 mb-md-3 position-relative" md="6" lg="3">
             <h4>Erogazione delle risorse semplificata</h4>
             <p>
               I contributi sono riconosciuti sulla base del raggiungimento di
               specifici obiettivi predefiniti. Non è necessario rendicontare le
               singole spese effettuate per ottenere i fondi.
             </p>
+            <hr
+              style={{ position: "absolute", bottom: "-128px", width: "90%" }}
+            />
           </Col>
         </Row>
       </Container>

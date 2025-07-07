@@ -34,6 +34,7 @@ import {
   ImageTextColumnRecord,
   TextColumnRecord,
   TextBicolumnRecord,
+  TimelineRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -62,6 +63,7 @@ import { UpdateDate } from "@/src/components/UpdateDate";
 import { ImageTextColumn } from "@/src/components/ImageTextColumn";
 import { TextColumn } from "@/src/components/TextColumn";
 import { TextBicolumn } from "@/src/components/TextBicolumn";
+import { Timeline } from "@/src/components/Timeline";
 
 export function ModularContent({
   content,
@@ -197,6 +199,8 @@ export function ModularContent({
             return <TextColumn key={idx} props={el as TextColumnRecord} />;
           case "TextBicolumnRecord":
             return <TextBicolumn key={idx} props={el as TextBicolumnRecord} />;
+          case "TimelineRecord":
+            return <Timeline key={idx} props={el as TimelineRecord} />;
           default:
             return null;
         }

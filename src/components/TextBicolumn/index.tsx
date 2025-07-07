@@ -8,51 +8,50 @@ const cn = classNames.bind(styles);
 export function TextBicolumn({ props }: { props: TextBicolumnRecord }) {
   const { id } = props;
   return (
-    <Section aria-labelledby={id} className={cn("")}>
-      <Container>
+    <Section aria-labelledby={id} style={{ backgroundColor: "#F2F7FC" }}>
+      <Container className={cn("wrapper")}>
         <Row className="mb-5">
           <Col>
             <h2 id={id} className="mb-3">
-              Nuova modalità di accesso a <i>lump sum</i>
+              I benefici per le PA
             </h2>
-            <p className="mb-0">
-              PA digitale 2026 semplifica la richiesta di finanziamenti e riduce
-              gli oneri amministrativi.
+          </Col>
+        </Row>
+        <Row>
+          <Col className="pe-0 pe-md-3 mb-md-3" md="6">
+            <h4>Finanziamenti pertinenti</h4>
+            <p>
+              Grazie a un profilo dedicato, le PA possono trovare gli avvisi di
+              finanziamento rivolti alla propria tipologia di amministrazione,
+              in modo semplice, veloce e chiaro.
+            </p>
+          </Col>
+          <Col className="pe-0 pe-md-3 mb-md-3" md="6">
+            <h4>Risorse progettuali a disposizione</h4>
+            <p>
+              Sul sito di PA digitale 2026, sono disponibili guide,
+              presentazioni e registrazioni di webinar per aiutare le PA a
+              candidarsi, gestire i progetti e orientarsi nella normativa
+              ufficiale.
             </p>
           </Col>
         </Row>
         <Row>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
-            <h4>Unica registrazione</h4>
+          <Col className="pe-0 pe-md-3 mb-md-3" md="6">
+            <h4>Tutto in un unico posto</h4>
             <p>
-              Le amministrazioni possono accedere con un’unica registrazione a
-              più avvisi e gestire in area riservata le singole iniziative
-              finanziate, produrre i dati relativi all’avanzamento dei progetti
-              e ricevere comunicazioni personalizzate.
+              Tramite area riservata, le PA possono facilmente gestire le
+              singole iniziative finanziate, produrre i dati relativi
+              all’avanzamento dei progetti e ricevere comunicazioni
+              personalizzate.
             </p>
           </Col>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
-            <h4>Selezione dei servizi</h4>
+          <Col className="pe-0 pe-md-3 mb-md-3" md="6">
+            <h4>Contatto diretto con il supporto</h4>
             <p>
-              Ogni PA può selezionare i servizi di interesse e comporre il
-              proprio progetto, scegliendo da soluzioni standard con valore
-              economico predefinito. Non sarà necessario scrivere e presentare
-              progetti per ricevere finanziamenti.
-            </p>
-          </Col>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
-            <h4>Ingaggio dei fornitori</h4>
-            <p>
-              Le PA possono scegliere i propri fornitori direttamente in area
-              riservata, avvalendosi anche di fornitori certificati Consip.
-            </p>
-          </Col>
-          <Col className="pe-0 pe-md-3 mb-md-3" md="6" lg="3">
-            <h4>Erogazione delle risorse semplificata</h4>
-            <p>
-              I contributi sono riconosciuti sulla base del raggiungimento di
-              specifici obiettivi predefiniti. Non è necessario rendicontare le
-              singole spese effettuate per ottenere i fondi.
+              Oltre al team help desk per supporto su specifiche candidature,
+              ogni PA ha un referente diretto sul territorio a cui chiedere
+              consulenza per trovare le opportunità più adatte.
             </p>
           </Col>
         </Row>
