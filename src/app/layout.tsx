@@ -72,13 +72,13 @@ export default async function RootLayout({
 
   return (
     <html lang="it">
-      <head>
-        <Script
+
+      <body>
+
+      <Script
           src="/bootstrap-italia.bundle.min.js"
           strategy="afterInteractive"
         />
-      </head>
-      <body>
         <PagesProvider
           pages={pages}
           faqs={faqs}

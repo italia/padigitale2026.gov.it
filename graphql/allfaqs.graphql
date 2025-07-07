@@ -10,16 +10,10 @@ query AllFaqs {
     customUpdateDate
     nascondiValutazione
     idAvvisoSalesforce
-    seo {
-      description
-      noIndex
-      title
-      twitterCard
-      image {
-        responsiveImage {
-          ...ImageFragment
-        }
-      }
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
     }
     category {
       label

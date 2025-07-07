@@ -9,16 +9,10 @@ query Page($slug: String) {
     slug
     customUpdateDate
     nascondiValutazione
-    seo {
-      description
-      noIndex
-      title
-      twitterCard
-      image {
-        responsiveImage {
-          ...ImageFragment
-        }
-      }
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
     }
     body {
       ... on HeroRecord {
