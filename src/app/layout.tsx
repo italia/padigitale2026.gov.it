@@ -72,13 +72,7 @@ export default async function RootLayout({
 
   return (
     <html lang="it">
-
       <body>
-
-      <Script
-          src="/bootstrap-italia.bundle.min.js"
-          strategy="afterInteractive"
-        />
         <PagesProvider
           pages={pages}
           faqs={faqs}
@@ -97,6 +91,12 @@ export default async function RootLayout({
           <Footer props={footerProps} />
         </PagesProvider>
         <BootstrapInit />
+
+        {/* Script Bootstrap Italia */}
+        <Script
+          src="/bootstrap-italia.bundle.min.js"
+          strategy="afterInteractive"
+        />
 
         {/* Script Matomo */}
         <Script

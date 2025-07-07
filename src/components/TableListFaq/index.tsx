@@ -74,7 +74,7 @@ export function TableListFaq({
         aria-label="Lista domande frequenti"
         className={cn("row py-2")}
       >
-        {questionsRef?.map((item, idx) => {
+        {questionsRef.map((item, idx) => {
           if (!item) return null;
 
           return (
