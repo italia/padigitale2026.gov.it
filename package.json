@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/copy-bootstrap.js && next build",
+    "build": "node scripts/copy-bootstrap.js && next build && npm run purgecss",
     "start": "next start",
     "lint": "next lint",
     "codegen": "graphql-codegen --config codegen.ts",
-    "postinstall": "cd node_modules/bootstrap-italia && npm install && npm run build"
+    "postinstall": "cd node_modules/bootstrap-italia && npm install && npm run build",
+    "purgecss": "purgecss --css .next/static/css/*.css --content './src/**/*.{js,jsx,ts,tsx,html}' './src/app/**/*.{js,jsx,ts,tsx,html}' --output .next/static/css/"
   },
   "dependencies": {
     "@datocms/cda-client": "^0.2.7",
@@ -28,6 +29,7 @@
     "jwt-decode": "^4.0.0",
     "next": "15.2.4",
     "next-sitemap": "^4.2.3",
+    "purgecss": "^7.0.2",
     "react": "19.1.0",
     "react-datocms": "^7.2.2",
     "react-dom": "19.1.0",
