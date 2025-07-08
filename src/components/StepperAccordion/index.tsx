@@ -56,10 +56,13 @@ export function StepperAccordion({ props }: { props: StepperRecord }) {
                   )}
                   id={`label${stepperStepRecord.id}`}
                 >
-                  <span aria-hidden={true} className={"accordion-button-order"}>
+                  <span
+                    aria-hidden={true}
+                    className={"accordion-button-order lh-sm"}
+                  >
                     {idx + 1}
                   </span>
-                  <span className={"accordion-button-text"}>
+                  <span className={"accordion-button-text lh-sm"}>
                     {stepperStepRecord.stepTitle}
                   </span>
                 </h3>

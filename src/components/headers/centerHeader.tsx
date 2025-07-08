@@ -58,6 +58,7 @@ export default function CenterHeader({
             href={"/cerca"}
             iconName="it-search"
             label="Cerca"
+            aria-hidden="true"
             aria-label="Cerca negli avvisi, notizie, guide e risorse - Apri la pagina di ricerca"
           />
         </HeaderRightZone>
