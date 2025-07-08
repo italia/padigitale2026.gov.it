@@ -155,6 +155,6 @@ export async function creazioneLineeGuida(record: object) {
     return responseData;
   } catch (error) {
     console.error('Errore durante la creazione dei record in Salesforce:', error);
-    throw new Error(`Errore la creazioe dei record in Salesforce: ${error}`);
+    throw new Error(`Errore durante la creazione dei record in Salesforce: ${error}`);
   }
 }

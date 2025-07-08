@@ -1,6 +1,7 @@
 query AllEnteBeneficiarios {
   allEnteBeneficiarios(orderBy: label_ASC) {
     label
+    labelSalesforce
     id
   }
 }
