@@ -49,6 +49,9 @@ export interface EntityAttributes {
   seo: null;
   id_avviso_salesforce?: string;
   descrizione?: string;
+  beneficiari?: string[];
+  misura?: string;
+  category?: string;
 }
 
 export interface EntityMeta {

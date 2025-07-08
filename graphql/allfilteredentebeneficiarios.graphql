@@ -8,6 +8,8 @@ query AllFilteredEnteBeneficiarios ($idBeneficiari: [ItemId]) {
       }
     }
   ) {
+    _createdAt
+    _updatedAt
     label
     labelSalesforce
     id

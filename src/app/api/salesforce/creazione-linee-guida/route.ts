@@ -1,7 +1,7 @@
 import { WebhookPayload } from "../../algolia/types";
 import { creazioneLineeGuida } from "../api";
 import { GuidelineQuery } from "@/graphql/generated";
-import { guideline } from "@/lib/datocms";
+import { getAllFilteredEnteBeneficiarios, guideline, misura as getMisura } from "@/lib/datocms";
 
 async function getFileBase64(url: string) {
   try {
@@ -48,6 +48,9 @@ export async function POST(request: Request) {
     const entity = (await guideline(data.entity.id!)) as GuidelineQuery;
     const entity_content = entity.guideline;
 
+    const misura = await getMisura(data.entity.attributes.misura || '');
+    const beneficiari = await getAllFilteredEnteBeneficiarios(data.entity.attributes.beneficiari || []);
+
     if (entity_content) {
       const fileData = await getFileBase64(entity_content.allegato?.url || '');
 
@@ -56,10 +59,10 @@ export async function POST(request: Request) {
         PathOnClient: entity_content.allegato?.filename || '',
         ContentLocation: 'S',
         Avviso__c: data.entity.attributes.id_avviso_salesforce,
-        Misura__c: entity_content.misura?.idSalesforce || '',
-        Pacchetto__c: entity_content.misura?.pacchetto || '',
+        Misura__c: misura.misura?.idSalesforce || '',
+        Pacchetto__c: misura.misura?.pacchetto || '',
         External_ID__c: data.entity.id,
-        Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(',') || '',
+        Ente_Destinazione__c: beneficiari.allEnteBeneficiarios?.map(b => b.labelSalesforce || b.label).join(',') || '',
         Description: data.entity.attributes.descrizione,
         VersionData: fileData?.base64 || '',
       }

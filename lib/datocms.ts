@@ -26,6 +26,10 @@ import {
   AllUpdatesDocument,
   AllFilteredUpdatesDocument,
   AllFilteredUpdatesQueryVariables,
+  AllFilteredEnteBeneficiariosDocument,
+  AllFilteredEnteBeneficiariosQueryVariables,
+  AllFilteredMisurasDocument,
+  AllFilteredMisurasQueryVariables,
   AlgoliaResourceDocument,
   AlgoliaResourceQueryVariables,
   AlgoliaNewsDocument,
@@ -36,7 +40,11 @@ import {
   UpdateDocument,
   UpdateQueryVariables,
   AllGuidelinesDocument,
-  GuidelineDocument
+  GuidelineDocument,
+  MisuraDocument,
+  MisuraQueryVariables,
+  ArgomentoDocument,
+  ArgomentoQueryVariables
 } from "@/graphql/generated";
 import { unstable_cache } from "next/cache";
 
@@ -448,6 +456,32 @@ export const getAllEnteBeneficiarios = unstable_cache(
   }
 );
 
+export const getAllFilteredEnteBeneficiarios = unstable_cache(
+  async (idBeneficiari: Array<string>) => {
+    await sendPostToBetterStack({
+      message: "getAllFilteredEnteBeneficiarios called",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredEnteBeneficiarios",
+        idBeneficiari
+      }
+    });
+    return executeQuery(AllFilteredEnteBeneficiariosDocument, {
+      ...getOptions(
+        `fn_name:allFilteredEnteBeneficiarios|idBeneficiari:${idBeneficiari.toString()}`
+      ),
+      variables: {
+        idBeneficiari: idBeneficiari,
+      } as AllFilteredEnteBeneficiariosQueryVariables,
+    });
+  },
+  ['getAllFilteredEnteBeneficiarios'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['beneficiari']
+  }
+);
+
 export const getAllEntePromotores = unstable_cache(
   async () => {
     await sendPostToBetterStack({
@@ -486,7 +520,58 @@ export const getAllMisuras = unstable_cache(
   ['getAllMisuras'],
   {
     revalidate: CACHE_REVALIDATION_TIME,
-    tags: ['misuras']
+    tags: ['misura']
+  }
+);
+
+export const misura = unstable_cache(
+  async (id: string) => {
+    await sendPostToBetterStack({
+      message: "msiura called",
+      level: "info",
+      metadata: {
+        function: "misura",
+        id
+      }
+    });
+    return executeQuery(MisuraDocument, {
+      ...getOptions(`fn_name:misura|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as MisuraQueryVariables,
+    });
+  },
+  ['misura'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['misura']
+  }
+);
+
+export const getAllFilteredMisuras = unstable_cache(
+  async (idMisure: Array<string>) => {
+    await sendPostToBetterStack({
+      message: "getAllFilteredMisuras called",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredMisuras",
+        idMisure
+      }
+    });
+    return executeQuery(AllFilteredMisurasDocument, {
+      ...getOptions(
+        `fn_name:allFilteredMisuras|idMisure:${idMisure.toString()}`
+      ),
+      variables: {
+        idMisure: idMisure,
+      } as AllFilteredMisurasQueryVariables,
+    });
+  },
+  ['getAllFilteredMisuras'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['misure']
   }
 );
 
@@ -581,6 +666,32 @@ export const getAllGuidelines = unstable_cache(
     tags: ['guidelines']
   }
 );
+
+export const argomento = unstable_cache(
+  async (id: string) => {
+    await sendPostToBetterStack({
+      message: "argomento called",
+      level: "info",
+      metadata: {
+        function: "argomento",
+        id
+      }
+    });
+    return executeQuery(ArgomentoDocument, {
+      ...getOptions(`fn_name:argomento|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as ArgomentoQueryVariables,
+    });
+  },
+  ['argomento'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['argomento']
+  }
+);
+
 // ------------------------------------- //
 // Funzioni di indicizzazione in Algolia //
 // ------------------------------------- //

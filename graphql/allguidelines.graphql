@@ -30,7 +30,7 @@ query AllGuidelines {
       pacchetto
     }
   }
-  _allUpdatesMeta {
+  _allGuidelinesMeta {
     count
   }
 }

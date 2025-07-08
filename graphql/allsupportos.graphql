@@ -67,7 +67,7 @@ query allSupportos {
       }
     }
   }
-  _allPagesMeta {
+  _allSupportosMeta {
     count
   }
 }
