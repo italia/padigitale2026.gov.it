@@ -265,7 +265,7 @@ export function CardsGrid({
               year: "numeric",
             }
           ),
-          href: `${announcement.url}?id=${announcement.id}`,
+          href: `${announcement.url}`,
           target: "_blank",
         } as CardAnnouncementRecord;
       });
