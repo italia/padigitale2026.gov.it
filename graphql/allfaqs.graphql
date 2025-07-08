@@ -26,6 +26,8 @@ query AllFaqs {
       label
       slug
       basePath
+      idSalesforce
+      pacchetto
     }
     body {
       ... on HeroRecord {

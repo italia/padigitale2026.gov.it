@@ -1,0 +1,10 @@
+#import "./fragments.graphql"
+
+query Misura($ids: [ItemId]) {
+  misura(filter: { id: { in: $ids } }) {
+    label
+    id
+    pacchetto
+    idSalesforce
+  }
+}
