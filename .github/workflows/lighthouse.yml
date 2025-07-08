@@ -1,15 +1,19 @@
 name: Lighthouse CI
 on: push
+
 jobs:
-  lighthouse:
+  lighthouse-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v12
+      - uses: actions/checkout@master
+      - run: mkdir /tmp/artifacts
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
         with:
-          urls: |
-            https://padigitale2026-gov-it-develop.vercel.app
-          budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+          outputDirectory: /tmp/artifacts
+          urls: "https://padigitale2026-gov-it-develop.vercel.app"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse reports
+          path: /tmp/artifacts
