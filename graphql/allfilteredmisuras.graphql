@@ -1,0 +1,20 @@
+#import "./fragments.graphql"
+
+query AllFilteredMisuras ($idMisure: [ItemId]) {
+  allMisuras(
+    filter: {
+      id: {
+        in: $idMisure
+      }
+    }
+  ) {
+    label
+    id
+    pacchetto
+    idSalesforce
+  }
+  _allMisurasMeta {
+    count
+  }
+}
+

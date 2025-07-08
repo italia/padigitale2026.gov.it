@@ -1,9 +1,0 @@
-#import "./fragments.graphql"
-
-query EnteBeneficiario($ids: [ItemId]) {
-  enteBeneficiario(filter: { id: { in: $ids } }) {
-    id
-    label
-    labelSalesforce
-  }
-}
