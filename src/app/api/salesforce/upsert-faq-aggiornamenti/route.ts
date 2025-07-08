@@ -1,7 +1,7 @@
 import { WebhookPayload, ContentType } from "../../algolia/types";
 import { upsertFaqAggiornamenti } from "../api";
-import { FaqQuery, UpdateQuery } from "@/graphql/generated";
-import { faq, getAllFilteredEnteBeneficiarios, misura as getMisura, update, argomento as getArgomento } from "@/lib/datocms";
+//import { FaqQuery, UpdateQuery } from "@/graphql/generated";
+import { getAllFilteredEnteBeneficiarios, misura as getMisura, argomento as getArgomento } from "@/lib/datocms";
 import { records } from "../types";
 
 export async function POST(request: Request) {
@@ -19,8 +19,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    let entity;
-    let entity_content;
+    //let entity;
+    //let entity_content;
     let beneficiari;
     let misura;
     const records: records[] = [];
