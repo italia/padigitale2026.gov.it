@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     let record = {};
     const data: WebhookPayload = await request.json();
 
-    const entity = (await guideline(data.entity.attributes.id!)) as GuidelineQuery;
+    const entity = (await guideline(data.entity.id!)) as GuidelineQuery;
     const entity_content = entity.guideline;
 
     if (entity_content) {
