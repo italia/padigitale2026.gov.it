@@ -244,7 +244,7 @@ export function CardsGrid({
           __typename: "CardAnnouncementRecord",
           badge: badgeText,
           istituto: announcement.entePromotore,
-          beneficiari: announcement.beneficiari.join(", "),
+          beneficiari: announcement.beneficiari?.join(", ") || "",
           stato:
             announcement.status === "PUBBLICATO"
               ? CardAnnouncementStatusType.Aperto
