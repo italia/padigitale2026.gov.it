@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         PathOnClient: entity_content.allegato?.filename || '',
         ContentLocation: 'S',
         Avviso__c: data.entity.attributes.id_avviso_salesforce,
-        External_ID__c: entity_content.id,
+        External_ID__c: data.entity.id,
         Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(',') || '',
         Description: data.entity.attributes.descrizione,
         VersionData: fileData?.base64 || '',

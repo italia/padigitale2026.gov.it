@@ -27,13 +27,13 @@ export async function POST(request: Request) {
 
     switch (content_type) {
       case "update":
-        entity = (await update(data.entity.attributes.id!)) as UpdateQuery;
+        entity = (await update(data.entity.id!)) as UpdateQuery;
         entity_content = entity.update;
 
         if (entity_content) {
           records.push({
             attributes: { "type": "Informazione_CMS_Avviso__c" },
-            External_ID__c: entity_content.id,
+            External_ID__c: data.entity.id,
             Type__c: "Ultimi aggiornamenti",
             Description__c: data.entity.attributes.title || '',
             Date_Latest_Update__c: data.entity.attributes.custom_update_date ? (data.entity.attributes.custom_update_date as string).split('T')[0] : '',
@@ -49,10 +49,10 @@ export async function POST(request: Request) {
         if (entity_content) {
           records.push({
             attributes: { "type": "Informazione_CMS_Avviso__c" },
-            External_ID__c: entity_content.id,
+            External_ID__c: data.entity.id,
             Type__c: "Domande frequenti",
             Category__c: entity_content.category?.label || '',
-            URL__c: `${process.env.NEXT_PUBLIC_DOMAIN}/${entity_content.slug}`,
+            URL__c: `${process.env.NEXT_PUBLIC_DOMAIN}/${data.entity.attributes.slug}`,
             URL_Label__c: data.entity.attributes.title || '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Misura__c: entity_content.misura?.idSalesforce || '',
