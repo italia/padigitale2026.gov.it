@@ -1,10 +1,1582 @@
 [
   {
+    "source": "03_classification-data-services/002_Chidevecompilareilquestionariodiclassificazio",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/chi-deve-compilare-questionario-classificazione-dati"
+  },
+  {
+    "source": "03_classification-data-services/009_Chiricevelaclassificazionedatieservizi",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/chi-riceve-classificazione-dati-servizi"
+  },
+  {
+    "source": "03_classification-data-services/006_Cosasiintendeperallegareladocumentazioneasupp",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/cosa-intende-allegare-documentazione-supporto-giustifichi"
+  },
+  {
+    "source": "03_classification-data-services/010_Cosasiintendeperordinariocriticostrategico",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/cosa-intende-ordinario-critico-strategico"
+  },
+  {
+    "source": "03_classification-data-services/014_Cosasuccedeseaccettolelencopredefinitodeiserv",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/cosa-succede-accetto-lelenco-predefinito-servizi"
+  },
+  {
+    "source": "03_classification-data-services/005_obbligatoriocompilarelesezioni5e6delquestiona",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/obbligatorio-compilare-sezioni-5-6-questionario"
+  },
+  {
+    "source": "03_classification-data-services/022_possibilerichiederelaggiornamentodellaclassif",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/possibile-richiedere-aggiornamento-classificazione-dati"
+  },
+  {
+    "source": "03_classification-data-services/008_Entroquandodevoinviarelaclassificazionedaties",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/entro-quando-inviare-classificazione-dati-servizi"
+  },
+  {
+    "source": "03_classification-data-services/018_Hoapportatomodificheaiservizieocompilatoalmen",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/apportato-modifiche-servizi-compilato-questionario-classificazione"
+  },
+  {
+    "source": "03_classification-data-services/019_HoricevutounanotificaeunaPECconrichiestediint",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/ricevuto-notifica-pec-richieste-integrazione-classificazione"
+  },
+  {
+    "source": "03_classification-data-services/007_Nonriescoacaricarecorrettamenteidocumentiasup",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/riesco-caricare-correttamente-documenti-supporto-fase"
+  },
+  {
+    "source": "03_classification-data-services/004_Perqualiservizinecessariocompilareilquestiona",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/quali-servizi-necessario-compilare-questionario"
+  },
+  {
+    "source": "03_classification-data-services/012_Possoaccettarelelencopredefinitodeiserviziela",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/accettare-lelenco-predefinito-servizi-classificazione"
+  },
+  {
+    "source": "03_classification-data-services/011_Possoaggiungereservizichenonsonopresentinelle",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/aggiungere-servizi-presenti-elenco-creato"
+  },
+  {
+    "source": "03_classification-data-services/020_Possoindicaredeinumeriapprossimativididatiper",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/indicare-numeri-approssimativi-dati-personali"
+  },
+  {
+    "source": "03_classification-data-services/003_Possointerromperelacompilazionedelquestionari",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/interrompere-compilazione-questionario-riprenderla-secondo"
+  },
+  {
+    "source": "03_classification-data-services/013_Possomodificarelaclassificazioneautomaticapro",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/modificare-classificazione-automatica-proposta"
+  },
+  {
+    "source": "03_classification-data-services/001_Quallobiettivodelquestionariodiclassificazion",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/obiettivo-questionario-classificazione-dati-servizi"
+  },
+  {
+    "source": "03_classification-data-services/017_SonounEditoreperlamiaPAenonriescoainviarelacl",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/editore-pa-riesco-inviare-classificazione-dati"
+  },
+  {
+    "source": "03_classification-data-services/016_VoglioaggiungereunservizioerogatodallamiaPAch",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/aggiungere-servizio-erogato-pa-presente-elenco"
+  },
+  {
+    "source": "03_classification-data-services/015_Voglioeliminareunserviziochevedonellelencopro",
+    "destination": "/supporto/domande-frequenti/classificazione-dati-e-servizi/eliminare-servizio-elenco-pa-non-eroga"
+  },
+  {
+    "source": "06_fondo-innovazione/005_IComunichehannoimplementatodeiservizisullaPia",
+    "destination": "/supporto/domande-frequenti/fondo-innovazione/comuni-implementato-servizi-piattaforma-pagopa"
+  },
+  {
+    "source": "06_fondo-innovazione/003_IComunichehannoricevutoicontributidellaFaseId",
+    "destination": "/supporto/domande-frequenti/fondo-innovazione/comuni-ricevuto-contributi-fase-avviso"
+  },
+  {
+    "source": "06_fondo-innovazione/001_PossoaderireagliavvisidelPNRRrelativiallapiat",
+    "destination": "/supporto/domande-frequenti/fondo-innovazione/aderire-avvisi-pnrr-pagopa-appio"
+  },
+  {
+    "source": "06_fondo-innovazione/004_SesonounComuneaderentealprogettocdRegionaleco",
+    "destination": "/supporto/domande-frequenti/fondo-innovazione/comune-aderente-progetto-cd-regionale"
+  },
+  {
+    "source": "06_fondo-innovazione/002_SeunComunehagiricevutoifinanziamentirelativia",
+    "destination": "/supporto/domande-frequenti/fondo-innovazione/comune-gia-ricevuto-finanziamenti-fase-I"
+  },
+  {
+    "source": "06_fondo-innovazione/006_Uncomunecheharaggiuntolamisuradel70deiservizi",
+    "destination": "/supporto/domande-frequenti/fondo-innovazione/comune-raggiunto-misura-70-servizi"
+  },
+  {
+    "source": "01_generali/005_CosPAdigitale2026",
+    "destination": "/supporto/domande-frequenti/generali/cos-e-pa-digitale-2026"
+  },
+  {
+    "source": "01_generali/003_CosItaliadigitale2026",
+    "destination": "/supporto/domande-frequenti/generali/cos-e-italia-digitale-2026"
+  },
+  {
     "source": "01_generali/002_CosItaliadomaniilPianonazionalediripresaeresi",
-    "destination": "/supporto/domande-frequenti/pianonazionalediripresaeresi"
+    "destination": "/supporto/domande-frequenti/generali/cos-e-italia-domani-pnrr"
+  },
+  {
+    "source": "01_generali/001_CosNextGenerationEU",
+    "destination": "/supporto/domande-frequenti/generali/cos-e-next-generation-eu"
+  },
+  {
+    "source": "01_generali/004_QualisonogliobiettividiItaliadigitale2026",
+    "destination": "/supporto/domande-frequenti/generali/quali-obiettivi-italia-digitale-2026"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/002_Aquantoammontalimportodelfinanziamentoprevist",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-importo-finanziamento-previsto"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/014_Aquantoammontalimportodelfinanziamentoprevist",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-importo-finanziamento-ao"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/015_Aquantoammontalimportodelfinanziamentoprevist",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-importo-finanziamento-asl-ausl"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/010_CisonodeimodellidisitiwebgipredispostiperilSo",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-ci-sono-modelli-siti-web-gia"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/036_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-limiti-quantita-server-macchine-virtuali"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/015_Comeavvienelacquisizionediservizicloudqualifi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-come-avviene-acquisizione-servizi-cloud-qualificati"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/023_ComedeveessereerogataunAPIREST",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-come-erogare-api-rest"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/024_ComedeveessereerogataunAPISOAP",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-come-erogare-api-soap"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/022_pagoimu",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-come-deve-implementato-servizio-pagamento-imu"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/018_Comedeveessererendicontatoilcontributo",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-come-deve-essere-rendicontato-contributo"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/012_Comedeveessererendicontatoilcontributo",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-come-deve-essere-rendicontato-contributo-2"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/038_attestazioneserverfisicimacchinevirtuali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-come-compilare-file-attestazione-server-macchine"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/004_Comepotrannoessererealizzateleattivitoggettod",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-come-realizzare-attivita-finanziamento"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/026_Comesirealizzailprocessodionboarding",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-onboarding-regioni-come-funziona"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/001_Comevienecalcolatolimportoforfettarioprevisto",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-come-calcolato-importo-forfettario-avviso"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/007_Comevienecalcolatolimportoforfettarioprevisto",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-come-viene-calcolato-importo-forfettario-previsto"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/001_ConriferimentoalcapoversoIservizidellamminist",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-scenario-ammissibile-migrazione-da-b-a-a-o-cloud-qualificato"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/027_ConriferimentoallaTabella1Scenaridiammissibil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-scenari-ammissibilita-tabella-1"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/005_CosaprevedeilPacchettocittadinoattivo",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-cosa-bisogna-fare-aderire-pacchetto-cittadino"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/006_CosacomprendeilsitoistituzionaleperiComunimes",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-cosa-comprende-modello-comuni"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/011_Cosacontieneilmodellodelsitomessoadisposizion",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-cosa-contiene-modello-sito-designers-italia"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/004_CosaprevedeilPacchettocittadinoinformato",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-cosa-prevede-pacchetto-cittadino-informato"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/015_principioonceonly",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-cosa-prevede-principio-once-only-cse15"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/028_Cosasiintendeperfullmigrationdicuiagliallegat",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-cosa-si-intende-per-full-migration"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/020_transazionepositiva",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-significato-transazione-esito-positivo"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/016_CosasignificaIntegrareunservizioPagoPA",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-cosa-significa-integrare-servizio"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/008_DiquantemodalitdimigrazionepuavvalersiunComun",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-quante-modalita-migrazione-per-comune-requisiti-avviso"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/016_attuatoribackoffice",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-necessario-garantire-back-office-soggetti-attuatori"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/004_obbligatoriorealizzareunnumerospecificodiendp",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-obbligatorio-numero-specifico-endpoint-operations"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/009_possibileaccederealfinanziamentoincasodiproge",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-accesso-finanziamento-progetti-avviati-integrazione-spid-cie-1"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/020_possibileaccederealfinanziamentoincasodiproge",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-accesso-finanziamento-progetti-avviati-integrazione-spid-cie-2"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/002_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-accesso-finanziamento-progetto-gia-avviato-prima-pubblicazione-avviso-1"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/008_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-accesso-finanziamento-progetto-gia-avviato-prima-pubblicazione-avviso-2"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/004_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-accesso-finanziamento-prima-pubblicazione-avviso-1"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/012_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-accesso-finanziamento-prima-pubblicazione-avviso-2"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/009_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-possibile-accesso-finanziamento-progetto-prima-pubblicazione"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/002_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-possibile-accesso-finanziamento-progetto-prima-pubblicazione-avviso-comuni"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/021_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-finanziamento-progetto-prima-pubblicazione-avviso"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/003_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-accesso-finanziamento-progetto-gia-avviato-con-fondi-pubblici-prima-avviso-1"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/009_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-accesso-finanziamento-progetto-gia-avviato-con-fondi-pubblici-prima-avviso-2"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/012_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-possibile-accesso-finanziamento-fondi-pubblici-prima-pubblicazione-avviso-scuole"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/031_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-finanziamento-attivita-prima-pubblicazione-avviso"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/020_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-finanziamento-se-migrazione-prima-avviso"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/006_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-finanziamento-se-migrazione-prima-avviso-1"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/029_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-finanziamento-se-migrazione-prima-avviso-2"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/021_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-finanziamento-migrazione-fondi-prima-avviso-1"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/007_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-finanziamento-migrazione-fondi-prima-avviso-2"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/028_possibileaccederealfinanziamentoincasodireali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-finanziamento-migrazione-fondi-prima-avviso-3"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/030_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-finanziamento-attivita-con-fondi-prima-avviso"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/021_possibileaccederealfinanziamentonelcasodiprog",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-accesso-finanziamento-progetti-integrazione-pre-2020"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/005_possibileaccederealfinanziamentoperinterventi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-finanziamento-per-interventi-gia-avviati"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/005_possibileaccederealfinanziamentoperladozioned",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-accesso-finanziamento-solo-una-identita-digitale-1"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/016_possibileaccederealfinanziamentoperladozioned",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-accesso-finanziamento-solo-una-identita-digitale-2"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/002_possibileerogareunservizioSaaSQualificatoAGID",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-possibile-erogare-servizio-saas-csp-diverso-marketplace"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/022_possibilepartecipareallamisura144sehogiattiva",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-partecipazione-attivazione-precedente-spid-cie-suap"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/007_possibilepresentarecandidaturaavaleredellAvvi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-posso-candidarmi-se-ho-gia-partecipato-avviso-1-2"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/002_possibilerichiedereilfinanziamentoprevistodal",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-finanziamento-ammissibile-altri-contributi-pubblici"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/014_possibilerichiedereilfinanziamentosehogiinteg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-finanziamento-integrazione-gratuita-piattaforma-regionale"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/010_possibileselezionareilservizioCanoneUnicoPatr",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-selezione-servizio-canone-unico-patrimoniale-corporate"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/018_moduloautenticazione",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-possibile-uso-autenticazione-intermediario-con-dominio-differente"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/015_possibileinambientediTestdisporrediunaAPIfunz",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-api-test-pdnd-compliant-per-prove-interoperabilita"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/016_previstalaredazionediparticolaredocumentazion",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-documentazione-tecnica-corredo-api"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/039_codice",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-codice-template-generazione-cup"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-5/004_previstounnumerominimodiservizidaimplementare",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-numero-minimo-servizi-da-implementare"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/003_Entroquandodovressererilasciatoilsitoistituzi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-entro-quando-rilasciare-sito-istituzionale-comuni"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/014_Entroquandodovrannoessereportateatermineleatt",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-scadenza-attivazione-servizi"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/005_Entroquandodovrannoessereportateatermineleatt",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-termine-migrazione-e-attivazione-servizi-1"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/010_Entroquandodovrannoessereportateatermineleatt",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-termine-migrazione-e-attivazione-servizi-2"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/009_Entroquandopossibileinoltrareladomandadiacces",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-scadenza-inoltro-domanda-finanziamento"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/028_Candidatura",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-entro-quando-presentare-candidatura"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/008_Entroquantotempodevonoesserecompletateleattiv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-completamento-attivita-comuni-sopra-50000"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/006_Entroquantotempodevonoesserecompletateleattiv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-completamento-attivita-comuni-sotto-50000"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/019_Entroquantotempodevonoesserecompletateleattiv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-completamento-attivita-finanziamento"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/036_tempofin",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-completamento-attivita-finanziamento-2"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/007_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-contrattualizzazione-fornitore-sopra-50000"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/005_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-contrattualizzazione-fornitore-sotto-50000"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/020_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-contratto-fornitore-asl-1-500000-1000000-assistibili"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/022_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-contratto-fornitore-asl-oltre-1000000-assistibili"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/016_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-contratto-fornitore-ao-1-500-1000-posti-letto"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/018_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-contratto-fornitore-ao-oltre-1000-posti-letto"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/004_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-contrattualizzazione-fornitore-tempi-decreto-finanziamento"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-5/007_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-tempo-contrattualizzazione-fornitore"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/038_Entroquantotempodovresserecontrattualizzatoil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-entro-quanto-tempo-contrattualizzare-fornitore"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/040_contrattualizzazione",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-necessari-contrattualizzazione-fornitore"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/004_HomigratounservizioinmodalitBAggiornamentoanz",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-migrazione-modalita-diversa-cosa-fare-asseverazione"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/018_Horilevatodatenoncorretterelativeallattivazio",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-verifica-date-attivazione-servizi"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/013_Horilevatodatenoncorretterelativeallattivazio",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-date-non-correte-attivazione-servizi-come-verificare"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/017_Horinunciatoadunacandidatura143alfinedisottom",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-nuova-domanda-dopo-rinuncia"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/012_Horinunciatoadunacandidatura143alfinedisottom",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-rinuncia-candidatura-invio-nuova-domanda-tempistiche"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/037_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-canone-primo-anno-servizi-cloud-incluso-finanziamento"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/017_IlCanonedelprimoannoinclusonelfinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-canone-primo-anno-incluso-finanziamento-1"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/011_IlCanonedelprimoannoinclusonelfinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-canone-primo-anno-incluso-finanziamento-2"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/040_IlCanoneUnicoPatrimonialederivandodallafusion",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-canone-unico-patrimoniale-tributi-o-canoni"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-5/008_IlmioComunepuaccederealfinanziamentoprevistod",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-accesso-finanziamento-invio-notifiche-delegato"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/014_IncasodidueenticotitolarieslaRegioneedunaAzie",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-beneficiario-finanziamento-due-enti-cotitolari"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/010_Infasedicandidaturanecessarioindicareidettagl",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-dettagli-api-da-indicare-in-candidatura"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/007_Inquantotempodeveessereconclusoilprogettodiin",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-tempo-conclusione-progetto-integrazione-1"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/018_Inquantotempodeveessereconclusoilprogettodiin",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-tempo-conclusione-progetto-integrazione-2"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/021_Inquantotempodevonoessereconcluseleattivitogg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-tempi-conclusione-attivita-asl-1-500000-1000000-assistibili"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/023_Inquantotempodevonoessereconcluseleattivitogg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-tempi-conclusione-attivita-asl-oltre-1000000-assistibili"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/017_Inquantotempodevonoessereconcluseleattivitogg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-tempi-conclusione-attivita-ao-1-500-1000-posti-letto"
+  },
+  {
+    "source": "05_misure/009-measure-multimisura/019_Inquantotempodevonoessereconcluseleattivitogg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-tempi-conclusione-attivita-ao-oltre-1000-posti-letto"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/031_Inquantotempodevonoessereconcluseleattivitogg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-in-quanto-tempo-concludere-attivita-finanziamento"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/014_InrelazionealcriterioCSE11Accederealservizioi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-obbligatorio-implementare-sso-conformita-servizi-digitali"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/007_InriferimentoallAvvisoAdozioneappIOComunidell",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-enti-ammissibili-domanda-finanziamento-appio-1"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/011_InriferimentoallAvvisoAdozionepagoPAdellaMisu",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-enti-ammissibili-domanda-1"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/006_Inriferimentoallavviso11Infrastrutturedigital",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-accesso-finanziamento-attivita-preavviso-psn"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/025_Inriferimentoallavviso11Infrastrutturedigital",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-conclusione-processo-migrazione-psn"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/037_InriferimentoallAvviso12ASLAOquantiservizinec",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-quanti-servizi-migrare-avviso-asl-ao"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/013_InriferimentoallAvviso12ASLAOquantiservizinec",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-numero-servizi-da-migrare-asl-ao"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/036_InriferimentoallAvviso12Scuoleilcanonedelprim",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-canone-primo-anno-incluso-finanziamento-scuole"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/009_Inriferimentoallavviso131PDNDRegionieProvince",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-soggetti-attuatori-avviso-regioni-province"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/027_Inriferimentoallavviso131PDNDRegionieProvince",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-completamento-attivita-regioni-province"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/018_Inriferimentoallavviso131PDNDRegionieProvince",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-tempi-contrattualizzazione-fornitore-regioni-province"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/020_Inriferimentoallavviso131PDNDRegionieProvince",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quanti-endpoint-operations-consigliati"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/008_Inriferimentoallavviso141Scuolequalientidella",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-quali-enti-pa-possono-presentare-domanda-avviso-scuole"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/001_InriferimentoallAvviso143AdozioneappIOAltriEn",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-enti-ammissibili-domanda-finanziamento-appio-2"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/003_Inriferimentoallavviso143qualientidellaPAposs",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-enti-ammissibili-domanda-2"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/033_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-tempi-attivazione-contratto-psn-finanziamento-inferiore"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/034_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-tempi-attivazione-contratto-psn-finanziamento-superiore"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/041_aziendesanitarie",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-come-contrattualizzare-migrazione-software-centralizzati-aziende"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/013_LinkutilipertematichetecnichesuCIE",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-link-utili-tematiche-tecniche-cie"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/012_LinkutilipertematichetecnichesuSPID",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-link-utili-tematiche-tecniche-spid"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/006_NelcasoincuiilComunenonabbiaadottatonessunapi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-adozione-una-sola-identita-digitale-comune"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/017_Nelcasoincuilentenonabbiaadottatonessunapiatt",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-adozione-una-sola-identita-digitale-ente"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/025_servizisuap",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-servizi-suap-serve-scheda-specifica-per-ogni-servizio"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/012_PerlAvviso12Comuniilcanonedelprimoannoincluso",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-canone-primo-anno-incluso-avviso-comuni"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/024_schedaservizio",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-per-quali-servizi-obbligatoria-scheda-servizio"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/020_intermediariotecnologico",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-linee-guida-sito-con-bilinguismo"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/016_Perchnecessariomigrareversoilcloudqualificato",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-perche-necessario-migrare-verso-cloud-qualificato"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/033_Qualladestinazioneprevistaperiserviziinseriti",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-destinazione-servizi-avviso-12-asl-ao"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/001_Quallimportodelfinanziamentoconcedibile",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-importo-finanziamento-concedibile"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/038_forfettario",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-importo-forfettario-per-implementazione-attivita"
+  },
+  {
+    "source": "05_misure/009-measure-1-4-5/006_Quallimportoriconosciutoperleattivitprevisted",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-importo-riconosciuto-per-attivita"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/011_Qualloschemadirendicontazionedelprogettoperat",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-schema-rendicontazione-progetto-per-api"
+  },
+  {
+    "source": "05_misure/009-measure-1-4-5/002_QuallobiettivodellAvviso145",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-obiettivo-avviso"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/001_QualeproceduradeveseguireunEnteperintegrareil",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-integrazione-pagamenti-concorsi-inpa"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/042_migrazionecloud",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-soluzione-migrazione-cloud-servizi-diagnostica"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/029_migrazionecloud",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-migrazione-servizi-diagnostica-dati-grandi-dimensioni"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/008_QualestandarddiautenticazionedeveapplicareilC",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-standard-autenticazione-comune"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/019_Qualestandarddiautenticazionedeveapplicarelen",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-standard-autenticazione-ente"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/019_QualientidellaPApossonopresentaredomandaperac",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-enti-ammissibili-avviso-cloud-scuole"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/002_QualientidellaPApossonopresentaredomandaperac",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-enti-ammissibili-avviso-multimisura"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/005_QualientidellaPApossonopresentaredomandaperac",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-enti-ammissibili-avviso-cloud-asl-ao"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/026_QualientidellaPApossonopresentaredomandaperac",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-enti-ammissibili-avviso-cloud-generico"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/001_QualientidellaPApossonopresentaredomanda",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-quali-enti-pa-possono-presentare-domanda"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/003_QualientidellaPApossonopresentaredomanda",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-enti-pa-che-possono-presentare-domanda"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/035_Qualiinformazionidevonoessereindicatenellacom",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-informazioni-da-indicare-pec-servizi-non-inclusi"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/005_QualiinterventipossonoesserefinanziatidallAvv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-interventi-finanziabili-1"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/013_QualiinterventipossonoesserefinanziatidallAvv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-interventi-finanziabili-2"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/004_QualiinterventipossonoesserefinanziatidallAvv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-interventi-finanziabili"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/015_QualiinterventipossonoesserefinanziatidallAvv",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-interventi-finanziabili-2"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/035_pattern",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-pattern-sicurezza-per-erogazione-servizi"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/003_QualisonogliinterventifinanziabilidallAvvisoM",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-interventi-finanziabili-avviso-multimisura"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/014_QualisonogliobiettivirelativiaCloudeInfrastru",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-obiettivi-cloud-infrastrutture-pnrr"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/003_QualisonogliscenariammissibilidimigrazionealC",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-scenari-ammissibili-migrazione-da-iaas-a-saas"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/001_Qualisonogliscenaridimigrazioneammissibili",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-scenari-migrazione-ammissibili"
+  },
+  {
+    "source": "05_misure/009-measure-1-4-5/003_Qualisonoiserviziattivabili",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-servizi-attivabili"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/010_QualisonoitempidielaborazionedellarichiestaLe",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-tempi-elaborazione-richiesta"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/011_Qualisonoitemplateutilialfinedigenerarecorret",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-template-cup"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/025_Qualisonolecaratteristichedelmodellodimigrazi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-caratteristiche-modello-migrazione-aggiornamento-sicurezza"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/024_Qualisonolecaratteristichedelmodellodimigrazi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-caratteristiche-modello-migrazione-trasferimento-sicurezza-1"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/032_Qualisonolecaratteristichedelmodellodimigrazi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-caratteristiche-modello-migrazione-trasferimento-sicurezza-2"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/024_Qualisonoledestinazionedeiservizi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-destinazione-servizi"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/032_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-destinazioni-ammissibili-migrazione-servizi"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/023_Qualisonoleindicazionidaseguireperintegrarela",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-integrazione-autenticazione-cie-livello-1-e-2"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/026_Qualisonolespeseammissibili",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-spese-ammissibili"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/023_Qualitipologiediservizipotrannoessereoggettod",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-tipologie-servizi-oggetto-migrazione-1"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/013_Qualitipologiediservizipotrannoessereoggettod",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-tipologie-servizi-oggetto-migrazione-2"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/030_Qualitipologiediservizipotrannoessereoggettod",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-tipologie-servizi-oggetto-migrazione-3"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/006_Quandoilprocessodimigrazioneeattivazionedeise",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-conclusione-positiva-migrazione-attivazione-servizi-appio-1"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/011_Quandoilprocessodimigrazioneeattivazionedeise",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-conclusione-positiva-migrazione-attivazione-servizi-appio-2"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/006_Quandoilprocessodimigrazioneeattivazionedeise",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-conclusione-positiva-attivazione-servizi"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/013_Quandoilprocessodirilasciodelsitoistituzional",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-quando-processo-rilascio-sito-istituzionale-concluso"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/019_Quandopuritenersicompletatoilprogettooggettod",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-completamento-progetto-finanziamento"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/010_Quandosiconsideraraggiuntolobiettivodiintegra",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-quando-obiettivo-integrazione-cie-raggiunto"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/011_Quandosiconsideraraggiuntolobiettivodiintegra",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-quando-obiettivo-integrazione-spid-raggiunto"
+  },
+  {
+    "source": "05_misure/009-measure-1-4-5/005_Quandosiintendeconclusoconesitopositivoilproc",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-conclusione-processo-integrazione-attivazione"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/037_integrazione",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-conclusione-positiva-integrazione-erogazione-servizi"
+  },
+  {
+    "source": "05_misure/001-measure-1-1/035_accederefinanziamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/11-quando-migrazione-conclusa-esito-positivo"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/034_fascia5",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-erogare-universita-afam-fascia-5"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/031_fascia2",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-erogare-universita-afam-fascia-2"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/032_fascia3",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-erogare-universita-afam-fascia-3"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/033_fascia4",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-erogare-universita-afam-fascia-4"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/030_Candidatura",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-erogare-universita-afam-fascia-1"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/029_Api",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-erogare"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/012_QuanteAPInecessarioerogareQuallimportoriconos",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quante-api-e-importo-riconosciuto"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/003_QuantiendpointRESTAPIoperationsSOAPAPIoccorre",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-quanti-endpoint-api-da-realizzare"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/022_SecondoqualimodalitpossonoessereerogateleAPI",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-modalita-erogazione-api"
+  },
+  {
+    "source": "05_misure/003-measure-1-3-1/017_SonoerogabiliOpenDataEsescisonostandardoforma",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/131pdnd-open-data-standard-rate-limit-audience"
+  },
+  {
+    "source": "05_misure/010-measure-multimisura/008_Sonoprevistederogheincasodimancatoinviodellac",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/multimisura1112-deroghe-scadenza-candidatura-documenti"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/034_SonoprevistiadempimentiperIserviziprecedentem",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-adempimenti-servizi-classificati-non-inclusi-migrazione"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/021_pagoonline",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-paga-online-serve-integrazione-o-basta-link-pagopa"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/009_UnComuneobbligatoadadottarelastessamodalitdim",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-comune-obbligato-stessa-modalita-migrazione-servizi"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/008_UnEntecreditoretitolaredelcreditopuavvalersid",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-ente-puo-avvalersi-di-terzo-per-riscossione"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/022_Unascuolaobbligataadadottarelastessamodalitdi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-scuola-obbligata-stessa-modalita-migrazione-servizi"
+  },
+  {
+    "source": "04_piani-di-migrazione/003_Cisonoeccezioniallobbligodiinviareilpianodimi",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/ci-eccezioni-allobbligo-inviare-piano-migrazione"
+  },
+  {
+    "source": "04_piani-di-migrazione/011_Comepossocompilareilpianodimigrazione",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/compilare-piano-migrazione"
+  },
+  {
+    "source": "04_piani-di-migrazione/001_Cosasonoipianidimigrazione",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/cosa-sono-piani-migrazione"
+  },
+  {
+    "source": "04_piani-di-migrazione/002_Dovepossibilecompilareilpianodimigrazionealli",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/dove-possibile-compilare-piano-migrazione"
+  },
+  {
+    "source": "04_piani-di-migrazione/007_Entroquandonecessarioinviareilpianodimigrazio",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/entro-quando-necessario-inviare-piano-migrazione"
+  },
+  {
+    "source": "04_piani-di-migrazione/008_Entroquandooccorrecompletareleattivitpreviste",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/entro-quando-occorre-completare-attivita-previste"
+  },
+  {
+    "source": "04_piani-di-migrazione/004_HogiinviatounacandidaturaavaleresullAvvisorif",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/gia-inviato-candidatura-ulteriori-adempimenti"
+  },
+  {
+    "source": "04_piani-di-migrazione/010_HoinviatounacandidaturaavaleresullAvviso12che",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/inviato-candidatura-compilazione-inibita"
+  },
+  {
+    "source": "04_piani-di-migrazione/012_IdatirelativiallaPAsulpianodimigrazionenonson",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/modificare-dati-pa-sul-piano-migrazione"
+  },
+  {
+    "source": "04_piani-di-migrazione/009_NelPianodimigrazionedevoinseriresoloiservizic",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/servizi-gia-migrati-da-inserire-nel-piano"
+  },
+  {
+    "source": "04_piani-di-migrazione/005_Qualiservizinecessarioinserireallinternodelpi",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/quali-servizi-inserire-nel-piano"
+  },
+  {
+    "source": "04_piani-di-migrazione/006_Sonoprevistideirequisitiperlinviodelpianodimi",
+    "destination": "/supporto/domande-frequenti/piani-di-migrazione/requisiti-invio-piano-migrazione"
+  },
+  {
+    "source": "07_rendicontazione/006_AnchepergliavvisidiPAdigitale2026occorreregis",
+    "destination": "/supporto/domande-frequenti/rendicontazione/anche-avvisi-pa-digitale-2026-occorre"
+  },
+  {
+    "source": "07_rendicontazione/002_ComeinserireleventualeavanzoLimportomessoabil",
+    "destination": "/supporto/domande-frequenti/rendicontazione/inserire-leventuale-avanzo-limporto-messo-bilancio"
+  },
+  {
+    "source": "07_rendicontazione/001_Comepossoutilizzarelimportopercontocapitaleos",
+    "destination": "/supporto/domande-frequenti/rendicontazione/utilizzare-limporto-conto-capitale-o-spese"
+  },
+  {
+    "source": "07_rendicontazione/003_Comevainseritoabilanciolimportoforfettario",
+    "destination": "/supporto/domande-frequenti/rendicontazione/va-inserito-bilancio-limporto-forfettario"
+  },
+  {
+    "source": "07_rendicontazione/005_IlcontributoafondoperdutoQuandovieneerogatoEn",
+    "destination": "/supporto/domande-frequenti/rendicontazione/contributo-fondo-perduto-quando-viene-erogato"
+  },
+  {
+    "source": "07_rendicontazione/007_tesoseriaunica",
+    "destination": "/supporto/domande-frequenti/rendicontazione/mio-ente-non-lobbligo-utilizzare-tesoreria"
+  },
+  {
+    "source": "07_rendicontazione/004_Qualiattivitcontabilivannoeffettuateperlespes",
+    "destination": "/supporto/domande-frequenti/rendicontazione/quali-attivita-contabili-vanno-effettuate-spesa"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/022_Aifinidelrispettodeirequisitidiammissibilitde",
+    "destination": "/supporto/domande-frequenti/progetti/quale-data-deve-essere-contrattualizzato-fornitore"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/021_Aifinidelrispettodeirequisitidiammissibilitde",
+    "destination": "/supporto/domande-frequenti/progetti/qual-e-decorrenza-avvio-attivita"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/038_cosaecup",
+    "destination": "/supporto/domande-frequenti/progetti/che-cose-codice-cup"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/002-gestione-utenti/002_Chedifferenzactrarappresentantelegaleincarica",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/differenza-ce-tra-super-admin-admin"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/006_ChiilSoggettoRealizzatoredainserirenellasezio",
+    "destination": "/supporto/domande-frequenti/progetti/chi-e-soggetto-realizzatore-inserire-sezione"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/011_Comecisidotadidispositivodifirmadigitale",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/ci-dota-dispositivo-firma-digitale"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/004_Comepossoannullarelamiaiscrizioneagliaggiorna",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/annullare-mia-iscrizione-aggiornamenti"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/001_Comepossoinviareunasegnalazioneounsuggeriment",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/inviare-segnalazione-o-suggerimento-accessibilita"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/037_documentomepa",
+    "destination": "/supporto/domande-frequenti/progetti/come-posso-reperire-documento-mepa-firmato"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/002-gestione-utenti/006_ComesimodificanoidatidiunutentediunaPAComesir",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/modificano-dati-utente-pa-revoca-unutenza"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/029_Comevienerispettatalaconformitallascheda6serv",
+    "destination": "/supporto/domande-frequenti/progetti/come-viene-rispettata-conformita-scheda-6"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/030_Comevienerispettatalaconformitallascheda8data",
+    "destination": "/supporto/domande-frequenti/progetti/come-viene-rispettata-conformita-scheda-8"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/002_Conqualemodalitbisognatrasmetterelacandidatur",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quale-modalita-bisogna-trasmettere-candidatura"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/006_CosabisognafareselaPAnonricevelaPECcontenente",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-bisogna-fare-pa-non-riceve"
   },
   {
     "source": "02_utilizzo-piattaforma/002-gestione-utenti/004_Cosabisognafareselutenteinvitatononricevelema",
-    "destination": "/supporto/domande-frequenti/cosabisognafare"
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-bisogna-fare-lutente-invitato-non"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/003_Cosanecessariopercompletarelaproceduradiprimo",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-necessario-completare-procedura-primo-accesso"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/011_CosafareincasodimancataautenticazioneconSPIDC",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-fare-caso-mancata-autenticazione-spidcie"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/012_Cosafareseinqualitdiutenteinvitatononsiriesce",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-fare-qualita-utente-invitato-non"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/002-gestione-utenti/003_Cosafareselutenteinvitatodopoessersiautentica",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-fare-lutente-invitato-dopo-essersi"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/032_Cosasiintendeperverificheexpostdelleschede6e8",
+    "destination": "/supporto/domande-frequenti/progetti/cosa-si-intende-verifiche-expost-schede"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/010_Cosasuccedesenonvienerispettatoilcalendariosc",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-succede-non-rispettato-cronoprogramma"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/005_Cosabisognafareseidativisualizzatinellaproced",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-bisogna-fare-momento-scegliere-pa"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/011_Devoapportaredellemodificheeointegrazionialla",
+    "destination": "/supporto/domande-frequenti/progetti/devo-apportare-modifiche-integrazioni-documentazione-cronoprogramma"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/014_Devoeliminareunservizioselezionatoinfasedican",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/devo-eliminare-servizio-selezionato-fase-candidatura"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/039_doveecup",
+    "destination": "/supporto/domande-frequenti/progetti/dove-si-puo-richiedere-codice-cup"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/001_Dovepossibileverificareirequisitiperaccederea",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/dove-possibile-verificare-requisiti-accedere-candidatura"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/008_necessarioindividuareunfornitoreesternoperiba",
+    "destination": "/supporto/domande-frequenti/progetti/necessario-individuare-fornitore-esterno-bandi-pnrr"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/013_possibileaccedereaPAdigitale2026comerappresen",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/possibile-accedere-pa-digitale-2026-rappresentante"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/004_possibileaccedereallapiattaformaanchequandono",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/possibile-accedere-piattaforma-anche-quando-non"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/010_possibileaccedereallapiattaformacondiverseide",
+    "destination": "/domande-frequenti/utilizzo-piattaforma/possibile-accedere-piattaforma-diverse-identita-spidcie"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/005_possibileaccedereallapiattaformaPAdigitale202",
+    "destination": "/supporto/domande-frequenti/progetti/possibile-accedere-piattaforma-pa-digitale-2026-fornitori"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/008_possibileaccederecomenuovorappresentantelegal",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/possibile-accedere-nuovo-super-admin-pa"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/023_possibileapportaremodificheadunCUPgigenerato",
+    "destination": "/supporto/domande-frequenti/progetti/possibile-apportare-modifiche-cup-gia-generato"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/014_possibileavvalersidelsupportodipifornitorialf",
+    "destination": "/supporto/domande-frequenti/progetti/possibile-avvalersi-supporto-piu-fornitori"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/007_possibilemodificareunadomandadifinanziamenton",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/possibile-modificare-domanda-finanziamento-non-ancora"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/004_possibilepresentarepicandidaturepersingoloavv",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/possibile-presentare-piu-candidature-singolo-avviso"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/001_previstounperiododimantenimentodeiserviziatti",
+    "destination": "/supporto/domande-frequenti/progetti/previsto-periodo-mantenimento-servizi-attivi"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/024_Horinunciatoadunacandidaturaalfinedisottomett",
+    "destination": "/supporto/domande-frequenti/progetti/posso-utilizzare-stesso-cup-nuova-candidatura"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/015_Hosbagliatoadindicarelostatodiunattivitdaavvi",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/sbagliato-ad-indicare-stato-unattivita-avviare"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/020_Irequisitidicuiart47delDLn77del31052021conver",
+    "destination": "/supporto/domande-frequenti/progetti/requisiti-art-47-richiestiper-tutte-aziende"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/002_IlmioComunefapartediunUnionechegestisceglisvi",
+    "destination": "/supporto/domande-frequenti/progetti/comune-unione-gestisce-sviluppi-partecipare-avvisi"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/035_soggettorealizzatore",
+    "destination": "/supporto/domande-frequenti/progetti/ente-contrattualizzato-realizzatore-piu-titolari-effettivi"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/019_IlRUPdeveessereindividuatoesplicitamenteconun",
+    "destination": "/supporto/domande-frequenti/progetti/rup-nominato-o-responsabile-transizione-digitale"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/009_Ilsistemanonconsentedicaricareladomandadifina",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/sistema-non-consente-caricare-domanda-finanziamento"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/025_Incasodiimplementazioneineconomiadelleattivit",
+    "destination": "/supporto/domande-frequenti/progetti/implementazione-economia-previsto-rispetto-principio-dnsh"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/033_Incasodisviluppiineconomianonhounordinediserv",
+    "destination": "/supporto/domande-frequenti/progetti/sviluppi-economia-senza-ordine-servizio-documenti"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/005_Incosaconsisteilcalendariodiunavviso",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/cosa-consiste-calendario-avviso"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/018_Infasediselezionedelfornitorepossibileutilizz",
+    "destination": "/supporto/domande-frequenti/progetti/possibile-utilizzare-contratti-prima-entrata-dl-77-2021"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/036_softwarecentralizzati",
+    "destination": "/supporto/domande-frequenti/progetti/scenario-contrattualizzazione-software-centralizzati-aziende-sanitarie"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/009_NelcasoincuiunaPAsiavvalgadiunsoggettoinhouse",
+    "destination": "/supporto/domande-frequenti/progetti/pa-in-house-concentratore-deve-inserire-contratti-fornitori"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/027_Nellambitodellamisura12previstoilrispettodelp",
+    "destination": "/supporto/domande-frequenti/progetti/misura-12-previsto-rispetto-principio-dnsh-csp"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/026_Nellambitodellamisura12previstoilrispettodelD",
+    "destination": "/supporto/domande-frequenti/progetti/misura-12-previsto-rispetto-dnsh-soggetto-realizzatore"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/004_Nellambitodellemisure13e14previstoilrispettod",
+    "destination": "/supporto/domande-frequenti/progetti/misure-13-14-previsto-rispetto-principio-dnsh-fornitori"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/017_Nellambitodellemisure13e14previstoilrispettod",
+    "destination": "/supporto/domande-frequenti/progetti/misure-13-14-previsto-rispetto-principio-dnsh-fornitori-2"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/003_Nonhoricevutolemaildiverificacomepossofinaliz",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/non-ricevuto-email-verifica-finalizzare-iscrizione"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/031_Perquantoconcerneloscenario1qualisonoirequisi",
+    "destination": "/supporto/domande-frequenti/progetti/scenario-1-quali-requisiti-fondamentali"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/006_Perchunavvisovisualizzatoinareapubblicanonpre",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/perche-avviso-visualizzato-area-pubblica-non"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/002_QualibrowsersonosupportatiperlanavigazionediP",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quali-browser-supportati-navigazione-pa-digitale"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/003_Qualidatisononecessariperavviarecompletareuna",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quali-dati-necessari-avviare-completare-candidatura"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/016_Qualidocumentisonoritenutiammissibilinelloste",
+    "destination": "/supporto/domande-frequenti/progetti/quali-documenti-ammissibili-step-caricamento-contratti"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/034_Qualimodifichesipotrannoapportareallacandidat",
+    "destination": "/supporto/domande-frequenti/progetti/quali-modifiche-si-potranno-apportare-candidatura"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/012_Qualisonoiformatidifirmariconosciutiallintern",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quali-formati-firma-riconosciuti-interno-sistema"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/005_requisiti_caricamento_documento",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quali-requisiti-caricamento-documento-firmato-p7m"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/002_QualisonoirequisitiperilprimoaccessoaPAdigita",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quali-requisiti-primo-accesso-pa-digitale-2026"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/003-candidatura/008_Qualisonolecausediinammissibilitdiunadomandad",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quali-cause-inammissibilita-domanda-finanziamento"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/010_Qualorasiagiincorsouncontrattodihostingemanut",
+    "destination": "/supporto/domande-frequenti/progetti/possibile-interrompere-contratto-esistente-affidare-operatore-uscente"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/028_Quandodeveesserecompilatalascheda3dellallegat",
+    "destination": "/supporto/domande-frequenti/progetti/quando-deve-essere-compilata-scheda-3-allegato-4"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/040_quandocup",
+    "destination": "/supporto/domande-frequenti/progetti/quando-e-necessario-richiedere-codice-cup"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/002-gestione-utenti/001_QuantiutentipossibileinvitareinPAdigitale2026",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/quanti-utenti-possibile-invitare-pa-digitale-2026"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/002-gestione-utenti/007_Sonoprevistefunzionalitpersupportarelaparteci",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/sono-previste-funzionalita-supportare-partecipazione-aggregative"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/003_Sonoprevisticontrollisullavanzamentodelproget",
+    "destination": "/supporto/domande-frequenti/progetti/sono-previsti-controlli-avanzamento-progetto"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/007_UnSoggettoAttuatorepuavvalersidiunaltraPubbli",
+    "destination": "/supporto/domande-frequenti/progetti/soggetto-attuatore-puo-avvalersi-pa-soggetto-realizzatore"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/001-accesso/014_accessopadigitale",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/come-si-effettua-accesso-pa-digitale-2026"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/041_accettazionefin",
+    "destination": "/supporto/domande-frequenti/progetti/generato-cup-senza-template-come-sanarla"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/043_contrattualizzazionefusionifornitori",
+    "destination": "/supporto/domande-frequenti/progetti/fusione-acquisizione-soggetto-realizzatore-procedura-piattaforma"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/045_compilazionedocumentazionecontrattuale",
+    "destination": "/supporto/domande-frequenti/progetti/come-compilare-correttamente-documentazione-contrattuale"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/006_aggiornamento_pec",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/come-posso-aggiornare-pec-ente-piattaforma"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/039_Dovepossoreperireiservizicloudqualificati",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-dove-reperire-servizi-cloud-qualificati"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/005-supporto-tecnico/007_utilizzo-chrome",
+    "destination": "/supporto/domande-frequenti/utilizzo-piattaforma/riscontrato-problemi-visualizzazione-contenuti-pa-digitale-2026"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/027_linksitovecchio",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-posso-mantenere-link-sito-vecchio-come-archiviare"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/028_regoleimplementazione",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-regole-implementazione-sottodomini-sito-comune"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/035_scuoleammissibiliavvisosettembre2024",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-regole-implementazione-sottodomini-sito-comune"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/017_prenotabileonline",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-quali-scuole-possono-partecipare-avviso-settembre-2024"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/026_indicazioniareapersonale",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-indicazioni-area-personale-sito-comune"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/027_linksitovecchio",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-posso-mantenere-link-sito-vecchio-come-archiviare"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/028_regoleimplementazione",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-regole-implementazione-sottodomini-sito-comune"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/029_modellocomuni",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-obbligatorio-usare-tutte-voci-tassonomie"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/030_pagamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-come-comunicare-utente-pagamento-istanza"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/031_funzionalitatrasversali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-funzionalita-trasversali-possono-essere-esterne"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/032_pagamenticontestuali",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-pagamenti-contestuali-utente-puo-tornare-indietro"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/033_serviziocompostodapiuvarianti",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-servizio-multivarianti-una-scheda-servizio"
+  },
+  {
+    "source": "05_misure/004-measure-1-4-1/034_chiarimentiiscrizionescuolainfanzia",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/141-iscrizione-infanzia-vale-centri-estivi"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/021_Quandounentepuovantarelatitolaritadelcreditos",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-quando-ente-e-titolare-credito"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/014_adozioneappiocomuni",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-servizi-non-selezionabili-avviso-novembre-2023"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/015_effettivitadeiservizi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-servizi-esternalizzati-mantenere-candidatura"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/024_Qualedocumentazioneoccorreinserirenellafasedicaricamentocontratti",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-documentazione-caricamento-contratti"
+  },
+  {
+    "source": "05_misure/009-measure-1-4-5/009_Notificadigitaleconpagamento",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-notifica-digitale-manuale-da-interfaccia-send"
+  },
+  {
+    "source": "05_misure/009-measure-1-4-5/010_Tipologiaattodescrizione",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/145-asseverazione-servizio-tutte-le-declinazioni-atto"
+  },
+  {
+    "source": "07_rendicontazione/008_pagamentofornitori",
+    "destination": "/supporto/domande-frequenti/rendicontazione/vincoli-relativi-pagamento-fornitori"
+  },
+  {
+    "source": "07_rendicontazione/009_redazionecertificatodiregolareesecuzione",
+    "destination": "/supporto/domande-frequenti/rendicontazione/redazione-contratto-regolare-esecuzione"
+  },
+  {
+    "source": "07_rendicontazione/010_buonepraticheattoricognitivo",
+    "destination": "/supporto/domande-frequenti/rendicontazione/quali-buone-pratiche-compilazione-dellatto-ricognitivo"
+  },
+  {
+    "source": "07_rendicontazione/011_dichiarazionetracciabilitaflussifinanziari",
+    "destination": "/supporto/domande-frequenti/rendicontazione/ente-pubblico-non-soggetto-vincolo-regime"
+  },
+  {
+    "source": "05_misure/011-measure-tutte-le-misure/001_soggettiattuatori",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/unico-contratto-psn"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/001",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-quante-domande-puo-presentare-il-comune"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/002",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-quali-sono-gli-interventi-finanziabili"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/003",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-codice-template-per-generazione-cup"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/004",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-adempimenti-sul-titolare-effettivo-soggetto-realizzatore"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/005",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-entro-quando-inviare-candidatura"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/006",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-quando-saranno-lavorate-le-candidature"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/007",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-cose-archivio-nazionale-informatizzato-stato-civile"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/008",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-benefici-archivio-nazionale-stato-civile"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/009",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-come-si-ottiene-finanziamento"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/010",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-cosa-si-intende-formazione-primo-atto-digitale"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/011",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-adempimenti-successivi-implementazione-attivita"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/012",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-tempi-contrattualizzazione-fornitore"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/013",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-tempi-completamento-attivita"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/014",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-importo-forfettario-riconosciuto"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/015",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-vincoli-scelta-soggetto-realizzatore"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/016",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-modalita-adesione-ansc"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/017",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-funzionamento-web-application-ansc"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/018",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-funzionamento-integrazione-ansc-gestionale"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/019",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-impostazione-numerazione-atti-digitali"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/020",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-finanziamento-attivazione-utenza-anpr-antecedente"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/021",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-contributo-gia-ottenuto-anpr-elettorale"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/022",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-contatti-supporto-integrazione-ansc"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/023",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-documentazione-ufficiale-ansc"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/024",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-attivita-necessarie-adesione-ansc"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/025",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-migrazione-storico-archivi-cartacei"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/026",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-webapp-ansc-e-uguale-a-quella-anpr"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/027",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-firma-remota-ufficiale-stato-civile"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/028",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-sottoscrizione-atto-da-parte-del-dichiarante"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/029",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-registro-cartaceo-necessario"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/030",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-adesione-dopo-conferma-finanziamento"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/031",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-partecipazione-ansc-dopo-candidatura-12-cloud"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/032",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-attivita-finanziate-avviso"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/042_obblighidipubblicita",
+    "destination": "/supporto/domande-frequenti/progetti/quali-obblighi-pubblicita-fondi-ricevuti"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/044_risoluzioneincongruenzadate",
+    "destination": "/supporto/domande-frequenti/progetti/come-risolvere-incongruenze-data-completamento-contrattualizzazione"
+  },
+  {
+    "source": "05_misure/005-measure-1-4-3-pagopa/009_Hointegratodeiservizitramiteunapiattaformareg",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143pagopa-finanziamento-servizi-in-economia-o-piattaforme-terze"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/016_serviziocancellato",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-cancellazione-servizio-finanziato-riattivazione-obbligatoria"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/017_descrizione_Servizi_IO",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-descrizione-servizi-catalogo-io-vincolante"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/018_attivazione_servizi_tramite_adesione_piattaforme",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-finanziamento-servizi-attivati-tramite-piattaforme-regionali-provinciali"
+  },
+  {
+    "source": "05_misure/007-measure-1-4-4/025_servizi_attivati_tramite_piattaforme",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144id-finanziamento-servizi-attivati-piattaforme-regionali-provinciali"
+  },
+  {
+    "source": "02_utilizzo-piattaforma/004-progetti/046_step_per_erogazione_finanziamento",
+    "destination": "/supporto/domande-frequenti/progetti/quali-step-erogazione-finanziamento-dopo-completamento"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/043_gestioneMAD",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-servizio-gestione-mad-ammissibile-avviso-12"
+  },
+  {
+    "source": "05_misure/006-measure-1-4-3-appio/019_adeguamento_servizi_non_conformi",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/143appio-adeguamento-servizi-non-conformi-catalogo-appio"
+  },
+  {
+    "source": "05_misure/002-measure-1-2/044_soggetti_attuatori_1.2_scuole_aprile_2025",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/12-quali-scuole-possono-partecipare-avviso-12-2025"
+  },
+  {
+    "source": "05_misure/008-measure-1-4-4-ansc/033_completamento_attività",
+    "destination": "/supporto/domande-frequenti/misure-e-avvisi/144ansc-problemi-inserimento-completamento-attivita-padigitale2026"
+  },
+  {
+    "source": "07_rendicontazione/012_iban_e_conto_di_tesoreria_unico",
+    "destination": "/domande-frequenti/rendicontazione/cambiato-liban-dellente-occorre-cambiare-conto"
   }
 ]
