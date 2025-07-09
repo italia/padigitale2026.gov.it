@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
 
-export const revalidate = 60;
-
 export async function generateMetadata({
   params,
 }: {
@@ -35,7 +33,6 @@ export async function generateMetadata({
     const { getSupportoData } = await import("@/lib/pageHelpers");
     const exceptionSlug = `domande-frequenti/${fullSlug}`;
     pageData = await getSupportoData(exceptionSlug);
-  
   } else {
     // Per le FAQ vere, usa getFaqData
     pageData = await getFaqData(fullSlug);
@@ -51,11 +48,9 @@ export async function generateMetadata({
   const { page } = pageData;
   const seo = page.seo;
 
-
   const nextSeo = toNextMetadata(seo as SeoOrFaviconTag[]);
 
   return nextSeo;
-
 }
 
 export async function generateStaticParams() {

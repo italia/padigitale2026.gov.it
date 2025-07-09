@@ -3,8 +3,6 @@ import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 import FragmentRedirect from "@/src/components/FragmentRedirect";
 
-export const revalidate = 60;
-
 export default async function SupportoDomandeFrequentiPage() {
   const pageData = await getPageData("supporto/domande-frequenti");
 

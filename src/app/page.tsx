@@ -4,12 +4,9 @@ import { PageQuery } from "@/graphql/generated";
 import type { Metadata } from "next";
 import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
 
-export const revalidate = 60;
-
 export async function generateMetadata(): Promise<Metadata> {
   const content = (await page("homepage")) as PageQuery;
   const seo = content.page?.seo;
-
 
   const nextSeo = toNextMetadata(seo as SeoOrFaviconTag[]);
 

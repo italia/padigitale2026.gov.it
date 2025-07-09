@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
 
-export const revalidate = 60;
-
 export async function generateMetadata({
   params,
 }: {
