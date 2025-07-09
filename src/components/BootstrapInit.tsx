@@ -21,6 +21,15 @@ export default function BootstrapInit() {
         [...popoverTriggerList].map(
           (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
         );
+
+        // Inizializza gli accordion
+        const collapseTriggerList = document.querySelectorAll(
+          '[data-bs-toggle="collapse"]'
+        );
+        [...collapseTriggerList].map(
+          (collapseTriggerEl) =>
+            new bootstrap.Collapse(collapseTriggerEl, { toggle: false })
+        );
       }
     };
 

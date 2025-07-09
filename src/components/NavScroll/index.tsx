@@ -1,5 +1,8 @@
+"use client";
+
 import { NavScrollRecord } from "@/graphql/generated";
 import { Icon } from "design-react-kit";
+import { useEffect, useState } from "react";
 
 type DASTNode = {
   type: string;
@@ -63,6 +66,11 @@ const renderNavList = (items: DASTNode[]) => {
 
 export function NavScroll({ props }: { props: NavScrollRecord }) {
   const { title, content } = props;
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const navItems =
     (content?.value as DASTValue)?.document?.children?.[0]?.children || [];
@@ -95,10 +103,10 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
         <div
           className="progress-bar it-navscroll-progressbar"
           role="progressbar"
-          aria-valuenow={0}
+          aria-valuenow={isClient ? 0 : 0}
           aria-valuemin={0}
           aria-valuemax={100}
-          style={{ width: "0%" }}
+          style={{ width: isClient ? "0%" : "0%" }}
         ></div>
       </div>
       <div className="navbar-collapsable" id="navbarNav">
@@ -120,10 +128,10 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
               <div
                 className="progress-bar it-navscroll-progressbar"
                 role="progressbar"
-                aria-valuenow={0}
+                aria-valuenow={isClient ? 0 : 0}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                style={{ width: "0%" }}
+                style={{ width: isClient ? "0%" : "0%" }}
               ></div>
             </div>
             <div role={"navigation"} aria-label={"Navigazione contenuti"}>
