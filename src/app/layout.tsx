@@ -41,6 +41,7 @@ import type {
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 import BootstrapInit from "@/src/components/BootstrapInit";
+import BootstrapScript from "@/src/components/BootstrapScript";
 import { PagesProvider } from "@/src/contexts/PagesContext";
 
 export const metadata: Metadata = {
@@ -91,12 +92,7 @@ export default async function RootLayout({
           <Footer props={footerProps} />
         </PagesProvider>
         <BootstrapInit />
-
-        {/* Script Bootstrap Italia */}
-        <Script
-          src="/bootstrap-italia.bundle.min.js"
-          strategy="afterInteractive"
-        />
+        <BootstrapScript />
 
         {/* Script Matomo */}
         <Script
