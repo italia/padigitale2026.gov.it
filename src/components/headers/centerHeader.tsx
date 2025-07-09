@@ -48,7 +48,12 @@ export default function CenterHeader({
             aria-hidden="true"
           />
           <div className="">
-            <h1 className="mb-0 d-none d-sm-block h3">{title}</h1>
+            <h1
+              className="mb-0 d-none d-sm-block h3"
+              style={{ fontSize: "2rem" }}
+            >
+              {title}
+            </h1>
             <p className="mb-0 h-6 d-none d-lg-block">{subtitle}</p>
           </div>
         </Link>
