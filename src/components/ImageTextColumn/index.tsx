@@ -64,7 +64,10 @@ export function ImageTextColumn({ props }: { props: ImageTextColumnRecord }) {
           </Col>
           {image && (
             <Col className="pe-0 pe-md-3 mb-0 text-center" lg="6">
-              <SRCImage data={image.responsiveImage as ResponsiveImageType} />
+              <SRCImage
+                data={image.responsiveImage as ResponsiveImageType}
+                sizes="(max-width: 991px) 100vw, 50vw"
+              />
             </Col>
           )}
         </Row>

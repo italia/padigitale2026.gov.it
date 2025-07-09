@@ -142,6 +142,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                 data={image?.responsiveImage}
                 imgClassName={cn("hero-image")}
                 priority
+                sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 50vw"
               />
             </div>
           )}

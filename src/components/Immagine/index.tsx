@@ -11,7 +11,10 @@ export function Immagine({ props }: { props: ImmagineRecord }) {
 
   return (
     <div className="w-100 my-5">
-      <SRCImage data={immagine.responsiveImage as ResponsiveImageType} />
+      <SRCImage
+        data={immagine.responsiveImage as ResponsiveImageType}
+        sizes="100vw"
+      />
     </div>
   );
 }
