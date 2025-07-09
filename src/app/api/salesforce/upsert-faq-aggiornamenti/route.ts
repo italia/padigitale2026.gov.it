@@ -1,7 +1,7 @@
 import { WebhookPayload, ContentType } from "../../algolia/types";
 import { upsertFaqAggiornamenti } from "../api";
-//import { FaqQuery, UpdateQuery } from "@/graphql/generated";
-import { getAllFilteredEnteBeneficiarios, misura as getMisura, argomento as getArgomento } from "@/lib/datocms";
+import { FaqQuery, UpdateQuery } from "@/graphql/generated";
+import { updateWithOption, faqWithOption } from "@/lib/datocms";
 import { records } from "../types";
 
 export async function POST(request: Request) {
@@ -19,55 +19,47 @@ export async function POST(request: Request) {
   }
 
   try {
-    //let entity;
-    //let entity_content;
-    let beneficiari;
-    let misura;
+    let entity;
+    let entity_content;
     const records: records[] = [];
     const data: WebhookPayload = await request.json();
     const content_type: ContentType = data.related_entities.pop()?.attributes.api_key as ContentType;
 
     switch (content_type) {
       case "update":
-        //entity = (await update(data.entity.id!)) as UpdateQuery;
-        //entity_content = entity.update;
+        entity = (await updateWithOption(data.entity.id!, false)) as UpdateQuery;
+        entity_content = entity.update;
 
-        beneficiari = await getAllFilteredEnteBeneficiarios(data.entity.attributes.beneficiari || []);
-
-        //if (entity_content) {
+        if (entity_content) {
           records.push({
             attributes: { "type": "Informazione_CMS_Avviso__c" },
             External_ID__c: data.entity.id,
             Type__c: "Ultimi aggiornamenti",
             Description__c: data.entity.attributes.title || '',
             Date_Latest_Update__c: data.entity.attributes.custom_update_date ? (data.entity.attributes.custom_update_date as string).split('T')[0] : '',
-            Ente_Destinazione__c: beneficiari.allEnteBeneficiarios?.map(b => b.labelSalesforce || b.label).join(';') || '',
+            Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
           });
-        //}
+        }
         break;      
       case "faq":
-        //entity = (await faq(data.entity.attributes.slug)) as FaqQuery;
-        //entity_content = entity.faq;
+        entity = (await faqWithOption(data.entity.attributes.slug, false)) as FaqQuery;
+        entity_content = entity.faq;
 
-        beneficiari = await getAllFilteredEnteBeneficiarios(data.entity.attributes.beneficiari || []);
-        misura = await getMisura(data.entity.attributes.misura || '');
-        const argomento = await getArgomento(data.entity.attributes.category || '');
-
-        //if (entity_content) {
+        if (entity_content) {
           records.push({
             attributes: { "type": "Informazione_CMS_Avviso__c" },
             External_ID__c: data.entity.id,
             Type__c: "Domande frequenti",
-            Category__c: argomento.argomento?.label || '',
+            Category__c: entity_content?.category?.label || '',
             URL__c: `${process.env.NEXT_PUBLIC_DOMAIN}/${data.entity.attributes.slug}`,
             URL_Label__c: data.entity.attributes.title || '',
-            Ente_Destinazione__c: beneficiari.allEnteBeneficiarios?.map(b => b.labelSalesforce || b.label).join(';') || '',
-            Misura__c: misura.misura?.idSalesforce || '',
-            Pacchetto__c: misura.misura?.pacchetto || '',
+            Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
+            Misura__c: entity_content.misura?.idSalesforce || '',
+            Pacchetto__c: entity_content.misura?.pacchetto || '',
             Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
           });
-        //}
+        }
         break;
       default:
         throw Error("Tentativo di utilizzare webhook con un tipo di contenuto non riconosciuto");
