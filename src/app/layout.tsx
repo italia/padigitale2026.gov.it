@@ -1,12 +1,32 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Titillium_Web, Roboto_Mono, Lora } from "next/font/google";
 
 // import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
 import "./globals.scss";
 
-import "typeface-titillium-web";
-import "typeface-roboto-mono";
-import "typeface-lora";
+// Configurazione font ottimizzata
+const titilliumWeb = Titillium_Web({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  display: "swap",
+  preload: true,
+  variable: "--font-titillium-web",
+});
+
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-roboto-mono",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-lora",
+});
 
 import {
   getFooter,
@@ -73,7 +93,9 @@ export default async function RootLayout({
 
   return (
     <html lang="it">
-      <body>
+      <body
+        className={`${titilliumWeb.variable} ${robotoMono.variable} ${lora.variable}`}
+      >
         <PagesProvider
           pages={pages}
           faqs={faqs}
