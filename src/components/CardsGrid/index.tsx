@@ -249,7 +249,7 @@ export function CardsGrid({
             announcement.status === "PUBBLICATO"
               ? CardAnnouncementStatusType.Aperto
               : CardAnnouncementStatusType.Chiuso,
-          titolo: announcement.oggettoBando,
+          titolo: announcement.name,
           dataDiPubblicazione: new Date(
             announcement.startDate
           ).toLocaleDateString("it-IT", {
