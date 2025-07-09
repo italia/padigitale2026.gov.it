@@ -144,6 +144,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                 data={image?.responsiveImage}
                 imgClassName={cn("hero-image")}
                 priority
+                usePlaceholder
                 sizes="(max-width: 384px) 100vw, (max-width: 496px) 50vw, 50vw"
               />
             </div>

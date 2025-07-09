@@ -110,6 +110,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
               <SRCImage
                 data={image?.responsiveImage}
                 imgClassName={cn("hero-image")}
+                usePlaceholder
                 sizes="(max-width: 384px) 100vw, (max-width: 496px) 50vw, 50vw"
               />
             </div>
