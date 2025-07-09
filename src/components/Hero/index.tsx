@@ -141,6 +141,7 @@ export function Hero({ props }: { props: HeroRecord }) {
               <SRCImage
                 data={image?.responsiveImage}
                 imgClassName={cn("hero-image")}
+                priority
               />
             </div>
           )}

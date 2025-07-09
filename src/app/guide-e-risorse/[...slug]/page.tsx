@@ -26,8 +26,6 @@ export async function generateMetadata({
 
   const { page } = pageData;
   const seo = page.seo;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const resourceRecord = page as any; // Cast temporaneo per accedere ai campi ResourceRecord
 
   const nextSeo = toNextMetadata(seo as SeoOrFaviconTag[]);
 
