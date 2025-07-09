@@ -61,7 +61,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
               <h2 className={"neutral-1-color-a9 mb-3 h-1 lh-sm"}>{title}</h2>
             )}
             {description && (
-              <p className={"font-sans-serif neutral-1-color-a9"}>
+              <p className={"lead font-sans-serif neutral-1-color-a9"}>
                 {description}
               </p>
             )}

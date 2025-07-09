@@ -65,7 +65,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             )}
             {description && (
               <p
-                className={cn("lead font-sans-serif", {
+                className={cn("lead font-sans-serif fs-4", {
                   "neutral-1-color-a9": lightTheme,
                 })}
               >
