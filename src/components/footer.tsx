@@ -123,7 +123,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
             <Row>
               {linkColonna1.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>{titleColonna1}</h4>
+                  <div className="h4">{titleColonna1}</div>
                   <LinkList className="footer-list clearfix">
                     <LinkListItem
                       tag={Link}
@@ -147,7 +147,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna2.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>{titleColonna2}</h4>
+                  <div className="h4">{titleColonna2}</div>
                   <LinkList className="footer-list clearfix">
                     {linkColonna2.map((link) => (
                       <LinkListItem
@@ -164,7 +164,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna3.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>{titleColonna3}</h4>
+                  <div className="h4">{titleColonna3}</div>
                   <LinkList className="footer-list clearfix">
                     {linkColonna3.map((link) => (
                       <LinkListItem
@@ -181,10 +181,10 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkNewsletter && (
                 <Col className="pb-2 bg-dark bg-transparent" lg={3} md={6}>
-                  <h4 className="d-flex align-items-center gap-2">
+                  <div className="d-flex align-items-center gap-2 h4">
                     <Icon color="white" icon="it-mail" />
                     Newsletter
-                  </h4>
+                  </div>
                   <p>Ricevi via email le novità di PA digitale 2026.</p>
                   <Button
                     className="btn-icon"
