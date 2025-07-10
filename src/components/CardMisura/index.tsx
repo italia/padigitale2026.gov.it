@@ -48,7 +48,7 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
           <div className="col-lg-8 border-end-lg">
             {/* Header con titolo */}
             <div className="mb-4">
-              {misura?.label && <h3 className="h3 mb-3">{misura?.label}</h3>}
+              {misura?.label && <h2 className="h3 mb-3">{misura?.label}</h2>}
 
               {/* Sezione risorse */}
               {risorseInEuro && (
