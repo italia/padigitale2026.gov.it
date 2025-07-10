@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 export function TextBicolumn({ props }: { props: TextBicolumnRecord }) {
   const { id } = props;
   return (
-    <Section aria-labelledby={id} style={{ backgroundColor: "#F2F7FC" }}>
+    <Section style={{ backgroundColor: "#F2F7FC" }}>
       <Container className={cn("wrapper")}>
         <Row className="mb-5">
           <Col>

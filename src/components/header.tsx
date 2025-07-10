@@ -8,11 +8,7 @@ import type { HeaderQuery } from "@/graphql/generated";
 export default function Header({ props }: { props: HeaderQuery }) {
   return (
     <>
-      <div
-        className={"skiplinks"}
-        tabIndex={-1}
-        aria-label="Scorciatoie di navigazione"
-      >
+      <div className={"skiplinks"} tabIndex={-1}>
         <SkiplinkItem href={"#main"}>
           <span>Vai al contenuto principale</span>
         </SkiplinkItem>

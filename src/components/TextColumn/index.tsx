@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 export function TextColumn({ props }: { props: TextColumnRecord }) {
   const { id } = props;
   return (
-    <Section aria-labelledby={id} className={cn("")}>
+    <Section className={cn("")}>
       <Container>
         <Row className="mb-5">
           <Col>

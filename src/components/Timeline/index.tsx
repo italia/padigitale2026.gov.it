@@ -19,7 +19,7 @@ const cn = classNames.bind(styles);
 export function Timeline({ props }: { props: TimelineRecord }) {
   const { id } = props;
   return (
-    <Section aria-labelledby={id} className={cn("")}>
+    <Section className={cn("")}>
       <Container>
         <Row className="mb-5">
           <Col>

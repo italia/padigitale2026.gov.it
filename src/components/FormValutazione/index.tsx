@@ -154,8 +154,6 @@ export function FormValutazione({ id }: { id: string }) {
 
   return (
     <Section
-      aria-labelledby={id}
-      // color="muted"
       wrapperClassName="feedback primary-bg-a1 py-5 px-3 px-lg-0"
       className={cn("container-xxl", "feedback-section")}
     >

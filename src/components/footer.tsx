@@ -108,12 +108,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     className="me-1"
                   />
                   <div className="it-brand-text ms-2 pt-1">
-                    <div
-                      className="m-0 h-5 fw-semibold"
-                      aria-label={`Logo del footer: ${title}`}
-                    >
-                      {title}
-                    </div>
+                    <div className="m-0 h-5 fw-semibold">{title}</div>
                   </div>
                 </div>
               </Col>

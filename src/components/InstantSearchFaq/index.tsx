@@ -203,7 +203,7 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
   };
 
   return (
-    <Section aria-labelledby={id}>
+    <Section>
       <Container>
         <Row>
           <Col>
