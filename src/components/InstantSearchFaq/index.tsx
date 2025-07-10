@@ -188,7 +188,7 @@ function SearchResults({ isFocused }: { isFocused: boolean }) {
 }
 
 export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
-  const { inputPlaceholder, title } = props;
+  const { id, inputPlaceholder, title } = props;
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -203,11 +203,15 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
   };
 
   return (
-    <Section>
+    <Section aria-labelledby={id}>
       <Container>
         <Row>
           <Col>
-            <h2 className={cn("h2")}>{title}</h2>
+            {title && (
+              <h2 id={id} className={cn("h2")}>
+                {title}
+              </h2>
+            )}
             <InstantSearch
               searchClient={searchClient}
               indexName={algoliaIndexName}
@@ -220,7 +224,7 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
                 onBlur={handleBlur}
               >
                 <div className={"row"}>
-                  <div className={cn("col-12 col-md-7")}>
+                  <div className={cn("col-12 col-md-7 p-0")}>
                     <SearchInput
                       inputPlaceholder={inputPlaceholder || "Cerca..."}
                     />
