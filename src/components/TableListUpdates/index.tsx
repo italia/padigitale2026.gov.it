@@ -132,10 +132,10 @@ export function TableListUpdates({
             id={`${id}-title`}
             className={cn("col-12 h-1 pb-4", {
               "text-center": alignment === "center",
-              "visually-hidden": !title,
+              "visually-hidden": !title || title.length === 0,
             })}
           >
-            {title ?? "Ultimi aggiornamenti"}
+            {title && title.length > 0 ? title : "Ultimi aggiornamenti"}
           </h2>
         </Col>
       </Row>
