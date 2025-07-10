@@ -24,7 +24,12 @@ export default function CenterHeader({
   const subtitle = header?.subtitle || "";
 
   return (
-    <Header theme={theme || ""} type="center">
+    <Header
+      theme={theme || ""}
+      type="center"
+      role="banner"
+      aria-label="Header centrale del sito"
+    >
       <HeaderContent className={"px-0"}>
         <Link
           href="/"

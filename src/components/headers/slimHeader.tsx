@@ -16,7 +16,13 @@ import {
 
 export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
   return (
-    <Header theme={theme || ""} type="slim" className={"px-0"}>
+    <Header
+      theme={theme || ""}
+      type="slim"
+      className={"px-0"}
+      role="banner"
+      aria-label="Header principale del sito"
+    >
       <HeaderContent className={"px-0"}>
         <HeaderBrand responsive href="/" className={"fw-semibold"}>
           Dipartimento per la trasformazione digitale

@@ -85,7 +85,13 @@ export default function NavHeader({
           width: 100%;
         }
       `}</style>
-      <Header theme={openNav ? "light" : theme} type="navbar" className="px-0">
+      <Header
+        theme={openNav ? "light" : theme}
+        type="navbar"
+        className="px-0"
+        role="navigation"
+        aria-label="Navigazione principale"
+      >
         <HeaderContent expand="lg" className="px-0">
           <HeaderToggler
             aria-controls="nav1"
