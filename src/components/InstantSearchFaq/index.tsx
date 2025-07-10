@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Input, Icon, Section, Container, Row, Col } from "design-react-kit";
 import { InstantSearchFaqRecord } from "@/graphql/generated";
 import {
   Configure,
@@ -26,7 +27,6 @@ const searchClient = algoliasearch(algoliaAppId, algoliaApiKey);
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import { Input, Icon } from "design-react-kit";
 import { useState, useRef } from "react";
 const cn = classNames.bind(styles);
 
@@ -188,7 +188,7 @@ function SearchResults({ isFocused }: { isFocused: boolean }) {
 }
 
 export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
-  const { inputPlaceholder } = props;
+  const { inputPlaceholder, title } = props;
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -203,33 +203,47 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
   };
 
   return (
-    <InstantSearch searchClient={searchClient} indexName={algoliaIndexName}>
-      <Configure filters="content_type:faq" />
-      <div
-        ref={containerRef}
-        className={"container-xxl my-5"}
-        onFocus={() => setIsFocused(true)}
-        onBlur={handleBlur}
-      >
-        <div className={"row"}>
-          <div className={cn("col-12 col-md-7")}>
-            <SearchInput inputPlaceholder={inputPlaceholder || "Cerca..."} />
-          </div>
-        </div>
-        <div
-          className={cn("col-12 col-md-7 position-relative")}
-          style={{ zIndex: 10 }}
-        >
-          <div
-            className={cn(
-              "search-results-container",
-              "position-absolute top-0 start-0 w-100 bg-white"
-            )}
-          >
-            <SearchResults isFocused={isFocused} />
-          </div>
-        </div>
-      </div>
-    </InstantSearch>
+    <Section>
+      <Container>
+        <Row>
+          <Col>
+            <h2 className={cn("h2")}>{title}</h2>
+            <InstantSearch
+              searchClient={searchClient}
+              indexName={algoliaIndexName}
+            >
+              <Configure filters="content_type:faq" />
+              <div
+                ref={containerRef}
+                className={"container-xxl my-5"}
+                onFocus={() => setIsFocused(true)}
+                onBlur={handleBlur}
+              >
+                <div className={"row"}>
+                  <div className={cn("col-12 col-md-7")}>
+                    <SearchInput
+                      inputPlaceholder={inputPlaceholder || "Cerca..."}
+                    />
+                  </div>
+                </div>
+                <div
+                  className={cn("col-12 col-md-7 position-relative")}
+                  style={{ zIndex: 10 }}
+                >
+                  <div
+                    className={cn(
+                      "search-results-container",
+                      "position-absolute top-0 start-0 w-100 bg-white"
+                    )}
+                  >
+                    <SearchResults isFocused={isFocused} />
+                  </div>
+                </div>
+              </div>
+            </InstantSearch>
+          </Col>
+        </Row>
+      </Container>
+    </Section>
   );
 }

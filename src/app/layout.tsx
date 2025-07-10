@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Titillium_Web, Roboto_Mono, Lora } from "next/font/google";
 
-// import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
+import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
 import "./globals.scss";
 
 // Configurazione font ottimizzata

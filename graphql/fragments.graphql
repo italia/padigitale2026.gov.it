@@ -826,6 +826,7 @@ fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
   __typename
   id
   inputPlaceholder
+  title
 }
 
 fragment BloccoGraficoFragment on BloccoGraficoRecord {
