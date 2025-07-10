@@ -216,25 +216,33 @@ export function TableListUpdates({
                                 const buttonHref = getButtonHref(
                                   cta as ButtonRecord
                                 );
+
+                                // Determina il testo del bottone seguendo la stessa logica degli span
+                                let buttonText = "";
+                                if (cta?.href) {
+                                  buttonText = "Vai alla risorsa aggiornata";
+                                } else if (cta?.cmsPage && cta?.text) {
+                                  buttonText = cta.text;
+                                } else if (
+                                  cta?.cmsPage &&
+                                  !cta?.text &&
+                                  cta?.cmsPage?.title
+                                ) {
+                                  buttonText = cta.cmsPage.title;
+                                } else if (
+                                  cta?.cmsPage &&
+                                  !cta?.text &&
+                                  !cta?.cmsPage?.title &&
+                                  cta?.cmsPage?.__typename === "PageRecord"
+                                ) {
+                                  buttonText = "Vai alla pagina aggiornata";
+                                }
+
                                 return buttonHref.length > 0 ? (
                                   <Link
                                     className="fw-semibold text-nowrap"
                                     href={buttonHref}
-                                    aria-label={
-                                      customUpdateDate
-                                        ? `Aggiornato il ${new Intl.DateTimeFormat(
-                                            "it-IT",
-                                            {
-                                              timeZone: "Europe/Rome",
-                                              day: "2-digit",
-                                              month: "long",
-                                              year: "numeric",
-                                            }
-                                          ).format(
-                                            Date.parse(customUpdateDate)
-                                          )}`
-                                        : undefined
-                                    }
+                                    aria-label={buttonText}
                                     target={"_self"}
                                   >
                                     {cta?.href && (
