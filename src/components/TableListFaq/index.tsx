@@ -136,7 +136,7 @@ export function TableListFaq({
                                 "neutral-1-bg-a2 text-dark":
                                   badge === "Aggiornato",
                               })}
-                              aria-label={`Contenuto ${badge.toLowerCase()}`}
+                              aria-label={`${badge}`}
                             >
                               {badge}
                             </Badge>
