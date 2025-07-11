@@ -214,8 +214,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   }}
                 >
                   <option label="Seleziona un richiedente"></option>
-                  <option label="Pubblica Amministrazione">pubblica-amministrazione</option>
-                  <option label="Fornitore">fornitore</option>
+                  <option label="Pubblica Amministrazione">Pubblica Amministrazione</option>
+                  <option label="Fornitore">Fornitore</option>
                 </Select>
               </Col>
             </Row>
@@ -271,11 +271,11 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   }}
                 >
                   <option label="Seleziona un argomento"></option>
-                  <option label="Amministrazione">amministrazione</option>
-                  <option label="Implementazione e sviluppo progetto">implementazione-sviluppo-progetto</option>
-                  <option label="Malfunzionamento piattaforma">malfunzionamento-piattaforma</option>
-                  <option label="Processo di adesione e monitoraggio">processo-di-adesione-e-monitoraggio</option>
-                  <option label="Altro">altro</option>
+                  <option label="Amministrazione">Amministrazione</option>
+                  <option label="Implementazione e sviluppo progetto">Implementazione e sviluppo progetto</option>
+                  <option label="Malfunzionamento piattaforma">Malfunzionamento piattaforma</option>
+                  <option label="Processo di adesione e monitoraggio">Processo di adesione e monitoraggio</option>
+                  <option label="Altro">Altro</option>
                 </Select>
               </Col>
               <Col md="6">
