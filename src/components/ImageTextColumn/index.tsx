@@ -10,7 +10,7 @@ export function ImageTextColumn({ props }: { props: ImageTextColumnRecord }) {
   const { id, title, image } = props;
   return (
     <Section
-      aria-labelledby={id}
+      // aria-labelledby={id}
       className={cn("")}
       style={{ backgroundColor: "#F2F7FC" }}
     >

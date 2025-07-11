@@ -337,7 +337,7 @@ export function CardsGrid({
     <div
       key={id}
       id={id}
-      aria-labelledby={`section${id}`}
+      // aria-labelledby={`section${id}`}
       className={cn(`${backgroundColor}`, {
         "wrapper py-5": !hasSidebar,
         "row pt-3": hasSidebar,

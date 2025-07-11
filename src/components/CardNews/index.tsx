@@ -29,9 +29,9 @@ export function CardNews({
 
   return (
     <article
-      aria-labelledby={
-        parentId && title ? `title-${parentId}-${id}` : undefined
-      }
+      // aria-labelledby={
+      //   parentId && title ? `title-${parentId}-${id}` : undefined
+      // }
       className={cn("it-card--news it-card pb-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",

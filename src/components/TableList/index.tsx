@@ -43,7 +43,7 @@ export function TableList({
     <div
       className={cn("container-xxl", { "my-5": !noPadding })}
       role="region"
-      aria-labelledby={title ? `${id}-title` : undefined}
+      // aria-labelledby={title ? `${id}-title` : undefined}
     >
       <div className={cn("row py-4")}>
         {title && (

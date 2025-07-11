@@ -10,6 +10,7 @@ import {
   StepperRecord,
   AlertRecord,
   ImmagineRecord,
+  TableListFaqRecord,
 } from "@/graphql/generated";
 import { Icon, Section, Container, Row, Col } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
@@ -19,6 +20,7 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { StepperAccordion } from "../StepperAccordion";
 import { Immagine } from "../Immagine";
+import { TableListFaq } from "../TableListFaq";
 const cn = classNames.bind(styles);
 
 type BlockContext = {
@@ -152,6 +154,14 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
       case "StepperRecord":
         return (
           <StepperAccordion key={record.id} props={record as StepperRecord} />
+        );
+      case "TableListFaqRecord":
+        return (
+          <TableListFaq
+            key={record.id}
+            props={record as TableListFaqRecord}
+            noPadding={true}
+          />
         );
       default:
         return null;
