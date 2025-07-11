@@ -204,7 +204,7 @@ export const getAllFaqs = unstable_cache(
         function: "getAllFaqs"
       }
     });
-    return executeQueryWithAutoPagination(
+    return executeQuery(
       AllFaqsDocument,
       getOptions(`fn_name:getAllFaqs`)
     );

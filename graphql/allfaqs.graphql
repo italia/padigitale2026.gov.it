@@ -1,7 +1,7 @@
 #import "./fragments.graphql"
 
 query AllFaqs {
-  allFaqs(first: 100) {
+  allFaqs(first: 300) {
     _createdAt
     _updatedAt
     id
