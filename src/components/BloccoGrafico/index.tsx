@@ -130,7 +130,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     >
       <div className={cn("container-xxl py-4")}>
         <div className="py-4">
-          <div className="text-center">
+          <div>
             {titleBig ? (
               <>{title && <h2 className={"col-12 mb-3 h2"}>{title}</h2>}</>
             ) : (
@@ -140,7 +140,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
           </div>
 
           {chart && (
-            <div className="mx-auto" style={{ maxWidth: "950px" }}>
+            <div className="mx-auto">
               {isClient ? (
                 <ChartWrapper
                   id={id}
