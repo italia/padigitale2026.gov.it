@@ -44,8 +44,8 @@
       flex-flow: row nowrap;
       justify-content: flex-start;
       align-items: stretch;
-      background-color: var(--bs-primary);
-      color: var(--bs-white);
+      background-color: #{$neutral-1-a2};
+      color: #{$neutral-1-a8};
       @include font-size($h3-font-size);
       cursor: default;
       &:after {
@@ -53,10 +53,12 @@
       }
     }
 
-    :global(.accordion-button.status-closed),
-    :global(.accordion-button.status-not-published) {
-      background-color: #{$neutral-1-a2};
-      color: #{$neutral-1-a8};
+    // Quando l'accordion è aperto, usa il colore blu
+    :global(.accordion-button) {
+      &:has(+ button[aria-expanded="true"]) {
+        background-color: var(--bs-primary);
+        color: var(--bs-white);
+      }
     }
 
     &:before {

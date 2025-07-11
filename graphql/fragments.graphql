@@ -674,7 +674,6 @@ fragment StepperFragment on StepperRecord {
       __typename
       id
       stepTitle
-      stepStatus
       stepBody {
         ... on RichTextStepperRecord {
           __typename

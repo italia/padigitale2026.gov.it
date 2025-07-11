@@ -48,12 +48,9 @@ export function StepperAccordion({ props }: { props: StepperRecord }) {
             >
               <div className="accordion-header">
                 <h3
-                  className={cn(
-                    `accordion-button status-${stepperStepRecord?.stepStatus}`,
-                    {
-                      collapsed: !layout || layout !== "exploded",
-                    }
-                  )}
+                  className={cn("accordion-button", {
+                    collapsed: !layout || layout !== "exploded",
+                  })}
                   id={`label${stepperStepRecord.id}`}
                 >
                   <span
