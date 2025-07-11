@@ -62,6 +62,7 @@ export async function POST(request: Request) {
             Category__c: entity_content?.category?.label || '',
             URL__c: `${process.env.NEXT_PUBLIC_DOMAIN}/${data.entity.attributes.slug}`,
             URL_Label__c: data.entity.attributes.title || '',
+            Date_Latest_Update__c: data.entity.attributes.custom_update_date ? (data.entity.attributes.custom_update_date as string).split('T')[0] : '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Misura__c: entity_content.misura?.idSalesforce || '',
             Pacchetto__c: entity_content.misura?.pacchetto || '',
