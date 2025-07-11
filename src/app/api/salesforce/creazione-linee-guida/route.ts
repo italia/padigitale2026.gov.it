@@ -55,7 +55,7 @@ export async function POST(request: Request) {
         Title: data.entity.attributes.title,
         PathOnClient: entity_content.allegato?.filename || '',
         ContentLocation: 'S',
-        Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
+        //Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
         Misura__c: entity_content.misura?.idSalesforce || '',
         Pacchetto__c: entity_content.misura?.pacchetto || '',
         External_ID__c: data.entity.id,

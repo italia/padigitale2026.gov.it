@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendPostToBetterStack } from '@/lib/datocms';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,7 +22,19 @@ export async function POST(request: NextRequest) {
     // Leggi la risposta come testo (Salesforce restituisce HTML)
     const responseText = await response.text();
 
-    console.log(responseText);
+    await sendPostToBetterStack({
+      message: `WebToCase called`,
+      level: "info",
+      metadata: {
+        function: 'WebToCase',
+        payload: JSON.stringify(formBody.toString()),
+        response: {
+          status: response.status,
+          statusText: response.statusText,
+          text: responseText,
+        }
+      }
+    });
     
     return NextResponse.json({
       success: response.ok,

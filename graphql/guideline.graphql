@@ -16,7 +16,6 @@ query Guideline($id: ItemId) {
       url
       format
     }
-    idAvvisoSalesforce
     beneficiari {
       label
       id

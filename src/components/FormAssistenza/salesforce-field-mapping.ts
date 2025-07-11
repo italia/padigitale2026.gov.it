@@ -23,12 +23,12 @@ const fieldMappings: Record<string, SalesforceFieldMapping> = {
   production: {
     // In produzione potrebbero essere diversi
     applicant: "00N7Q0000015NGO",
-    address: "00N7Q000007qqu1_PROD",
-    phone: "00N7Q000007qqts_PROD",
-    subject: "00N7Q000007qqtk_PROD",
+    address: "00N7Q000007qqu1",
+    phone: "00N7Q000007qqts",
+    subject: "00N7Q000007qqtk",
     object: "subject",
     description: "description",
-    notice: "00N7Q000007qqu3_PROD",
+    notice: "00N7Q000007qqu3",
   },
 };
 

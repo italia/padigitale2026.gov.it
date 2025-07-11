@@ -43,6 +43,14 @@ export async function POST(request: Request) {
         }
         break;      
       case "faq":
+
+        if (!data.entity.attributes.misura && !data.entity.attributes.beneficiari?.length) {
+          return Response.json({ 
+            success: true, 
+            message: 'Non è stato possibile sincronizzare i dati su Salesforce in quanto manca il beneficiario e la misura',
+          }, { status: 200 });
+        }
+
         entity = (await faqWithOption(data.entity.attributes.slug, false)) as FaqQuery;
         entity_content = entity.faq;
 
@@ -57,7 +65,7 @@ export async function POST(request: Request) {
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Misura__c: entity_content.misura?.idSalesforce || '',
             Pacchetto__c: entity_content.misura?.pacchetto || '',
-            Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
+            //Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
           });
         }
         break;

@@ -9,7 +9,6 @@ query AllFaqs {
     slug
     customUpdateDate
     nascondiValutazione
-    idAvvisoSalesforce
     seo: _seoMetaTags {
       attributes
       content

@@ -16,7 +16,6 @@ query AllGuidelines {
       url
       format
     }
-    idAvvisoSalesforce
     beneficiari {
       label
       id
