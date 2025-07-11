@@ -1,7 +1,7 @@
-// import { FormNewsletterRecord } from "@/graphql/generated";
+import { FormNewsletterRecord } from "@/graphql/generated";
 
 import Link from "next/link";
-import { Button, Input, Select } from "design-react-kit";
+import { Button, Input, Select, Form } from "design-react-kit";
 import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
@@ -12,7 +12,8 @@ const cn = classNames.bind(styles);
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-export function FormNewsletter() {
+export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
+  const { id } = props;
   const [formState, setFormState] = useState({
     email: "",
     rappresento: "",
@@ -122,7 +123,7 @@ export function FormNewsletter() {
   }
 
   return (
-    <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
+    <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")} id={id}>
       <div className="row">
         <div className="col-12 col-md-10">
           <p className="text-muted">I campi con asterisco sono obbligatori</p>
@@ -132,128 +133,129 @@ export function FormNewsletter() {
               {message}
             </div>
           )}
-
-          <Row className="mt-5">
-            <Col md="6">
-              <Input
-                id="inputEmail"
-                label="Email*"
-                type="email"
-                value={formState.email}
-                required
-                // validationText="Inserisci un'email valida"
-                onChange={(e) => {
-                  setFormState({
-                    ...formState,
-                    email: e.target.value,
-                  });
-                }}
-              />
-            </Col>
-            <Col md="6">
-              <Select
-                id="selectRepresent"
-                label="Rappresento*"
-                value={formState.rappresento}
-                required
-                onChange={(value) => {
-                  setFormState({
-                    ...formState,
-                    rappresento: value,
-                  });
-                }}
-              >
-                <option label="Scegli una voce dall'elenco"></option>
-                <option label="Pubblica amministrazione">
-                  pubblica-amministrazione
-                </option>
-                <option label="Fornitore IT">fornitore-it</option>
-                <option label="Altro">altro</option>
-              </Select>
-            </Col>
-          </Row>
-          {shouldShowNomeStruttura && (
+          <Form>
+            <Row className="mt-5">
+              <Col md="6">
+                <Input
+                  id="inputEmail"
+                  label="Email*"
+                  type="email"
+                  value={formState.email}
+                  required
+                  // validationText="Inserisci un'email valida"
+                  onChange={(e) => {
+                    setFormState({
+                      ...formState,
+                      email: e.target.value,
+                    });
+                  }}
+                />
+              </Col>
+              <Col md="6">
+                <Select
+                  id="selectRepresent"
+                  label="Rappresento*"
+                  value={formState.rappresento}
+                  required
+                  onChange={(value) => {
+                    setFormState({
+                      ...formState,
+                      rappresento: value,
+                    });
+                  }}
+                >
+                  <option label="Scegli una voce dall'elenco"></option>
+                  <option label="Pubblica amministrazione">
+                    pubblica-amministrazione
+                  </option>
+                  <option label="Fornitore IT">fornitore-it</option>
+                  <option label="Altro">altro</option>
+                </Select>
+              </Col>
+            </Row>
+            {shouldShowNomeStruttura && (
+              <Row className="mt-5">
+                <Input
+                  id="inputEnte"
+                  label="Tipo di ente/struttura*"
+                  type="text"
+                  value={formState.tipoEnte}
+                  required
+                  // validationText="Inserisci il nome dell'ente/struttura"
+                  onChange={(e) => {
+                    setFormState({
+                      ...formState,
+                      tipoEnte: e.target.value,
+                    });
+                  }}
+                />
+              </Row>
+            )}
             <Row className="mt-5">
               <Input
-                id="inputEnte"
-                label="Tipo di ente/struttura*"
+                id="inputName"
+                label="Nome struttura*"
                 type="text"
-                value={formState.tipoEnte}
+                value={formState.nomeStruttura}
                 required
-                // validationText="Inserisci il nome dell'ente/struttura"
+                // validationText="Inserisci il nome della struttura"
                 onChange={(e) => {
                   setFormState({
                     ...formState,
-                    tipoEnte: e.target.value,
+                    nomeStruttura: e.target.value,
                   });
                 }}
               />
             </Row>
-          )}
-          <Row className="mt-5">
-            <Input
-              id="inputName"
-              label="Nome struttura*"
-              type="text"
-              value={formState.nomeStruttura}
-              required
-              // validationText="Inserisci il nome della struttura"
-              onChange={(e) => {
-                setFormState({
-                  ...formState,
-                  nomeStruttura: e.target.value,
-                });
-              }}
-            />
-          </Row>
 
-          {shouldShowTipoEnte && (
-            <Row className="mt-5">
-              <Select
-                id="selectEnte"
-                label="In quanto*"
-                value={formState.inQuanto}
-                required
-                onChange={(value) => {
-                  setFormState({
-                    ...formState,
-                    inQuanto: value,
-                    showTipoEnte: true,
-                  });
-                }}
-              >
-                <option label="Scegli una voce dall'elenco"></option>
-                <option label="Dirigente dell'amministrazione">
-                  dirigente-dell-amministrazione
-                </option>
-                <option label="Dirigente sistemi IT dell'amministrazione">
-                  dirigente-sistemi-it-dell-amministrazione
-                </option>
-                <option label="Dipendente dell'amministrazione">
-                  dipendente-dell-amministrazione
-                </option>
-                <option label="Altro">altro</option>
-              </Select>
+            {shouldShowTipoEnte && (
+              <Row className="mt-5">
+                <Select
+                  id="selectEnte"
+                  label="In quanto*"
+                  value={formState.inQuanto}
+                  required
+                  onChange={(value) => {
+                    setFormState({
+                      ...formState,
+                      inQuanto: value,
+                      showTipoEnte: true,
+                    });
+                  }}
+                >
+                  <option label="Scegli una voce dall'elenco"></option>
+                  <option label="Dirigente dell'amministrazione">
+                    dirigente-dell-amministrazione
+                  </option>
+                  <option label="Dirigente sistemi IT dell'amministrazione">
+                    dirigente-sistemi-it-dell-amministrazione
+                  </option>
+                  <option label="Dipendente dell'amministrazione">
+                    dipendente-dell-amministrazione
+                  </option>
+                  <option label="Altro">altro</option>
+                </Select>
+              </Row>
+            )}
+
+            <p className="text-muted mt-5">
+              Cliccando su INVIA dichiaro di aver letto e compreso{" "}
+              <Link href="/privacy-policy">l&apos;informativa privacy</Link>
+            </p>
+
+            <Row className="mt-4">
+              <Col sm="auto">
+                <Button
+                  color="primary"
+                  type="submit"
+                  disabled={!isFormValid() || status === "loading"}
+                  onClick={handleSubmit}
+                >
+                  {status === "loading" ? "Invio in corso..." : "Invia"}
+                </Button>
+              </Col>
             </Row>
-          )}
-
-          <p className="text-muted mt-5">
-            Cliccando su INVIA dichiaro di aver letto e compreso{" "}
-            <Link href="/privacy-policy">l&apos;informativa privacy</Link>
-          </p>
-
-          <Row className="mt-4">
-            <Col sm="auto">
-              <Button
-                color="primary"
-                type="submit"
-                disabled={!isFormValid() || status === "loading"}
-                onClick={handleSubmit}
-              >
-                {status === "loading" ? "Invio in corso..." : "Invia"}
-              </Button>
-            </Col>
-          </Row>
+          </Form>
         </div>
       </div>
     </div>

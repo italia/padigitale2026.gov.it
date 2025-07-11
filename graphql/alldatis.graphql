@@ -7,6 +7,12 @@ query allDatis {
     id
     title
     slug
+    nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment

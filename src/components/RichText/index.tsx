@@ -16,21 +16,27 @@ import {
   TableListRecord,
   TableListFaqRecord,
   TableListUpdateRecord,
+  AlertRecord,
+  ImmagineRecord,
 } from "@/graphql/generated";
-import { Icon } from "design-react-kit";
+import { Col, Container, Icon, Row, Section } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { CardsGrid } from "@/src/components/CardsGrid";
 import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { TableList } from "../TableList";
 import { TableListFaq } from "../TableListFaq";
 import { TableListUpdates } from "@/src/components/TableListUpdates";
+import { Alert } from "@/src/components/Alert";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import { Immagine } from "../Immagine";
 const cn = classNames.bind(styles);
 
 type BlockContext = {
   record:
+    | AlertRecord
+    | ImmagineRecord
     | ImagesGridRecord
     | {
         __typename?: string;
@@ -68,15 +74,7 @@ interface RichTextProps extends RichTextRecord {
   richTextContent?: RichTextModelContentField;
 }
 
-export function RichText({
-  props,
-  padding = false,
-  isPageSection = false,
-}: {
-  props: RichTextRecord;
-  padding?: boolean;
-  isPageSection?: boolean;
-}) {
+export function RichText({ props }: { props: RichTextRecord }) {
   const { richTextContent: content, alignment = "left" } =
     props as RichTextProps;
 
@@ -115,6 +113,10 @@ export function RichText({
     if (!record?.__typename) return null;
 
     switch (record.__typename) {
+      case "AlertRecord":
+        return <Alert key={record.id} props={record as AlertRecord} />;
+      case "ImmagineRecord":
+        return <Immagine key={record.id} props={record as ImmagineRecord} />;
       case "ImagesGridRecord":
         return (
           <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
@@ -143,7 +145,7 @@ export function RichText({
         return (
           <Link
             key={record.id}
-            className="btn btn-sm btn-outline-primary btn-mini"
+            className="btn btn-sm btn-outline-primary btn-mini mt-2"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
           >
             {record.text}
@@ -237,26 +239,27 @@ export function RichText({
   };
 
   return (
-    <div
-      className={cn("it-section container-xxl", {
-        "text-center": alignment === "center",
-        "text-end": alignment === "right",
-        "py-4": padding || isPageSection,
-      })}
-    >
-      <div className={"row"}>
-        <div className={"col-12"}>
-          {content && (
-            <StructuredText
-              key={JSON.stringify(content)}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              data={content as any}
-              renderBlock={renderBlock}
-              customNodeRules={customNodeRules}
-            />
-          )}
-        </div>
-      </div>
-    </div>
+    <Section wrapperClassName={cn("p-0")}>
+      <Container
+        className={cn("", {
+          "text-center": alignment === "center",
+          "text-end": alignment === "right",
+        })}
+      >
+        <Row>
+          <Col>
+            {content && (
+              <StructuredText
+                key={JSON.stringify(content)}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                data={content as any}
+                renderBlock={renderBlock}
+                customNodeRules={customNodeRules}
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </Section>
   );
 }

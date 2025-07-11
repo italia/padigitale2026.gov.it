@@ -59,13 +59,15 @@ export function Hero({ props }: { props: HeroRecord }) {
           {/* Body */}
           <div className="it-hero-text-wrapper container-xxl px-lg-2 mx-lg-1">
             {title && (
-              <HeroTitle className={cn({ "neutral-1-color-a9": lightTheme })}>
+              <HeroTitle
+                className={cn({ "neutral-1-color-a9 h1": lightTheme })}
+              >
                 {title}
               </HeroTitle>
             )}
             {description && (
               <p
-                className={cn("h-4 font-sans-serif", {
+                className={cn("lead font-sans-serif fs-4", {
                   "neutral-1-color-a9": lightTheme,
                 })}
               >
@@ -141,6 +143,9 @@ export function Hero({ props }: { props: HeroRecord }) {
               <SRCImage
                 data={image?.responsiveImage}
                 imgClassName={cn("hero-image")}
+                priority
+                usePlaceholder
+                sizes="(max-width: 384px) 100vw, (max-width: 496px) 50vw, 50vw"
               />
             </div>
           )}

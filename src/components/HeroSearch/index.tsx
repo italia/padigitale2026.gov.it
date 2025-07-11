@@ -64,7 +64,7 @@ function SearchInput({
 }) {
   const { query, refine } = useSearchBox();
   const { status } = useInstantSearch();
-  const [isFocused, setIsFocused] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState(initialQuery || "");
@@ -74,7 +74,7 @@ function SearchInput({
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
-      setIsFocused(true);
+      setShowSuggestions(true);
       const focusEvent = new Event("focus", { bubbles: true });
       inputRef.current.dispatchEvent(focusEvent);
     }
@@ -94,7 +94,7 @@ function SearchInput({
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        setIsFocused(false);
+        setShowSuggestions(false);
       }
     };
 
@@ -104,12 +104,42 @@ function SearchInput({
     };
   }, []);
 
-  const showSuggestions = isFocused && !inputValue;
+  // Handle focus management for keyboard navigation
+  useEffect(() => {
+    const handleFocusIn = (event: FocusEvent) => {
+      if (containerRef.current?.contains(event.target as Node)) {
+        if (!inputValue) {
+          setShowSuggestions(true);
+        }
+      }
+    };
+
+    const handleFocusOut = (event: FocusEvent) => {
+      // Check if the new focus target is still within our container
+      if (!containerRef.current?.contains(event.relatedTarget as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener("focusin", handleFocusIn);
+      container.addEventListener("focusout", handleFocusOut);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("focusin", handleFocusIn);
+        container.removeEventListener("focusout", handleFocusOut);
+      }
+    };
+  }, [inputValue]);
 
   const handleSearch = () => {
     if (inputValue && inputValue.length >= 3) {
       refine(inputValue);
       onSearch(inputValue);
+      setShowSuggestions(false);
     }
   };
 
@@ -117,6 +147,7 @@ function SearchInput({
     setInputValue(term);
     refine(term);
     onSearch(term);
+    setShowSuggestions(false);
   };
 
   const handleReset = () => {
@@ -124,6 +155,7 @@ function SearchInput({
     refine("");
     onSearch("");
     onReset();
+    setShowSuggestions(false);
   };
 
   // Label dinamica in base alla viewport
@@ -146,6 +178,7 @@ function SearchInput({
             color="primary"
             onClick={handleSearch}
             disabled={!inputValue || inputValue.length < 3}
+            aria-label="Esegui ricerca"
           >
             Cerca
           </Button>
@@ -160,18 +193,46 @@ function SearchInput({
         type="text"
         wrapperClassName={cn("mb-0")}
         innerRef={inputRef}
-        onFocus={() => setIsFocused(true)}
+        onFocus={() => {
+          if (!inputValue) {
+            setShowSuggestions(true);
+          }
+        }}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          if (e.target.value) {
+            setShowSuggestions(false);
+          } else {
+            setShowSuggestions(true);
+          }
+        }}
         onKeyDown={(e) => {
           if (e.key === "Enter" && inputValue && inputValue.length >= 3) {
             handleSearch();
           }
         }}
+        aria-describedby={
+          suggestion && showSuggestions ? "search-suggestions" : undefined
+        }
+        aria-expanded={suggestion && showSuggestions}
+        aria-controls={
+          suggestion && showSuggestions ? "search-suggestions" : undefined
+        }
       />
-      {status === "loading" && <div>Caricamento...</div>}
+      {status === "loading" && (
+        <div role="status" aria-live="polite">
+          Caricamento...
+        </div>
+      )}
       {suggestion && showSuggestions && (
-        <div className={cn("position-relative w-100")} style={{ zIndex: 1 }}>
+        <div
+          id="search-suggestions"
+          className={cn("position-relative w-100")}
+          style={{ zIndex: 1 }}
+          role="region"
+          aria-label="Suggerimenti di ricerca"
+        >
           <div className={cn("position-absolute top-0 start-0 w-100 bg-white")}>
             <SearchSuggestion
               props={suggestion}
@@ -187,8 +248,15 @@ function SearchInput({
           onClick={handleReset}
           className={cn("custom-reset-button", "mt-2")}
           outline
+          aria-label="Annulla ricerca e cancella risultati"
         >
-          <Icon icon="it-close" color="primary" size="sm" padding={false} />
+          <Icon
+            icon="it-close"
+            color="primary"
+            size="sm"
+            padding={false}
+            aria-hidden="true"
+          />
           Annulla ricerca
         </Button>
       )}
@@ -329,10 +397,13 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
     <div className={cn("container-xxl")}>
       <div className={cn("row")}>
         <div className={cn("col-12")}>
-          <p className={cn("fw-bold mt-5 mb-3")}>
+          <p
+            className={cn("fw-bold mt-5 mb-3")}
+            role="status"
+            aria-live="polite"
+          >
             {filteredHits?.length && filteredHits?.length > 0
-              ? // ? `${results?.nbHits} Risultati per "${query}"`
-                `${filteredHits?.length} Risultati per "${query}"`
+              ? `${filteredHits?.length} Risultati per "${query}"`
               : `Nessun risultato trovato per "${query}".`}
           </p>
           {!filteredHits?.length && (
@@ -341,77 +412,90 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
               ricerca.
             </p>
           )}
-          {currentHits?.map((hit) => (
-            <div
-              role="listitem"
-              className="row border-bottom m-0 p-0 py-2 w-100"
-              key={hit.objectID}
-              data-content-type={hit.content_type}
-            >
-              <div className="col ps-0">
-                <Link
-                  className="d-flex justify-content-between align-items-center text-decoration-none"
-                  href={hit.slug ? hit.slug : hit.url ? hit.url : "#"}
-                  title={hit.title}
-                  target={(hit?.target as HTMLAttributeAnchorTarget) || "_self"}
-                  aria-label={`${hit.title}`}
-                >
-                  <div>
-                    <div
-                      className="fw-bold text-decoration-underline mb-1"
-                      style={{ fontSize: "1.125rem" }}
-                      dangerouslySetInnerHTML={{
-                        __html: hit?._highlightResult.title.value
-                          ? hit?._highlightResult.title.value
-                          : hit.title,
-                      }}
-                    />
+          <div role="list" aria-label="Risultati di ricerca">
+            {currentHits?.map((hit) => (
+              <div
+                role="listitem"
+                className="row border-bottom m-0 p-0 py-2 w-100"
+                key={hit.objectID}
+                data-content-type={hit.content_type}
+              >
+                <div className="col ps-0">
+                  <Link
+                    className="d-flex justify-content-between align-items-center text-decoration-none"
+                    href={hit.slug ? hit.slug : hit.url ? hit.url : "#"}
+                    title={hit.title}
+                    target={
+                      (hit?.target as HTMLAttributeAnchorTarget) || "_self"
+                    }
+                    aria-label={`${hit.title}${
+                      hit.content_type
+                        ? `, tipo: ${getContentTypeDisplayName(
+                            hit.content_type
+                          )}`
+                        : ""
+                    }`}
+                  >
+                    <div>
+                      <div
+                        className="fw-bold text-decoration-underline mb-1"
+                        style={{ fontSize: "1.125rem" }}
+                        dangerouslySetInnerHTML={{
+                          __html: hit?._highlightResult.title.value
+                            ? hit?._highlightResult.title.value
+                            : hit.title,
+                        }}
+                      />
 
-                    <div
-                      className="text-muted"
-                      dangerouslySetInnerHTML={{
-                        __html: hit?._highlightResult.content
-                          ? Array.isArray(hit._highlightResult.content)
-                            ? hit._highlightResult.content
-                                .filter(
-                                  (item: HighlightResult) =>
-                                    item.matchedWords.length > 0
-                                )
-                                .map((item: HighlightResult) => item.value)
-                                .join(" ")
-                            : hit._highlightResult.content.value
-                          : hit.content,
-                      }}
-                    />
+                      <div
+                        className="text-muted"
+                        dangerouslySetInnerHTML={{
+                          __html: hit?._highlightResult.content
+                            ? Array.isArray(hit._highlightResult.content)
+                              ? hit._highlightResult.content
+                                  .filter(
+                                    (item: HighlightResult) =>
+                                      item.matchedWords.length > 0
+                                  )
+                                  .map((item: HighlightResult) => item.value)
+                                  .join(" ")
+                              : hit._highlightResult.content.value
+                            : hit.content,
+                        }}
+                      />
 
-                    {hit.content_type && (
-                      <div className="text-secondary fw-semibold text-uppercase">
-                        <span className="visually-hidden">Content type: </span>
-                        {getContentTypeDisplayName(hit.content_type)}
-                      </div>
-                    )}
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <Icon
-                      className="my-0"
-                      color="primary"
-                      icon="it-chevron-right"
-                      size="sm"
-                      aria-hidden="true"
-                      title="Freccia a destra"
-                      padding
-                    />
-                  </div>
-                </Link>
+                      {hit.content_type && (
+                        <div className="text-secondary fw-semibold text-uppercase">
+                          <span className="visually-hidden">
+                            Tipo di contenuto:{" "}
+                          </span>
+                          {getContentTypeDisplayName(hit.content_type)}
+                        </div>
+                      )}
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <Icon
+                        className="my-0"
+                        color="primary"
+                        icon="it-chevron-right"
+                        size="sm"
+                        aria-hidden="true"
+                        title="Freccia a destra"
+                        padding
+                      />
+                    </div>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
           {totalPages > 1 && (
             <div className="d-flex justify-content-center mt-4">
               <Pager aria-label="Naviga tra le pagine dei risultati">
                 <PaginationItem disabled={currentPage <= 1}>
                   <PaginationLink
                     onClick={() => setCurrentPage(currentPage - 1)}
+                    aria-label="Vai alla pagina precedente"
                   >
                     <span className="visually-hidden">Pagina precedente</span>
                     <Icon aria-hidden icon="it-chevron-left" />
@@ -431,6 +515,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
                 <PaginationItem disabled={currentPage >= totalPages}>
                   <PaginationLink
                     onClick={() => setCurrentPage(currentPage + 1)}
+                    aria-label="Vai alla pagina successiva"
                   >
                     <span className="visually-hidden">Pagina successiva</span>
                     <Icon aria-hidden icon="it-chevron-right" />
@@ -543,7 +628,7 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
             )}
             <div className={"pb-4 col-12 text-center"}>
               {title && <HeroTitle className={cn("h-1")}>{title}</HeroTitle>}
-              {description && <p className={cn("h-6")}>{description}</p>}
+              {description && <p className={cn("lead h-6")}>{description}</p>}
               <div className={cn("col-12 col-md-7 mx-auto my-5")}>
                 <SearchInput
                   suggestion={suggestion || ({} as SearchSuggestionRecord)}

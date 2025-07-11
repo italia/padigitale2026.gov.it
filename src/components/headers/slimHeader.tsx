@@ -16,7 +16,13 @@ import {
 
 export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
   return (
-    <Header theme={theme || ""} type="slim" className={"px-0"}>
+    <Header
+      theme={theme || ""}
+      type="slim"
+      className={"px-0"}
+      role="banner"
+      aria-label="Header principale del sito"
+    >
       <HeaderContent className={"px-0"}>
         <HeaderBrand responsive href="/" className={"fw-semibold"}>
           Dipartimento per la trasformazione digitale
@@ -49,21 +55,6 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
             </li>
           </ul>
 
-          {/* <Dropdown inNavbar>
-            <DropdownToggle inNavbar caret>
-              ITA
-            </DropdownToggle>
-            <DropdownMenu style={{ marginTop: 60 }}>
-              <LinkList>
-                <LinkListItem inDropdown href="#">
-                  <span>ITA</span>
-                </LinkListItem>
-                <LinkListItem inDropdown href="#">
-                  <span>ENG</span>
-                </LinkListItem>
-              </LinkList>
-            </DropdownMenu>
-          </Dropdown> */}
           <Button
             className="btn-icon btn-full"
             color="primary"

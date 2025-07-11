@@ -76,11 +76,17 @@ fragment ButtonFragment on ButtonRecord {
 
 fragment ImageFragment on ResponsiveImage {
   __typename
-  src
   alt
   aspectRatio
-  width
+  base64
+  bgColor
   height
+  sizes
+  src
+  srcSet
+  title
+  webpSrcSet
+  width
 }
 
 fragment ImagesGridFragment on ImagesGridRecord {
@@ -162,6 +168,12 @@ fragment LinkFragment on LinkRecord {
 }
 
 fragment RichTextContentFragment on RichTextModelContentBlocksField {
+  ... on AlertRecord {
+    ...AlertFragment
+  }
+  ... on ImmagineRecord {
+    ...ImmagineFragment
+  }
   ... on ImagesGridRecord {
     ...ImagesGridFragment
   }
@@ -461,6 +473,18 @@ fragment CardsGridGenericFragment on CardsGridGenericRecord {
           title
           slug
         }
+        ... on NewsRecord {
+          title
+          slug
+        }
+        ... on ResourceRecord {
+          title
+          slug
+        }
+        ... on DatiRecord {
+          title
+          slug
+        }
       }
     }
   }
@@ -650,7 +674,6 @@ fragment StepperFragment on StepperRecord {
       __typename
       id
       stepTitle
-      stepStatus
       stepBody {
         ... on RichTextStepperRecord {
           __typename
@@ -682,6 +705,8 @@ fragment StepperFragment on StepperRecord {
 fragment TableListFaqFragment on TableListFaqRecord {
   __typename
   id
+  title
+  alignment
   questionsRef {
     _createdAt
     _updatedAt
@@ -800,6 +825,7 @@ fragment InstantSearchFaqFragment on InstantSearchFaqRecord {
   __typename
   id
   inputPlaceholder
+  title
 }
 
 fragment BloccoGraficoFragment on BloccoGraficoRecord {
@@ -857,6 +883,61 @@ fragment FormNewsletterFragment on FormNewsletterRecord {
 }
 
 fragment FormToFragment on FormToRecord {
+  __typename
+  id
+}
+
+fragment FormAssistanceFragment on FormAssistanceRecord {
+  __typename
+  id
+}
+
+fragment AlertFragment on AlertRecord {
+  __typename
+  id
+  colore {
+    colore
+  }
+  title
+  testo {
+    value
+  }
+}
+
+fragment ImmagineFragment on ImmagineRecord {
+  __typename
+  id
+  immagine {
+    id
+    format
+    responsiveImage {
+      ...ImageFragment
+    }
+  }
+}
+
+fragment ImageTextColumnFragment on ImageTextColumnRecord {
+  __typename
+  id
+  title
+  image {
+    responsiveImage {
+      ...ImageFragment
+    }
+  }
+}
+
+fragment TextColumnFragment on TextColumnRecord {
+  __typename
+  id
+}
+
+fragment TextBicolumnFragment on TextBicolumnRecord {
+  __typename
+  id
+}
+
+fragment TimelineFragment on TimelineRecord {
   __typename
   id
 }

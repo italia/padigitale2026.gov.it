@@ -26,6 +26,10 @@ import {
   AllUpdatesDocument,
   AllFilteredUpdatesDocument,
   AllFilteredUpdatesQueryVariables,
+  AllFilteredEnteBeneficiariosDocument,
+  AllFilteredEnteBeneficiariosQueryVariables,
+  AllFilteredMisurasDocument,
+  AllFilteredMisurasQueryVariables,
   AlgoliaResourceDocument,
   AlgoliaResourceQueryVariables,
   AlgoliaNewsDocument,
@@ -36,7 +40,11 @@ import {
   UpdateDocument,
   UpdateQueryVariables,
   AllGuidelinesDocument,
-  GuidelineDocument
+  GuidelineDocument,
+  MisuraDocument,
+  MisuraQueryVariables,
+  ArgomentoDocument,
+  ArgomentoQueryVariables
 } from "@/graphql/generated";
 import { unstable_cache } from "next/cache";
 
@@ -68,6 +76,7 @@ function getOptions(referer: string) {
   };
 }
 
+// Original cached functions
 export const getAllPages = unstable_cache(
   async () => {
     await sendPostToBetterStack({
@@ -195,7 +204,7 @@ export const getAllFaqs = unstable_cache(
         function: "getAllFaqs"
       }
     });
-    return executeQueryWithAutoPagination(
+    return executeQuery(
       AllFaqsDocument,
       getOptions(`fn_name:getAllFaqs`)
     );
@@ -448,6 +457,32 @@ export const getAllEnteBeneficiarios = unstable_cache(
   }
 );
 
+export const getAllFilteredEnteBeneficiarios = unstable_cache(
+  async (idBeneficiari: Array<string>) => {
+    await sendPostToBetterStack({
+      message: "getAllFilteredEnteBeneficiarios called",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredEnteBeneficiarios",
+        idBeneficiari
+      }
+    });
+    return executeQuery(AllFilteredEnteBeneficiariosDocument, {
+      ...getOptions(
+        `fn_name:allFilteredEnteBeneficiarios|idBeneficiari:${idBeneficiari.toString()}`
+      ),
+      variables: {
+        idBeneficiari: idBeneficiari,
+      } as AllFilteredEnteBeneficiariosQueryVariables,
+    });
+  },
+  ['getAllFilteredEnteBeneficiarios'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['beneficiari']
+  }
+);
+
 export const getAllEntePromotores = unstable_cache(
   async () => {
     await sendPostToBetterStack({
@@ -486,7 +521,58 @@ export const getAllMisuras = unstable_cache(
   ['getAllMisuras'],
   {
     revalidate: CACHE_REVALIDATION_TIME,
-    tags: ['misuras']
+    tags: ['misura']
+  }
+);
+
+export const misura = unstable_cache(
+  async (id: string) => {
+    await sendPostToBetterStack({
+      message: "msiura called",
+      level: "info",
+      metadata: {
+        function: "misura",
+        id
+      }
+    });
+    return executeQuery(MisuraDocument, {
+      ...getOptions(`fn_name:misura|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as MisuraQueryVariables,
+    });
+  },
+  ['misura'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['misura']
+  }
+);
+
+export const getAllFilteredMisuras = unstable_cache(
+  async (idMisure: Array<string>) => {
+    await sendPostToBetterStack({
+      message: "getAllFilteredMisuras called",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredMisuras",
+        idMisure
+      }
+    });
+    return executeQuery(AllFilteredMisurasDocument, {
+      ...getOptions(
+        `fn_name:allFilteredMisuras|idMisure:${idMisure.toString()}`
+      ),
+      variables: {
+        idMisure: idMisure,
+      } as AllFilteredMisurasQueryVariables,
+    });
+  },
+  ['getAllFilteredMisuras'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['misure']
   }
 );
 
@@ -581,6 +667,595 @@ export const getAllGuidelines = unstable_cache(
     tags: ['guidelines']
   }
 );
+
+export const argomento = unstable_cache(
+  async (id: string) => {
+    await sendPostToBetterStack({
+      message: "argomento called",
+      level: "info",
+      metadata: {
+        function: "argomento",
+        id
+      }
+    });
+    return executeQuery(ArgomentoDocument, {
+      ...getOptions(`fn_name:argomento|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as ArgomentoQueryVariables,
+    });
+  },
+  ['argomento'],
+  {
+    revalidate: CACHE_REVALIDATION_TIME,
+    tags: ['argomento']
+  }
+);
+
+// Wrapper functions with useCache parameter
+export async function getAllPagesWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllPages();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllPages called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllPages",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllPagesDocument,
+      getOptions(`fn_name:getAllPages`)
+    );
+  }
+}
+
+export async function pageWithOption(slug: string, useCache: boolean = true) {
+  if (useCache) {
+    return page(slug);
+  } else {
+    await sendPostToBetterStack({
+      message: "page called (no cache)",
+      level: "info",
+      metadata: {
+        function: "page",
+        slug,
+        useCache: false
+      }
+    });
+    return executeQuery(PageDocument, {
+      ...getOptions(`fn_name:page|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  }
+}
+
+export async function getAllFilteredUpdatesWithOption(idBeneficiari: Array<string>, useCache: boolean = true) {
+  if (useCache) {
+    return getAllFilteredUpdates(idBeneficiari);
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllFilteredUpdates called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredUpdates",
+        idBeneficiari,
+        useCache: false
+      }
+    });
+    return executeQuery(AllFilteredUpdatesDocument, {
+      ...getOptions(
+        `fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`
+      ),
+      variables: {
+        idBeneficiari: idBeneficiari,
+      } as AllFilteredUpdatesQueryVariables,
+    });
+  }
+}
+
+export async function getAllSupportosWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllSupportos();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllSupportos called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllSupportos",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllSupportosDocument,
+      getOptions(`fn_name:getAllSupportos`)
+    );
+  }
+}
+
+export async function supportoWithOption(slug: string, useCache: boolean = true) {
+  if (useCache) {
+    return supporto(slug);
+  } else {
+    await sendPostToBetterStack({
+      message: "supporto called (no cache)",
+      level: "info",
+      metadata: {
+        function: "supporto",
+        slug,
+        useCache: false
+      }
+    });    
+    return executeQuery(SupportoDocument, {
+      ...getOptions(`fn_name:supporto|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  }
+}
+
+export async function getAllFaqsWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllFaqs();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllFaqs called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllFaqs",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllFaqsDocument,
+      getOptions(`fn_name:getAllFaqs`)
+    );
+  }
+}
+
+export async function faqWithOption(slug: string, useCache: boolean = true) {
+  if (useCache) {
+    return faq(slug);
+  } else {
+    await sendPostToBetterStack({
+      message: "faq called (no cache)",
+      level: "info",
+      metadata: {
+        function: "faq",
+        slug,
+        useCache: false
+      }
+    });    
+    return executeQuery(FaqDocument, {
+      ...getOptions(`fn_name:faq|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  }
+}
+
+export async function getAllNewsWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllNews();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllNews called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllNews",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllNewsDocument,
+      getOptions(`fn_name:getAllNews`)
+    );
+  }
+}
+
+export async function newsWithOption(slug: string, useCache: boolean = true) {
+  if (useCache) {
+    return news(slug);
+  } else {
+    await sendPostToBetterStack({
+      message: "news called (no cache)",
+      level: "info",
+      metadata: {
+        function: "news",
+        slug,
+        useCache: false
+      }
+    });    
+    return executeQuery(NewsDocument, {
+      ...getOptions(`fn_name:news|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  }
+}
+
+export async function getAllDatisWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllDatis();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllDatis called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllDatis",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllDatisDocument,
+      getOptions(`fn_name:getAllDatis`)
+    );
+  }
+}
+
+export async function datiWithOption(slug: string, useCache: boolean = true) {
+  if (useCache) {
+    return dati(slug);
+  } else {
+    await sendPostToBetterStack({
+      message: "dati called (no cache)",
+      level: "info",
+      metadata: {
+        function: "dati",
+        slug,
+        useCache: false
+      }
+    });
+    return executeQuery(DatiDocument, {
+      ...getOptions(`fn_name:dati|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  }
+}
+
+export async function getAllResourcesWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllResources();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllResources called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllResources",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllResourcesDocument,
+      getOptions(`fn_name:getAllResources`)
+    );
+  }
+}
+
+export async function resourceWithOption(slug: string, useCache: boolean = true) {
+  if (useCache) {
+    return resource(slug);
+  } else {
+    await sendPostToBetterStack({
+      message: "resource called (no cache)",
+      level: "info",
+      metadata: {
+        function: "resource",
+        slug,
+        useCache: false
+      }
+    });
+    return executeQuery(ResourceDocument, {
+      ...getOptions(`fn_name:resource|slug:${slug}`),
+      variables: {
+        slug: slug,
+        index: "2",
+      } as PageQueryVariables,
+    });
+  }
+}
+
+export async function getFooterWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getFooter();
+  } else {
+    await sendPostToBetterStack({
+      message: "getFooter called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getFooter",
+        useCache: false
+      }
+    });
+    return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
+  }
+}
+
+export async function getHeaderWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getHeader();
+  } else {
+    await sendPostToBetterStack({
+      message: "getHeader called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getHeader",
+        useCache: false
+      }
+    });
+    return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
+  }
+}
+
+export async function getSitemapPagesWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getSitemapPages();
+  } else {
+    await sendPostToBetterStack({
+      message: "getSitemapPages called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getSitemapPages",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      SitemapPagesDocument,
+      getOptions(`fn_name:getSitemapPages`)
+    );
+  }
+}
+
+export async function getAllEnteBeneficiariosWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllEnteBeneficiarios();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllEnteBeneficiarios called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllEnteBeneficiarios",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllEnteBeneficiariosDocument,
+      getOptions(`fn_name:getAllEnteBeneficiarios`)
+    );
+  }
+}
+
+export async function getAllFilteredEnteBeneficiariosWithOption(idBeneficiari: Array<string>, useCache: boolean = true) {
+  if (useCache) {
+    return getAllFilteredEnteBeneficiarios(idBeneficiari);
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllFilteredEnteBeneficiarios called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredEnteBeneficiarios",
+        idBeneficiari,
+        useCache: false
+      }
+    });
+    return executeQuery(AllFilteredEnteBeneficiariosDocument, {
+      ...getOptions(
+        `fn_name:allFilteredEnteBeneficiarios|idBeneficiari:${idBeneficiari.toString()}`
+      ),
+      variables: {
+        idBeneficiari: idBeneficiari,
+      } as AllFilteredEnteBeneficiariosQueryVariables,
+    });
+  }
+}
+
+export async function getAllEntePromotoresWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllEntePromotores();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllEntePromotores called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllEntePromotores",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllEntePromotoresDocument,
+      getOptions(`fn_name:getAllEntePromotores`)
+    );
+  }
+}
+
+export async function getAllMisurasWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllMisuras();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllMisuras called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllMisuras",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllMisurasDocument,
+      getOptions(`fn_name:getAllMisuras`)
+    );
+  }
+}
+
+export async function misuraWithOption(id: string, useCache: boolean = true) {
+  if (useCache) {
+    return misura(id);
+  } else {
+    await sendPostToBetterStack({
+      message: "misura called (no cache)",
+      level: "info",
+      metadata: {
+        function: "misura",
+        id,
+        useCache: false
+      }
+    });
+    return executeQuery(MisuraDocument, {
+      ...getOptions(`fn_name:misura|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as MisuraQueryVariables,
+    });
+  }
+}
+
+export async function getAllFilteredMisurasWithOption(idMisure: Array<string>, useCache: boolean = true) {
+  if (useCache) {
+    return getAllFilteredMisuras(idMisure);
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllFilteredMisuras called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllFilteredMisuras",
+        idMisure,
+        useCache: false
+      }
+    });
+    return executeQuery(AllFilteredMisurasDocument, {
+      ...getOptions(
+        `fn_name:allFilteredMisuras|idMisure:${idMisure.toString()}`
+      ),
+      variables: {
+        idMisure: idMisure,
+      } as AllFilteredMisurasQueryVariables,
+    });
+  }
+}
+
+export async function updateWithOption(id: string, useCache: boolean = true) {
+  if (useCache) {
+    return update(id);
+  } else {
+    await sendPostToBetterStack({
+      message: "update called (no cache)",
+      level: "info",
+      metadata: {
+        function: "update",
+        id,
+        useCache: false
+      }
+    });
+    return executeQuery(UpdateDocument, {
+      ...getOptions(`fn_name:update|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as UpdateQueryVariables,
+    });
+  }
+}
+
+export async function getAllUpdatesWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllUpdates();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllUpdates called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllUpdates",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllUpdatesDocument,
+      getOptions(`fn_name:getAllUpdates`)
+    );
+  }
+}
+
+export async function guidelineWithOption(id: string, useCache: boolean = true) {
+  if (useCache) {
+    return guideline(id);
+  } else {
+    await sendPostToBetterStack({
+      message: "guideline called (no cache)",
+      level: "info",
+      metadata: {
+        function: "guideline",
+        id,
+        useCache: false
+      }
+    });
+    return executeQuery(GuidelineDocument, {
+      ...getOptions(`fn_name:guideline|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as UpdateQueryVariables,
+    });
+  }
+}
+
+export async function getAllGuidelinesWithOption(useCache: boolean = true) {
+  if (useCache) {
+    return getAllGuidelines();
+  } else {
+    await sendPostToBetterStack({
+      message: "getAllGuidelines called (no cache)",
+      level: "info",
+      metadata: {
+        function: "getAllGuidelines",
+        useCache: false
+      }
+    });
+    return executeQueryWithAutoPagination(
+      AllGuidelinesDocument,
+      getOptions(`fn_name:getAllGuidelines`)
+    );
+  }
+}
+
+export async function argomentoWithOption(id: string, useCache: boolean = true) {
+  if (useCache) {
+    return argomento(id);
+  } else {
+    await sendPostToBetterStack({
+      message: "argomento called (no cache)",
+      level: "info",
+      metadata: {
+        function: "argomento",
+        id,
+        useCache: false
+      }
+    });
+    return executeQuery(ArgomentoDocument, {
+      ...getOptions(`fn_name:argomento|id:${id}`),
+      variables: {
+        id: id,
+        index: "2",
+      } as ArgomentoQueryVariables,
+    });
+  }
+}
+
 // ------------------------------------- //
 // Funzioni di indicizzazione in Algolia //
 // ------------------------------------- //

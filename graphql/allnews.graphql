@@ -1,10 +1,7 @@
 #import "./fragments.graphql"
 
 query AllNews {
-  allNews(
-    first: 100,
-    orderBy: customUpdateDate_DESC
-  ) {
+  allNews(first: 100, orderBy: customUpdateDate_DESC) {
     _createdAt
     _updatedAt
     id
@@ -13,6 +10,12 @@ query AllNews {
     externalLink
     summary
     customUpdateDate
+    nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment

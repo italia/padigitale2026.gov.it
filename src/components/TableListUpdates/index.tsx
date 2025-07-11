@@ -132,10 +132,10 @@ export function TableListUpdates({
             id={`${id}-title`}
             className={cn("col-12 h-1 pb-4", {
               "text-center": alignment === "center",
-              "visually-hidden": !title,
+              "visually-hidden": !title || title.length === 0,
             })}
           >
-            {title ?? "Ultimi aggiornamenti"}
+            {title && title.length > 0 ? title : "Ultimi aggiornamenti"}
           </h2>
         </Col>
       </Row>
@@ -183,14 +183,14 @@ export function TableListUpdates({
                         <div
                           key={updateId}
                           role="listitem"
-                          className="row border-bottom m-0 p-0 py-2 w-100 flex-nowrap"
+                          className="row border-bottom m-0 p-0 py-3 w-100 flex-nowrap"
                         >
                           {customUpdateDate && (
                             <div className="col-3 col-md-2 ps-0">
                               <span className="visually-hidden">
                                 Data di aggiornamento:
                               </span>
-                              <time>
+                              <time dateTime={customUpdateDate}>
                                 {new Intl.DateTimeFormat("it-IT", {
                                   timeZone: "Europe/Rome",
                                   day: "2-digit",
@@ -216,11 +216,33 @@ export function TableListUpdates({
                                 const buttonHref = getButtonHref(
                                   cta as ButtonRecord
                                 );
+
+                                // Determina il testo del bottone seguendo la stessa logica degli span
+                                let buttonText = "";
+                                if (cta?.href) {
+                                  buttonText = "Vai alla risorsa aggiornata";
+                                } else if (cta?.cmsPage && cta?.text) {
+                                  buttonText = cta.text;
+                                } else if (
+                                  cta?.cmsPage &&
+                                  !cta?.text &&
+                                  cta?.cmsPage?.title
+                                ) {
+                                  buttonText = cta.cmsPage.title;
+                                } else if (
+                                  cta?.cmsPage &&
+                                  !cta?.text &&
+                                  !cta?.cmsPage?.title &&
+                                  cta?.cmsPage?.__typename === "PageRecord"
+                                ) {
+                                  buttonText = "Vai alla pagina aggiornata";
+                                }
+
                                 return buttonHref.length > 0 ? (
                                   <Link
-                                    className="fw-bold text-nowrap"
+                                    className="fw-semibold text-nowrap"
                                     href={buttonHref}
-                                    aria-label={`Vai alla pagina aggiornata di ${itemTitle}`}
+                                    aria-label={buttonText}
                                     target={"_self"}
                                   >
                                     {cta?.href && (
@@ -340,6 +362,7 @@ export function TableListUpdates({
               href={getButtonHref(button)}
               target={button.target || "_self"}
               title={getButtonTitle(button)}
+              aria-label={getButtonTitle(button)}
             >
               {button.text}
               {button.icon && (

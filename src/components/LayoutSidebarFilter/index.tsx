@@ -180,7 +180,7 @@ export function LayoutSidebarFilter({
                   className="row it-page-section pb-4"
                   id={item.anchorId || undefined}
                 >
-                  <RichText props={item} padding={false} />
+                  <RichText props={item} />
                 </div>
               )}
             </Fragment>

@@ -54,7 +54,7 @@ export async function getAvvisi(
   try {
     // Genera una chiave di cache basata sui parametri
     const cacheKey = `avvisi:${n}:${sort}:${beneficiari?.join(',') || 'all'}`;
-    
+
     // Prova a recuperare dalla cache
     if (useCache && redis) {
       try {
@@ -70,12 +70,14 @@ export async function getAvvisi(
 
     console.log("Cache miss, fetching from Salesforce...");
 
-    const conn = new jsforce.Connection();
+    const conn = process.env.VERCEL_ENV === "production" ? new jsforce.Connection() : new jsforce.Connection({
+      loginUrl: "https://test.salesforce.com"
+    });
 
     // Utilizziamo process.env invece di Deno.env
     const username = process.env.SF_USERNAME || "";
     const password = process.env.SF_PASSWORD || "";
-    
+
     await conn.login(username, password);
 
     const records = await conn
@@ -103,7 +105,7 @@ export async function getAvvisi(
         beneficiari: r.SOGGETTI_DESTINATARI__c?.split(";"),
         plateaPotenziale: r.Platea_potenziale__c,
         oggettoBando: r.Oggetto_Bando__c,
-        url: process.env.SF_URL,
+        url: `${process.env.SF_URL}?id=${r.Id}`,
         misura: misure.find(
           ({ Id }) => r.outfunds__Parent_Funding_Program__c === Id
         )?.Name,

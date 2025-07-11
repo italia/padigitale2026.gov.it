@@ -8,6 +8,12 @@ query AllResources {
     title
     slug
     customUpdateDate
+    nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment

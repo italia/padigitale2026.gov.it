@@ -16,14 +16,20 @@ query AllGuidelines {
       url
       format
     }
-    idAvvisoSalesforce
     beneficiari {
       label
       id
       labelSalesforce
     }
+    misura {
+      label
+      slug
+      basePath
+      idSalesforce
+      pacchetto
+    }
   }
-  _allUpdatesMeta {
+  _allGuidelinesMeta {
     count
   }
 }

@@ -32,7 +32,7 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
                     item.anchorId ? `Sezione ${item.anchorId}` : undefined
                   }
                 >
-                  <RichText props={item} padding={false} />
+                  <RichText props={item} />
                 </div>
               )}
               {item.__typename === "StepperRecord" && (

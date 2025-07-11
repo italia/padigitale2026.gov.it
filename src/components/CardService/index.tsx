@@ -20,7 +20,7 @@ export function CardService({
   const { label, title, description, button } = props;
   return (
     <article
-      className={`it-card--service it-card pb-0 flex-grow-1 bg-white pt-3 ${customClass}`}
+      className={`it-card--service it-card pb-0 flex-grow-1 bg-transparent pt-3 ${customClass}`}
     >
       {label && (
         <div
@@ -60,7 +60,7 @@ export function CardService({
             {button && (
               <Link
                 href={button.href || `/${button.cmsPage?.slug || ""}`}
-                className={"text-decoration-none fw-semibold"}
+                className={"fw-semibold"}
               >
                 <small>{button.text}</small>
                 {button.icon && (

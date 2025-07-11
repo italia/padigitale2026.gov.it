@@ -1,0 +1,14 @@
+#import "./fragments.graphql"
+
+query Argomento($id: ItemId) {
+  argomento(filter: { id: { eq: $id } }) {
+    __typename
+    _createdAt
+    _updatedAt
+    label
+    slug
+  }
+  _allArgomentosMeta {
+    count
+  }
+}

@@ -70,25 +70,25 @@ export function TableListLinkItem({
   };
 
   return (
-    <div role="listitem" className="row border-bottom m-0 p-0 py-2 w-100">
+    <div role="listitem" className="row border-bottom m-0 p-0 py-3 w-100">
       <div className="col ps-0">
         <Link
           className="d-flex justify-content-between align-items-center text-decoration-none"
           href={getHref(link)}
           title={getTitle(link)}
           target={link?.target as HTMLAttributeAnchorTarget}
-          aria-label={`${getTitle(link)}: ${link?.text}`}
+          aria-label={category ? `Categoria: ${category.label}` : undefined}
         >
-          <div>
+          <div className="me-4">
             <div
-              className="fw-bold text-decoration-underline mb-1"
-              style={{ fontSize: "1.125rem" }}
+              className="fw-semibold text-decoration-underline mb-1"
+              style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
             >
               {link?.text}
             </div>
 
             {category && (
-              <div className="text-secondary text-decoration-none text-uppercase fw-semibold">
+              <div className="text-secondary text-decoration-none text-uppercase fw-semibold lh-base">
                 <span className="visually-hidden">Categoria: </span>
                 {category.label}
               </div>
@@ -104,7 +104,7 @@ export function TableListLinkItem({
                       "lightgrey-bg-a3 text-primary": badge === "Nuovo",
                       "neutral-1-bg-a2 text-dark": badge === "Aggiornato",
                     })}
-                    aria-label={`Stato: ${badge}`}
+                    aria-label={`Contenuto ${badge.toLowerCase()}`}
                   >
                     {badge}
                   </Badge>

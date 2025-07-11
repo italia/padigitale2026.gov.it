@@ -1,12 +1,32 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Titillium_Web, Roboto_Mono, Lora } from "next/font/google";
 
 import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
 import "./globals.scss";
 
-import "typeface-titillium-web";
-import "typeface-roboto-mono";
-import "typeface-lora";
+// Configurazione font ottimizzata
+const titilliumWeb = Titillium_Web({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  display: "swap",
+  preload: true,
+  variable: "--font-titillium-web",
+});
+
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-roboto-mono",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-lora",
+});
 
 import {
   getFooter,
@@ -41,6 +61,7 @@ import type {
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 import BootstrapInit from "@/src/components/BootstrapInit";
+import BootstrapScript from "@/src/components/BootstrapScript";
 import { PagesProvider } from "@/src/contexts/PagesContext";
 
 export const metadata: Metadata = {
@@ -72,13 +93,9 @@ export default async function RootLayout({
 
   return (
     <html lang="it">
-      <head>
-        <Script
-          src="/bootstrap-italia.bundle.min.js"
-          strategy="afterInteractive"
-        />
-      </head>
-      <body>
+      <body
+        className={`${titilliumWeb.variable} ${robotoMono.variable} ${lora.variable}`}
+      >
         <PagesProvider
           pages={pages}
           faqs={faqs}
@@ -97,6 +114,7 @@ export default async function RootLayout({
           <Footer props={footerProps} />
         </PagesProvider>
         <BootstrapInit />
+        <BootstrapScript />
 
         {/* Script Matomo */}
         <Script
@@ -109,7 +127,9 @@ export default async function RootLayout({
                 window._paq = window._paq || [];
                 window._paq.push(['enableJSErrorTracking']);
                 window._paq.push(['setTrackerUrl', 'https://ingestion.webanalytics.italia.it//matomo.php']);
-                window._paq.push(['setSiteId', 'R9pxNNv0Xm']);
+                window._paq.push(['setSiteId', '${
+                  process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "R9pxNNv0Xm"
+                }']);
                 window._paq.push(['enableHeartBeatTimer']);
                 window.start = new Date();
                 (function () {
@@ -118,7 +138,9 @@ export default async function RootLayout({
                 })();
                 if (window.dev === true) {
                   console.debug('[Matomo] Tracking initialized');
-                  console.debug('[Matomo] matomoUrl: https://ingestion.webanalytics.italia.it/, siteId: R9pxNNv0Xm');
+                  console.debug('[Matomo] matomoUrl: https://ingestion.webanalytics.italia.it/, siteId: ${
+                    process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "R9pxNNv0Xm"
+                  }');
                 }
               }
             `,
@@ -129,7 +151,7 @@ export default async function RootLayout({
         <noscript>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://ingestion.webanalytics.italia.it//matomo.php?idsite=R9pxNNv0Xm&rec=1&url=https://padigitale2026.gov.it/"
+            src="https://ingestion.webanalytics.italia.it//matomo.php?idsite=${process.env.NEXT_PUBLIC_MATOMO_SITE_ID || 'R9pxNNv0Xm'}&rec=1&url=https://padigitale2026.gov.it/"
             style={{ border: 0 }}
             alt="tracker"
           />

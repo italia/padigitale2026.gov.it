@@ -28,8 +28,14 @@ import {
   InstantSearchFaqRecord,
   BloccoGraficoRecord,
   TabsWrapRecord,
+  FormToRecord,
+  FormNewsletterRecord,
+  FormAssistanceRecord,
+  ImageTextColumnRecord,
+  TextColumnRecord,
+  TextBicolumnRecord,
+  TimelineRecord,
 } from "@/graphql/generated";
-import { BackToTop } from "design-react-kit";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
 import { SplitBanner } from "@/src/components/SplitBanner";
@@ -51,6 +57,13 @@ import { BloccoGrafico } from "@/src/components/BloccoGrafico";
 import { TabsWrap } from "@/src/components/TabsWrap";
 import { FormNewsletter } from "@/src/components/FormNewsletter";
 import { FormTo } from "@/src/components/FormTo";
+import { FormValutazione } from "./FormValutazione";
+import { FormAssistenza } from "./FormAssistenza";
+import { UpdateDate } from "@/src/components/UpdateDate";
+import { ImageTextColumn } from "@/src/components/ImageTextColumn";
+import { TextColumn } from "@/src/components/TextColumn";
+import { TextBicolumn } from "@/src/components/TextBicolumn";
+import { Timeline } from "@/src/components/Timeline";
 
 export function ModularContent({
   content,
@@ -73,9 +86,9 @@ export function ModularContent({
               _updatedAt: content.page?._updatedAt,
               title: content.page?.title || null,
               updateDate: content.page?.customUpdateDate || null,
-              argomento: (content.page as FaqRecord)?.category || null,
-              misura: (content.page as FaqRecord)?.misura || null,
-              beneficiari: (content.page as FaqRecord)?.beneficiari || null,
+              argomento: (content.page as unknown as FaqRecord)?.category || null,
+              misura: (content.page as unknown as FaqRecord)?.misura || null,
+              beneficiari: (content.page as unknown as FaqRecord)?.beneficiari || null,
             } as DataHeroRecord
           }
         />
@@ -90,11 +103,7 @@ export function ModularContent({
             return <Banner key={idx} props={el as BannerRecord} />;
           case "RichTextSectionRecord":
             return (
-              <RichTextSection
-                key={idx}
-                isPageSection={true}
-                props={el as RichTextSectionRecord}
-              />
+              <RichTextSection key={idx} props={el as RichTextSectionRecord} />
             );
           case "VideoPlayerRecord":
             return <VideoPlayer key={idx} props={el as VideoPlayerRecord} />;
@@ -117,7 +126,9 @@ export function ModularContent({
           case "CardsGridNewsRecord":
             return <CardsGrid key={idx} props={el as CardsGridNewsRecord} />;
           case "CardsGridGuidelineRecord":
-            return <CardsGrid key={idx} props={el as CardsGridGuidelineRecord} />;
+            return (
+              <CardsGrid key={idx} props={el as CardsGridGuidelineRecord} />
+            );
           case "CardsGridImageRecord":
             return (
               <CardsGridImages
@@ -171,14 +182,37 @@ export function ModularContent({
           case "TabsWrapRecord":
             return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
           case "FormNewsletterRecord":
-            return <FormNewsletter key={idx} />;
+            return (
+              <FormNewsletter key={idx} props={el as FormNewsletterRecord} />
+            );
           case "FormToRecord":
-            return <FormTo key={idx} />;
+            return <FormTo key={idx} props={el as FormToRecord} />;
+          case "FormAssistanceRecord":
+            return (
+              <FormAssistenza key={idx} props={el as FormAssistanceRecord} />
+            );
+          case "ImageTextColumnRecord":
+            return (
+              <ImageTextColumn key={idx} props={el as ImageTextColumnRecord} />
+            );
+          case "TextColumnRecord":
+            return <TextColumn key={idx} props={el as TextColumnRecord} />;
+          case "TextBicolumnRecord":
+            return <TextBicolumn key={idx} props={el as TextBicolumnRecord} />;
+          case "TimelineRecord":
+            return <Timeline key={idx} props={el as TimelineRecord} />;
           default:
             return null;
         }
       })}
-      <BackToTop ariaLabel={"Clicca qui per tornare in alto"} shadow={true} />
+      {content.page &&
+        "customUpdateDate" in content.page &&
+        content.page.customUpdateDate && (
+          <UpdateDate date={content.page.customUpdateDate} />
+        )}
+      {content.page?.nascondiValutazione === false && content.page?.id && (
+        <FormValutazione id={content.page?.id} />
+      )}
     </>
   );
 }

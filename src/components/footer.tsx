@@ -14,6 +14,7 @@ import {
   Icon,
   LinkList,
   LinkListItem,
+  BackToTop,
 } from "design-react-kit";
 import type { FooterQuery } from "@/graphql/generated";
 
@@ -45,7 +46,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     >
                       <Image
                         src="/images/logo-eu.svg"
-                        alt="Logo"
+                        alt="Logo Commissione Europea"
                         width={153}
                         height={49}
                       />
@@ -60,7 +61,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                     >
                       <Image
                         src="/images/logo-ri.svg"
-                        alt="Logo"
+                        alt="Logo Repubblica Italiana"
                         width={36}
                         height={41}
                         className="me-1"
@@ -81,7 +82,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2">
                     <Image
                       src="/images/logo-dipartimento.svg"
-                      alt="Logo"
+                      alt="Logo Dipartimento per la trasformazione digitale"
                       width={217}
                       height={41}
                     />
@@ -101,13 +102,13 @@ export default function Footer({ props }: { props: FooterQuery }) {
                   {/* <Icon icon="it-pa" /> */}
                   <Image
                     src="/images/site-logo_white.svg"
-                    alt="Logo"
+                    alt="Logo PA digitale 2026"
                     width={49}
                     height={48}
                     className="me-1"
                   />
                   <div className="it-brand-text ms-2 pt-1">
-                    <h3 className="m-0 h-5 fw-semibold">{title}</h3>
+                    <div className="m-0 h-5 fw-semibold">{title}</div>
                   </div>
                 </div>
               </Col>
@@ -117,7 +118,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
             <Row>
               {linkColonna1.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>{titleColonna1}</h4>
+                  <div className="h4">{titleColonna1}</div>
                   <LinkList className="footer-list clearfix">
                     <LinkListItem
                       tag={Link}
@@ -130,7 +131,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                       <LinkListItem
                         key={link.id}
                         tag={Link}
-                        href={link.slug || "#"}
+                        href={`/${link.slug}` || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
                         {link.title}
@@ -141,13 +142,13 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna2.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>{titleColonna2}</h4>
+                  <div className="h4">{titleColonna2}</div>
                   <LinkList className="footer-list clearfix">
                     {linkColonna2.map((link) => (
                       <LinkListItem
                         key={link.id}
                         tag={Link}
-                        href={link.slug || "#"}
+                        href={`/${link.slug}` || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
                         {link.title}
@@ -158,13 +159,13 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkColonna3.length > 0 && (
                 <Col className="pb-2" lg={3} md={6}>
-                  <h4>{titleColonna3}</h4>
+                  <div className="h4">{titleColonna3}</div>
                   <LinkList className="footer-list clearfix">
                     {linkColonna3.map((link) => (
                       <LinkListItem
                         key={link.id}
                         tag={Link}
-                        href={link.slug || "#"}
+                        href={`/${link.slug}` || "#"}
                         title={`Vai alla pagina: ${link.title || ""}`}
                       >
                         {link.title}
@@ -175,16 +176,16 @@ export default function Footer({ props }: { props: FooterQuery }) {
               )}
               {linkNewsletter && (
                 <Col className="pb-2 bg-dark bg-transparent" lg={3} md={6}>
-                  <h4 className="d-flex align-items-center gap-2">
+                  <div className="d-flex align-items-center gap-2 h4">
                     <Icon color="white" icon="it-mail" />
                     Newsletter
-                  </h4>
+                  </div>
                   <p>Ricevi via email le novità di PA digitale 2026.</p>
                   <Button
                     className="btn-icon"
                     color="primary"
                     outline
-                    href={`${linkNewsletter.slug}` || "#"}
+                    href={`/${linkNewsletter.slug}` || "#"}
                     title={`Vai alla pagina: ${linkNewsletter.title || ""}`}
                   >
                     <span>Iscriviti</span>
@@ -201,12 +202,16 @@ export default function Footer({ props }: { props: FooterQuery }) {
           <ul className="it-footer-small-prints-list list-inline px-0 mb-0 d-flex flex-column flex-md-row">
             {linkUtili.map((link) => (
               <li key={link.id} className="list-inline-item">
-                <Link href={link.slug || "#"} title={link.title || ""}>
+                <Link href={`/${link.slug}` || "#"} title={link.title || ""}>
                   {link.title}
                 </Link>
               </li>
             ))}
           </ul>
+          <BackToTop
+            ariaLabel={"Clicca qui per tornare in alto"}
+            shadow={true}
+          />
         </div>
       </div>
     </footer>
