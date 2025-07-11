@@ -64,6 +64,7 @@ import { ImageTextColumn } from "@/src/components/ImageTextColumn";
 import { TextColumn } from "@/src/components/TextColumn";
 import { TextBicolumn } from "@/src/components/TextBicolumn";
 import { Timeline } from "@/src/components/Timeline";
+import FragmentRedirect from "./FragmentRedirect";
 
 export function ModularContent({
   content,
@@ -74,6 +75,7 @@ export function ModularContent({
 }) {
   return (
     <>
+      <FragmentRedirect />
       {/* 
         FAQ pages ALWAYS have a HeroWithData as first element in the body 
         that is populated by the CMS page data automatically 
