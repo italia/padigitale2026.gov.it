@@ -3,6 +3,7 @@ import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
+import { faqWithOption } from "@/lib/datocms";
 
 export async function generateMetadata({
   params,
@@ -99,16 +100,16 @@ export default async function FaqPage({
   }
 
   // Per le FAQ vere, usa getFaqData
-  const pageData = await getFaqData(fullSlug);
+  const pageData = await faqWithOption(fullSlugForCheck, false);
 
   if (!pageData) return notFound();
 
-  const { page } = pageData;
+  const faq = pageData.faq;
 
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <ModularContent content={{ page } as any} pageContentType="faq" />
+      <ModularContent content={{ page: faq } as any} pageContentType="faq" />
     </>
   );
 }
