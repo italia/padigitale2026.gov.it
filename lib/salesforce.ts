@@ -30,8 +30,8 @@ export async function getAvvisi(
   n: number = 0,
   sort: Sort = "DESC",
   beneficiari?: string[],
-  useCache: boolean = true,
-  cacheTTL: number = 3600
+  useCache: boolean = false,
+  cacheTTL: number = 3600,
 ) {
   if (!process.env.SF_USERNAME || !process.env.SF_PASSWORD) {
     console.error("SF_USERNAME and SF_PASSWORD, must be defined.");
@@ -53,7 +53,7 @@ export async function getAvvisi(
 
   try {
     // Genera una chiave di cache basata sui parametri
-    const cacheKey = `avvisi:${n}:${sort}:${beneficiari?.join(',') || 'all'}`;
+    const cacheKey = `avvisi:${n}:${sort}:${beneficiari?.join(",") || "all"}`;
 
     // Prova a recuperare dalla cache
     if (useCache && redis) {
@@ -70,9 +70,12 @@ export async function getAvvisi(
 
     console.log("Cache miss, fetching from Salesforce...");
 
-    const conn = process.env.VERCEL_ENV === "production" ? new jsforce.Connection() : new jsforce.Connection({
-      loginUrl: "https://test.salesforce.com"
-    });
+    const conn =
+      process.env.VERCEL_ENV === "production"
+        ? new jsforce.Connection()
+        : new jsforce.Connection({
+            loginUrl: "https://test.salesforce.com",
+          });
 
     // Utilizziamo process.env invece di Deno.env
     const username = process.env.SF_USERNAME || "";
@@ -86,7 +89,7 @@ export async function getAvvisi(
       .autoFetch(true);
 
     const misure = records.filter(
-      (r) => r.outfunds__Parent_Funding_Program__c === null
+      (r) => r.outfunds__Parent_Funding_Program__c === null,
     );
 
     let avvisi = records
@@ -107,7 +110,7 @@ export async function getAvvisi(
         oggettoBando: r.Oggetto_Bando__c,
         url: `${process.env.SF_URL}?id=${r.Id}`,
         misura: misure.find(
-          ({ Id }) => r.outfunds__Parent_Funding_Program__c === Id
+          ({ Id }) => r.outfunds__Parent_Funding_Program__c === Id,
         )?.Name,
       }));
 
@@ -116,13 +119,12 @@ export async function getAvvisi(
       avvisi = avvisi.filter(
         (avviso) =>
           avviso.beneficiari &&
-          avviso.beneficiari.some(
-            (b: string) =>
-              beneficiari.some(
-                (beneficiario) =>
-                  b.trim().toLowerCase() === beneficiario.trim().toLowerCase()
-              )
-          )
+          avviso.beneficiari.some((b: string) =>
+            beneficiari.some(
+              (beneficiario) =>
+                b.trim().toLowerCase() === beneficiario.trim().toLowerCase(),
+            ),
+          ),
       );
     }
 
