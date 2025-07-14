@@ -222,6 +222,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on TableListUpdateRecord {
     ...TableListUpdateFragment
   }
+  ... on TableRecord {
+    ...TableFragment
+  }
 }
 
 fragment RichTextSectionFragment on RichTextSectionRecord {
@@ -940,4 +943,10 @@ fragment TextBicolumnFragment on TextBicolumnRecord {
 fragment TimelineFragment on TimelineRecord {
   __typename
   id
+}
+
+fragment TableFragment on TableRecord {
+  __typename
+  id
+  table
 }

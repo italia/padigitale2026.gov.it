@@ -122,7 +122,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                   <LinkList className="footer-list clearfix">
                     <LinkListItem
                       tag={Link}
-                      href="https://padigitale2026--collaudo.sandbox.my.site.com/Pa_digitale2026_avvisi"
+                      href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi"
                       title={"Vai alla pagina: Avvisi"}
                     >
                       Avvisi

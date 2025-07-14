@@ -8,10 +8,12 @@ import {
   RichTextStepperRecord,
   AlertRecord,
   ImmagineRecord,
+  VideoPlayerRecord,
 } from "@/graphql/generated";
 import { Col, Container, Icon, Row, Section } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { Alert } from "@/src/components/Alert";
+import { VideoPlayer } from "@/src/components/VideoPlayer";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -148,6 +150,10 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
               />
             )}
           </Link>
+        );
+      case "VideoPlayerRecord":
+        return (
+          <VideoPlayer key={record.id} props={record as VideoPlayerRecord} />
         );
       default:
         return null;
