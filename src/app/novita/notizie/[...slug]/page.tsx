@@ -41,7 +41,7 @@ export default async function NewsPage({
   const { slug } = await params;
   const fullSlug = slug.join("/");
 
-  const pageData = await getNewsData(fullSlug);
+  const pageData = await getNewsData(`novita/notizie/${fullSlug}`);
 
   if (!pageData) return notFound();
 

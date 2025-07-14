@@ -52,7 +52,7 @@ export function CardNews({
           )}
         >
           <Link
-            href={externalLink ?? `/${slug}`}
+            href={externalLink?.length ? externalLink : `/${slug}`}
             className={cn("decoration-1")}
             target={externalLink ? "_blank" : "_self"}
             id={parentId && title ? `title-${parentId}-${id}` : undefined}
