@@ -12,11 +12,13 @@ import {
   ImmagineRecord,
   TableListFaqRecord,
   VideoPlayerRecord,
+  TableRecord,
 } from "@/graphql/generated";
 import { Icon, Section, Container, Row, Col } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { Alert } from "@/src/components/Alert";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
+import { Table } from "@/src/components/Table";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -169,6 +171,8 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
         return (
           <VideoPlayer key={record.id} props={record as VideoPlayerRecord} />
         );
+      case "TableRecord":
+        return <Table key={record.id} props={record as TableRecord} />;
       default:
         return null;
     }
