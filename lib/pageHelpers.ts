@@ -111,6 +111,7 @@ export async function generateFaqStaticParams() {
     "supporto/domande-frequenti/generali",
     "supporto/domande-frequenti/classificazione-dati-e-servizi",
     "supporto/domande-frequenti/rendicontazione",
+    "supporto/domande-frequenti/progetti",
   ];
 
   return faqs.allFaqs
@@ -238,6 +239,7 @@ export async function generateAllStaticParams() {
     "supporto/domande-frequenti/generali",
     "supporto/domande-frequenti/classificazione-dati-e-servizi",
     "supporto/domande-frequenti/rendicontazione",
+    "supporto/domande-frequenti/progetti",
   ];
 
   const params = [

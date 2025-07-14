@@ -21,6 +21,7 @@ export async function generateMetadata({
     "supporto/domande-frequenti/generali",
     "supporto/domande-frequenti/classificazione-dati-e-servizi",
     "supporto/domande-frequenti/rendicontazione",
+    "supporto/domande-frequenti/progetti",
   ];
 
   let pageData;
@@ -68,6 +69,7 @@ export default async function Page({
     "supporto/domande-frequenti/generali",
     "supporto/domande-frequenti/classificazione-dati-e-servizi",
     "supporto/domande-frequenti/rendicontazione",
+    "supporto/domande-frequenti/progetti",
   ];
 
   // Se è un'eccezione, usa getSupportoData
