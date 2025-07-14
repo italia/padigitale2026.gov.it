@@ -30,7 +30,7 @@ export async function getAvvisi(
   n: number = 0,
   sort: Sort = "DESC",
   beneficiari?: string[],
-  useCache: boolean = false,
+  useCache: boolean = true,
   cacheTTL: number = 3600,
 ) {
   if (!process.env.SF_USERNAME || !process.env.SF_PASSWORD) {
