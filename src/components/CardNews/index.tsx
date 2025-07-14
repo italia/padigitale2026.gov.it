@@ -42,7 +42,7 @@ export function CardNews({
       {title && (
         <TitleTag
           className={cn(
-            "fw-semibold pb-3 lh-sm h3 d-flex justify-content-between",
+            "it-card-title fw-semibold pb-3 lh-sm h4 d-flex justify-content-between",
             {
               h3: cardLayout && ["borderBottom", "clean"].includes(cardLayout),
               h4: cardLayout && cardLayout === "bordered",
@@ -67,7 +67,7 @@ export function CardNews({
         </TitleTag>
       )}
       <div
-        className={cn("d-flex flex-column pt-0 pb-0", {
+        className={cn("it-card-body d-flex flex-column pt-0 pb-0", {
           "px-0": cardLayout && cardLayout === "borderBottom",
         })}
       >
