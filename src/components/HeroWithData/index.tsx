@@ -2,6 +2,7 @@ import { DataHeroRecord } from "@/graphql/generated";
 import { Hero as HeroComponent, HeroTitle } from "design-react-kit";
 import { Breadcrumbs } from "@/src/components/Breadcrumbs";
 import { CopyLinkButton } from "@/src/components/CopyLinkButton";
+import { usePathname } from "next/navigation";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -39,6 +40,9 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
     beneficiari,
   } = props;
 
+  const pathname = usePathname();
+  const parentPath = pathname.split("/").slice(0, -1).join("/") || "/";
+
   return (
     <HeroComponent className={cn("wrapper")}>
       <div className={"container-xxl position-relative"}>
@@ -62,7 +66,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   style={{ minWidth: "114px" }}
                 >
                   <div className="fw-normal h-6">Argomento</div>
-                  <a className="fw-semibold h-6" href={argomento.slug || ""}>
+                  <a className="fw-semibold h-6" href={parentPath}>
                     {argomento.label}
                   </a>
                 </div>
@@ -72,7 +76,8 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   <div className="fw-normal h-6">Misura</div>
                   <a
                     className="fw-semibold h-6"
-                    href={`${misura.basePath || ""}${misura.slug || ""}`}
+                    // href={`${misura.basePath || ""}${misura.slug || ""}`}
+                    href={`/misure`}
                   >
                     {misura.label}
                   </a>
