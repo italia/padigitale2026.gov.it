@@ -76,6 +76,7 @@ export default async function FaqPage({
     "supporto/domande-frequenti/generali",
     "supporto/domande-frequenti/classificazione-dati-e-servizi",
     "supporto/domande-frequenti/rendicontazione",
+    "supporto/domande-frequenti/progetti",
   ];
 
   // Costruisci il slug completo per il controllo delle eccezioni
