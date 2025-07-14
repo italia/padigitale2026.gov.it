@@ -14,7 +14,7 @@ export function TableListFaq({
   props: TableListFaqRecord;
   noPadding?: boolean;
 }) {
-  const { questionsRef, id } = props;
+  const { title, alignment, questionsRef, id } = props;
 
   const getBadge = (item: FaqRecord) => {
     const createdAt = item._createdAt;
@@ -57,11 +57,18 @@ export function TableListFaq({
     <div
       className={cn("container-xxl", { "my-5": !noPadding })}
       role="region"
-      aria-labelledby={`${id}-title`}
+      // aria-labelledby={`${id}-title`}
     >
-      <h2 id={`${id}-title`} className="visually-hidden">
-        Lista delle domande frequenti
-      </h2>
+      {title && (
+        <h2
+          id={`${id}-title`}
+          className={cn("col-12 h-1 pb-4", {
+            "text-center": alignment === "center",
+          })}
+        >
+          {title}
+        </h2>
+      )}
       <div
         role="list"
         aria-label="Lista domande frequenti"
@@ -89,25 +96,29 @@ export function TableListFaq({
                 )
                 .join(" ")}
             >
-              <div className="row border-bottom m-0 p-0 py-2 w-100">
+              <div className="row border-bottom m-0 p-0 py-3 w-100">
                 <div className="col ps-0">
                   <Link
                     className="d-flex justify-content-between align-items-center text-decoration-none"
                     href={`/${item.slug}`}
                     title={item.title || ""}
                     key={`faq-link-${item.id || idx}`}
-                    aria-label={`Vai alla domanda: ${item.title}`}
+                    aria-label={
+                      item.category
+                        ? `Categoria: ${item.category.label}`
+                        : undefined
+                    }
                   >
-                    <div>
+                    <div className="me-4">
                       <div
-                        className="fw-bold text-decoration-underline mb-1"
-                        style={{ fontSize: "1.125rem" }}
+                        className="fw-semibold text-decoration-underline mb-1 lh-base"
+                        style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
                       >
                         {item.title}
                       </div>
 
                       {item.category && (
-                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold">
+                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
                           <span className="visually-hidden">Categoria: </span>
                           {item.category.label}
                         </div>
@@ -125,6 +136,7 @@ export function TableListFaq({
                                 "neutral-1-bg-a2 text-dark":
                                   badge === "Aggiornato",
                               })}
+                              aria-label={`${badge}`}
                             >
                               {badge}
                             </Badge>

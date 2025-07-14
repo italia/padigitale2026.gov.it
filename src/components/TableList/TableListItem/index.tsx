@@ -28,11 +28,11 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
   };
 
   return (
-    <div role="listitem" className="row border-bottom m-0 p-0 py-2 w-100">
+    <div role="listitem" className="row border-bottom m-0 p-0 py-3 w-100">
       {date && (
         <div className="col-12 col-sm-2 ps-0">
           <span className="visually-hidden">Data: </span>
-          <time>
+          <time dateTime={date}>
             {new Intl.DateTimeFormat("it-IT", {
               timeZone: "Europe/Rome",
               day: "2-digit",
@@ -46,12 +46,23 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
         <div className="d-flex justify-content-between align-items-center">
           <span className="me-3">{title}</span>
           <Link
-            className="fw-bold text-nowrap"
+            className="fw-semibold text-nowrap"
             href={getHref(link)}
             title={getTitle(link)}
-            aria-label={`${getTitle(link)}: ${title}`}
+            aria-label={
+              date
+                ? `Data: ${new Intl.DateTimeFormat("it-IT", {
+                    timeZone: "Europe/Rome",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(Date.parse(date))}`
+                : undefined
+            }
           >
-            <span style={{ fontSize: "0.875rem" }}>{link?.text}</span>
+            <span style={{ fontSize: "0.875rem", lineHeight: "1.556" }}>
+              {link?.text}
+            </span>
             {link?.icon && (
               <Icon
                 className="my-0"

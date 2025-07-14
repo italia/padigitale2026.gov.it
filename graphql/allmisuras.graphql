@@ -2,5 +2,7 @@ query AllMisuras {
   allMisuras(orderBy: label_ASC) {
     label
     id
+    pacchetto
+    idSalesforce
   }
 }

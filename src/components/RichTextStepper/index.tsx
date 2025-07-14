@@ -6,18 +6,24 @@ import {
   CardAttachmentRecord,
   ImagesGridRecord,
   RichTextStepperRecord,
+  AlertRecord,
+  ImmagineRecord,
 } from "@/graphql/generated";
-import { Icon } from "design-react-kit";
+import { Col, Container, Icon, Row, Section } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
+import { Alert } from "@/src/components/Alert";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { CardAttachment } from "@/src/components/CardAttachment";
+import { Immagine } from "../Immagine";
 
 const cn = classNames.bind(styles);
 
 type BlockContext = {
   record:
+    | AlertRecord
+    | ImmagineRecord
     | ImagesGridRecord
     | {
         __typename?: string;
@@ -89,6 +95,10 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
     if (!record?.__typename) return null;
 
     switch (record.__typename) {
+      case "AlertRecord":
+        return <Alert key={record.id} props={record as AlertRecord} />;
+      case "ImmagineRecord":
+        return <Immagine key={record.id} props={record as ImmagineRecord} />;
       case "ImagesGridRecord":
         return (
           <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
@@ -145,21 +155,27 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
   };
 
   return (
-    <div
-      className={cn({
-        "text-center": alignment === "center",
-        "text-end": alignment === "right",
-      })}
-    >
-      {content && (
-        <StructuredText
-          key={JSON.stringify(content)}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data={content as any}
-          renderBlock={renderBlock}
-          customNodeRules={customNodeRules}
-        />
-      )}
-    </div>
+    <Section wrapperClassName={cn("p-0")}>
+      <Container
+        className={cn("p-0", {
+          "text-center": alignment === "center",
+          "text-end": alignment === "right",
+        })}
+      >
+        <Row>
+          <Col>
+            {content && (
+              <StructuredText
+                key={JSON.stringify(content)}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                data={content as any}
+                renderBlock={renderBlock}
+                customNodeRules={customNodeRules}
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </Section>
   );
 }

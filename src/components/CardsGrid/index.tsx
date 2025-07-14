@@ -244,12 +244,12 @@ export function CardsGrid({
           __typename: "CardAnnouncementRecord",
           badge: badgeText,
           istituto: announcement.entePromotore,
-          beneficiari: announcement.beneficiari.join(", "),
+          beneficiari: announcement.beneficiari?.join(", ") || "",
           stato:
             announcement.status === "PUBBLICATO"
               ? CardAnnouncementStatusType.Aperto
               : CardAnnouncementStatusType.Chiuso,
-          titolo: announcement.oggettoBando,
+          titolo: announcement.name,
           dataDiPubblicazione: new Date(
             announcement.startDate
           ).toLocaleDateString("it-IT", {
@@ -265,7 +265,7 @@ export function CardsGrid({
               year: "numeric",
             }
           ),
-          href: `${announcement.url}?id=${announcement.id}`,
+          href: `${announcement.url}`,
           target: "_blank",
         } as CardAnnouncementRecord;
       });
@@ -304,7 +304,7 @@ export function CardsGrid({
 
     if (!news.length) {
       if (allDatoObjects.news?.allNews) {
-        news = allDatoObjects.news.allNews as NewsRecord[];
+        news = allDatoObjects.news.allNews as unknown as NewsRecord[];
         if (newsSelection === "latest_3") {
           news = news.slice(0, 3);
         } else if (newsSelection === "latest_6") {
@@ -321,13 +321,14 @@ export function CardsGrid({
 
     if (!guidelines.length) {
       if (allDatoObjects.guidelines?.allGuidelines) {
-        guidelines = allDatoObjects.guidelines.allGuidelines as GuidelineRecord[];
+        guidelines = allDatoObjects.guidelines
+          .allGuidelines as GuidelineRecord[];
       }
     }
   }
 
   const cardTitleTag: ElementType = (singleCardsTitleTag ||
-    "h3") as ElementType;
+    "h4") as ElementType;
   // const SectionTitleTag:ElementType = (titleHtmlTag || "h2") as ElementType;
 
   let colClasses = "";
@@ -336,7 +337,7 @@ export function CardsGrid({
     <div
       key={id}
       id={id}
-      aria-labelledby={`section${id}`}
+      // aria-labelledby={`section${id}`}
       className={cn(`${backgroundColor}`, {
         "wrapper py-5": !hasSidebar,
         "row pt-3": hasSidebar,
@@ -362,6 +363,7 @@ export function CardsGrid({
                     "mb-0 lh-sm",
                     alignment === "center" ? "text-center" : "text-start"
                   )}
+                  aria-label={`Sezione: ${title}`}
                 >
                   {title}
                 </h2>
@@ -391,7 +393,7 @@ export function CardsGrid({
                 colClasses = "col-12 col-lg-3";
               }
               return (
-                <div className={"row"}>
+                <div className={"row"} role="region" aria-label="Lista avvisi">
                   {announcements.map((announcement, idx) => {
                     return (
                       <div
@@ -442,7 +444,7 @@ export function CardsGrid({
                 colClasses = "col-12 col-lg-3";
               }
               return (
-                <div className={"row"}>
+                <div className={"row"} role="region" aria-label="Lista risorse">
                   {resources.map((resource, idx) => {
                     return (
                       <div
@@ -476,7 +478,11 @@ export function CardsGrid({
               }
 
               return (
-                <div className={"row h-100"} role={"list"}>
+                <div
+                  className={"row h-100"}
+                  role={"list"}
+                  aria-label="Lista notizie"
+                >
                   {news.map((record, idx) => {
                     return (
                       <div
@@ -666,7 +672,11 @@ export function CardsGrid({
               }
 
               return (
-                <div className={"row h-100"}>
+                <div
+                  className={"row h-100"}
+                  role="region"
+                  aria-label="Lista contenuti"
+                >
                   {cards.map((card, idx) => {
                     if (card.__typename === "CardGenericRecord") {
                       return (
@@ -732,7 +742,7 @@ export function CardsGrid({
                 </div>
               );
             })()) ||
-          ""}
+            ""}
 
           {(guidelines !== null &&
             (() => {
@@ -747,15 +757,22 @@ export function CardsGrid({
               }
 
               return (
-                <div className={"row h-100"}>
+                <div
+                  className={"row h-100"}
+                  role="region"
+                  aria-label="Lista linee guida"
+                >
                   {guidelines.map((card, idx) => {
-
                     const props = {
                       __typename: "CardAttachmentRecord" as const,
                       id: card.id,
                       title: card.title,
                       description: card.descrizione,
-                      label: `${card.allegato?.format}${card.allegato?.size ? `, ${(card.allegato.size / 1048576).toFixed(2)} MB` : ''}`,
+                      label: `${card.allegato?.format}${
+                        card.allegato?.size
+                          ? `, ${(card.allegato.size / 1048576).toFixed(2)} MB`
+                          : ""
+                      }`,
                       date: card.customUpdateDate,
                       href: card.allegato?.url || "",
                     } as CardAttachmentRecord;
@@ -765,17 +782,14 @@ export function CardsGrid({
                         key={idx}
                         className={`${colClasses} pt-4 d-flex flex-column justify-content-stretch`}
                       >
-                        <CardAttachment
-                            TitleTag={cardTitleTag}
-                            props={props}
-                          />
-                        </div>
-                      );
+                        <CardAttachment TitleTag={cardTitleTag} props={props} />
+                      </div>
+                    );
                   })}
                 </div>
               );
             })()) ||
-          ""}
+            ""}
 
           {button && (
             <div className={"row h-100"}>

@@ -1,14 +1,19 @@
 #import "./fragments.graphql"
 
 query AllFaqs {
-  allFaqs(first: 100) {
+  allFaqs(first: 300) {
     _createdAt
     _updatedAt
     id
     title
     slug
     customUpdateDate
-    idAvvisoSalesforce
+    nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     category {
       label
       slug
@@ -20,6 +25,8 @@ query AllFaqs {
       label
       slug
       basePath
+      idSalesforce
+      pacchetto
     }
     body {
       ... on HeroRecord {

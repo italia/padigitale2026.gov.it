@@ -1,7 +1,34 @@
+import { sendPostToBetterStack } from '@/lib/datocms';
 import { getSalesforceToken } from './auth';
 import { records } from './types';
 
 const version = 'v57.0';
+
+// Funzione helper per il logging con BetterStack
+async function logToBetterStack(
+  functionName: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload: any,
+  response: Response,
+  responseText: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  responseData: any
+) {
+  await sendPostToBetterStack({
+    message: `${functionName} called`,
+    level: "info",
+    metadata: {
+      function: functionName,
+      payload: JSON.stringify(payload),
+      response: {
+        status: response.status,
+        statusText: response.statusText,
+        text: responseText,
+        data: responseData
+      }
+    }
+  });
+}
 
 export async function upsertFaqAggiornamenti(records: records[]) {
   try {
@@ -24,16 +51,24 @@ export async function upsertFaqAggiornamenti(records: records[]) {
       body: JSON.stringify(payload)
     });
 
+    // Leggi la risposta una sola volta
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch (e) {
+      console.log(e);
+      responseData = null;
+    }
+
+    await logToBetterStack('upsertFaqAggiornamenti', payload, response, responseText, responseData);
+
     // Verifica se la richiesta è andata a buon fine
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${errorText}`);
+    if (!response.ok || (responseData && responseData[0] && responseData[0].errors && responseData[0].errors.length > 0)) {
+      throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${responseText}`);
     }    
 
-    // Estrai i dati dalla risposta
-    const data = await response.json();
-
-    return data;
+    return responseData;
   } catch (error) {
     console.error('Errore durante l\'aggiornamento dei record in Salesforce:', error);
     throw new Error(`Errore nell\' aggiornamento dei record in Salesforce: ${error}`);
@@ -61,16 +96,24 @@ export async function cancellazioneLineeGuidaFaqAggiornamenti(records: records[]
       body: JSON.stringify(payload)
     });
 
+    // Leggi la risposta una sola volta
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch (e) {
+      console.log(e);
+      responseData = null;
+    }
+
+    await logToBetterStack('cancellazioneLineeGuidaFaqAggiornamenti', payload, response, responseText, responseData);
+
     // Verifica se la richiesta è andata a buon fine
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${errorText}`);
+    if (!response.ok || (responseData && responseData[0] && responseData[0].errors && responseData[0].errors.length > 0)) {
+      throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${responseText}`);
     }    
 
-    // Estrai i dati dalla risposta
-    const data = await response.json();
-
-    return data;
+    return responseData;
   } catch (error) {
     console.error('Errore durante la cancellazione dei record in Salesforce:', error);
     throw new Error(`Errore nella cancellazione dei record in Salesforce: ${error}`);
@@ -92,18 +135,26 @@ export async function creazioneLineeGuida(record: object) {
       body: JSON.stringify(record)
     });
 
-    // Verifica se la richiesta è andata a buon fine
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${errorText}`);
+    // Leggi la risposta una sola volta
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch (e) {
+      console.log(e);
+      responseData = null;
     }
 
-    // Estrai i dati dalla risposta
-    const data = await response.json();
+    await logToBetterStack('creazioneLineeGuida', record, response, responseText, responseData);
 
-    return data;
+    // Verifica se la richiesta è andata a buon fine
+    if (!response.ok || (responseData && responseData[0] && responseData[0].errors && responseData[0].errors.length > 0)) {
+      throw new Error(`Errore nella richiesta a Salesforce: ${response.status} ${response.statusText}. Dettagli: ${responseText}`);
+    }
+
+    return responseData;
   } catch (error) {
     console.error('Errore durante la creazione dei record in Salesforce:', error);
-    throw new Error(`Errore la creazioe dei record in Salesforce: ${error}`);
+    throw new Error(`Errore durante la creazione dei record in Salesforce: ${error}`);
   }
 }

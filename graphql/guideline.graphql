@@ -16,11 +16,17 @@ query Guideline($id: ItemId) {
       url
       format
     }
-    idAvvisoSalesforce
     beneficiari {
       label
       id
       labelSalesforce
+    }
+    misura {
+      label
+      slug
+      basePath
+      idSalesforce
+      pacchetto
     }
   }
   _allUpdatesMeta {

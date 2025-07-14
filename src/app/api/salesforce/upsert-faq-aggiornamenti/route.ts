@@ -1,7 +1,7 @@
 import { WebhookPayload, ContentType } from "../../algolia/types";
 import { upsertFaqAggiornamenti } from "../api";
 import { FaqQuery, UpdateQuery } from "@/graphql/generated";
-import { faq, update } from "@/lib/datocms";
+import { updateWithOption, faqWithOption } from "@/lib/datocms";
 import { records } from "../types";
 
 export async function POST(request: Request) {
@@ -27,37 +27,46 @@ export async function POST(request: Request) {
 
     switch (content_type) {
       case "update":
-        entity = (await update(data.entity.attributes.id!)) as UpdateQuery;
+        entity = (await updateWithOption(data.entity.id!, false)) as UpdateQuery;
         entity_content = entity.update;
 
         if (entity_content) {
           records.push({
             attributes: { "type": "Informazione_CMS_Avviso__c" },
-            External_ID__c: entity_content.id,
+            External_ID__c: data.entity.id,
             Type__c: "Ultimi aggiornamenti",
-            Description__c: data.entity.attributes.title,
-            Date_Latest_Update__c: data.entity.attributes.custom_update_date ? new Date(data.entity.attributes.custom_update_date).toISOString().split('T')[0] : '',
+            Description__c: data.entity.attributes.title || '',
+            Date_Latest_Update__c: data.entity.attributes.custom_update_date ? (data.entity.attributes.custom_update_date as string).split('T')[0] : '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
-            Avviso__c: data.entity.attributes.id_avviso_salesforce,
+            Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
           });
         }
         break;      
       case "faq":
-        entity = (await faq(data.entity.attributes.slug)) as FaqQuery;
+
+        if (!data.entity.attributes.misura && !data.entity.attributes.beneficiari?.length) {
+          return Response.json({ 
+            success: true, 
+            message: 'Non è stato possibile sincronizzare i dati su Salesforce in quanto manca il beneficiario e la misura',
+          }, { status: 200 });
+        }
+
+        entity = (await faqWithOption(data.entity.attributes.slug, false)) as FaqQuery;
         entity_content = entity.faq;
 
         if (entity_content) {
           records.push({
             attributes: { "type": "Informazione_CMS_Avviso__c" },
-            External_ID__c: entity_content.id,
+            External_ID__c: data.entity.id,
             Type__c: "Domande frequenti",
-            Category__c: entity_content.category?.label || '',
-            URL__c: `${entity_content.slug}`,
-            URL_Label__c: entity_content.title || '',
+            Category__c: entity_content?.category?.label || '',
+            URL__c: `${process.env.NEXT_PUBLIC_DOMAIN}/${data.entity.attributes.slug}`,
+            URL_Label__c: data.entity.attributes.title || '',
+            Date_Latest_Update__c: data.entity.attributes.custom_update_date ? (data.entity.attributes.custom_update_date as string).split('T')[0] : '',
             Ente_Destinazione__c: entity_content.beneficiari?.map(b => b.labelSalesforce || b.label).join(';') || '',
             Misura__c: entity_content.misura?.idSalesforce || '',
             Pacchetto__c: entity_content.misura?.pacchetto || '',
-            Avviso__c: data.entity.attributes.id_avviso_salesforce,
+            //Avviso__c: data.entity.attributes.id_avviso_salesforce || '',
           });
         }
         break;

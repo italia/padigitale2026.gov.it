@@ -1,0 +1,21 @@
+#import "./fragments.graphql"
+
+query AllFilteredEnteBeneficiarios ($idBeneficiari: [ItemId]) {
+  allEnteBeneficiarios(
+    filter: {
+      id: {
+        in: $idBeneficiari
+      }
+    }
+  ) {
+    _createdAt
+    _updatedAt
+    label
+    labelSalesforce
+    id
+  }
+  _allEnteBeneficiariosMeta {
+    count
+  }
+}
+

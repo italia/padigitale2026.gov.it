@@ -37,10 +37,45 @@ export default function NavHeader({
   const mainLinks = props.header?.mainLinks || [];
   const secondaryLinks = props.header?.secondaryLinks || [];
 
-  const isActiveLink = (slug: string | null | undefined) => {
+  // Funzione per determinare se un link è attivo, dando priorità al più specifico
+  const isActiveLinkSpecific = (
+    slug: string | null | undefined,
+    allLinks: Array<{ slug?: string | null | undefined }>
+  ) => {
     if (!slug) return false;
     const linkPath = `/${slug}`;
-    return pathname === linkPath || pathname.startsWith(`${linkPath}/`);
+
+    // Se il pathname è esattamente uguale al link, controlla se non c'è un link più specifico
+    if (pathname === linkPath) {
+      // Trova se esiste un link più specifico che matcha esattamente il pathname
+      const moreSpecificLink = allLinks.find((link) => {
+        if (!link.slug) return false;
+        const otherLinkPath = `/${link.slug}`;
+        return (
+          pathname === otherLinkPath && otherLinkPath.length > linkPath.length
+        );
+      });
+      return !moreSpecificLink;
+    }
+
+    // Se il pathname inizia con il link, controlla se c'è un link più specifico
+    if (pathname.startsWith(`${linkPath}/`)) {
+      // Trova se esiste un link più specifico che matcha il pathname corrente
+      const moreSpecificLink = allLinks.find((link) => {
+        if (!link.slug) return false;
+        const otherLinkPath = `/${link.slug}`;
+        return (
+          (pathname === otherLinkPath ||
+            pathname.startsWith(`${otherLinkPath}/`)) &&
+          otherLinkPath.length > linkPath.length
+        );
+      });
+
+      // Se non c'è un link più specifico, questo è attivo
+      return !moreSpecificLink;
+    }
+
+    return false;
   };
 
   return (
@@ -50,7 +85,13 @@ export default function NavHeader({
           width: 100%;
         }
       `}</style>
-      <Header theme={openNav ? "light" : theme} type="navbar">
+      <Header
+        theme={openNav ? "light" : theme}
+        type="navbar"
+        className="px-0"
+        role="navigation"
+        aria-label="Navigazione principale"
+      >
         <HeaderContent expand="lg" className="px-0">
           <HeaderToggler
             aria-controls="nav1"
@@ -66,36 +107,45 @@ export default function NavHeader({
             navbar
             onOverlayClick={() => toggle()}
           >
-            <div className="menu-wrapper">
-              <Nav navbar>
+            <div
+              className="menu-wrapper"
+              role="navigation"
+              aria-label="Menu principale"
+            >
+              <Nav navbar aria-label="Menu principale" className="w-100">
                 <NavItem>
                   <NavLink href="https://padigitale2026--collaudo.sandbox.my.site.com/Pa_digitale2026_avvisi">
                     <span className="fw-semibold">Avvisi</span>
                   </NavLink>
                 </NavItem>
                 {mainLinks.map((link) => (
-                  <NavItem key={link.id} active={isActiveLink(link.slug)}>
+                  <NavItem
+                    key={link.id}
+                    active={isActiveLinkSpecific(link.slug, mainLinks)}
+                  >
                     <NavLink
-                      active={isActiveLink(link.slug)}
+                      active={isActiveLinkSpecific(link.slug, mainLinks)}
                       href={`/${link.slug || "#"}`}
                     >
                       <span className="fw-semibold">{link.title}</span>
-                      {isActiveLink(link.slug) && (
+                      {isActiveLinkSpecific(link.slug, mainLinks) && (
                         <span className="visually-hidden">current</span>
                       )}
                     </NavLink>
                   </NavItem>
                 ))}
-              </Nav>
-              <Nav navbar>
-                {secondaryLinks.map((link) => (
-                  <NavItem key={link.id} active={isActiveLink(link.slug)}>
+                {secondaryLinks.map((link, index) => (
+                  <NavItem
+                    key={link.id}
+                    active={isActiveLinkSpecific(link.slug, secondaryLinks)}
+                    className={index === 0 ? "ms-lg-auto" : ""}
+                  >
                     <NavLink
-                      active={isActiveLink(link.slug)}
+                      active={isActiveLinkSpecific(link.slug, secondaryLinks)}
                       href={`/${link.slug || "#"}`}
                     >
                       <span className="fw-semibold">{link.title}</span>
-                      {isActiveLink(link.slug) && (
+                      {isActiveLinkSpecific(link.slug, secondaryLinks) && (
                         <span className="visually-hidden">current</span>
                       )}
                     </NavLink>

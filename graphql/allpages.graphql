@@ -8,6 +8,12 @@ query AllPages {
     title
     slug
     customUpdateDate
+    nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment
@@ -83,6 +89,21 @@ query AllPages {
       }
       ... on FormToRecord {
         ...FormToFragment
+      }
+      ... on FormAssistanceRecord {
+        ...FormAssistanceFragment
+      }
+      ... on ImageTextColumnRecord {
+        ...ImageTextColumnFragment
+      }
+      ... on TextColumnRecord {
+        ...TextColumnFragment
+      }
+      ... on TextBicolumnRecord {
+        ...TextBicolumnFragment
+      }
+      ... on TimelineRecord {
+        ...TimelineFragment
       }
     }
   }

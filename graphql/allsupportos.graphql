@@ -7,6 +7,12 @@ query allSupportos {
     id
     title
     slug
+    nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     body {
       ... on HeroRecord {
         ...HeroFragment
@@ -56,9 +62,12 @@ query allSupportos {
       ... on FormToRecord {
         ...FormToFragment
       }
+      ... on FormAssistanceRecord {
+        ...FormAssistanceFragment
+      }
     }
   }
-  _allPagesMeta {
+  _allSupportosMeta {
     count
   }
 }

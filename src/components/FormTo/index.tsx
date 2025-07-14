@@ -1,9 +1,9 @@
 "use client";
 
-// import { FormToRecord } from "@/graphql/generated";
+import { FormToRecord } from "@/graphql/generated";
 
 import Link from "next/link";
-import { Button, Input, Select, TextArea } from "design-react-kit";
+import { Button, Input, Select, TextArea, Form } from "design-react-kit";
 import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
@@ -18,7 +18,8 @@ const cn = classNames.bind(styles);
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-function FormToContent() {
+function FormToContent({ props }: { props: FormToRecord }) {
+  const { id } = props;
   const [formState, setFormState] = useState({
     contact: "",
     name: "",
@@ -145,8 +146,13 @@ function FormToContent() {
   }
 
   return (
-    <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
-      <h2 className="mb-5">Lascia i tuoi dati per essere contattato</h2>
+    <div
+      className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}
+      aria-labelledby={id}
+    >
+      <h2 className="mb-5" id={id}>
+        Lascia i tuoi dati per essere contattato
+      </h2>
       <div className="row">
         <div className="col-12 col-md-10">
           <p className="text-muted">I campi con asterisco sono obbligatori</p>
@@ -156,151 +162,155 @@ function FormToContent() {
               {message}
             </div>
           )}
+          <Form>
+            <Row className="mt-5">
+              <Col md="6">
+                <Input
+                  id="contact"
+                  name="contact"
+                  label="Nome referente*"
+                  type="text"
+                  value={formState.contact}
+                  required
+                  onChange={(e) => {
+                    setFormState({
+                      ...formState,
+                      contact: e.target.value,
+                    });
+                  }}
+                />
+              </Col>
+              <Col md="6">
+                <Input
+                  id="name"
+                  name="name"
+                  label="Nome ente*"
+                  type="text"
+                  value={formState.name}
+                  required
+                  onChange={(e) => {
+                    setFormState({
+                      ...formState,
+                      name: e.target.value,
+                    });
+                  }}
+                />
+              </Col>
+            </Row>
 
-          <Row className="mt-5">
-            <Col md="6">
-              <Input
-                id="contact"
-                name="contact"
-                label="Nome referente*"
-                type="text"
-                value={formState.contact}
-                required
-                onChange={(e) => {
-                  setFormState({
-                    ...formState,
-                    contact: e.target.value,
-                  });
-                }}
-              />
-            </Col>
-            <Col md="6">
-              <Input
-                id="name"
-                name="name"
-                label="Nome ente*"
-                type="text"
-                value={formState.name}
-                required
-                onChange={(e) => {
-                  setFormState({
-                    ...formState,
-                    name: e.target.value,
-                  });
-                }}
-              />
-            </Col>
-          </Row>
+            <Row className="mt-5">
+              <Col md="6">
+                <Input
+                  id="address"
+                  name="address"
+                  label="Email*"
+                  type="email"
+                  value={formState.address}
+                  required
+                  onChange={(e) => {
+                    setFormState({
+                      ...formState,
+                      address: e.target.value,
+                    });
+                  }}
+                />
+              </Col>
+              <Col md="6">
+                <Input
+                  id="phone"
+                  name="phone"
+                  label="Contatto telefonico*"
+                  type="text"
+                  value={formState.phone}
+                  required
+                  onChange={(e) => {
+                    setFormState({
+                      ...formState,
+                      phone: e.target.value,
+                    });
+                  }}
+                />
+              </Col>
+            </Row>
 
-          <Row className="mt-5">
-            <Col md="6">
-              <Input
-                id="address"
-                name="address"
-                label="Email*"
-                type="email"
-                value={formState.address}
-                required
-                onChange={(e) => {
-                  setFormState({
-                    ...formState,
-                    address: e.target.value,
-                  });
-                }}
-              />
-            </Col>
-            <Col md="6">
-              <Input
-                id="phone"
-                name="phone"
-                label="Contatto telefonico*"
-                type="text"
-                value={formState.phone}
-                required
-                onChange={(e) => {
-                  setFormState({
-                    ...formState,
-                    phone: e.target.value,
-                  });
-                }}
-              />
-            </Col>
-          </Row>
-
-          <Row className="mt-5">
-            <Col md="6">
-              <Select
-                id="territory-select"
-                label="Territorio*"
-                value={formState.area}
-                required
-                onChange={(value) => {
-                  setFormState({
-                    ...formState,
-                    area: value,
-                  });
-                }}
-              >
-                <option label="Seleziona un'area locale"></option>
-                <option label="Nord est">nord-est</option>
-                <option label="Lombardia">lombardia</option>
-                <option label="Nord ovest">nord-ovest</option>
-                <option label="Centro">centro</option>
-                <option label="Sud est">sud-est</option>
-                <option label="Sud ovest">sud-ovest</option>
-              </Select>
-            </Col>
-          </Row>
-
-          <Row className="mt-5">
-            <Col md="12">
-              <TextArea
-                id="description"
-                name="description"
-                label="Note per essere contattati*"
-                rows={3}
-                value={formState.description}
-                onChange={handleDescriptionChange}
-              />
-              <div className="d-flex justify-content-between align-items-center mt-2">
-                <p className="text-muted mb-0">300 caratteri a disposizione</p>
-                <p
-                  className={`${
-                    formState.description.length > 250
-                      ? "text-warning"
-                      : "text-muted"
-                  }`}
+            <Row className="mt-5">
+              <Col md="6">
+                <Select
+                  id="territory-select"
+                  label="Territorio*"
+                  value={formState.area}
+                  required
+                  onChange={(value) => {
+                    setFormState({
+                      ...formState,
+                      area: value,
+                    });
+                  }}
                 >
-                  {formState.description.length}/300
-                </p>
-              </div>
-            </Col>
-          </Row>
+                  <option label="Seleziona un'area locale"></option>
+                  <option label="Nord est">nord-est</option>
+                  <option label="Lombardia">lombardia</option>
+                  <option label="Nord ovest">nord-ovest</option>
+                  <option label="Centro">centro</option>
+                  <option label="Sud est">sud-est</option>
+                  <option label="Sud ovest">sud-ovest</option>
+                </Select>
+              </Col>
+            </Row>
 
-          <p className="text-muted mt-5">
-            Cliccando su INVIA dichiaro di aver letto e compreso{" "}
-            <Link href="/privacy-policy">l&apos;informativa privacy</Link>
-          </p>
+            <Row className="mt-5">
+              <Col md="12">
+                <TextArea
+                  id="description"
+                  name="description"
+                  label="Note per essere contattati*"
+                  rows={3}
+                  maxLength={300}
+                  value={formState.description}
+                  onChange={handleDescriptionChange}
+                />
+                <div className="d-flex justify-content-between align-items-center mt-2">
+                  <p className="text-muted mb-0">
+                    300 caratteri a disposizione
+                  </p>
+                  <p
+                    className={`${
+                      formState.description.length > 250
+                        ? "text-warning"
+                        : "text-muted"
+                    }`}
+                  >
+                    {formState.description.length}/300
+                  </p>
+                </div>
+              </Col>
+            </Row>
 
-          <Row className="mt-4">
-            <Col sm="auto">
-              <Button
-                color="primary"
-                type="submit"
-                disabled={!isFormValid() || status === "loading"}
-                onClick={handleSubmit}
-              >
-                {status === "loading" ? "Invio in corso..." : "Invia"}
-              </Button>
-            </Col>
-          </Row>
+            <p className="text-muted mt-5">
+              Cliccando su INVIA dichiaro di aver letto e compreso{" "}
+              <Link href="/privacy-policy">l&apos;informativa privacy</Link>
+            </p>
+
+            <Row className="mt-4">
+              <Col sm="auto">
+                <Button
+                  color="primary"
+                  type="submit"
+                  disabled={!isFormValid() || status === "loading"}
+                  onClick={handleSubmit}
+                >
+                  {status === "loading" ? "Invio in corso..." : "Invia"}
+                </Button>
+              </Col>
+            </Row>
+          </Form>
         </div>
       </div>
     </div>
   );
 }
 
-export function FormTo() {
+export function FormTo({ props }: { props: FormToRecord }) {
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey="6Ldj-g4eAAAAAN0ee9NiyA28zbF6TD8cjjFxaOX0"
@@ -310,7 +320,7 @@ export function FormTo() {
         appendTo: "body",
       }}
     >
-      <FormToContent />
+      <FormToContent props={props} />
     </GoogleReCaptchaProvider>
   );
 }

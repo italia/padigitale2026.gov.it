@@ -1,0 +1,16 @@
+#import "./fragments.graphql"
+
+query Misura($id: ItemId) {
+  misura(filter: { id: { eq: $id } }) {
+    __typename
+    _createdAt
+    _updatedAt
+    label
+    id
+    pacchetto
+    idSalesforce
+  }
+  _allMisurasMeta {
+    count
+  }
+}

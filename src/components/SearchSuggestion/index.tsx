@@ -19,11 +19,18 @@ export function SearchSuggestion({
     onSuggestionClick(term);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, term: string) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onSuggestionClick(term);
+    }
+  };
+
   return (
     <div
       className={cn("wrapper", "container-xxl py-4 px-3")}
       role="region"
-      aria-labelledby={title ? `${id}-title` : undefined}
+      // aria-labelledby={title ? `${id}-title` : undefined}
     >
       {title && (
         <p id={`${id}-title`} className={cn("fw-bold")}>
@@ -32,27 +39,46 @@ export function SearchSuggestion({
       )}
 
       <ul
-        role="list"
-        aria-label={title ? `Lista ${title}` : "Lista elementi"}
-        className={cn("list-unstyled")}
+        role="listbox"
+        aria-label={
+          title
+            ? `Suggerimenti di ricerca: ${title}`
+            : "Suggerimenti di ricerca"
+        }
+        className={cn("list-unstyled p-0 m-0")}
       >
         {items.map((item, idx) => (
           <li
             key={idx}
+            role="option"
+            aria-selected="false"
             className={cn(
-              "d-flex align-items-center gap-3 px-2 py-3 border-bottom"
+              "d-flex align-items-center gap-3 px-2 py-3 border-bottom cursor-pointer",
+              "focus-within:bg-light focus-within:outline-none"
             )}
-            role="button"
+            tabIndex={0}
+            onClick={(e) => handleClick(e, item.keyword || "")}
+            onKeyDown={(e) => handleKeyDown(e, item.keyword || "")}
+            onFocus={(e) => {
+              e.currentTarget.setAttribute("aria-selected", "true");
+            }}
+            onBlur={(e) => {
+              e.currentTarget.setAttribute("aria-selected", "false");
+            }}
           >
-            <Icon icon="it-search" color="primary" size="sm" />
-            <div
+            <Icon
+              icon="it-search"
+              color="primary"
+              size="sm"
+              aria-hidden="true"
+            />
+            <span
               className={cn(
                 "fw-semibold text-primary text-decoration-underline"
               )}
-              onClick={(e) => handleClick(e, item.keyword || "")}
             >
               {item.keyword}
-            </div>
+            </span>
           </li>
         ))}
       </ul>
