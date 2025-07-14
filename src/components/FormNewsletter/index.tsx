@@ -240,7 +240,9 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
 
             <p className="text-muted mt-5">
               Cliccando su INVIA dichiaro di aver letto e compreso{" "}
-              <Link href="/privacy-policy">l&apos;informativa privacy</Link>
+              <Link href="https://padigitale2026-gov-it-develop.vercel.app/informativa-privacy">
+                l&apos;informativa privacy
+              </Link>
             </p>
 
             <Row className="mt-4">

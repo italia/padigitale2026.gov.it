@@ -84,16 +84,21 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
         priority: "Medium",
         ...mappedFields,
         "g-recaptcha-response": captchaToken,
-        captcha_settings: JSON.stringify({ keyname: "reCAPTCHA_prod", fallback: true, orgId: "00D7Q000001NvsR", ts: Date.now().toString() }),
+        captcha_settings: JSON.stringify({
+          keyname: "reCAPTCHA_prod",
+          fallback: true,
+          orgId: "00D7Q000001NvsR",
+          ts: Date.now().toString(),
+        }),
         debug: "1",
         submit: "INVIA",
       };
 
       // Chiama Salesforce tramite API route
-      const response = await fetch('/api/salesforce/assistenza', {
-        method: 'POST',
+      const response = await fetch("/api/salesforce/assistenza", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -102,7 +107,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 
       if (result.success) {
         setStatus("success");
-        setMessage("Abbiamo ricevuto la tua richiesta di assistenza su PA digitale 2026. Riceverai una risposta al più presto ai contatti indicati.");
+        setMessage(
+          "Abbiamo ricevuto la tua richiesta di assistenza su PA digitale 2026. Riceverai una risposta al più presto ai contatti indicati."
+        );
         // Reset del form
         setFormState({
           applicant: "",
@@ -133,9 +140,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
     recaptchaRef.current?.reset();
   };
 
-  const handleObjectChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleObjectChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     // Limita a 300 caratteri
     if (value.length <= 300) {
@@ -198,7 +203,6 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
             </div>
           )}
           <Form>
-
             <Row className="mt-5">
               <Col md="6">
                 <Select
@@ -214,7 +218,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   }}
                 >
                   <option label="Seleziona un richiedente"></option>
-                  <option label="Pubblica Amministrazione">Pubblica Amministrazione</option>
+                  <option label="Pubblica Amministrazione">
+                    Pubblica Amministrazione
+                  </option>
                   <option label="Fornitore">Fornitore</option>
                 </Select>
               </Col>
@@ -272,14 +278,20 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                 >
                   <option label="Seleziona un argomento"></option>
                   <option label="Amministrazione">Amministrazione</option>
-                  <option label="Implementazione e sviluppo progetto">Implementazione e sviluppo progetto</option>
-                  <option label="Malfunzionamento piattaforma">Malfunzionamento piattaforma</option>
-                  <option label="Processo di adesione e monitoraggio">Processo di adesione e monitoraggio</option>
+                  <option label="Implementazione e sviluppo progetto">
+                    Implementazione e sviluppo progetto
+                  </option>
+                  <option label="Malfunzionamento piattaforma">
+                    Malfunzionamento piattaforma
+                  </option>
+                  <option label="Processo di adesione e monitoraggio">
+                    Processo di adesione e monitoraggio
+                  </option>
                   <option label="Altro">Altro</option>
                 </Select>
               </Col>
               <Col md="6">
-              <Select
+                <Select
                   id="notice-select"
                   label="Avviso*"
                   value={formState.notice}
@@ -292,22 +304,43 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   }}
                 >
                   <option label="Non applicabile"></option>
-                  <option label="1.1 Infrastrutture digitali">1.1 Infrastrutture digitali (Altre PAC)</option>
-                  <option label="1.2 Abilitazione Cloud">1.2 Abilitazione e facilitazione migrazione al Cloud</option>
-                  <option label="1.1 e 1.2 Multimisura ASL/AO">1.1 e 1.2 Multimisura (ASL/AO)</option>
+                  <option label="1.1 Infrastrutture digitali">
+                    1.1 Infrastrutture digitali (Altre PAC)
+                  </option>
+                  <option label="1.2 Abilitazione Cloud">
+                    1.2 Abilitazione e facilitazione migrazione al Cloud
+                  </option>
+                  <option label="1.1 e 1.2 Multimisura ASL/AO">
+                    1.1 e 1.2 Multimisura (ASL/AO)
+                  </option>
                   <option label="1.3.1 ANNCSU">1.3.1 ANNCSU</option>
-                  <option label="1.3.1 Piattaforma Digitale Nazionale Dati">1.3.1 Piattaforma Digitale Nazionale Dati</option>
-                  <option label="1.4.1 Esperienza dei servizi pubblici">1.4.1 Esperienza dei servizi pubblici</option>
-                  <option label="1.4.3 Adozione app IO">1.4.3 Adozione appIO</option>
-                  <option label="1.4.3 Adozione pagoPA">1.4.3 Adozione pagoPA</option>
-                  <option label="1.4.4 Adozione SPID e CIE">1.4.4 Adozione identità digitale</option>
-                  <option label="1.4.4 Adozione ANSC (ANPR)">1.4.4 Adozione ANPR ANSC</option>
-                  <option label="1.4.5 Digitalizzazione avvisi pubblici">1.4.5 Digitalizzazione degli avvisi pubblici</option>
-                  <option label="2.2.3 Digitalizzazione SUAP e SUE">2.2.3 Digitalizzazione delle procedure SUAP e SUE</option>
-                </Select>                
+                  <option label="1.3.1 Piattaforma Digitale Nazionale Dati">
+                    1.3.1 Piattaforma Digitale Nazionale Dati
+                  </option>
+                  <option label="1.4.1 Esperienza dei servizi pubblici">
+                    1.4.1 Esperienza dei servizi pubblici
+                  </option>
+                  <option label="1.4.3 Adozione app IO">
+                    1.4.3 Adozione appIO
+                  </option>
+                  <option label="1.4.3 Adozione pagoPA">
+                    1.4.3 Adozione pagoPA
+                  </option>
+                  <option label="1.4.4 Adozione SPID e CIE">
+                    1.4.4 Adozione identità digitale
+                  </option>
+                  <option label="1.4.4 Adozione ANSC (ANPR)">
+                    1.4.4 Adozione ANPR ANSC
+                  </option>
+                  <option label="1.4.5 Digitalizzazione avvisi pubblici">
+                    1.4.5 Digitalizzazione degli avvisi pubblici
+                  </option>
+                  <option label="2.2.3 Digitalizzazione SUAP e SUE">
+                    2.2.3 Digitalizzazione delle procedure SUAP e SUE
+                  </option>
+                </Select>
               </Col>
             </Row>
-
 
             <Row className="mt-5">
               <Col md="12">
@@ -364,7 +397,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   >
                     {formState.description.length}/32000
                   </p>
-                </div>                
+                </div>
               </Col>
             </Row>
 
@@ -379,7 +412,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 
             <p className="text-muted mt-5">
               Cliccando su INVIA dichiaro di aver letto e compreso{" "}
-              <Link href="/privacy-policy">l&apos;informativa privacy</Link>
+              <Link href="https://padigitale2026-gov-it-develop.vercel.app/informativa-privacy">
+                l&apos;informativa privacy
+              </Link>
             </p>
 
             <Row className="mt-4">
@@ -390,7 +425,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   disabled={!isFormValid() || status === "loading"}
                   onClick={handleSubmit}
                 >
-                  {status === "loading" ? "Invio in corso..." : "Invia Richiesta"}
+                  {status === "loading"
+                    ? "Invio in corso..."
+                    : "Invia Richiesta"}
                 </Button>
               </Col>
             </Row>
@@ -402,7 +439,5 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 }
 
 export function FormAssistenza({ props }: { props: FormAssistanceRecord }) {
-  return (
-    <FormAssistenzaContent props={props} />
-  );
+  return <FormAssistenzaContent props={props} />;
 }
