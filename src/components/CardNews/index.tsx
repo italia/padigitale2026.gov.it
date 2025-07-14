@@ -32,7 +32,7 @@ export function CardNews({
       // aria-labelledby={
       //   parentId && title ? `title-${parentId}-${id}` : undefined
       // }
-      className={cn("it-card--news it-card pb-0 flex-grow-1", {
+      className={cn("it-card--news it-card p-0 flex-grow-1", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
         "bg-transparent border-bottom border-neutral-1-bg-a3":
@@ -42,17 +42,16 @@ export function CardNews({
       {title && (
         <TitleTag
           className={cn(
-            "it-card-title fw-semibold pb-3 lh-sm h-3 d-flex justify-content-between",
+            "it-card-title fw-semibold pb-3 lh-sm h4 d-flex justify-content-between",
             {
-              "h-3":
-                cardLayout && ["borderBottom", "clean"].includes(cardLayout),
-              "h-4": cardLayout && cardLayout === "bordered",
+              h3: cardLayout && ["borderBottom", "clean"].includes(cardLayout),
+              h4: cardLayout && cardLayout === "bordered",
               "px-0": cardLayout && cardLayout === "borderBottom",
             }
           )}
         >
           <Link
-            href={externalLink ?? `/${slug}`}
+            href={externalLink?.length ? externalLink : `/${slug}`}
             className={cn("decoration-1")}
             target={externalLink ? "_blank" : "_self"}
             id={parentId && title ? `title-${parentId}-${id}` : undefined}
@@ -73,7 +72,7 @@ export function CardNews({
         })}
       >
         {summary && (
-          <p className="it-card-text h-6 flex-grow-1 pb-4 mb-3">{summary}</p>
+          <p className="it-card-text flex-grow-1 pb-4 mb-3">{summary}</p>
         )}
         {(category || customUpdateDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>

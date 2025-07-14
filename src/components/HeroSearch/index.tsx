@@ -172,7 +172,7 @@ function SearchInput({
   return (
     <div ref={containerRef} className={cn("search-container")}>
       <Input
-        className={cn("black")}
+        // className={cn("")}
         buttonRight={
           <Button
             color="primary"
@@ -293,10 +293,16 @@ function Filters({
   // Don't show anything if there's no query or no results
   if (!query || !results?.hits?.length) return null;
 
-  // Extract unique content types from results
+  // Extract unique content types from results, exclude "page" and sort alphabetically
   const uniqueContentTypes = Array.from(
     new Set(results?.hits?.map((hit) => hit.content_type))
-  ).filter(Boolean);
+  )
+    .filter(Boolean)
+    .filter((contentType) => contentType !== "page")
+    .sort();
+
+  // Don't show filters if there are no content types available
+  if (uniqueContentTypes.length === 0) return null;
 
   return (
     <section className="container-xxl">
@@ -369,10 +375,13 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
 
   if (!query) return null;
 
-  // Extract unique content types from results
+  // Extract unique content types from results, exclude "page" and sort alphabetically
   const uniqueContentTypes = Array.from(
     new Set(results?.hits?.map((hit) => hit.content_type))
-  ).filter(Boolean);
+  )
+    .filter(Boolean)
+    .filter((contentType) => contentType !== "page")
+    .sort();
 
   // Filter results based on selected content types
   const filteredHits = results?.hits?.filter((hit) => {

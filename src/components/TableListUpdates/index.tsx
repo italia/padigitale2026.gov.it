@@ -143,17 +143,19 @@ export function TableListUpdates({
         <>
           <div className={cn("tableList")}>
             <div className={cn("tableListInner")}>
-              <Row
-                className="border-bottom border-2 py-4 px-0 mx-0"
-                aria-hidden={true}
-              >
-                <Col className="col-3 col-md-2 ps-0">
-                  <span className="h6 text-secondary">Data</span>
-                </Col>
-                <Col className="col-9 col-md-10 ps-0">
-                  <span className="h6 text-secondary">Descrizione</span>
-                </Col>
-              </Row>
+              {updates && updates.length > 0 && (
+                <Row
+                  className="border-bottom border-2 py-4 px-0 mx-0"
+                  aria-hidden={true}
+                >
+                  <Col className="col-3 col-md-2 ps-0">
+                    <span className="h6 text-secondary">Data</span>
+                  </Col>
+                  <Col className="col-9 col-md-10 ps-0">
+                    <span className="h6 text-secondary">Descrizione</span>
+                  </Col>
+                </Row>
+              )}
               <div
                 role="region"
                 aria-label="Lista aggiornamenti"
@@ -350,7 +352,7 @@ export function TableListUpdates({
         </Row>
       )}
 
-      {button && (
+      {button && updates && updates.length > 0 && (
         <Row>
           <Col
             className={cn("col-12 pt-5", {

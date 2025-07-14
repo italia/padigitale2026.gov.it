@@ -104,7 +104,7 @@ export default async function FaqPage({
   // Per le FAQ vere, usa getFaqData
   const pageData = await faqWithOption(fullSlugForCheck, false);
 
-  if (!pageData) return notFound();
+  if (!pageData || !pageData.faq) return notFound();
 
   const faq = pageData.faq;
 
