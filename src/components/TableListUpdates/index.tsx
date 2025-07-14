@@ -345,8 +345,10 @@ export function TableListUpdates({
           <Col className={cn({ "text-center": alignment === "center" })}>
             <p>
               <strong>Non ci sono aggiornamenti al momento.</strong> <br />
-              Iscriviti alla newsletter per ricevere aggiornamenti sulle
-              opportunità in arrivo.
+              <Link href={"/novita/newsletter"}>
+                Iscriviti alla newsletter
+              </Link>{" "}
+              per ricevere aggiornamenti sulle opportunità in arrivo.
             </p>
           </Col>
         </Row>
