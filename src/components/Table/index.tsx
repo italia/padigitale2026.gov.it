@@ -31,7 +31,7 @@ export function Table({ props }: { props: TableRecord }) {
       <Container>
         <Row>
           <Col className="p-0">
-            <DTable id={id}>
+            <DTable id={id} responsive>
               <thead>
                 <tr>
                   {tableData.columns.map((column: string, index: number) => (
