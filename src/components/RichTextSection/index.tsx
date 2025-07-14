@@ -11,10 +11,12 @@ import {
   AlertRecord,
   ImmagineRecord,
   TableListFaqRecord,
+  VideoPlayerRecord,
 } from "@/graphql/generated";
 import { Icon, Section, Container, Row, Col } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
 import { Alert } from "@/src/components/Alert";
+import { VideoPlayer } from "@/src/components/VideoPlayer";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -162,6 +164,10 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
             props={record as TableListFaqRecord}
             noPadding={true}
           />
+        );
+      case "VideoPlayerRecord":
+        return (
+          <VideoPlayer key={record.id} props={record as VideoPlayerRecord} />
         );
       default:
         return null;

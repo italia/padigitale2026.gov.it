@@ -27,6 +27,7 @@ import { TableList } from "../TableList";
 import { TableListFaq } from "../TableListFaq";
 import { TableListUpdates } from "@/src/components/TableListUpdates";
 import { Alert } from "@/src/components/Alert";
+import { VideoPlayer } from "@/src/components/VideoPlayer";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -120,6 +121,13 @@ export function RichText({ props }: { props: RichTextRecord }) {
       case "ImagesGridRecord":
         return (
           <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
+        );
+      case "VideoPlayerRecord":
+        return (
+          <VideoPlayer
+            key={record.id}
+            props={record as import("@/graphql/generated").VideoPlayerRecord}
+          />
         );
       case "LinkRecord":
         return (
