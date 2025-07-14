@@ -301,6 +301,9 @@ function Filters({
     .filter((contentType) => contentType !== "page")
     .sort();
 
+  // Don't show filters if there are no content types available
+  if (uniqueContentTypes.length === 0) return null;
+
   return (
     <section className="container-xxl">
       <fieldset>
