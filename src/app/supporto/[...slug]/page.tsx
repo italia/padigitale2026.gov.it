@@ -1,6 +1,7 @@
 import {
   getSupportoData,
   generateSupportoStaticParams,
+  getPageData,
 } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
@@ -42,9 +43,14 @@ export default async function SupportoPage({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
+  let pageData: any = {}
   const fullSlug = slug.join("/");
 
-  const pageData = await getSupportoData(fullSlug);
+  if (fullSlug === "domande-frequenti") {
+    pageData = await getPageData(`supporto/${fullSlug}`);
+  } else {
+    pageData = await getSupportoData(fullSlug);
+  }
 
   if (!pageData) return notFound();
 
