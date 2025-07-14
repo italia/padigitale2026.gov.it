@@ -293,10 +293,13 @@ function Filters({
   // Don't show anything if there's no query or no results
   if (!query || !results?.hits?.length) return null;
 
-  // Extract unique content types from results
+  // Extract unique content types from results, exclude "page" and sort alphabetically
   const uniqueContentTypes = Array.from(
     new Set(results?.hits?.map((hit) => hit.content_type))
-  ).filter(Boolean);
+  )
+    .filter(Boolean)
+    .filter((contentType) => contentType !== "page")
+    .sort();
 
   return (
     <section className="container-xxl">
@@ -369,10 +372,13 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
 
   if (!query) return null;
 
-  // Extract unique content types from results
+  // Extract unique content types from results, exclude "page" and sort alphabetically
   const uniqueContentTypes = Array.from(
     new Set(results?.hits?.map((hit) => hit.content_type))
-  ).filter(Boolean);
+  )
+    .filter(Boolean)
+    .filter((contentType) => contentType !== "page")
+    .sort();
 
   // Filter results based on selected content types
   const filteredHits = results?.hits?.filter((hit) => {
