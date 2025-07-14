@@ -114,7 +114,7 @@ export default function NavHeader({
             >
               <Nav navbar aria-label="Menu principale" className="w-100">
                 <NavItem>
-                  <NavLink href="https://padigitale2026--collaudo.sandbox.my.site.com/Pa_digitale2026_avvisi">
+                  <NavLink href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">
                     <span className="fw-semibold">Avvisi</span>
                   </NavLink>
                 </NavItem>
