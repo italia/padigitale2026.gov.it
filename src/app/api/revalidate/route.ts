@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const slug = data.entity.attributes.slug;
 
     if (slug) {
-      revalidatePath(`/${slug}`, "layout");
+      revalidatePath(`/${slug}`);
 
       return NextResponse.json({
         revalidate: true,
