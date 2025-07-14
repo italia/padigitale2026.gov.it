@@ -15,8 +15,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = slug.join("/");
+  let pageData: any = {}
 
-  const pageData = await getSupportoData(fullSlug);
+  if (fullSlug === "domande-frequenti") {
+    pageData = await getPageData(`supporto/${fullSlug}`);
+  } else {
+    pageData = await getSupportoData(fullSlug);
+  }
 
   if (!pageData) {
     return {
