@@ -88,9 +88,11 @@ export function ModularContent({
               _updatedAt: content.page?._updatedAt,
               title: content.page?.title || null,
               updateDate: content.page?.customUpdateDate || null,
-              argomento: (content.page as unknown as FaqRecord)?.category || null,
+              argomento:
+                (content.page as unknown as FaqRecord)?.category || null,
               misura: (content.page as unknown as FaqRecord)?.misura || null,
-              beneficiari: (content.page as unknown as FaqRecord)?.beneficiari || null,
+              beneficiari:
+                (content.page as unknown as FaqRecord)?.beneficiari || null,
             } as DataHeroRecord
           }
         />

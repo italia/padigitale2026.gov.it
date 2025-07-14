@@ -18,6 +18,7 @@ import {
   TableListUpdateRecord,
   AlertRecord,
   ImmagineRecord,
+  TableRecord,
 } from "@/graphql/generated";
 import { Col, Container, Icon, Row, Section } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
@@ -27,6 +28,8 @@ import { TableList } from "../TableList";
 import { TableListFaq } from "../TableListFaq";
 import { TableListUpdates } from "@/src/components/TableListUpdates";
 import { Alert } from "@/src/components/Alert";
+import { VideoPlayer } from "@/src/components/VideoPlayer";
+import { Table } from "@/src/components/Table";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -120,6 +123,13 @@ export function RichText({ props }: { props: RichTextRecord }) {
       case "ImagesGridRecord":
         return (
           <ImagesGrid key={record.id} props={record as ImagesGridRecord} />
+        );
+      case "VideoPlayerRecord":
+        return (
+          <VideoPlayer
+            key={record.id}
+            props={record as import("@/graphql/generated").VideoPlayerRecord}
+          />
         );
       case "LinkRecord":
         return (
@@ -233,6 +243,8 @@ export function RichText({ props }: { props: RichTextRecord }) {
             props={record as TableListUpdateRecord}
           />
         );
+      case "TableRecord":
+        return <Table key={record.id} props={record as TableRecord} />;
       default:
         return null;
     }
