@@ -45,7 +45,7 @@ export function SearchSuggestion({
             ? `Suggerimenti di ricerca: ${title}`
             : "Suggerimenti di ricerca"
         }
-        className={cn("list-unstyled p-0 m-0")}
+        className={cn("list-unstyled", "p-0 m-0")}
       >
         {items.map((item, idx) => (
           <li
@@ -53,7 +53,7 @@ export function SearchSuggestion({
             role="option"
             aria-selected="false"
             className={cn(
-              "d-flex align-items-center gap-3 px-2 py-3 border-bottom cursor-pointer",
+              "d-flex align-items-center gap-3 px-2 py-3 border-bottom",
               "focus-within:bg-light focus-within:outline-none"
             )}
             tabIndex={0}

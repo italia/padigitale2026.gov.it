@@ -1,6 +1,7 @@
 import {
   getSupportoData,
   generateSupportoStaticParams,
+  getPageData,
 } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
@@ -14,8 +15,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = slug.join("/");
+  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+  let pageData: any = {}
 
-  const pageData = await getSupportoData(fullSlug);
+  if (fullSlug === "domande-frequenti") {
+    pageData = await getPageData(`supporto/${fullSlug}`);
+  } else {
+    pageData = await getSupportoData(fullSlug);
+  }
 
   if (!pageData) {
     return {
@@ -42,9 +49,15 @@ export default async function SupportoPage({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
+  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+  let pageData: any = {}
   const fullSlug = slug.join("/");
 
-  const pageData = await getSupportoData(fullSlug);
+  if (fullSlug === "domande-frequenti") {
+    pageData = await getPageData(`supporto/${fullSlug}`);
+  } else {
+    pageData = await getSupportoData(fullSlug);
+  }
 
   if (!pageData) return notFound();
 

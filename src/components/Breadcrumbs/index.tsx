@@ -27,7 +27,7 @@ export function Breadcrumbs({
 }: BreadcrumbsProps) {
   const pathname = usePathname();
   const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>([]);
-  const { pages, faqs, news, resources, supportos } = usePages();
+  const { pages, faqs, news, resources, supportos, datis } = usePages();
 
   useEffect(() => {
     const generateBreadcrumbs = () => {
@@ -74,6 +74,14 @@ export function Breadcrumbs({
                 (p) => p.slug === currentPath.slice(1)
               );
               pageTitle = supportPage?.title || undefined;
+              break;
+
+            case currentPath.includes("open-data") ||
+              currentPath.includes("dati"):
+              const datiPage = datis.allDatis.find(
+                (p) => p.slug === currentPath.slice(1)
+              );
+              pageTitle = datiPage?.title || undefined;
               break;
 
             default:
@@ -124,6 +132,23 @@ export function Breadcrumbs({
             } else {
               pageTitle = supportPage.title || undefined;
             }
+          } else if (
+            currentPath.includes("open-data") ||
+            currentPath.includes("dati")
+          ) {
+            const datiPage = datis.allDatis.find(
+              (p) => p.slug === currentPath.slice(1)
+            );
+            pageTitle = datiPage?.title || undefined;
+            if (!pageTitle) {
+              let page = pages.allPages.find((p) => p.slug === segment);
+              if (!page) {
+                page = pages.allPages.find((p) =>
+                  p.slug?.endsWith(`/${segment}`)
+                );
+              }
+              pageTitle = page?.title || undefined;
+            }
           } else {
             // Per altri contesti, usa sempre getAllPages
             // Prima cerca una corrispondenza esatta
@@ -146,6 +171,16 @@ export function Breadcrumbs({
             href: currentPath,
             isActive: currentPath === pathname,
           });
+        } else {
+          // Fallback: usa il segmento formattato se non troviamo il titolo
+          const formattedSegment = segment
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
+          items.push({
+            title: formattedSegment,
+            href: currentPath,
+            isActive: currentPath === pathname,
+          });
         }
       }
 
@@ -153,7 +188,7 @@ export function Breadcrumbs({
     };
 
     generateBreadcrumbs();
-  }, [pathname, pages, faqs, news, resources, supportos]);
+  }, [pathname, pages, faqs, news, resources, supportos, datis]);
 
   if (breadcrumbs.length <= 1) return null;
 

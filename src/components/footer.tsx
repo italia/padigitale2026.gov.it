@@ -207,6 +207,11 @@ export default function Footer({ props }: { props: FooterQuery }) {
                 </Link>
               </li>
             ))}
+            <li className="list-inline-item">
+              <Link href="https://form.agid.gov.it/view/dbcec1e0-9db0-11ef-a95f-7358dfa49e66">
+                Dichiarazione di accessibilità
+              </Link>
+            </li>
           </ul>
           <BackToTop
             ariaLabel={"Clicca qui per tornare in alto"}
