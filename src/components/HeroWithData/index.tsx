@@ -89,7 +89,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   <p className="fw-semibold h-6 mb-0">{getBadge(props)}</p>
                 </div>
               )}
-              {beneficiari && (
+              {beneficiari && beneficiari.length > 0 && (
                 <div className={cn("text-secondary h-6")}>
                   <div className="fw-normal h-6">Beneficiari</div>
                   <p className="fw-semibold h-6 mb-0">
