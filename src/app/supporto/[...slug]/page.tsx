@@ -15,6 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = slug.join("/");
+  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
   let pageData: any = {}
 
   if (fullSlug === "domande-frequenti") {
@@ -48,6 +49,7 @@ export default async function SupportoPage({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
+  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
   let pageData: any = {}
   const fullSlug = slug.join("/");
 
