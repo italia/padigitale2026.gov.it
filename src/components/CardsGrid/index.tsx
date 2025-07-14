@@ -24,6 +24,7 @@ import {
   useCallback,
   useEffect,
   useState,
+  useMemo,
 } from "react";
 import { PaginationItem, PaginationLink } from "reactstrap";
 
@@ -199,6 +200,14 @@ export function CardsGrid({
   const [fetchedAnnouncements, setFetchedAnnouncements] = useState<
     Avviso[] | null
   >(null);
+
+  // Variabile per verificare se tutti gli avvisi sono chiusi
+  const allAnnouncementsClosed = useMemo(() => {
+    if (!fetchedAnnouncements || fetchedAnnouncements.length === 0) {
+      return false;
+    }
+    return fetchedAnnouncements.every(announcement => announcement.status !== "PUBBLICATO");
+  }, [fetchedAnnouncements]);
 
   useEffect(() => {
     if (__typename === "CardsGridAnnouncementRecord") {
@@ -381,7 +390,7 @@ export function CardsGrid({
             </div>
           </div>
 
-          {(announcements &&
+          {(announcements && announcements.length > 0 && !allAnnouncementsClosed &&
             (() => {
               if (columns === 1) {
                 colClasses = "col-12";
@@ -426,11 +435,38 @@ export function CardsGrid({
               );
             })()) ||
             (__typename === "CardsGridAnnouncementRecord" &&
+              fetchedAnnouncements !== null && announcements && announcements.length === 0 && (
+                <Row role="region" aria-label="Non ci sono avvisi aperti al momento">
+                  <Col className={cn({ "text-center": alignment === "center" })}>
+                    <p>
+                      <strong>Non ci sono avvisi aperti al momento.</strong> <br />
+                      Non ci sono avvisi aperti al momento. <Link href={'/novita/newsletter'}>Iscriviti alla newsletter</Link> per ricevere 
+                      aggiornamenti sulle opportunità in arrivo o <Link href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">vai a tutti gli avvisi</Link> per 
+                      consultare quelli già chiusi.
+                    </p>
+                  </Col>
+                </Row>
+            )) ||
+            (__typename === "CardsGridAnnouncementRecord" &&
               fetchedAnnouncements === null && (
                 <div className="col-12 text-center my-5" role="status">
                   <span>Caricamento...</span>
                 </div>
-              ))}
+            )) ||
+            (__typename === "CardsGridAnnouncementRecord" &&
+              fetchedAnnouncements !== null && allAnnouncementsClosed && (
+                <Row role="region" aria-label="Non ci sono avvisi aperti al momento">
+                  <Col className={cn({ "text-center": alignment === "center" })}>
+                    <p>
+                      <strong>Non ci sono avvisi aperti al momento.</strong> <br />
+                      Non ci sono avvisi aperti al momento. <Link href={'/novita/newsletter'}>Iscriviti alla newsletter</Link> per ricevere 
+                      aggiornamenti sulle opportunità in arrivo o <Link href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">vai a tutti gli avvisi</Link> per 
+                      consultare quelli già chiusi.
+                    </p>
+                  </Col>
+                </Row>
+              ))
+          }
 
           {(resources &&
             (() => {
