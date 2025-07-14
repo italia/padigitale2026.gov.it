@@ -105,7 +105,7 @@ export async function getAvvisi(
         fondiDisponibili1: r.Fondi_disponibili_Padre_1__c,
         fondiDisponibili2: r.Fondi_disponibili_Padre_2__c,
         totalProgramAmount: r.outfunds__Total_Program_Amount__c,
-        beneficiari: r.SOGGETTI_DESTINATARI__c?.split(";"),
+        beneficiari: r.Enti_Beneficiari_CMS__c?.split(";"),
         plateaPotenziale: r.Platea_potenziale__c,
         oggettoBando: r.Oggetto_Bando__c,
         url: `${process.env.SF_URL}?id=${r.Id}`,
