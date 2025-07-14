@@ -172,7 +172,7 @@ function SearchInput({
   return (
     <div ref={containerRef} className={cn("search-container")}>
       <Input
-        className={cn("black")}
+        // className={cn("")}
         buttonRight={
           <Button
             color="primary"
