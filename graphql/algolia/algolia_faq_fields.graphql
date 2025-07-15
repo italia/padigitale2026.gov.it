@@ -3,6 +3,9 @@ fragment FaqFields on FaqRecord {
   id
   title
   slug
+  seo {
+    noIndex
+  }
   body {
     ... on LayoutSidebarRecord {
       __typename

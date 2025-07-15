@@ -3,6 +3,9 @@ fragment PageFields on PageRecord {
   id
   title
   slug
+  seo {
+    noIndex
+  }
   body {
     ... on LayoutSidebarRecord {
       __typename

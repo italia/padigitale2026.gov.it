@@ -3,6 +3,9 @@ fragment NewsFields on NewsRecord {
   id
   title
   slug
+  seo {
+    noIndex
+  }
   body {
     ... on LayoutSidebarRecord {
       __typename
