@@ -1,51 +1,96 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+   <img src="./padigitale.png" width="600" />
+</div>
 
-## Getting Started
+# PA Digitale 2026
 
-First, run the development server:
+Questo è il repository del progetto PA Digitale 2026, un'applicazione web sviluppata con Next.js e un set completo di strumenti moderni per il frontend.
+
+[English version](README-en.md)
+
+## Tecnologie Principali
+
+- [Next.js](https://nextjs.org/) - Framework React per la produzione
+- [DatoCMS](https://www.datocms.com/) - Headless CMS per la gestione dei contenuti
+- [Bootstrap Italia](https://italia.github.io/bootstrap-italia/) - Libreria di componenti UI per la PA
+- [Design React Kit](https://italia.github.io/design-react-kit/) - Componenti React del Design System della PA
+- [Bun](https://bun.sh/) - Runtime JavaScript e gestore pacchetti
+
+## Prerequisiti
+
+- [Bun](https://bun.sh/) (raccomandato)
+- Node.js 18+ (alternativa)
+
+## Installazione
+
+1. Clona il repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [url-repository]
+cd padigitale2026.gov.it
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installa le dipendenze:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Configura le variabili d'ambiente:
+   - Copia il file `.env.dist` in `.env`
+   - Compila le variabili d'ambiente necessarie nel file `.env`
 
-## Learn More
+## Sviluppo Locale
 
-To learn more about Next.js, take a look at the following resources:
+Per avviare il server di sviluppo con Bun (consigliato):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## startup
-
-To start the dev server with Bun, run bun --bun run dev from the project root.
-
-```zsh
+```bash
 bun --bun run dev
 ```
 
-To run the dev server with Node.js instead, omit --bun.
+Per utilizzare Node.js invece di Bun:
 
-```zsh
+```bash
 bun run dev
 ```
 
+L'applicazione sarà disponibile all'indirizzo [http://localhost:3000](http://localhost:3000).
+
+## Build e Produzione
+
+Per costruire l'applicazione per la produzione:
+
+```bash
+bun run build
+```
+
+Per avviare il server in modalità produzione:
+
+```bash
+bun run start
+```
+
+## Altri Comandi Utili
+
+- `bun run lint` - Esegue il linting del codice
+- `bun run codegen` - Genera i tipi GraphQL
+
+## Configurazione
+
+Il progetto richiede diverse variabili d'ambiente per funzionare correttamente. Un template delle variabili necessarie è disponibile nel file `.env.dist`. È necessario creare un file `.env` locale con i valori appropriati per:
+
+- Configurazione DatoCMS
+- Redis
+- Vercel/Next.js
+- Algolia
+- Salesforce
+- Altri servizi integrati
+
+## Contribuire
+
+Per contribuire al progetto, assicurati di:
+
+1. Creare un branch per le tue modifiche
+2. Seguire le convenzioni di codice del progetto
+3. Testare le modifiche localmente
+4. Inviare una Pull Request con una descrizione dettagliata delle modifiche

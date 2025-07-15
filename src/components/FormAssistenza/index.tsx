@@ -303,7 +303,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     });
                   }}
                 >
-                  <option label="Non applicabile"></option>
+                  <option label="Nessuno">Nessuno</option>
                   <option label="1.1 Infrastrutture digitali">
                     1.1 Infrastrutture digitali (Altre PAC)
                   </option>
@@ -353,6 +353,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   maxLength={150}
                   value={formState.object}
                   onChange={handleObjectChange}
+                  wrapperClassName="mb-0"
                 />
                 <div className="d-flex justify-content-between align-items-center mt-2">
                   <p className="text-muted mb-0">
@@ -383,6 +384,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   maxLength={32000}
                   value={formState.description}
                   onChange={handleDescriptionChange}
+                  wrapperClassName="mb-0"
                 />
                 <div className="d-flex justify-content-between align-items-center mt-2">
                   <p className="text-muted mb-0">
