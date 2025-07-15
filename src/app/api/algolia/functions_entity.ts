@@ -55,6 +55,18 @@ export async function indexEntity(
       throw Error("Trying to index an unrecognized content type");
   }
 
+  // Gestione del NOINDEX:
+  // Se il noIndex è settato a true, va tentata la cancellazione del record
+  // su Algolia. In ogni caso, se il noIndex è true, l'indicizzazione su
+  // Algolia viene saltata.
+  if (entity_content?.seo?.noIndex) {
+    await removeEntity(entity_content.id, algoliaClient)
+
+    return {
+      message: `La entity con ID ${entity_content.id} è stata rimossa da Algolia (o non indicizzata).`
+    }
+  }
+
   // da qui in poi entity_content ha la stessa struttura
   // indipendentemente dal content type.
 

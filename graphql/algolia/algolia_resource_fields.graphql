@@ -3,6 +3,9 @@ fragment ResourceFields on ResourceRecord {
   id
   title
   slug
+  seo {
+    noIndex
+  }
   body {
     ... on LayoutSidebarRecord {
       __typename

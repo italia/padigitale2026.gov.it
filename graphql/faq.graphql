@@ -23,6 +23,7 @@ query Faq($slug: String) {
       basePath
       idSalesforce
       pacchetto
+      ancora
     }
     body {
       ... on HeroRecord {
