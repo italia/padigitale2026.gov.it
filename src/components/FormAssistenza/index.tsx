@@ -303,7 +303,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     });
                   }}
                 >
-                  <option label="Non applicabile"></option>
+                  <option label="Non applicabile">Nessuno</option>
                   <option label="1.1 Infrastrutture digitali">
                     1.1 Infrastrutture digitali (Altre PAC)
                   </option>
