@@ -77,7 +77,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
                   <a
                     className="fw-semibold h-6"
                     // href={`${misura.basePath || ""}${misura.slug || ""}`}
-                    href={`/misure`}
+                    href={`${parentPath}${misura.ancora || ""}`}
                   >
                     {misura.label}
                   </a>
