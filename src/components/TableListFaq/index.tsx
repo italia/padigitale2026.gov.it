@@ -46,8 +46,8 @@ export function TableListFaq({
     console.warn("TableListFaq: questionsRef is missing or empty");
     return (
       <div role="region" aria-label="Nessuna domanda frequente disponibile">
-        <p className="text-center">
-          <strong>Non ci sono domande frequenti al momento.</strong>
+        <p>
+          Non ci sono domande frequenti al momento.
         </p>
       </div>
     );
