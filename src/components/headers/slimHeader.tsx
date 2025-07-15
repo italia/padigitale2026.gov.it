@@ -59,7 +59,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
             className="btn-icon btn-full"
             color="primary"
             title={"Clicca qui per accedere all&#39;area personale"}
-            href="#"
+            href="https://areariservata.padigitale2026.gov.it/sis_SpidPage"
           >
             <span className="rounded-icon">
               <Icon color="primary" icon="it-user" />

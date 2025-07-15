@@ -49,21 +49,21 @@ export function Breadcrumbs({
           switch (true) {
             case currentPath.includes("domande-frequenti/"):
               const faqPage = faqs.allFaqs.find(
-                (p) => p.slug === currentPath.slice(1)
+                (p) => p.slug === currentPath.slice(1),
               );
               pageTitle = faqPage?.title || undefined;
               break;
 
             case currentPath.includes("notizie/"):
               const newsPage = news.allNews.find(
-                (p) => p.slug === currentPath.slice(1)
+                (p) => p.slug === currentPath.slice(1),
               );
               pageTitle = newsPage?.title || undefined;
               break;
 
             case currentPath.includes("guide-e-risorse/"):
               const resourcePage = resources.allResources.find(
-                (p) => p.slug === currentPath.slice(1)
+                (p) => p.slug === currentPath.slice(1),
               );
               pageTitle = resourcePage?.title || undefined;
               break;
@@ -71,7 +71,7 @@ export function Breadcrumbs({
             case currentPath.includes("supporto/"):
               // Qui puoi aggiungere eccezioni future se necessario
               const supportPage = supportos.allSupportos.find(
-                (p) => p.slug === currentPath.slice(1)
+                (p) => p.slug === currentPath.slice(1),
               );
               pageTitle = supportPage?.title || undefined;
               break;
@@ -79,14 +79,14 @@ export function Breadcrumbs({
             case currentPath.includes("open-data") ||
               currentPath.includes("dati"):
               const datiPage = datis.allDatis.find(
-                (p) => p.slug === currentPath.slice(1)
+                (p) => p.slug === currentPath.slice(1),
               );
               pageTitle = datiPage?.title || undefined;
               break;
 
             default:
               const normalPage = pages.allPages.find(
-                (p) => p.slug === currentPath.slice(1)
+                (p) => p.slug === currentPath.slice(1),
               );
               pageTitle = normalPage?.title || undefined;
               break;
@@ -98,7 +98,7 @@ export function Breadcrumbs({
           if (currentPath.includes("guide-e-risorse/")) {
             // Prima cerca nelle risorse
             const resource = resources.allResources.find(
-              (r) => r.slug === currentPath.slice(1)
+              (r) => r.slug === currentPath.slice(1),
             );
 
             // Se non trova nelle risorse, cerca nelle pagine normali
@@ -108,7 +108,7 @@ export function Breadcrumbs({
               // Se non trova una corrispondenza esatta, cerca una corrispondenza parziale
               if (!page) {
                 page = pages.allPages.find((p) =>
-                  p.slug?.endsWith(`/${segment}`)
+                  p.slug?.endsWith(`/${segment}`),
                 );
               }
 
@@ -119,13 +119,13 @@ export function Breadcrumbs({
           } else if (currentPath.includes("supporto/")) {
             // Qui puoi aggiungere eccezioni future se necessario
             const supportPage = supportos.allSupportos.find(
-              (p) => p.slug === currentPath.slice(1)
+              (p) => p.slug === currentPath.slice(1),
             );
             if (!supportPage) {
               let page = pages.allPages.find((p) => p.slug === segment);
               if (!page) {
                 page = pages.allPages.find((p) =>
-                  p.slug?.endsWith(`/${segment}`)
+                  p.slug?.endsWith(`/${segment}`),
                 );
               }
               pageTitle = page?.title || undefined;
@@ -137,14 +137,14 @@ export function Breadcrumbs({
             currentPath.includes("dati")
           ) {
             const datiPage = datis.allDatis.find(
-              (p) => p.slug === currentPath.slice(1)
+              (p) => p.slug === currentPath.slice(1),
             );
             pageTitle = datiPage?.title || undefined;
             if (!pageTitle) {
               let page = pages.allPages.find((p) => p.slug === segment);
               if (!page) {
                 page = pages.allPages.find((p) =>
-                  p.slug?.endsWith(`/${segment}`)
+                  p.slug?.endsWith(`/${segment}`),
                 );
               }
               pageTitle = page?.title || undefined;
@@ -157,7 +157,7 @@ export function Breadcrumbs({
             // Se non trova una corrispondenza esatta, cerca una corrispondenza parziale
             if (!page) {
               page = pages.allPages.find((p) =>
-                p.slug?.endsWith(`/${segment}`)
+                p.slug?.endsWith(`/${segment}`),
               );
             }
 
@@ -175,7 +175,9 @@ export function Breadcrumbs({
           // Fallback: usa il segmento formattato se non troviamo il titolo
           const formattedSegment = segment
             .replace(/-/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase());
+            .replace(/^\w/, (l) => l.toUpperCase())
+            .toLowerCase()
+            .replace(/^\w/, (l) => l.toUpperCase());
           items.push({
             title: formattedSegment,
             href: currentPath,
