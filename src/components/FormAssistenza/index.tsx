@@ -176,7 +176,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
               <p>{message}</p>
               <hr />
               <Button color="primary" onClick={resetForm}>
-                Invia un altro messaggio
+                Invia una nuova richiesta
               </Button>
             </div>
           </div>
