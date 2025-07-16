@@ -360,11 +360,10 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     150 caratteri a disposizione
                   </p>
                   <p
-                    className={`${
-                      formState.object.length > 100
+                    className={`${formState.object.length > 100
                         ? "text-warning"
                         : "text-muted"
-                    }`}
+                      }`}
                   >
                     {formState.object.length}/150
                   </p>
@@ -391,11 +390,10 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     32000 caratteri a disposizione
                   </p>
                   <p
-                    className={`${
-                      formState.description.length > 31950
+                    className={`${formState.description.length > 31950
                         ? "text-warning"
                         : "text-muted"
-                    }`}
+                      }`}
                   >
                     {formState.description.length}/32000
                   </p>
@@ -413,7 +411,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
             </Row>
 
             <p className="text-muted mt-5">
-              Cliccando su INVIA dichiaro di aver letto e compreso{" "}
+              Cliccando su "Invia richiesta" dichiaro di aver letto e compreso{" "}
               <Link href="https://padigitale2026-gov-it-develop.vercel.app/informativa-privacy">
                 l&apos;informativa privacy
               </Link>

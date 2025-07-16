@@ -11,7 +11,7 @@ const redis = createClient({ url: process.env.REDIS_URL });
 await redis.connect();
 
 // TODO: Muovere in env var?
-const RATE_LIMIT = 10;
+const RATE_LIMIT = 20;
 const WINDOW_SECONDS = 300; // 5 minuti
 
 import cors_headers from "../cors_headers.json";
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
   const client = buildClient({ apiToken: process.env.FEEDBACK_API_TOKEN });
 
   try {
-    await client.items.create({
+    const response = await client.items.create({
       item_type: {
         type: "item_type",
         id: process.env.FEEDBACK_SCHEMA_ID,
