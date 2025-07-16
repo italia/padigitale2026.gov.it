@@ -80,12 +80,18 @@ export default function Footer({ props }: { props: FooterQuery }) {
                   </div>
 
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2">
-                    <Image
-                      src="/images/logo-dipartimento.svg"
-                      alt="Logo Dipartimento per la trasformazione digitale"
-                      width={217}
-                      height={41}
-                    />
+                    <Link
+                      href="https://www.innovazione.gov.it/"
+                      title="Vai al sito del Dipartimento per la trasformazione digitale"
+                      className="d-flex align-items-center text-decoration-none"
+                    >
+                      <Image
+                        src="/images/logo-dipartimento.svg"
+                        alt="Logo Dipartimento per la trasformazione digitale"
+                        width={217}
+                        height={41}
+                      />
+                    </Link>
                   </div>
                 </div>
               </Col>
@@ -100,13 +106,18 @@ export default function Footer({ props }: { props: FooterQuery }) {
               <Col sm={12} className="px-0">
                 <div className="it-brand-wrapper d-flex align-items-center">
                   {/* <Icon icon="it-pa" /> */}
-                  <Image
-                    src="/images/site-logo_white.svg"
-                    alt="Logo PA digitale 2026"
-                    width={49}
-                    height={48}
-                    className="me-1"
-                  />
+                  <Link
+                    href="https://padigitale2026.gov.it/"
+                    title="Vai in homepage"
+                  >
+                    <Image
+                      src="/images/site-logo_white.svg"
+                      alt="Logo PA digitale 2026"
+                      width={49}
+                      height={48}
+                      className="me-1"
+                    />
+                  </Link>
                   <div className="it-brand-text ms-2 pt-1">
                     <div className="m-0 h-5 fw-semibold">{title}</div>
                   </div>
