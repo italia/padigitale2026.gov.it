@@ -176,7 +176,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
               <p>{message}</p>
               <hr />
               <Button color="primary" onClick={resetForm}>
-                Invia un altro messaggio
+                Invia una nuova richiesta
               </Button>
             </div>
           </div>
@@ -303,6 +303,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     });
                   }}
                 >
+                  <option label="Seleziona un avviso"></option>
                   <option label="Nessuno">Nessuno</option>
                   <option label="1.1 Infrastrutture digitali">
                     1.1 Infrastrutture digitali (Altre PAC)

@@ -136,7 +136,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
               <p>{message}</p>
               <hr />
               <Button color="primary" onClick={resetForm}>
-                Invia un altro messaggio
+                Invia una nuova richiesta
               </Button>
             </div>
           </div>
