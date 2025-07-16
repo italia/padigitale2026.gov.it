@@ -43,6 +43,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                       href="https://commission.europa.eu/index_it"
                       title="Vai al sito della Commissione Europea"
                       className="d-flex align-items-center"
+                      target="_blank"
                     >
                       <Image
                         src="/images/logo-eu.svg"
@@ -58,6 +59,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                       href="https://www.governo.it/"
                       title="Vai al sito del Governo Italiano"
                       className="d-flex align-items-center text-decoration-none"
+                      target="_blank"
                     >
                       <Image
                         src="/images/logo-ri.svg"
@@ -80,12 +82,19 @@ export default function Footer({ props }: { props: FooterQuery }) {
                   </div>
 
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2">
-                    <Image
-                      src="/images/logo-dipartimento.svg"
-                      alt="Logo Dipartimento per la trasformazione digitale"
-                      width={217}
-                      height={41}
-                    />
+                    <Link
+                      href="https://innovazione.gov.it/"
+                      title="Vai al sito del Dipartimento per la trasformazione digitale"
+                      className="d-flex align-items-center text-decoration-none"
+                      target="_blank"
+                    >
+                      <Image
+                        src="/images/logo-dipartimento.svg"
+                        alt="Logo Dipartimento per la trasformazione digitale"
+                        width={217}
+                        height={41}
+                      />
+                    </Link>
                   </div>
                 </div>
               </Col>
