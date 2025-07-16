@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
   const client = buildClient({ apiToken: process.env.FEEDBACK_API_TOKEN });
 
   try {
-    const response = await client.items.create({
+    await client.items.create({
       item_type: {
         type: "item_type",
         id: process.env.FEEDBACK_SCHEMA_ID,

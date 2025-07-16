@@ -20,7 +20,7 @@ import {
   SitemapPagesDocument,
   PageQueryVariables,
   FooterDocument,
-  HeaderDocument,  
+  HeaderDocument,
   AlgoliaPageDocument,
   AlgoliaPageQueryVariables,
   AllUpdatesDocument,
@@ -49,7 +49,7 @@ import {
 import { unstable_cache } from "next/cache";
 
 // Cache revalidation time in seconds (2 minutes)
-const CACHE_REVALIDATION_TIME = 120;
+// const CACHE_REVALIDATION_TIME = 120;
 
 if (!process.env.DATOCMS_API_TOKEN) {
   throw new Error(
@@ -66,7 +66,7 @@ const baseOptions = {
 function getOptions(referer: string) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://padigitale2026.gov.it';
   const refererUrl = `${baseUrl}/api/${referer}`;
-  
+
   return {
     ...baseOptions,
     referer: refererUrl,
@@ -93,7 +93,6 @@ export const getAllPages = unstable_cache(
   },
   ['getAllPages'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['pages']
   }
 );
@@ -118,7 +117,6 @@ export const page = unstable_cache(
   },
   ['page'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['pages']
   }
 );
@@ -144,7 +142,6 @@ export const getAllFilteredUpdates = unstable_cache(
   },
   ['getAllFilteredUpdates'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['updates']
   }
 );
@@ -165,7 +162,6 @@ export const getAllSupportos = unstable_cache(
   },
   ['getAllSupportos'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['supportos']
   }
 );
@@ -179,7 +175,7 @@ export const supporto = unstable_cache(
         function: "supporto",
         slug
       }
-    });    
+    });
     return executeQuery(SupportoDocument, {
       ...getOptions(`fn_name:supporto|slug:${slug}`),
       variables: {
@@ -190,7 +186,6 @@ export const supporto = unstable_cache(
   },
   ['faq'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['faqs']
   }
 );
@@ -211,7 +206,6 @@ export const getAllFaqs = unstable_cache(
   },
   ['getAllFaqs'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['faqs']
   }
 );
@@ -225,7 +219,7 @@ export const faq = unstable_cache(
         function: "faq",
         slug
       }
-    });    
+    });
     return executeQuery(FaqDocument, {
       ...getOptions(`fn_name:faq|slug:${slug}`),
       variables: {
@@ -236,7 +230,6 @@ export const faq = unstable_cache(
   },
   ['faq'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['faqs']
   }
 );
@@ -257,7 +250,6 @@ export const getAllNews = unstable_cache(
   },
   ['getAllNews'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['news']
   }
 );
@@ -271,7 +263,7 @@ export const news = unstable_cache(
         function: "news",
         slug
       }
-    });    
+    });
     return executeQuery(NewsDocument, {
       ...getOptions(`fn_name:news|slug:${slug}`),
       variables: {
@@ -282,7 +274,6 @@ export const news = unstable_cache(
   },
   ['news'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['news']
   }
 );
@@ -303,7 +294,6 @@ export const getAllDatis = unstable_cache(
   },
   ['getAllResources'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['resources']
   }
 );
@@ -328,7 +318,6 @@ export const dati = unstable_cache(
   },
   ['dati'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['dati']
   }
 );
@@ -349,7 +338,6 @@ export const getAllResources = unstable_cache(
   },
   ['getAllResources'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['resources']
   }
 );
@@ -374,7 +362,6 @@ export const resource = unstable_cache(
   },
   ['resource'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['resources']
   }
 );
@@ -392,7 +379,6 @@ export const getFooter = unstable_cache(
   },
   ['getFooter'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['footer']
   }
 );
@@ -410,7 +396,6 @@ export const getHeader = unstable_cache(
   },
   ['getHeader'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['header']
   }
 );
@@ -431,7 +416,6 @@ export const getSitemapPages = unstable_cache(
   },
   ['getSitemapPages'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['sitemap']
   }
 );
@@ -452,7 +436,6 @@ export const getAllEnteBeneficiarios = unstable_cache(
   },
   ['getAllEnteBeneficiarios'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['beneficiari']
   }
 );
@@ -478,7 +461,6 @@ export const getAllFilteredEnteBeneficiarios = unstable_cache(
   },
   ['getAllFilteredEnteBeneficiarios'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['beneficiari']
   }
 );
@@ -499,7 +481,6 @@ export const getAllEntePromotores = unstable_cache(
   },
   ['getAllEntePromotores'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['promotores']
   }
 );
@@ -520,7 +501,6 @@ export const getAllMisuras = unstable_cache(
   },
   ['getAllMisuras'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['misura']
   }
 );
@@ -545,7 +525,6 @@ export const misura = unstable_cache(
   },
   ['misura'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['misura']
   }
 );
@@ -571,7 +550,6 @@ export const getAllFilteredMisuras = unstable_cache(
   },
   ['getAllFilteredMisuras'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['misure']
   }
 );
@@ -596,7 +574,6 @@ export const update = unstable_cache(
   },
   ['update'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['update']
   }
 );
@@ -617,7 +594,6 @@ export const getAllUpdates = unstable_cache(
   },
   ['getAllUpdates'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['updates']
   }
 );
@@ -642,7 +618,6 @@ export const guideline = unstable_cache(
   },
   ['guideline'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['guidelines']
   }
 );
@@ -663,7 +638,6 @@ export const getAllGuidelines = unstable_cache(
   },
   ['getAllGuidelines'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['guidelines']
   }
 );
@@ -688,7 +662,6 @@ export const argomento = unstable_cache(
   },
   ['argomento'],
   {
-    revalidate: CACHE_REVALIDATION_TIME,
     tags: ['argomento']
   }
 );
@@ -791,7 +764,7 @@ export async function supportoWithOption(slug: string, useCache: boolean = true)
         slug,
         useCache: false
       }
-    });    
+    });
     return executeQuery(SupportoDocument, {
       ...getOptions(`fn_name:supporto|slug:${slug}`),
       variables: {
@@ -833,7 +806,7 @@ export async function faqWithOption(slug: string, useCache: boolean = true) {
         slug,
         useCache: false
       }
-    });    
+    });
     return executeQuery(FaqDocument, {
       ...getOptions(`fn_name:faq|slug:${slug}`),
       variables: {
@@ -875,7 +848,7 @@ export async function newsWithOption(slug: string, useCache: boolean = true) {
         slug,
         useCache: false
       }
-    });    
+    });
     return executeQuery(NewsDocument, {
       ...getOptions(`fn_name:news|slug:${slug}`),
       variables: {
@@ -1330,16 +1303,16 @@ export async function sendPostToBetterStack(data: {
 
   // Get caller information from stack trace
   const stack = new Error().stack;
-  
+
   // Get all stack lines, skipping the first line (Error:)
   const stackLines = stack?.split('\n').slice(1) || [];
-  
+
   // Find the first line that doesn't contain internal Next.js or Node.js paths
   const relevantStack = stackLines
     .map(line => line.trim().replace('at ', ''))
     .filter(line => {
       // Only filter out pure Node.js internals
-      const isInternal = 
+      const isInternal =
         line.includes('node:async_hooks') ||
         line.includes('AsyncLocalStorage') ||
         line.includes('unstable-cache.js');
@@ -1348,7 +1321,7 @@ export async function sendPostToBetterStack(data: {
     .slice(0, 6); // Take the first 6 relevant lines
 
   // Clean up each line in the stack
-  const cleanStack = relevantStack.map(line => 
+  const cleanStack = relevantStack.map(line =>
     line
       .replace('webpack-internal:///(rsc)/', '')
       .replace('webpack-internal:///(ssr)/', '')
