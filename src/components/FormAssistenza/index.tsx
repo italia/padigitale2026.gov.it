@@ -303,6 +303,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     });
                   }}
                 >
+                  <option label="Seleziona un avviso"></option>
                   <option label="Nessuno">Nessuno</option>
                   <option label="1.1 Infrastrutture digitali">
                     1.1 Infrastrutture digitali (Altre PAC)
