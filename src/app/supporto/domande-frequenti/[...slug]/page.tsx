@@ -93,8 +93,6 @@ export default async function FaqPage({
 
     const { page } = pageData;
 
-    console.log(`SUPPORTO PAGE ${fullSlug}`);
-
     return (
       <>
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
@@ -109,8 +107,6 @@ export default async function FaqPage({
   if (!pageData || !pageData.faq) return notFound();
 
   const faq = pageData.faq;
-
-  console.log("FAQ PAGE");
 
   return (
     <>
