@@ -59,6 +59,7 @@ export function CardService({
           >
             {button && (
               <Link
+                prefetch={false}
                 href={button.href || `/${button.cmsPage?.slug || ""}`}
                 className={"fw-semibold"}
               >

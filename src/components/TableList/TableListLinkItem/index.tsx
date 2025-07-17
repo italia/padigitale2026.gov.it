@@ -73,6 +73,7 @@ export function TableListLinkItem({
     <div role="listitem" className="row border-bottom m-0 p-0 py-3 w-100">
       <div className="col ps-0">
         <Link
+          prefetch={false}
           className="d-flex justify-content-between align-items-center text-decoration-none"
           href={getHref(link)}
           title={getTitle(link)}

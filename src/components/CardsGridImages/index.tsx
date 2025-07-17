@@ -193,6 +193,7 @@ export function CardsGridImages({
                 )}
               >
                 <Link
+                  prefetch={false}
                   href={button.href || `/${button.cmsPage?.slug || ""}`}
                   className={"btn btn-outline-primary"}
                 >

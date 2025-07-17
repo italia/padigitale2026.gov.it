@@ -79,6 +79,7 @@ export function CardAnnouncement({
         >
           {href && (
             <Link
+              prefetch={false}
               href={href}
               target={targetLink}
               className={cn("decoration-1")}

@@ -51,6 +51,7 @@ export function CardNews({
           )}
         >
           <Link
+            prefetch={false}
             href={externalLink?.length ? externalLink : `/${slug}`}
             className={cn("decoration-1")}
             target={externalLink ? "_blank" : "_self"}

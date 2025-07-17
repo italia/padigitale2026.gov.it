@@ -46,6 +46,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
         <div className="d-flex justify-content-between align-items-center">
           <span className="me-3">{title}</span>
           <Link
+            prefetch={false}
             className="fw-semibold text-nowrap"
             href={getHref(link)}
             title={getTitle(link)}

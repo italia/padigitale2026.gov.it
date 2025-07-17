@@ -242,6 +242,7 @@ export function TableListUpdates({
 
                                 return buttonHref.length > 0 ? (
                                   <Link
+                                    prefetch={false}
                                     className="fw-semibold text-nowrap"
                                     href={buttonHref}
                                     aria-label={buttonText}
@@ -345,7 +346,7 @@ export function TableListUpdates({
           <Col className={cn({ "text-center": alignment === "center" })}>
             <p>
               <strong>Non ci sono aggiornamenti al momento.</strong> <br />
-              <Link href={"/novita/newsletter"}>
+              <Link prefetch={false} href={"/novita/newsletter"}>
                 Iscriviti alla newsletter
               </Link>{" "}
               per ricevere aggiornamenti sulle opportunità in arrivo.
@@ -362,6 +363,7 @@ export function TableListUpdates({
             })}
           >
             <Link
+              prefetch={false}
               className="btn btn-sm btn-outline-primary"
               href={getButtonHref(button)}
               target={button.target || "_self"}

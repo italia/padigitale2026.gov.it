@@ -68,6 +68,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
 
             {button && (
               <Link
+                prefetch={false}
                 className="btn btn-sm btn-outline-primary mt-2 me-3"
                 href={getButtonHref(button)}
                 target={button.target || "_self"}
@@ -91,6 +92,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
               <div className="mt-2 d-inline-flex gap-4 flex-wrap">
                 {links.map((link) => (
                   <Link
+                    prefetch={false}
                     key={link.id}
                     href={`/${link.slug}`}
                     className="fw-semibold"

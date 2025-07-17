@@ -70,6 +70,7 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
           node.url.startsWith("http://") || node.url.startsWith("https://");
         return (
           <Link
+            prefetch={false}
             key={JSON.stringify(node.url)}
             href={node.url}
             className={isExternal ? "external-link" : ""}
@@ -108,6 +109,7 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
       case "LinkRecord":
         return (
           <Link
+            prefetch={false}
             key={record.id}
             className="fw-bold"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
@@ -134,6 +136,7 @@ export function RichTextStepper({ props }: { props: RichTextStepperRecord }) {
       case "ButtonRecord":
         return (
           <Link
+            prefetch={false}
             key={record.id}
             className="btn btn-sm btn-outline-primary btn-mini"
             href={record.href || `/${record.cmsPage?.slug || ""}`}

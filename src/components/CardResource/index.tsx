@@ -38,7 +38,11 @@ export function CardResource({
     <article className="it-card--resource it-card pb-0 bg-white flex-grow-1">
       {title && (
         <TitleTag className="it-card-title px-0 h-3 fw-semibold lh-sm">
-          <Link href={`/${slug}`} className={cn("decoration-1")}>
+          <Link
+            prefetch={false}
+            href={`/${slug}`}
+            className={cn("decoration-1")}
+          >
             {title}
           </Link>
         </TitleTag>

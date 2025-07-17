@@ -40,6 +40,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
                 <div className="px-3 py-2 py-lg-4 d-lg-flex align-items-center gap-4">
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2 me-4">
                     <Link
+                      prefetch={false}
                       href="https://commission.europa.eu/index_it"
                       title="Vai al sito della Commissione Europea"
                       className="d-flex align-items-center"
@@ -56,6 +57,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
 
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2 me-4">
                     <Link
+                      prefetch={false}
                       href="https://www.governo.it/"
                       title="Vai al sito del Governo Italiano"
                       className="d-flex align-items-center text-decoration-none"
@@ -83,6 +85,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
 
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2">
                     <Link
+                      prefetch={false}
                       href="https://innovazione.gov.it/"
                       title="Vai al sito del Dipartimento per la trasformazione digitale"
                       className="d-flex align-items-center text-decoration-none"

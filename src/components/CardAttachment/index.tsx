@@ -50,6 +50,7 @@ export function CardAttachment({
         >
           {(href || cmsAsset?.url) && (
             <Link
+              prefetch={false}
               href={href || cmsAsset?.url || ""}
               target={targetLink}
               className={cn("decoration-1")}

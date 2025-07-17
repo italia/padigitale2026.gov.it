@@ -96,6 +96,7 @@ export function TableList({
             })}
           >
             <Link
+              prefetch={false}
               className="btn btn-sm btn-outline-primary"
               href={getButtonHref(button)}
               target={button.target || "_self"}

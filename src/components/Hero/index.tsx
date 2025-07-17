@@ -82,6 +82,7 @@ export function Hero({ props }: { props: HeroRecord }) {
               >
                 {lightTheme ? (
                   <Link
+                    prefetch={false}
                     className="btn btn-sm btn-outline-primary"
                     href={getButtonHref(button)}
                     target={button.target || "_self"}
@@ -101,6 +102,7 @@ export function Hero({ props }: { props: HeroRecord }) {
                   </Link>
                 ) : (
                   <Link
+                    prefetch={false}
                     className="btn btn-sm btn-primary"
                     href={getButtonHref(button)}
                     target={button.target || "_self"}
