@@ -33,7 +33,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  return generateResourceStaticParams();
+  return await generateResourceStaticParams();
 }
 
 export default async function ResourcePage({

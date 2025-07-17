@@ -138,7 +138,7 @@ export async function generateSupportoStaticParams() {
         // Altrimenti usa il slug così com'è
         cleanSlug = supporto.slug!;
       }
-     
+
       return {
         slug: cleanSlug.split("/"),
       };
@@ -191,13 +191,8 @@ export async function generateResourceStaticParams() {
         cleanSlug = resource.slug!;
       }
       
-      // Se il cleanSlug contiene ancora "/", prendi solo l'ultima parte
-      if (cleanSlug.includes("/")) {
-        cleanSlug = cleanSlug.split("/").pop() || cleanSlug;
-      }
-      
       return {
-        slug: [cleanSlug],
+        slug: cleanSlug.split("/"),
         customUpdateDate: resource.customUpdateDate,
       };
     });
