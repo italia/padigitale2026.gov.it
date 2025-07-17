@@ -8,6 +8,7 @@ import {
   getAllNewsWithOption,
   getAllSupportosWithOption,
   getAllResourcesWithOption,
+  getAllFaqsSlug
 } from "@/lib/datocms";
 import {
   AllPagesQuery,
@@ -103,7 +104,7 @@ export async function getDatiData(slug: string): Promise<{ page: PageRecord } | 
 
 // Funzione per generare parametri statici specifici per le FAQ
 export async function generateFaqStaticParams() {
-  const faqs = (await getAllFaqs()) as AllFaqsQuery;
+  const faqs = (await getAllFaqsSlug()) as AllFaqsQuery;
   
   // Lista delle eccezioni che devono essere gestite come supporto
   const supportoFaqExceptions = [
