@@ -5,6 +5,9 @@ import {
   getAllResources,
   getAllSupportos,
   getAllDatis,
+  getAllNewsWithOption,
+  getAllSupportosWithOption,
+  getAllResourcesWithOption,
 } from "@/lib/datocms";
 import {
   AllPagesQuery,
@@ -124,7 +127,7 @@ export async function generateFaqStaticParams() {
 
 // Funzione per generare parametri statici specifici per il supporto
 export async function generateSupportoStaticParams() {
-  const supportos = (await getAllSupportos()) as AllSupportosQuery;
+  const supportos = (await getAllSupportosWithOption(false)) as AllSupportosQuery;
   
   return supportos.allSupportos
     .filter((supporto) => supporto.slug)
@@ -147,7 +150,7 @@ export async function generateSupportoStaticParams() {
 
 // Funzione per generare parametri statici specifici per le notizie
 export async function generateNewsStaticParams() {
-  const news = (await getAllNews()) as AllNewsQuery;
+  const news = (await getAllNewsWithOption(false)) as AllNewsQuery;
   
   return news.allNews
     .filter((news) => news.slug)
@@ -176,7 +179,7 @@ export async function generateNewsStaticParams() {
 
 // Funzione per generare parametri statici specifici per le risorse
 export async function generateResourceStaticParams() {
-  const resources = (await getAllResources()) as AllResourcesQuery;
+  const resources = (await getAllResourcesWithOption(false)) as AllResourcesQuery;
   
   return resources.allResources
     .filter((resource) => resource.slug)
