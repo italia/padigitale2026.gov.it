@@ -288,7 +288,10 @@ function FormToContent({ props }: { props: FormToRecord }) {
 
             <p className="text-muted mt-5">
               Cliccando su INVIA dichiaro di aver letto e compreso{" "}
-              <Link href="https://padigitale2026-gov-it-develop.vercel.app/informativa-privacy">
+              <Link
+                prefetch={false}
+                href="https://padigitale2026-gov-it-develop.vercel.app/informativa-privacy"
+              >
                 l&apos;informativa privacy
               </Link>
             </p>

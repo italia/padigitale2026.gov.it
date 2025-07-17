@@ -46,9 +46,7 @@ export function TableListFaq({
     console.warn("TableListFaq: questionsRef is missing or empty");
     return (
       <div role="region" aria-label="Nessuna domanda frequente disponibile">
-        <p>
-          Non ci sono domande frequenti al momento.
-        </p>
+        <p>Non ci sono domande frequenti al momento.</p>
       </div>
     );
   }
@@ -99,6 +97,7 @@ export function TableListFaq({
               <div className="row border-bottom m-0 p-0 py-3 w-100">
                 <div className="col ps-0">
                   <Link
+                    prefetch={false}
                     className="d-flex justify-content-between align-items-center text-decoration-none"
                     href={`/${item.slug}`}
                     title={item.title || ""}

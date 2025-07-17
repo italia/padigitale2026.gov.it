@@ -34,6 +34,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
               style={{ fontSize: "0.875rem" }}
             >
               <Link
+                prefetch={false}
                 href="https://innovazione.gov.it/italia-digitale-2026/"
                 title="Italia digitale 2026"
                 className="text-decoration-underline"
@@ -46,6 +47,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
               style={{ fontSize: "0.875rem" }}
             >
               <Link
+                prefetch={false}
                 href="https://www.italiadomani.gov.it/it/home.html"
                 title="Italia domani - PNRR"
                 className="text-decoration-underline"

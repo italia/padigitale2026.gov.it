@@ -80,6 +80,7 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
           node.url.startsWith("http://") || node.url.startsWith("https://");
         return (
           <Link
+            prefetch={false}
             key={JSON.stringify(node.url)}
             href={node.url}
             className={isExternal ? "external-link" : ""}
@@ -118,6 +119,7 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
       case "LinkRecord":
         return (
           <Link
+            prefetch={false}
             key={record.id}
             className="fw-bold"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
@@ -138,6 +140,7 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
       case "ButtonRecord":
         return (
           <Link
+            prefetch={false}
             key={record.id}
             className="btn btn-sm btn-outline-primary btn-mini mt-2"
             href={record.href || `/${record.cmsPage?.slug || ""}`}

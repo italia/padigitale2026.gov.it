@@ -78,6 +78,7 @@ export function CardGeneric({
           )}
           {(href || cmsPage?.slug) && (
             <Link
+              prefetch={false}
               href={href || `/${cmsPage?.slug}` || ""}
               target={targetLink}
               className={cn("decoration-1", "flex-grow-1")}

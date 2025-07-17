@@ -51,6 +51,7 @@ export function Banner({ props }: { props: BannerRecord }) {
           {button && (
             <div className={"col-12"}>
               <Link
+                prefetch={false}
                 className="btn btn-sm btn-outline-primary mt-2"
                 href={getButtonHref(button)}
                 target={button.target || "_self"}

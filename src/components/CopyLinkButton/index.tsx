@@ -29,6 +29,7 @@ export function CopyLinkButton() {
 
   return (
     <Link
+      prefetch={false}
       className="btn btn-sm btn-outline-primary btn-mini"
       href={pathname}
       onClick={() => copyLink(`${window.location.origin}${pathname}`)}

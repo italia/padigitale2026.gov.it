@@ -431,6 +431,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
               >
                 <div className="col ps-0">
                   <Link
+                    prefetch={false}
                     className="d-flex justify-content-between align-items-center text-decoration-none"
                     href={hit.slug ? hit.slug : hit.url ? hit.url : "#"}
                     title={hit.title}

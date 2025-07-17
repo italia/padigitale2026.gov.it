@@ -32,6 +32,7 @@ export default function CenterHeader({
     >
       <HeaderContent className={"px-0"}>
         <Link
+          prefetch={false}
           href="/"
           className="d-flex align-items-center gap-4 text-decoration-none ms-4 ms-lg-0 ps-3 ps-lg-0"
           aria-label={`${title} - ${subtitle} - Torna alla home page`}

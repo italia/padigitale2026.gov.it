@@ -108,6 +108,7 @@ function SearchResults({ isFocused }: { isFocused: boolean }) {
             <div className="row border-bottom m-0 p-0 py-2 w-100">
               <div className="col ps-0">
                 <Link
+                  prefetch={false}
                   className="d-flex justify-content-between align-items-center text-decoration-none"
                   href={`/${item.slug}`}
                   title={item.title || ""}
@@ -168,6 +169,7 @@ function SearchResults({ isFocused }: { isFocused: boolean }) {
       {results.items.length > 0 && (
         <div className="d-flex align-items-center mt-4">
           <Link
+            prefetch={false}
             className="btn btn-sm btn-outline-primary"
             href={`/cerca?q=${query}&filters=faq`}
             target={"_self"}

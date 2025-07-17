@@ -62,6 +62,7 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
                   <div className="h4 mb-0">{risorseInEuro}</div>
                   {link && (
                     <Link
+                      prefetch={false}
                       href={link.href || ""}
                       target={link.target || "_self"}
                       title={link.text || ""}
@@ -170,6 +171,7 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
               {button && (
                 <div>
                   <Link
+                    prefetch={false}
                     className="btn btn-sm btn-outline-primary"
                     href={button.href || ""}
                     target={button.target || "_self"}
