@@ -116,7 +116,13 @@ export function TableListFaq({
                         {item.title}
                       </div>
 
-                      {item.category && (
+                      {item.category && item.category.label === 'Misure' && item.misura && (
+                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
+                          <span className="visually-hidden">Misura: </span>
+                          {item.misura.label}
+                        </div>
+                      )}
+                      {item.category && item.category.label !== 'Misure' && (
                         <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
                           <span className="visually-hidden">Categoria: </span>
                           {item.category.label}
