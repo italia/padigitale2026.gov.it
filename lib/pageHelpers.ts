@@ -5,6 +5,10 @@ import {
   getAllResources,
   getAllSupportos,
   getAllDatis,
+  getAllNewsWithOption,
+  getAllSupportosWithOption,
+  getAllResourcesWithOption,
+  getAllFaqsSlug
 } from "@/lib/datocms";
 import {
   AllPagesQuery,
@@ -100,7 +104,7 @@ export async function getDatiData(slug: string): Promise<{ page: PageRecord } | 
 
 // Funzione per generare parametri statici specifici per le FAQ
 export async function generateFaqStaticParams() {
-  const faqs = (await getAllFaqs()) as AllFaqsQuery;
+  const faqs = (await getAllFaqsSlug()) as AllFaqsQuery;
   
   // Lista delle eccezioni che devono essere gestite come supporto
   const supportoFaqExceptions = [
@@ -124,7 +128,7 @@ export async function generateFaqStaticParams() {
 
 // Funzione per generare parametri statici specifici per il supporto
 export async function generateSupportoStaticParams() {
-  const supportos = (await getAllSupportos()) as AllSupportosQuery;
+  const supportos = (await getAllSupportosWithOption(false)) as AllSupportosQuery;
   
   return supportos.allSupportos
     .filter((supporto) => supporto.slug)
@@ -138,21 +142,16 @@ export async function generateSupportoStaticParams() {
         // Altrimenti usa il slug così com'è
         cleanSlug = supporto.slug!;
       }
-      
-      // Se il cleanSlug contiene ancora "/", prendi solo l'ultima parte
-      if (cleanSlug.includes("/")) {
-        cleanSlug = cleanSlug.split("/").pop() || cleanSlug;
-      }
-      
+
       return {
-        slug: [cleanSlug],
+        slug: cleanSlug.split("/"),
       };
     });
 }
 
 // Funzione per generare parametri statici specifici per le notizie
 export async function generateNewsStaticParams() {
-  const news = (await getAllNews()) as AllNewsQuery;
+  const news = (await getAllNewsWithOption(false)) as AllNewsQuery;
   
   return news.allNews
     .filter((news) => news.slug)
@@ -181,7 +180,7 @@ export async function generateNewsStaticParams() {
 
 // Funzione per generare parametri statici specifici per le risorse
 export async function generateResourceStaticParams() {
-  const resources = (await getAllResources()) as AllResourcesQuery;
+  const resources = (await getAllResourcesWithOption(false)) as AllResourcesQuery;
   
   return resources.allResources
     .filter((resource) => resource.slug)
@@ -196,13 +195,8 @@ export async function generateResourceStaticParams() {
         cleanSlug = resource.slug!;
       }
       
-      // Se il cleanSlug contiene ancora "/", prendi solo l'ultima parte
-      if (cleanSlug.includes("/")) {
-        cleanSlug = cleanSlug.split("/").pop() || cleanSlug;
-      }
-      
       return {
-        slug: [cleanSlug],
+        slug: cleanSlug.split("/"),
         customUpdateDate: resource.customUpdateDate,
       };
     });

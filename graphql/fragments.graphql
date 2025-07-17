@@ -715,6 +715,9 @@ fragment TableListFaqFragment on TableListFaqRecord {
     _updatedAt
     slug
     title
+    misura {
+      label
+    }    
     category {
       label
     }

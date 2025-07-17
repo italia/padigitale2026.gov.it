@@ -5,6 +5,7 @@ import {
 import {
   AllPagesDocument,
   AllFaqsDocument,
+  AllFaqsSlugDocument,
   AllSupportosDocument,
   AllNewsDocument,
   AllResourcesDocument,
@@ -787,11 +788,26 @@ export async function getAllFaqsWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return executeQuery(
       AllFaqsDocument,
       getOptions(`fn_name:getAllFaqs`)
     );
   }
+}
+
+export async function getAllFaqsSlug() {
+  await sendPostToBetterStack({
+    message: "getAllFaqsSlug called (no cache)",
+    level: "info",
+    metadata: {
+      function: "getAllFaqsSlug",
+      useCache: false
+    }
+  });
+  return executeQuery(
+    AllFaqsSlugDocument,
+    getOptions(`fn_name:getAllFaqsSlug`)
+  );
 }
 
 export async function faqWithOption(slug: string, useCache: boolean = true) {

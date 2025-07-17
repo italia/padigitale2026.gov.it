@@ -1,0 +1,10 @@
+#import "./fragments.graphql"
+
+query AllFaqsSlug {
+  allFaqs(first: 500) {
+    slug
+  }
+  _allFaqsMeta {
+    count
+  }
+}
