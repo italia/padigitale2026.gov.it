@@ -145,11 +145,10 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                 <ChartWrapper
                   id={id}
                   data={chartDataWithBackground as FieldDataType}
-                  info={
-                    info
-                      ? { text: info }
-                      : { text: "Non ci sono informazioni aggiuntive" }
-                  }
+                  info={{
+                    text: info ? info : "Non ci sono informazioni aggiuntive",
+                    chartFooterText: textBottom ? textBottom : undefined,
+                  }}
                   enableDownloadData={false}
                   enableDownloadImage={false}
                 />
@@ -163,18 +162,6 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                   </div>
                 </div>
               )}
-            </div>
-          )}
-
-          {textBottom && (
-            <div className="text-center mt-3">
-              <p
-                className={"col-12 text-muted lh-sm mx-auto"}
-                style={{ fontSize: "0.875rem", maxWidth: "424px" }}
-                dangerouslySetInnerHTML={{
-                  __html: textBottom.replace(/\./g, ".<br />"),
-                }}
-              />
             </div>
           )}
 
@@ -198,6 +185,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
           {button && (
             <div className="text-center">
               <Link
+                prefetch={false}
                 className="btn btn-sm btn-outline-primary mt-2"
                 href={getButtonHref(button)}
                 target={button.target || "_self"}
