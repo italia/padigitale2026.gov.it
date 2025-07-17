@@ -440,7 +440,7 @@ export function CardsGrid({
                   <Col className={cn({ "text-center": alignment === "center" })}>
                     <p>
                       <strong>Non ci sono avvisi aperti al momento.</strong> <br />
-                      Non ci sono avvisi aperti al momento. <Link href={'/novita/newsletter'}>Iscriviti alla newsletter</Link> per ricevere 
+                      <Link href={'/novita/newsletter'}>Iscriviti alla newsletter</Link> per ricevere 
                       aggiornamenti sulle opportunità in arrivo o <Link href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">vai a tutti gli avvisi</Link> per 
                       consultare quelli già chiusi.
                     </p>
@@ -459,7 +459,7 @@ export function CardsGrid({
                   <Col className={cn({ "text-center": alignment === "center" })}>
                     <p>
                       <strong>Non ci sono avvisi aperti al momento.</strong> <br />
-                      Non ci sono avvisi aperti al momento. <Link href={'/novita/newsletter'}>Iscriviti alla newsletter</Link> per ricevere 
+                      <Link href={'/novita/newsletter'}>Iscriviti alla newsletter</Link> per ricevere 
                       aggiornamenti sulle opportunità in arrivo o <Link href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">vai a tutti gli avvisi</Link> per 
                       consultare quelli già chiusi.
                     </p>
