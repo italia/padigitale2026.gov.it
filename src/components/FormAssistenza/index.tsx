@@ -17,6 +17,9 @@ const cn = classNames.bind(styles);
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
+const OBJECT_MAX_LENGTH = 150;
+const DESCRIPTION_MAX_LENGTH = 32000;
+
 function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
   const { id } = props;
   const { captchaToken, recaptchaRef, handleRecaptcha } = useRecaptcha();
@@ -49,13 +52,13 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
       (field) => field && field.length > 0
     );
 
-    // Controlla che Oggetto non superi i 150 caratteri
-    const objectValid = formState.object.length <= 150;
+    // Controlla che Oggetto non superi i OBJECT_MAX_LENGTH caratteri
+    const objectValid = formState.object.length <= OBJECT_MAX_LENGTH;
 
-    // Controlla che Richiesta non superi i 32000 caratteri
-    const DescriptionValid = formState.description.length <= 150;
+    // Controlla che Richiesta non superi i DESCRIPTION_MAX_LENGTH caratteri
+    const descriptionValid = formState.description.length <= DESCRIPTION_MAX_LENGTH;
 
-    return allFieldsFilled && DescriptionValid && objectValid && captchaToken;
+    return allFieldsFilled && descriptionValid && objectValid && captchaToken;
   };
 
   const handleSubmit = async () => {
@@ -155,8 +158,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const value = e.target.value;
-    // Limita a 32000 caratteri
-    if (value.length <= 32000) {
+    // Limita a DESCRIPTION_MAX_LENGTH caratteri
+    if (value.length <= DESCRIPTION_MAX_LENGTH) {
       setFormState({
         ...formState,
         description: value,
@@ -351,23 +354,23 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   label="Oggetto*"
                   placeholder="Inserisci l'oggetto della richiesta"
                   rows={2}
-                  maxLength={150}
+                  maxLength={OBJECT_MAX_LENGTH}
                   value={formState.object}
                   onChange={handleObjectChange}
                   wrapperClassName="mb-0"
                 />
                 <div className="d-flex justify-content-between align-items-center mt-2">
                   <p className="text-muted mb-0">
-                    150 caratteri a disposizione
+                    {OBJECT_MAX_LENGTH} caratteri a disposizione
                   </p>
                   <p
                     className={`${
-                      formState.object.length > 100
+                      formState.object.length > (OBJECT_MAX_LENGTH - 50)
                         ? "text-warning"
                         : "text-muted"
                     }`}
                   >
-                    {formState.object.length}/150
+                    {formState.object.length}/{OBJECT_MAX_LENGTH}
                   </p>
                 </div>
               </Col>
@@ -382,23 +385,23 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   placeholder="Inserisci i dettagli della richiesta"
                   required
                   rows={5}
-                  maxLength={32000}
+                  maxLength={DESCRIPTION_MAX_LENGTH}
                   value={formState.description}
                   onChange={handleDescriptionChange}
                   wrapperClassName="mb-0"
                 />
                 <div className="d-flex justify-content-between align-items-center mt-2">
                   <p className="text-muted mb-0">
-                    32000 caratteri a disposizione
+                    {DESCRIPTION_MAX_LENGTH} caratteri a disposizione
                   </p>
                   <p
                     className={`${
-                      formState.description.length > 31950
+                      formState.description.length > (DESCRIPTION_MAX_LENGTH - 50)
                         ? "text-warning"
                         : "text-muted"
                     }`}
                   >
-                    {formState.description.length}/32000
+                    {formState.description.length}/{DESCRIPTION_MAX_LENGTH}
                   </p>
                 </div>
               </Col>
