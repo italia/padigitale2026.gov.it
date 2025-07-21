@@ -55,7 +55,6 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     downloadImage = false,
     showShare = false,
   } = props;
-  console.log("props", props);
   const [isClient, setIsClient] = useState(false);
 
   const getButtonHref = (button: BloccoGraficoRecord["button"]) => {
@@ -133,7 +132,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
 
   // Funzione stabile per la condivisione, da passare a ChartWrapper
   const handleShare = useCallback(
-    (id: string, event?: React.MouseEvent) => {
+    (event?: React.MouseEvent) => {
       event?.preventDefault();
       const url = `${window.location.origin}${pathname}#${id}`;
       navigator.clipboard.writeText(url);
@@ -142,7 +141,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
         setIsLinkCopied(false);
       }, 3000);
     },
-    [pathname]
+    [pathname, id]
   );
 
   useEffect(() => {
@@ -159,7 +158,12 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
       },
       enableDownloadData: downloadData,
       enableDownloadImage: downloadImage,
-      ...(showShare ? { shareFunction: handleShare } : {}),
+      ...(showShare
+        ? {
+            shareFunction: (_: string, event?: React.MouseEvent) =>
+              handleShare(event),
+          }
+        : {}),
     }),
     [
       id,
@@ -175,6 +179,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
 
   return (
     <div
+      id={id}
       className={cn(
         "wrapper",
         {
