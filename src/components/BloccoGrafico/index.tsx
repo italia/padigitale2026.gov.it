@@ -151,6 +151,9 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                   }}
                   enableDownloadData={false}
                   enableDownloadImage={false}
+                  // shareFunction={(id: string) => {
+                  //   console.log("share", id);
+                  // }}
                 />
               ) : (
                 <div
