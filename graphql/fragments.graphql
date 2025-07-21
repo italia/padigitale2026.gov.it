@@ -846,6 +846,9 @@ fragment BloccoGraficoFragment on BloccoGraficoRecord {
   subtitle
   textBottom
   info
+  downloadData
+  downloadImage
+  showShare
   button {
     ...ButtonFragment
   }

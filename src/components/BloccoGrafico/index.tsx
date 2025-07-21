@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { BloccoGraficoRecord } from "@/graphql/generated";
 
 import {
@@ -9,6 +9,7 @@ import {
 
 import Link from "next/link";
 import { Icon } from "design-react-kit";
+import { Spinner } from "design-react-kit";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -50,7 +51,11 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     kpi,
     info,
     textBottom,
+    downloadData = false,
+    downloadImage = false,
+    showShare = false,
   } = props;
+  console.log("props", props);
   const [isClient, setIsClient] = useState(false);
 
   const getButtonHref = (button: BloccoGraficoRecord["button"]) => {
@@ -102,21 +107,71 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
   // console.log("chart", chart);
   // console.log("info", info);
 
+  // Type assertion per evitare errori TS su chartData
+  const chartData = chart?.chartData as { data?: unknown[] } | undefined;
+
   // Aggiungi il parametro background alla configurazione del chart
   // RICHIESTA DI INTERVENTO LATO CODICE PER MANCANZA DI PERSONALIZZAZIONE LATO PLUGIN
-  const chartDataWithBackground = chart?.chartData
-    ? {
-        ...(chart.chartData as ChartDataStructure),
-        config: {
-          ...(chart.chartData as ChartDataStructure).config,
-          background: "transparent",
-        },
-      }
-    : null;
+  const chartDataWithBackground = useMemo(
+    () =>
+      chart?.chartData
+        ? {
+            ...(chart.chartData as ChartDataStructure),
+            config: {
+              ...(chart.chartData as ChartDataStructure).config,
+              background: "transparent",
+            },
+          }
+        : null,
+    [chart]
+  );
+
+  // Stato per feedback copia link
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
+
+  // Funzione stabile per la condivisione, da passare a ChartWrapper
+  const handleShare = useCallback(
+    (id: string, event?: React.MouseEvent) => {
+      event?.preventDefault();
+      const url = `${window.location.origin}${pathname}#${id}`;
+      navigator.clipboard.writeText(url);
+      setIsLinkCopied(true);
+      setTimeout(() => {
+        setIsLinkCopied(false);
+      }, 3000);
+    },
+    [pathname]
+  );
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const chartWrapperProps = useMemo(
+    () => ({
+      id,
+      data: chartDataWithBackground as FieldDataType,
+      info: {
+        text: info ? info : "Non ci sono informazioni aggiuntive",
+        chartFooterText: textBottom ? textBottom : undefined,
+      },
+      enableDownloadData: downloadData,
+      enableDownloadImage: downloadImage,
+      ...(showShare ? { shareFunction: handleShare } : {}),
+    }),
+    [
+      id,
+      chartDataWithBackground,
+      info,
+      textBottom,
+      downloadData,
+      downloadImage,
+      showShare,
+      handleShare,
+    ]
+  );
 
   return (
     <div
@@ -139,36 +194,33 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
             {subtitle && <p className={"col-12"}>{subtitle}</p>}
           </div>
 
-          {chart && (
-            <div className="mx-auto">
+          {chartData && chartData.data && chartData.data.length > 0 && (
+            <div className="mx-auto position-relative">
               {isClient ? (
-                <ChartWrapper
-                  id={id}
-                  data={chartDataWithBackground as FieldDataType}
-                  info={{
-                    text: info ? info : "Non ci sono informazioni aggiuntive",
-                    chartFooterText: textBottom ? textBottom : undefined,
-                  }}
-                  enableDownloadData={false}
-                  enableDownloadImage={false}
-                  // shareFunction={(id: string) => {
-                  //   console.log("share", id);
-                  // }}
-                />
+                <>
+                  <ChartWrapper {...chartWrapperProps} />
+                  {isLinkCopied && (
+                    <div
+                      className="alert alert-success position-absolute top-100 start-50 translate-middle"
+                      role="alert"
+                    >
+                      Link copiato!
+                    </div>
+                  )}
+                </>
               ) : (
                 <div
                   style={{ height: "300px" }}
                   className="d-flex align-items-center justify-content-center"
                 >
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Caricamento...</span>
-                  </div>
+                  <Spinner active small />
+                  <span className="visually-hidden">Caricamento...</span>
                 </div>
               )}
             </div>
           )}
 
-          {kpi && (
+          {kpi && kpi.length > 0 && (
             <>
               {isClient ? (
                 <RenderChart {...kpiData} />
@@ -177,9 +229,8 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                   style={{ height: "300px" }}
                   className="d-flex align-items-center justify-content-center"
                 >
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Caricamento...</span>
-                  </div>
+                  <Spinner active small />
+                  <span className="visually-hidden">Caricamento...</span>
                 </div>
               )}
             </>

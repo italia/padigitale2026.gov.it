@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "design-react-kit";
+import { Spinner } from "design-react-kit";
 import Link from "next/link";
 
 type Status = "loading" | "success" | "error";
@@ -52,9 +53,8 @@ function ConfermaContent() {
       <div className="container-xxl py-5 my-5 mx-auto">
         <div className="row justify-content-center">
           <div className="col-md-8 text-center">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Caricamento...</span>
-            </div>
+            <Spinner active small />
+            <span className="visually-hidden">Conferma in corso...</span>
             <p className="mt-3">Conferma in corso...</p>
           </div>
         </div>
@@ -104,9 +104,8 @@ function LoadingFallback() {
     <div className="container-xxl py-5 my-5 mx-auto">
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Caricamento...</span>
-          </div>
+          <Spinner active small />
+          <span className="visually-hidden">Caricamento...</span>
           <p className="mt-3">Caricamento...</p>
         </div>
       </div>
