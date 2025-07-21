@@ -87,7 +87,7 @@ export const getAllPages = unstable_cache(
         function: "getAllPages",
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllPagesDocument,
       getOptions(`fn_name:getAllPages`)
     );
@@ -108,7 +108,7 @@ export const page = unstable_cache(
         slug
       }
     });
-    return executeQuery(PageDocument, {
+    return await executeQuery(PageDocument, {
       ...getOptions(`fn_name:page|slug:${slug}`),
       variables: {
         slug: slug,
@@ -132,7 +132,7 @@ export const getAllFilteredUpdates = unstable_cache(
         idBeneficiari
       }
     });
-    return executeQuery(AllFilteredUpdatesDocument, {
+    return await executeQuery(AllFilteredUpdatesDocument, {
       ...getOptions(
         `fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`
       ),
@@ -156,7 +156,7 @@ export const getAllSupportos = unstable_cache(
         function: "getAllSupportos"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllSupportosDocument,
       getOptions(`fn_name:getAllSupportos`)
     );
@@ -177,7 +177,7 @@ export const supporto = unstable_cache(
         slug
       }
     });
-    return executeQuery(SupportoDocument, {
+    return await executeQuery(SupportoDocument, {
       ...getOptions(`fn_name:supporto|slug:${slug}`),
       variables: {
         slug: slug,
@@ -200,7 +200,7 @@ export const getAllFaqs = unstable_cache(
         function: "getAllFaqs"
       }
     });
-    return executeQuery(
+    return await executeQuery(
       AllFaqsDocument,
       getOptions(`fn_name:getAllFaqs`)
     );
@@ -221,7 +221,7 @@ export const faq = unstable_cache(
         slug
       }
     });
-    return executeQuery(FaqDocument, {
+    return await executeQuery(FaqDocument, {
       ...getOptions(`fn_name:faq|slug:${slug}`),
       variables: {
         slug: slug,
@@ -244,7 +244,7 @@ export const getAllNews = unstable_cache(
         function: "getAllNews"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllNewsDocument,
       getOptions(`fn_name:getAllNews`)
     );
@@ -265,7 +265,7 @@ export const news = unstable_cache(
         slug
       }
     });
-    return executeQuery(NewsDocument, {
+    return await executeQuery(NewsDocument, {
       ...getOptions(`fn_name:news|slug:${slug}`),
       variables: {
         slug: slug,
@@ -288,7 +288,7 @@ export const getAllDatis = unstable_cache(
         function: "getAllDatis"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllDatisDocument,
       getOptions(`fn_name:getAllDatis`)
     );
@@ -309,7 +309,7 @@ export const dati = unstable_cache(
         slug
       }
     });
-    return executeQuery(DatiDocument, {
+    return await executeQuery(DatiDocument, {
       ...getOptions(`fn_name:dati|slug:${slug}`),
       variables: {
         slug: slug,
@@ -332,7 +332,7 @@ export const getAllResources = unstable_cache(
         function: "getAllResources"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllResourcesDocument,
       getOptions(`fn_name:getAllResources`)
     );
@@ -353,7 +353,7 @@ export const resource = unstable_cache(
         slug
       }
     });
-    return executeQuery(ResourceDocument, {
+    return await executeQuery(ResourceDocument, {
       ...getOptions(`fn_name:resource|slug:${slug}`),
       variables: {
         slug: slug,
@@ -376,7 +376,7 @@ export const getFooter = unstable_cache(
         function: "getFooter"
       }
     });
-    return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
+    return await executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
   },
   ['getFooter'],
   {
@@ -393,7 +393,7 @@ export const getHeader = unstable_cache(
         function: "getHeader"
       }
     });
-    return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
+    return await executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
   },
   ['getHeader'],
   {
@@ -410,7 +410,7 @@ export const getSitemapPages = unstable_cache(
         function: "getSitemapPages"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       SitemapPagesDocument,
       getOptions(`fn_name:getSitemapPages`)
     );
@@ -430,7 +430,7 @@ export const getAllEnteBeneficiarios = unstable_cache(
         function: "getAllEnteBeneficiarios"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllEnteBeneficiariosDocument,
       getOptions(`fn_name:getAllEnteBeneficiarios`)
     );
@@ -451,7 +451,7 @@ export const getAllFilteredEnteBeneficiarios = unstable_cache(
         idBeneficiari
       }
     });
-    return executeQuery(AllFilteredEnteBeneficiariosDocument, {
+    return await executeQuery(AllFilteredEnteBeneficiariosDocument, {
       ...getOptions(
         `fn_name:allFilteredEnteBeneficiarios|idBeneficiari:${idBeneficiari.toString()}`
       ),
@@ -475,7 +475,7 @@ export const getAllEntePromotores = unstable_cache(
         function: "getAllEntePromotores"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllEntePromotoresDocument,
       getOptions(`fn_name:getAllEntePromotores`)
     );
@@ -495,7 +495,7 @@ export const getAllMisuras = unstable_cache(
         function: "getAllMisuras"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllMisurasDocument,
       getOptions(`fn_name:getAllMisuras`)
     );
@@ -516,7 +516,7 @@ export const misura = unstable_cache(
         id
       }
     });
-    return executeQuery(MisuraDocument, {
+    return await executeQuery(MisuraDocument, {
       ...getOptions(`fn_name:misura|id:${id}`),
       variables: {
         id: id,
@@ -540,7 +540,7 @@ export const getAllFilteredMisuras = unstable_cache(
         idMisure
       }
     });
-    return executeQuery(AllFilteredMisurasDocument, {
+    return await executeQuery(AllFilteredMisurasDocument, {
       ...getOptions(
         `fn_name:allFilteredMisuras|idMisure:${idMisure.toString()}`
       ),
@@ -565,7 +565,7 @@ export const update = unstable_cache(
         id
       }
     });
-    return executeQuery(UpdateDocument, {
+    return await executeQuery(UpdateDocument, {
       ...getOptions(`fn_name:update|id:${id}`),
       variables: {
         id: id,
@@ -588,7 +588,7 @@ export const getAllUpdates = unstable_cache(
         function: "getAllUpdates"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllUpdatesDocument,
       getOptions(`fn_name:getAllUpdates`)
     );
@@ -609,7 +609,7 @@ export const guideline = unstable_cache(
         id
       }
     });
-    return executeQuery(GuidelineDocument, {
+    return await executeQuery(GuidelineDocument, {
       ...getOptions(`fn_name:guideline|id:${id}`),
       variables: {
         id: id,
@@ -632,7 +632,7 @@ export const getAllGuidelines = unstable_cache(
         function: "getAllGuidelines"
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllGuidelinesDocument,
       getOptions(`fn_name:getAllGuidelines`)
     );
@@ -653,7 +653,7 @@ export const argomento = unstable_cache(
         id
       }
     });
-    return executeQuery(ArgomentoDocument, {
+    return await executeQuery(ArgomentoDocument, {
       ...getOptions(`fn_name:argomento|id:${id}`),
       variables: {
         id: id,
@@ -670,7 +670,7 @@ export const argomento = unstable_cache(
 // Wrapper functions with useCache parameter
 export async function getAllPagesWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllPages();
+    return await getAllPages();
   } else {
     await sendPostToBetterStack({
       message: "getAllPages called (no cache)",
@@ -680,7 +680,7 @@ export async function getAllPagesWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllPagesDocument,
       getOptions(`fn_name:getAllPages`)
     );
@@ -689,7 +689,7 @@ export async function getAllPagesWithOption(useCache: boolean = true) {
 
 export async function pageWithOption(slug: string, useCache: boolean = true) {
   if (useCache) {
-    return page(slug);
+    return await page(slug);
   } else {
     await sendPostToBetterStack({
       message: "page called (no cache)",
@@ -700,7 +700,7 @@ export async function pageWithOption(slug: string, useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(PageDocument, {
+    return await executeQuery(PageDocument, {
       ...getOptions(`fn_name:page|slug:${slug}`),
       variables: {
         slug: slug,
@@ -712,7 +712,7 @@ export async function pageWithOption(slug: string, useCache: boolean = true) {
 
 export async function getAllFilteredUpdatesWithOption(idBeneficiari: Array<string>, useCache: boolean = true) {
   if (useCache) {
-    return getAllFilteredUpdates(idBeneficiari);
+    return await getAllFilteredUpdates(idBeneficiari);
   } else {
     await sendPostToBetterStack({
       message: "getAllFilteredUpdates called (no cache)",
@@ -723,7 +723,7 @@ export async function getAllFilteredUpdatesWithOption(idBeneficiari: Array<strin
         useCache: false
       }
     });
-    return executeQuery(AllFilteredUpdatesDocument, {
+    return await executeQuery(AllFilteredUpdatesDocument, {
       ...getOptions(
         `fn_name:allFilteredUpdates|idBeneficiari:${idBeneficiari.toString()}`
       ),
@@ -736,7 +736,7 @@ export async function getAllFilteredUpdatesWithOption(idBeneficiari: Array<strin
 
 export async function getAllSupportosWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllSupportos();
+    return await getAllSupportos();
   } else {
     await sendPostToBetterStack({
       message: "getAllSupportos called (no cache)",
@@ -746,7 +746,7 @@ export async function getAllSupportosWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllSupportosDocument,
       getOptions(`fn_name:getAllSupportos`)
     );
@@ -755,7 +755,7 @@ export async function getAllSupportosWithOption(useCache: boolean = true) {
 
 export async function supportoWithOption(slug: string, useCache: boolean = true) {
   if (useCache) {
-    return supporto(slug);
+    return await supporto(slug);
   } else {
     await sendPostToBetterStack({
       message: "supporto called (no cache)",
@@ -766,7 +766,7 @@ export async function supportoWithOption(slug: string, useCache: boolean = true)
         useCache: false
       }
     });
-    return executeQuery(SupportoDocument, {
+    return await executeQuery(SupportoDocument, {
       ...getOptions(`fn_name:supporto|slug:${slug}`),
       variables: {
         slug: slug,
@@ -778,7 +778,7 @@ export async function supportoWithOption(slug: string, useCache: boolean = true)
 
 export async function getAllFaqsWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllFaqs();
+    return await getAllFaqs();
   } else {
     await sendPostToBetterStack({
       message: "getAllFaqs called (no cache)",
@@ -788,7 +788,7 @@ export async function getAllFaqsWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(
+    return await executeQuery(
       AllFaqsDocument,
       getOptions(`fn_name:getAllFaqs`)
     );
@@ -804,7 +804,7 @@ export async function getAllFaqsSlug() {
       useCache: false
     }
   });
-  return executeQuery(
+  return await executeQuery(
     AllFaqsSlugDocument,
     getOptions(`fn_name:getAllFaqsSlug`)
   );
@@ -812,7 +812,7 @@ export async function getAllFaqsSlug() {
 
 export async function faqWithOption(slug: string, useCache: boolean = true) {
   if (useCache) {
-    return faq(slug);
+    return await faq(slug);
   } else {
     await sendPostToBetterStack({
       message: "faq called (no cache)",
@@ -823,7 +823,7 @@ export async function faqWithOption(slug: string, useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(FaqDocument, {
+    return await executeQuery(FaqDocument, {
       ...getOptions(`fn_name:faq|slug:${slug}`),
       variables: {
         slug: slug,
@@ -835,7 +835,7 @@ export async function faqWithOption(slug: string, useCache: boolean = true) {
 
 export async function getAllNewsWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllNews();
+    return await getAllNews();
   } else {
     await sendPostToBetterStack({
       message: "getAllNews called (no cache)",
@@ -845,7 +845,7 @@ export async function getAllNewsWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllNewsDocument,
       getOptions(`fn_name:getAllNews`)
     );
@@ -854,7 +854,7 @@ export async function getAllNewsWithOption(useCache: boolean = true) {
 
 export async function newsWithOption(slug: string, useCache: boolean = true) {
   if (useCache) {
-    return news(slug);
+    return await news(slug);
   } else {
     await sendPostToBetterStack({
       message: "news called (no cache)",
@@ -865,7 +865,7 @@ export async function newsWithOption(slug: string, useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(NewsDocument, {
+    return await executeQuery(NewsDocument, {
       ...getOptions(`fn_name:news|slug:${slug}`),
       variables: {
         slug: slug,
@@ -877,7 +877,7 @@ export async function newsWithOption(slug: string, useCache: boolean = true) {
 
 export async function getAllDatisWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllDatis();
+    return await getAllDatis();
   } else {
     await sendPostToBetterStack({
       message: "getAllDatis called (no cache)",
@@ -887,7 +887,7 @@ export async function getAllDatisWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllDatisDocument,
       getOptions(`fn_name:getAllDatis`)
     );
@@ -896,7 +896,7 @@ export async function getAllDatisWithOption(useCache: boolean = true) {
 
 export async function datiWithOption(slug: string, useCache: boolean = true) {
   if (useCache) {
-    return dati(slug);
+    return await dati(slug);
   } else {
     await sendPostToBetterStack({
       message: "dati called (no cache)",
@@ -907,7 +907,7 @@ export async function datiWithOption(slug: string, useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(DatiDocument, {
+    return await executeQuery(DatiDocument, {
       ...getOptions(`fn_name:dati|slug:${slug}`),
       variables: {
         slug: slug,
@@ -919,7 +919,7 @@ export async function datiWithOption(slug: string, useCache: boolean = true) {
 
 export async function getAllResourcesWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllResources();
+    return await getAllResources();
   } else {
     await sendPostToBetterStack({
       message: "getAllResources called (no cache)",
@@ -929,7 +929,7 @@ export async function getAllResourcesWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllResourcesDocument,
       getOptions(`fn_name:getAllResources`)
     );
@@ -938,7 +938,7 @@ export async function getAllResourcesWithOption(useCache: boolean = true) {
 
 export async function resourceWithOption(slug: string, useCache: boolean = true) {
   if (useCache) {
-    return resource(slug);
+    return await resource(slug);
   } else {
     await sendPostToBetterStack({
       message: "resource called (no cache)",
@@ -949,7 +949,7 @@ export async function resourceWithOption(slug: string, useCache: boolean = true)
         useCache: false
       }
     });
-    return executeQuery(ResourceDocument, {
+    return await executeQuery(ResourceDocument, {
       ...getOptions(`fn_name:resource|slug:${slug}`),
       variables: {
         slug: slug,
@@ -961,7 +961,7 @@ export async function resourceWithOption(slug: string, useCache: boolean = true)
 
 export async function getFooterWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getFooter();
+    return await getFooter();
   } else {
     await sendPostToBetterStack({
       message: "getFooter called (no cache)",
@@ -971,13 +971,13 @@ export async function getFooterWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
+    return await executeQuery(FooterDocument, getOptions(`fn_name:getFooter`));
   }
 }
 
 export async function getHeaderWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getHeader();
+    return await getHeader();
   } else {
     await sendPostToBetterStack({
       message: "getHeader called (no cache)",
@@ -987,13 +987,13 @@ export async function getHeaderWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
+    return await executeQuery(HeaderDocument, getOptions(`fn_name:getHeader`));
   }
 }
 
 export async function getSitemapPagesWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getSitemapPages();
+    return await getSitemapPages();
   } else {
     await sendPostToBetterStack({
       message: "getSitemapPages called (no cache)",
@@ -1003,7 +1003,7 @@ export async function getSitemapPagesWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       SitemapPagesDocument,
       getOptions(`fn_name:getSitemapPages`)
     );
@@ -1012,7 +1012,7 @@ export async function getSitemapPagesWithOption(useCache: boolean = true) {
 
 export async function getAllEnteBeneficiariosWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllEnteBeneficiarios();
+    return await getAllEnteBeneficiarios();
   } else {
     await sendPostToBetterStack({
       message: "getAllEnteBeneficiarios called (no cache)",
@@ -1022,7 +1022,7 @@ export async function getAllEnteBeneficiariosWithOption(useCache: boolean = true
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllEnteBeneficiariosDocument,
       getOptions(`fn_name:getAllEnteBeneficiarios`)
     );
@@ -1031,7 +1031,7 @@ export async function getAllEnteBeneficiariosWithOption(useCache: boolean = true
 
 export async function getAllFilteredEnteBeneficiariosWithOption(idBeneficiari: Array<string>, useCache: boolean = true) {
   if (useCache) {
-    return getAllFilteredEnteBeneficiarios(idBeneficiari);
+    return await getAllFilteredEnteBeneficiarios(idBeneficiari);
   } else {
     await sendPostToBetterStack({
       message: "getAllFilteredEnteBeneficiarios called (no cache)",
@@ -1042,7 +1042,7 @@ export async function getAllFilteredEnteBeneficiariosWithOption(idBeneficiari: A
         useCache: false
       }
     });
-    return executeQuery(AllFilteredEnteBeneficiariosDocument, {
+    return await executeQuery(AllFilteredEnteBeneficiariosDocument, {
       ...getOptions(
         `fn_name:allFilteredEnteBeneficiarios|idBeneficiari:${idBeneficiari.toString()}`
       ),
@@ -1055,7 +1055,7 @@ export async function getAllFilteredEnteBeneficiariosWithOption(idBeneficiari: A
 
 export async function getAllEntePromotoresWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllEntePromotores();
+    return await getAllEntePromotores();
   } else {
     await sendPostToBetterStack({
       message: "getAllEntePromotores called (no cache)",
@@ -1065,7 +1065,7 @@ export async function getAllEntePromotoresWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllEntePromotoresDocument,
       getOptions(`fn_name:getAllEntePromotores`)
     );
@@ -1074,7 +1074,7 @@ export async function getAllEntePromotoresWithOption(useCache: boolean = true) {
 
 export async function getAllMisurasWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllMisuras();
+    return await getAllMisuras();
   } else {
     await sendPostToBetterStack({
       message: "getAllMisuras called (no cache)",
@@ -1084,7 +1084,7 @@ export async function getAllMisurasWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllMisurasDocument,
       getOptions(`fn_name:getAllMisuras`)
     );
@@ -1093,7 +1093,7 @@ export async function getAllMisurasWithOption(useCache: boolean = true) {
 
 export async function misuraWithOption(id: string, useCache: boolean = true) {
   if (useCache) {
-    return misura(id);
+    return await misura(id);
   } else {
     await sendPostToBetterStack({
       message: "misura called (no cache)",
@@ -1104,7 +1104,7 @@ export async function misuraWithOption(id: string, useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(MisuraDocument, {
+    return await executeQuery(MisuraDocument, {
       ...getOptions(`fn_name:misura|id:${id}`),
       variables: {
         id: id,
@@ -1116,7 +1116,7 @@ export async function misuraWithOption(id: string, useCache: boolean = true) {
 
 export async function getAllFilteredMisurasWithOption(idMisure: Array<string>, useCache: boolean = true) {
   if (useCache) {
-    return getAllFilteredMisuras(idMisure);
+    return await getAllFilteredMisuras(idMisure);
   } else {
     await sendPostToBetterStack({
       message: "getAllFilteredMisuras called (no cache)",
@@ -1127,7 +1127,7 @@ export async function getAllFilteredMisurasWithOption(idMisure: Array<string>, u
         useCache: false
       }
     });
-    return executeQuery(AllFilteredMisurasDocument, {
+    return await executeQuery(AllFilteredMisurasDocument, {
       ...getOptions(
         `fn_name:allFilteredMisuras|idMisure:${idMisure.toString()}`
       ),
@@ -1140,7 +1140,7 @@ export async function getAllFilteredMisurasWithOption(idMisure: Array<string>, u
 
 export async function updateWithOption(id: string, useCache: boolean = true) {
   if (useCache) {
-    return update(id);
+    return await update(id);
   } else {
     await sendPostToBetterStack({
       message: "update called (no cache)",
@@ -1151,7 +1151,7 @@ export async function updateWithOption(id: string, useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQuery(UpdateDocument, {
+    return await executeQuery(UpdateDocument, {
       ...getOptions(`fn_name:update|id:${id}`),
       variables: {
         id: id,
@@ -1163,7 +1163,7 @@ export async function updateWithOption(id: string, useCache: boolean = true) {
 
 export async function getAllUpdatesWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllUpdates();
+    return await getAllUpdates();
   } else {
     await sendPostToBetterStack({
       message: "getAllUpdates called (no cache)",
@@ -1173,7 +1173,7 @@ export async function getAllUpdatesWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllUpdatesDocument,
       getOptions(`fn_name:getAllUpdates`)
     );
@@ -1182,7 +1182,7 @@ export async function getAllUpdatesWithOption(useCache: boolean = true) {
 
 export async function guidelineWithOption(id: string, useCache: boolean = true) {
   if (useCache) {
-    return guideline(id);
+    return await guideline(id);
   } else {
     await sendPostToBetterStack({
       message: "guideline called (no cache)",
@@ -1193,7 +1193,7 @@ export async function guidelineWithOption(id: string, useCache: boolean = true) 
         useCache: false
       }
     });
-    return executeQuery(GuidelineDocument, {
+    return await executeQuery(GuidelineDocument, {
       ...getOptions(`fn_name:guideline|id:${id}`),
       variables: {
         id: id,
@@ -1205,7 +1205,7 @@ export async function guidelineWithOption(id: string, useCache: boolean = true) 
 
 export async function getAllGuidelinesWithOption(useCache: boolean = true) {
   if (useCache) {
-    return getAllGuidelines();
+    return await getAllGuidelines();
   } else {
     await sendPostToBetterStack({
       message: "getAllGuidelines called (no cache)",
@@ -1215,7 +1215,7 @@ export async function getAllGuidelinesWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return executeQueryWithAutoPagination(
+    return await executeQueryWithAutoPagination(
       AllGuidelinesDocument,
       getOptions(`fn_name:getAllGuidelines`)
     );
@@ -1224,7 +1224,7 @@ export async function getAllGuidelinesWithOption(useCache: boolean = true) {
 
 export async function argomentoWithOption(id: string, useCache: boolean = true) {
   if (useCache) {
-    return argomento(id);
+    return await argomento(id);
   } else {
     await sendPostToBetterStack({
       message: "argomento called (no cache)",
@@ -1235,7 +1235,7 @@ export async function argomentoWithOption(id: string, useCache: boolean = true) 
         useCache: false
       }
     });
-    return executeQuery(ArgomentoDocument, {
+    return await executeQuery(ArgomentoDocument, {
       ...getOptions(`fn_name:argomento|id:${id}`),
       variables: {
         id: id,

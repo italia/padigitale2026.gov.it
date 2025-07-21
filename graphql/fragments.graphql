@@ -311,9 +311,12 @@ fragment NavScrollFragment on NavScrollRecord {
     value
   }
 }
+
 fragment CardsGridFragment on CardsGridRecord {
   __typename
+  id
 }
+
 fragment HeroFragment on HeroRecord {
   __typename
   lightTheme
@@ -717,7 +720,7 @@ fragment TableListFaqFragment on TableListFaqRecord {
     title
     misura {
       label
-    }    
+    }
     category {
       label
     }
