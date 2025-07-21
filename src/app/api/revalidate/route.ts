@@ -2,13 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest) {
-  return NextResponse.json({
-    revalidate: false,
-    slug: null,
-    timestamp: Date.now(),
-  });
-
   try {
+    const revalidateToken = request.headers.get('x-revalidate-token');
+    const expectedToken = process.env.X_REVALIDATE_TOKEN;
+
+    if (!expectedToken || !revalidateToken || revalidateToken !== expectedToken) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const data = await request.json();
     const slug = data.entity.attributes.slug;
 
