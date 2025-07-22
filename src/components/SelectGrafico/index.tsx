@@ -1,7 +1,7 @@
 import { SelectGraficoRecord } from "@/graphql/generated";
-import { Select, Spinner } from "design-react-kit";
-import { useEffect, useState, useMemo } from "react";
-import { ChartWrapper } from "dataviz-components";
+import { Select } from "design-react-kit";
+import { useEffect, useState } from "react";
+// import { ChartWrapper } from "dataviz-components";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -10,19 +10,35 @@ const cn = classNames.bind(styles);
 export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
   const { id, bgTransparent, titleBig, title, subtitle, charts } = props;
 
-  console.log(charts);
-
   const [selectedId, setSelectedId] = useState(charts[0]?.id || "");
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
+
+  // Aggiorna selectedId quando charts cambia e non è vuoto
+  useEffect(() => {
+    if (charts.length > 0) {
+      setSelectedId(charts[0].id);
+    }
+  }, [charts]);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    console.log("selectedId:", selectedId);
+    console.log(
+      "charts ids:",
+      charts.map((c) => c.id)
+    );
+    const selectedChart = charts.find((chart) => chart.id === selectedId);
+    console.log("selectedChart:", selectedChart);
+    console.log("selectedChart.chart:", selectedChart?.chart);
+  }, [charts, selectedId]);
 
-  const selectedChart = useMemo(
-    () => charts.find((chart) => chart.id === selectedId),
-    [charts, selectedId]
-  );
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
+
+  // const selectedChart = useMemo(
+  //   () => charts.find((chart) => chart.id === selectedId),
+  //   [charts, selectedId]
+  // );
 
   const createSlug = (text: string) => {
     return text
@@ -76,9 +92,7 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
         </>
       </Select>
 
-      {/* qui i grafici */}
-
-      <div className="mx-auto position-relative">
+      {/* <div className="mx-auto position-relative">
         {isClient ? (
           selectedChart &&
           selectedChart.chart && (
@@ -96,7 +110,7 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
             <span className="visually-hidden">Caricamento...</span>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

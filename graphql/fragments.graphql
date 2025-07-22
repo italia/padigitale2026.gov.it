@@ -886,11 +886,11 @@ fragment SelectGraficoFragment on SelectGraficoRecord {
     id
     title
     chart {
-      title
       id
-      chartDatasource
+      title
       chartData
       chartConfig
+      chartDatasource
     }
   }
 }
