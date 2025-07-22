@@ -105,6 +105,9 @@ query AllPages {
       ... on TimelineRecord {
         ...TimelineFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
   _allPagesMeta {

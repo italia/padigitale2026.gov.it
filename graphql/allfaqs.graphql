@@ -80,6 +80,9 @@ query AllFaqs {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
   _allFaqsMeta {

@@ -57,6 +57,9 @@ query Supporto($slug: String) {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
 }

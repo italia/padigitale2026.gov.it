@@ -68,6 +68,9 @@ query allDatis {
       ... on TabsWrapRecord {
         ...TabsWrapFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
   _allPagesMeta {

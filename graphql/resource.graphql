@@ -64,6 +64,9 @@ query Resource($slug: String) {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
 }

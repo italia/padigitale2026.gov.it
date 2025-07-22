@@ -58,6 +58,9 @@ query News($slug: String) {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
 }

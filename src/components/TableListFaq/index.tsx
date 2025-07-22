@@ -38,19 +38,6 @@ export function TableListFaq({
     return null;
   };
 
-  if (
-    !questionsRef ||
-    !Array.isArray(questionsRef) ||
-    questionsRef.length === 0
-  ) {
-    console.warn("TableListFaq: questionsRef is missing or empty");
-    return (
-      <div role="region" aria-label="Nessuna domanda frequente disponibile">
-        <p>Non ci sono domande frequenti al momento.</p>
-      </div>
-    );
-  }
-
   return (
     <div
       className={cn("container-xxl", { "my-5": !noPadding })}
@@ -72,98 +59,118 @@ export function TableListFaq({
         aria-label="Lista domande frequenti"
         className={cn("row py-2")}
       >
-        {questionsRef.map((item, idx) => {
-          if (!item) return null;
+        {!questionsRef ||
+        !Array.isArray(questionsRef) ||
+        questionsRef.length === 0 ? (
+          <div
+            role="region"
+            className={cn("col-12", {
+              "text-center": alignment === "center",
+              "px-0": noPadding,
+            })}
+            aria-label="Nessuna domanda frequente disponibile"
+          >
+            <p>Non ci sono domande frequenti al momento.</p>
+          </div>
+        ) : (
+          questionsRef.map((item, idx) => {
+            if (!item) return null;
 
-          return (
-            <div
-              role="listitem"
-              className={cn("col-12", { "px-0": noPadding })}
-              key={`faq-item-${item.id || idx}`}
-              data-beneficiari={item.beneficiari
-                ?.map((b) =>
-                  b.label
-                    ?.toLowerCase()
-                    .replace(/à/g, "a")
-                    .replace(/è/g, "e")
-                    .replace(/ì/g, "i")
-                    .replace(/ò/g, "o")
-                    .replace(/ù/g, "u")
-                    .replace(/[^a-z0-9]+/g, "-")
-                    .replace(/(^-|-$)/g, "")
-                )
-                .join(" ")}
-            >
-              <div className="row border-bottom m-0 p-0 py-3 w-100">
-                <div className="col ps-0">
-                  <Link
-                    prefetch={false}
-                    className="d-flex justify-content-between align-items-center text-decoration-none"
-                    href={`/${item.slug}`}
-                    title={item.title || ""}
-                    key={`faq-link-${item.id || idx}`}
-                    aria-label={
-                      item.category
-                        ? `Categoria: ${item.category.label}`
-                        : undefined
-                    }
-                  >
-                    <div className="me-4">
-                      <div
-                        className="fw-semibold text-decoration-underline mb-1 lh-base"
-                        style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
-                      >
-                        {item.title}
+            return (
+              <div
+                role="listitem"
+                className={cn("col-12", { "px-0": noPadding })}
+                key={`faq-item-${item.id || idx}`}
+                data-beneficiari={item.beneficiari
+                  ?.map((b) =>
+                    b.label
+                      ?.toLowerCase()
+                      .replace(/à/g, "a")
+                      .replace(/è/g, "e")
+                      .replace(/ì/g, "i")
+                      .replace(/ò/g, "o")
+                      .replace(/ù/g, "u")
+                      .replace(/[^a-z0-9]+/g, "-")
+                      .replace(/(^-|-$)/g, "")
+                  )
+                  .join(" ")}
+              >
+                <div className="row border-bottom m-0 p-0 py-3 w-100">
+                  <div className="col ps-0">
+                    <Link
+                      prefetch={false}
+                      className="d-flex justify-content-between align-items-center text-decoration-none"
+                      href={`/${item.slug}`}
+                      title={item.title || ""}
+                      key={`faq-link-${item.id || idx}`}
+                      aria-label={
+                        item.category
+                          ? `Categoria: ${item.category.label}`
+                          : undefined
+                      }
+                    >
+                      <div className="me-4">
+                        <div
+                          className="fw-semibold text-decoration-underline mb-1 lh-base"
+                          style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
+                        >
+                          {item.title}
+                        </div>
+
+                        {item.category &&
+                          item.category.label === "Misure" &&
+                          item.misura && (
+                            <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
+                              <span className="visually-hidden">Misura: </span>
+                              {item.misura.label}
+                            </div>
+                          )}
+                        {item.category && item.category.label !== "Misure" && (
+                          <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
+                            <span className="visually-hidden">Categoria: </span>
+                            {item.category.label}
+                          </div>
+                        )}
                       </div>
-
-                      {item.category && item.category.label === 'Misure' && item.misura && (
-                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
-                          <span className="visually-hidden">Misura: </span>
-                          {item.misura.label}
-                        </div>
-                      )}
-                      {item.category && item.category.label !== 'Misure' && (
-                        <div className="text-secondary text-decoration-none text-transform-uppercase fw-semibold lh-base">
-                          <span className="visually-hidden">Categoria: </span>
-                          {item.category.label}
-                        </div>
-                      )}
-                    </div>
-                    <div className="d-flex align-items-center">
-                      {(() => {
-                        const badge = getBadge(item);
-                        return (
-                          badge && (
-                            <Badge
-                              className={cn("badge text-capitalize px-3 me-2", {
-                                "lightgrey-bg-a3 text-primary":
-                                  badge === "Nuovo",
-                                "neutral-1-bg-a2 text-dark":
-                                  badge === "Aggiornato",
-                              })}
-                              aria-label={`${badge}`}
-                            >
-                              {badge}
-                            </Badge>
-                          )
-                        );
-                      })()}
-                      <Icon
-                        className="my-0"
-                        color="primary"
-                        icon="it-chevron-right"
-                        size="sm"
-                        aria-hidden="true"
-                        title="Freccia a destra"
-                        padding
-                      />
-                    </div>
-                  </Link>
+                      <div className="d-flex align-items-center">
+                        {(() => {
+                          const badge = getBadge(item);
+                          return (
+                            badge && (
+                              <Badge
+                                className={cn(
+                                  "badge text-capitalize px-3 me-2",
+                                  {
+                                    "lightgrey-bg-a3 text-primary":
+                                      badge === "Nuovo",
+                                    "neutral-1-bg-a2 text-dark":
+                                      badge === "Aggiornato",
+                                  }
+                                )}
+                                aria-label={`${badge}`}
+                              >
+                                {badge}
+                              </Badge>
+                            )
+                          );
+                        })()}
+                        <Icon
+                          className="my-0"
+                          color="primary"
+                          icon="it-chevron-right"
+                          size="sm"
+                          aria-hidden="true"
+                          title="Freccia a destra"
+                          padding
+                        />
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

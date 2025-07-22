@@ -80,7 +80,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     return "";
   };
 
-  console.log("kpi", kpi);
+  // console.log("kpi", kpi);
   // console.log("chart", chart);
   // console.log("info", info);
 

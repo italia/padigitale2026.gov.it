@@ -65,6 +65,9 @@ query allSupportos {
       ... on FormAssistanceRecord {
         ...FormAssistanceFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
   _allSupportosMeta {
