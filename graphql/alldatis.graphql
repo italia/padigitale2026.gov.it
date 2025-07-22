@@ -65,6 +65,9 @@ query allDatis {
       ... on BloccoGraficoRecord {
         ...BloccoGraficoFragment
       }
+      ... on SelectGraficoRecord {
+        ...SelectGraficoFragment
+      }
       ... on TabsWrapRecord {
         ...TabsWrapFragment
       }

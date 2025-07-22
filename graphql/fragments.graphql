@@ -875,6 +875,26 @@ fragment BloccoGraficoFragment on BloccoGraficoRecord {
   }
 }
 
+fragment SelectGraficoFragment on SelectGraficoRecord {
+  __typename
+  id
+  bgTransparent
+  titleBig
+  title
+  subtitle
+  charts {
+    id
+    title
+    chart {
+      title
+      id
+      chartDatasource
+      chartData
+      chartConfig
+    }
+  }
+}
+
 fragment TabsWrapFragment on TabsWrapRecord {
   __typename
   id
@@ -884,6 +904,9 @@ fragment TabsWrapFragment on TabsWrapRecord {
     content {
       ... on BloccoGraficoRecord {
         ...BloccoGraficoFragment
+      }
+      ... on SelectGraficoRecord {
+        ...SelectGraficoFragment
       }
     }
   }

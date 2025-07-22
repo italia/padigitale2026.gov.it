@@ -54,6 +54,9 @@ query Dati($slug: String) {
       ... on BloccoGraficoRecord {
         ...BloccoGraficoFragment
       }
+      ... on SelectGraficoRecord {
+        ...SelectGraficoFragment
+      }
       ... on ImmagineRecord {
         ...ImmagineFragment
       }

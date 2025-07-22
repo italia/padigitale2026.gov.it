@@ -81,6 +81,9 @@ query AllPages {
       ... on BloccoGraficoRecord {
         ...BloccoGraficoFragment
       }
+      ... on SelectGraficoRecord {
+        ...SelectGraficoFragment
+      }
       ... on TabsWrapRecord {
         ...TabsWrapFragment
       }

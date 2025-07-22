@@ -10,7 +10,8 @@ import {
   TabNavLink,
   TabPane,
 } from "design-react-kit";
-import { BloccoGrafico } from "../BloccoGrafico";
+import { BloccoGrafico } from "@/src/components/BloccoGrafico";
+import { SelectGrafico } from "@/src/components/SelectGrafico";
 const cn = classNames.bind(styles);
 
 export function TabsWrap({ props }: { props: TabsWrapRecord }) {
@@ -34,6 +35,9 @@ export function TabsWrap({ props }: { props: TabsWrapRecord }) {
                 <div key={content.id}>
                   {content.__typename === "BloccoGraficoRecord" && (
                     <BloccoGrafico props={content} />
+                  )}
+                  {content.__typename === "SelectGraficoRecord" && (
+                    <SelectGrafico props={content} />
                   )}
                 </div>
               ))}

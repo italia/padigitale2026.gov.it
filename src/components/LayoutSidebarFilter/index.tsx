@@ -118,7 +118,7 @@ export function LayoutSidebarFilter({
       <div className="row" style={{ marginTop: "64px", marginBottom: "48px" }}>
         <div className="col-12 col-lg-4">
           <Select
-            id="example-reactstrap"
+            id="select-beneficiari"
             label="Beneficiari"
             onChange={handleChange}
             aria-label="Seleziona un beneficiario per filtrare i contenuti"
