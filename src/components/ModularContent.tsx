@@ -35,6 +35,8 @@ import {
   TextColumnRecord,
   TextBicolumnRecord,
   TimelineRecord,
+  ImmagineRecord,
+  SelectGraficoRecord,
 } from "@/graphql/generated";
 import { Hero } from "@/src/components/Hero";
 import { HeroWithData } from "@/src/components/HeroWithData";
@@ -64,6 +66,8 @@ import { ImageTextColumn } from "@/src/components/ImageTextColumn";
 import { TextColumn } from "@/src/components/TextColumn";
 import { TextBicolumn } from "@/src/components/TextBicolumn";
 import { Timeline } from "@/src/components/Timeline";
+import { Immagine } from "@/src/components/Immagine";
+import { SelectGrafico } from "@/src/components/SelectGrafico";
 import FragmentRedirect from "./FragmentRedirect";
 
 export function ModularContent({
@@ -183,6 +187,10 @@ export function ModularContent({
             return (
               <BloccoGrafico key={idx} props={el as BloccoGraficoRecord} />
             );
+          case "SelectGraficoRecord":
+            return (
+              <SelectGrafico key={idx} props={el as SelectGraficoRecord} />
+            );
           case "TabsWrapRecord":
             return <TabsWrap key={idx} props={el as TabsWrapRecord} />;
           case "FormNewsletterRecord":
@@ -205,6 +213,8 @@ export function ModularContent({
             return <TextBicolumn key={idx} props={el as TextBicolumnRecord} />;
           case "TimelineRecord":
             return <Timeline key={idx} props={el as TimelineRecord} />;
+          case "ImmagineRecord":
+            return <Immagine key={idx} props={el as ImmagineRecord} />;
           default:
             return null;
         }

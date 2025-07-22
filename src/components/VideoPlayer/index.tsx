@@ -3,6 +3,7 @@
 import { VideoPlayerRecord } from "@/graphql/generated";
 import { Col, Container, Row, Section } from "design-react-kit";
 import { useEffect, useState, useRef } from "react";
+import { Spinner } from "design-react-kit";
 
 // Interfaccia per il tipo bootstrap
 interface BootstrapVideoPlayer {
@@ -237,9 +238,8 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
                 className="d-flex justify-content-center align-items-center"
                 style={{ minHeight: "300px" }}
               >
-                <div className="spinner-border" role="status">
-                  <span className="visually-hidden">Caricamento video...</span>
-                </div>
+                <Spinner active small />
+                <span className="visually-hidden">Caricamento video...</span>
               </div>
             )}
           </Col>

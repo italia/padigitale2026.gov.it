@@ -1,23 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import {
-  // Col,
-  Collapse,
-  // Dropdown,
-  // DropdownMenu,
-  // DropdownToggle,
-  Header,
-  HeaderContent,
-  HeaderToggler,
-  Icon,
-  // LinkList,
-  // LinkListItem,
-  // MegamenuHighlightColumn,
-  // MegamenuItem,
-  Nav,
-  // Row,
-} from "design-react-kit";
+import { Collapse, Header, HeaderToggler, Icon, Nav } from "design-react-kit";
 import { NavItem, NavLink } from "reactstrap";
 import type { HeaderQuery } from "@/graphql/generated";
 
@@ -92,69 +76,97 @@ export default function NavHeader({
         role="navigation"
         aria-label="Navigazione principale"
       >
-        <HeaderContent expand="lg" className="px-0">
-          <HeaderToggler
-            aria-controls="nav1"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            onClick={() => toggle()}
-          >
-            <Icon icon="it-burger" />
-          </HeaderToggler>
-          <Collapse
-            isOpen={openNav}
-            header
-            navbar
-            onOverlayClick={() => toggle()}
-          >
-            <div
-              className="menu-wrapper"
-              role="navigation"
-              aria-label="Menu principale"
-            >
-              <Nav navbar aria-label="Menu principale" className="w-100">
-                <NavItem>
-                  <NavLink href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">
-                    <span className="fw-semibold">Avvisi</span>
-                  </NavLink>
-                </NavItem>
-                {mainLinks.map((link) => (
-                  <NavItem
-                    key={link.id}
-                    active={isActiveLinkSpecific(link.slug, mainLinks)}
+        <div className="it-header-navbar-wrapper theme-light-desk">
+          <div className="container-xxl">
+            <div className="row">
+              <div className="col-12 px-0">
+                <nav
+                  className="navbar navbar-expand-lg px-0"
+                  aria-label="Navigazione principale"
+                >
+                  <HeaderToggler
+                    aria-controls="nav1"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    onClick={() => toggle()}
+                    className="p-4"
                   >
-                    <NavLink
-                      active={isActiveLinkSpecific(link.slug, mainLinks)}
-                      href={`/${link.slug || "#"}`}
-                    >
-                      <span className="fw-semibold">{link.title}</span>
-                      {isActiveLinkSpecific(link.slug, mainLinks) && (
-                        <span className="visually-hidden">current</span>
-                      )}
-                    </NavLink>
-                  </NavItem>
-                ))}
-                {secondaryLinks.map((link, index) => (
-                  <NavItem
-                    key={link.id}
-                    active={isActiveLinkSpecific(link.slug, secondaryLinks)}
-                    className={index === 0 ? "ms-lg-auto" : ""}
+                    <Icon icon="it-burger" />
+                  </HeaderToggler>
+                  <Collapse
+                    isOpen={openNav}
+                    header
+                    navbar
+                    onOverlayClick={() => toggle()}
                   >
-                    <NavLink
-                      active={isActiveLinkSpecific(link.slug, secondaryLinks)}
-                      href={`/${link.slug || "#"}`}
+                    <div
+                      className="menu-wrapper"
+                      role="navigation"
+                      aria-label="Menu principale"
                     >
-                      <span className="fw-semibold">{link.title}</span>
-                      {isActiveLinkSpecific(link.slug, secondaryLinks) && (
-                        <span className="visually-hidden">current</span>
-                      )}
-                    </NavLink>
-                  </NavItem>
-                ))}
-              </Nav>
+                      <Nav
+                        navbar
+                        aria-label="Menu principale"
+                        className="w-100"
+                      >
+                        <NavItem>
+                          <NavLink href="https://areariservata.padigitale2026.gov.it/Pa_digitale2026_avvisi">
+                            <span className="fw-semibold">Avvisi</span>
+                          </NavLink>
+                        </NavItem>
+                        {mainLinks.map((link) => (
+                          <NavItem
+                            key={link.id}
+                            active={isActiveLinkSpecific(link.slug, mainLinks)}
+                          >
+                            <NavLink
+                              active={isActiveLinkSpecific(
+                                link.slug,
+                                mainLinks
+                              )}
+                              href={`/${link.slug || "#"}`}
+                            >
+                              <span className="fw-semibold">{link.title}</span>
+                              {isActiveLinkSpecific(link.slug, mainLinks) && (
+                                <span className="visually-hidden">current</span>
+                              )}
+                            </NavLink>
+                          </NavItem>
+                        ))}
+                        {secondaryLinks.map((link, index) => (
+                          <NavItem
+                            key={link.id}
+                            active={isActiveLinkSpecific(
+                              link.slug,
+                              secondaryLinks
+                            )}
+                            className={index === 0 ? "ms-lg-auto" : ""}
+                          >
+                            <NavLink
+                              active={isActiveLinkSpecific(
+                                link.slug,
+                                secondaryLinks
+                              )}
+                              href={`/${link.slug || "#"}`}
+                            >
+                              <span className="fw-semibold">{link.title}</span>
+                              {isActiveLinkSpecific(
+                                link.slug,
+                                secondaryLinks
+                              ) && (
+                                <span className="visually-hidden">current</span>
+                              )}
+                            </NavLink>
+                          </NavItem>
+                        ))}
+                      </Nav>
+                    </div>
+                  </Collapse>
+                </nav>
+              </div>
             </div>
-          </Collapse>
-        </HeaderContent>
+          </div>
+        </div>
       </Header>
     </>
   );

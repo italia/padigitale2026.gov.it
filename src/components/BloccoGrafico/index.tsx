@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { BloccoGraficoRecord } from "@/graphql/generated";
 
 import {
   type FieldDataType,
+  type KpiItemType,
   ChartWrapper,
-  RenderChart,
+  KpiItem,
 } from "dataviz-components";
 
 import Link from "next/link";
 import { Icon } from "design-react-kit";
+import { Spinner } from "design-react-kit";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -50,6 +52,9 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     kpi,
     info,
     textBottom,
+    downloadData = false,
+    downloadImage = false,
+    showShare = false,
   } = props;
   const [isClient, setIsClient] = useState(false);
 
@@ -75,51 +80,84 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     return "";
   };
 
-  // TO DO: ask to the team if we need to use the kpi component or not
-  const kpiData: FieldDataType = {
-    id: `kpi-group-${id}`,
-    dataSource: kpi,
-    chart: "kpi",
-    config: {
-      direction: "horizontal",
-      h: 0,
-      labeLine: true,
-      legend: true,
-      legendPosition: "",
-      palette: [],
-      tooltip: true,
-      tooltipFormatter: "",
-      valueFormatter: "",
-      totalLabel: "",
-      tooltipTrigger: "",
-      colors: [],
-      background: "transparent",
-    },
-    data: null,
-  };
-
   // console.log("kpi", kpi);
   // console.log("chart", chart);
   // console.log("info", info);
 
+  // Type assertion per evitare errori TS su chartData
+  const chartData = chart?.chartData as { data?: unknown[] } | undefined;
+
   // Aggiungi il parametro background alla configurazione del chart
   // RICHIESTA DI INTERVENTO LATO CODICE PER MANCANZA DI PERSONALIZZAZIONE LATO PLUGIN
-  const chartDataWithBackground = chart?.chartData
-    ? {
-        ...(chart.chartData as ChartDataStructure),
-        config: {
-          ...(chart.chartData as ChartDataStructure).config,
-          background: "transparent",
-        },
-      }
-    : null;
+  const chartDataWithBackground = useMemo(
+    () =>
+      chart?.chartData
+        ? {
+            ...(chart.chartData as ChartDataStructure),
+            config: {
+              ...(chart.chartData as ChartDataStructure).config,
+              background: "transparent",
+            },
+          }
+        : null,
+    [chart]
+  );
+
+  // Stato per feedback copia link
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
+
+  // Funzione stabile per la condivisione, da passare a ChartWrapper
+  const handleShare = useCallback(
+    (event?: React.MouseEvent) => {
+      event?.preventDefault();
+      const url = `${window.location.origin}${pathname}#${id}`;
+      navigator.clipboard.writeText(url);
+      setIsLinkCopied(true);
+      setTimeout(() => {
+        setIsLinkCopied(false);
+      }, 3000);
+    },
+    [pathname, id]
+  );
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  const chartWrapperProps = useMemo(
+    () => ({
+      id,
+      data: chartDataWithBackground as FieldDataType,
+      info: {
+        text: info ? info : "Non ci sono informazioni aggiuntive",
+        chartFooterText: textBottom ? textBottom : undefined,
+      },
+      enableDownloadData: downloadData,
+      enableDownloadImage: downloadImage,
+      ...(showShare
+        ? {
+            shareFunction: (_: string, event?: React.MouseEvent) =>
+              handleShare(event),
+          }
+        : {}),
+    }),
+    [
+      id,
+      chartDataWithBackground,
+      info,
+      textBottom,
+      downloadData,
+      downloadImage,
+      showShare,
+      handleShare,
+    ]
+  );
+
   return (
     <div
+      id={id}
       className={cn(
         "wrapper",
         {
@@ -139,47 +177,65 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
             {subtitle && <p className={"col-12"}>{subtitle}</p>}
           </div>
 
-          {chart && (
-            <div className="mx-auto">
+          {chartData && chartData.data && chartData.data.length > 0 && (
+            <div className="mx-auto position-relative">
               {isClient ? (
-                <ChartWrapper
-                  id={id}
-                  data={chartDataWithBackground as FieldDataType}
-                  info={{
-                    text: info ? info : "Non ci sono informazioni aggiuntive",
-                    chartFooterText: textBottom ? textBottom : undefined,
-                  }}
-                  enableDownloadData={false}
-                  enableDownloadImage={false}
-                  // shareFunction={(id: string) => {
-                  //   console.log("share", id);
-                  // }}
-                />
+                <>
+                  <ChartWrapper {...chartWrapperProps} />
+                  {isLinkCopied && (
+                    <div
+                      className="alert alert-success position-absolute top-100 start-50 translate-middle"
+                      role="alert"
+                    >
+                      Link copiato!
+                    </div>
+                  )}
+                </>
               ) : (
                 <div
                   style={{ height: "300px" }}
                   className="d-flex align-items-center justify-content-center"
                 >
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Caricamento...</span>
-                  </div>
+                  <Spinner active small />
+                  <span className="visually-hidden">Caricamento...</span>
                 </div>
               )}
             </div>
           )}
 
-          {kpi && (
+          {kpi && kpi.length > 0 && (
             <>
               {isClient ? (
-                <RenderChart {...kpiData} />
+                <div className="container">
+                  <div className="row">
+                    {kpi.map((item) => {
+                      // Mappatura manuale camelCase -> snake_case per backgroundColor
+                      const mappedItem = {
+                        ...item,
+                        background_color: item.backgroundColor,
+                        value_prefix: item.valuePrefix,
+                        value_suffix: item.valueSuffix,
+                        show_flow: item.showFlow,
+                        flow_value: item.flowValue,
+                        flow_direction: item.flowDirection,
+                        flow_detail: item.flowDetail,
+                        footer_text: item.footerText,
+                      };
+                      return (
+                        <div className="col" key={item.id}>
+                          <KpiItem data={mappedItem as KpiItemType} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               ) : (
                 <div
                   style={{ height: "300px" }}
                   className="d-flex align-items-center justify-content-center"
                 >
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Caricamento...</span>
-                  </div>
+                  <Spinner active small />
+                  <span className="visually-hidden">Caricamento...</span>
                 </div>
               )}
             </>

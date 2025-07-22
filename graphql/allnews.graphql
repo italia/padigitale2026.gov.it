@@ -65,6 +65,9 @@ query AllNews {
       ... on TableListUpdateRecord {
         ...TableListUpdateFragment
       }
+      ... on ImmagineRecord {
+        ...ImmagineFragment
+      }
     }
   }
   _allNewsMeta {
