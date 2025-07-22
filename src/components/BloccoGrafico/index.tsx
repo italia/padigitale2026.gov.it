@@ -3,8 +3,9 @@ import { BloccoGraficoRecord } from "@/graphql/generated";
 
 import {
   type FieldDataType,
+  type KpiItemType,
   ChartWrapper,
-  RenderChart,
+  KpiItem,
 } from "dataviz-components";
 
 import Link from "next/link";
@@ -79,30 +80,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
     return "";
   };
 
-  // TO DO: ask to the team if we need to use the kpi component or not
-  const kpiData: FieldDataType = {
-    id: `kpi-group-${id}`,
-    dataSource: kpi,
-    chart: "kpi",
-    config: {
-      direction: "horizontal",
-      h: 0,
-      labeLine: true,
-      legend: true,
-      legendPosition: "",
-      palette: [],
-      tooltip: true,
-      tooltipFormatter: "",
-      valueFormatter: "",
-      totalLabel: "",
-      tooltipTrigger: "",
-      colors: [],
-      background: "transparent",
-    },
-    data: null,
-  };
-
-  // console.log("kpi", kpi);
+  console.log("kpi", kpi);
   // console.log("chart", chart);
   // console.log("info", info);
 
@@ -228,7 +206,29 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
           {kpi && kpi.length > 0 && (
             <>
               {isClient ? (
-                <RenderChart {...kpiData} />
+                <div className="container">
+                  <div className="row">
+                    {kpi.map((item) => {
+                      // Mappatura manuale camelCase -> snake_case per backgroundColor
+                      const mappedItem = {
+                        ...item,
+                        background_color: item.backgroundColor,
+                        value_prefix: item.valuePrefix,
+                        value_suffix: item.valueSuffix,
+                        show_flow: item.showFlow,
+                        flow_value: item.flowValue,
+                        flow_direction: item.flowDirection,
+                        flow_detail: item.flowDetail,
+                        footer_text: item.footerText,
+                      };
+                      return (
+                        <div className="col" key={item.id}>
+                          <KpiItem data={mappedItem as KpiItemType} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               ) : (
                 <div
                   style={{ height: "300px" }}
