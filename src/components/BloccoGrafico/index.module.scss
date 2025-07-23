@@ -4,6 +4,9 @@
   }
 
   .kpi-item-style {
+    :global(.kpi-item) {
+      background-color: #f2f7fc !important;
+    }
     :global(.mid-caption--xlarge) {
       color: var(--color-black, #000);
       font-size: 18px;

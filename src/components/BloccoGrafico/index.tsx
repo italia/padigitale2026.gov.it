@@ -166,7 +166,9 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
         "p-0"
       )}
     >
-      <div className={cn("container-xxl py-4")}>
+      <div
+        className={cn("container-xxl py-4 px-0", { "px-4": !bgTransparent })}
+      >
         <div className={cn("", { "py-4": title || subtitle })}>
           {titleBig ? (
             <>{title && <h2 className={"col-12 mb-3 h2"}>{title}</h2>}</>
@@ -204,7 +206,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
           {kpi && kpi.length > 0 && (
             <>
               {isClient ? (
-                <div className="container">
+                <div className="container px-0">
                   <div className="row">
                     {kpi.map((item) => {
                       // Mappatura manuale camelCase -> snake_case per backgroundColor
