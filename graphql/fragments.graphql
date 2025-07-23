@@ -186,9 +186,9 @@ fragment RichTextContentFragment on RichTextModelContentBlocksField {
   ... on VideoPlayerRecord {
     ...VideoPlayerFragment
   }
-  ... on CardsGridRecord {
-    ...CardsGridFragment
-  }
+  # ... on CardsGridRecord {
+  #   ...CardsGridFragment
+  # }
   ... on CardsGridGenericRecord {
     ...CardsGridGenericFragment
   }
@@ -312,10 +312,10 @@ fragment NavScrollFragment on NavScrollRecord {
   }
 }
 
-fragment CardsGridFragment on CardsGridRecord {
-  __typename
-  id
-}
+# fragment CardsGridFragment on CardsGridRecord {
+#   __typename
+#   id
+# }
 
 fragment HeroFragment on HeroRecord {
   __typename
