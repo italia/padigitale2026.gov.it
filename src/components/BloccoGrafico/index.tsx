@@ -220,7 +220,10 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
                         footer_text: item.footerText,
                       };
                       return (
-                        <div className="col" key={item.id}>
+                        <div
+                          className={cn("kpi-item-style", "col")}
+                          key={item.id}
+                        >
                           <KpiItem data={mappedItem as KpiItemType} />
                         </div>
                       );
