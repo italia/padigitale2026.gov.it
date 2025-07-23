@@ -13,9 +13,17 @@ import {
   TableListFaqRecord,
   VideoPlayerRecord,
   TableRecord,
+  CardsGridGenericRecord,
+  CardsGridAttachmentRecord,
+  CardsGridServiceRecord,
+  CardsGridResourceRecord,
+  CardsGridNewsRecord,
+  CardsGridImagesFragmentFragment,
 } from "@/graphql/generated";
 import { Icon, Section, Container, Row, Col } from "design-react-kit";
 import { ImagesGrid } from "@/src/components/ImagesGrid";
+import { CardsGrid } from "@/src/components/CardsGrid";
+import { CardsGridImages } from "@/src/components/CardsGridImages";
 import { Alert } from "@/src/components/Alert";
 import { VideoPlayer } from "@/src/components/VideoPlayer";
 import { Table } from "@/src/components/Table";
@@ -157,6 +165,54 @@ export function RichTextSection({ props }: { props: RichTextSectionRecord }) {
               />
             )}
           </Link>
+        );
+      case "CardsGridGenericRecord":
+        return (
+          <CardsGrid
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridGenericRecord}
+          />
+        );
+      case "CardsGridAttachmentRecord":
+        return (
+          <CardsGrid
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridAttachmentRecord}
+          />
+        );
+      case "CardsGridServiceRecord":
+        return (
+          <CardsGrid
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridServiceRecord}
+          />
+        );
+      case "CardsGridResourceRecord":
+        return (
+          <CardsGrid
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridResourceRecord}
+          />
+        );
+      case "CardsGridNewsRecord":
+        return (
+          <CardsGrid
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridNewsRecord}
+          />
+        );
+      case "CardsGridImageRecord":
+        return (
+          <CardsGridImages
+            key={record.id}
+            hasSidebar={true}
+            props={record as CardsGridImagesFragmentFragment}
+          />
         );
       case "StepperRecord":
         return (
