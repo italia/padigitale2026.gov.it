@@ -2,4 +2,30 @@
   &.bg-light-blue {
     background-color: #f2f7fc;
   }
+
+  .kpi-item-style {
+    :global(.kpi-item) {
+      background-color: #f2f7fc !important;
+    }
+    :global(.mid-caption--xlarge) {
+      color: var(--color-black, #000);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 28px;
+    }
+    :global(.mid-caption--xxlarge) {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 32px;
+    }
+    :global(.mid-caption) {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      margin-top: 4px !important;
+    }
+    :global(.border-top) {
+      border-top: 1px solid var(--color-black, #000) !important;
+    }
+  }
 }
