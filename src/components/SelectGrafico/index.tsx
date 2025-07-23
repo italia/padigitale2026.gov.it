@@ -1,7 +1,7 @@
-import { SelectGraficoRecord } from "@/graphql/generated";
-import { Select } from "design-react-kit";
-import { useEffect, useState } from "react";
-// import { ChartWrapper } from "dataviz-components";
+import { BloccoGraficoRecord, SelectGraficoRecord } from "@/graphql/generated";
+import { Select, Spinner } from "design-react-kit";
+import { useEffect, useState, useMemo } from "react";
+import { BloccoGrafico } from "@/src/components/BloccoGrafico";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -11,7 +11,7 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
   const { id, bgTransparent, titleBig, title, subtitle, charts } = props;
 
   const [selectedId, setSelectedId] = useState(charts[0]?.id || "");
-  // const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   // Aggiorna selectedId quando charts cambia e non è vuoto
   useEffect(() => {
@@ -21,36 +21,13 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
   }, [charts]);
 
   useEffect(() => {
-    console.log("selectedId:", selectedId);
-    console.log(
-      "charts ids:",
-      charts.map((c) => c.id)
-    );
-    const selectedChart = charts.find((chart) => chart.id === selectedId);
-    console.log("selectedChart:", selectedChart);
-    console.log("selectedChart.chart:", selectedChart?.chart);
-  }, [charts, selectedId]);
+    setIsClient(true);
+  }, []);
 
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-
-  // const selectedChart = useMemo(
-  //   () => charts.find((chart) => chart.id === selectedId),
-  //   [charts, selectedId]
-  // );
-
-  const createSlug = (text: string) => {
-    return text
-      .toLowerCase()
-      .replace(/à/g, "a")
-      .replace(/è/g, "e")
-      .replace(/ì/g, "i")
-      .replace(/ò/g, "o")
-      .replace(/ù/g, "u")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
-  };
+  const selectedChart = useMemo(
+    () => charts.find((chart) => chart.id === selectedId),
+    [charts, selectedId]
+  );
 
   return (
     <div
@@ -72,45 +49,41 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
           )}
           {subtitle && <p className={"col-12"}>{subtitle}</p>}
         </div>
-      </div>
-      <Select
-        id="select-grafico"
-        label="Progetti"
-        onChange={(e) => setSelectedId(e)}
-        aria-label="Seleziona un progetto per visualizzare il grafico corrispondente"
-        aria-describedby="filter-description"
-      >
-        <>
-          {charts.map((chart, idx) => (
-            <option
-              key={chart.id}
-              value={createSlug(chart?.title ?? `chart-${idx}`)}
-            >
+
+        <Select
+          id="select-grafico"
+          label="Progetti"
+          value={selectedId}
+          onChange={setSelectedId}
+          aria-label="Seleziona un progetto per visualizzare il grafico corrispondente"
+          aria-describedby="filter-description"
+          className="my-4"
+        >
+          {charts.map((chart) => (
+            <option key={chart.id} value={chart.id}>
               {chart.title}
             </option>
           ))}
-        </>
-      </Select>
+        </Select>
 
-      {/* <div className="mx-auto position-relative">
-        {isClient ? (
-          selectedChart &&
-          selectedChart.chart && (
-            <ChartWrapper
-              id={selectedChart.chart.id}
-              data={selectedChart.chart.chartData}
-            />
-          )
-        ) : (
-          <div
-            style={{ height: "300px" }}
-            className="d-flex align-items-center justify-content-center"
-          >
-            <Spinner active small />
-            <span className="visually-hidden">Caricamento...</span>
-          </div>
-        )}
-      </div> */}
+        <div className="mx-auto position-relative">
+          {isClient ? (
+            selectedChart && (
+              <BloccoGrafico
+                props={{ ...selectedChart, title: "" } as BloccoGraficoRecord}
+              />
+            )
+          ) : (
+            <div
+              style={{ height: "300px" }}
+              className="d-flex align-items-center justify-content-center"
+            >
+              <Spinner active small />
+              <span className="visually-hidden">Caricamento...</span>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

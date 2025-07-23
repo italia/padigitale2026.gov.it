@@ -167,15 +167,13 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
       )}
     >
       <div className={cn("container-xxl py-4")}>
-        <div className="py-4">
-          <div>
-            {titleBig ? (
-              <>{title && <h2 className={"col-12 mb-3 h2"}>{title}</h2>}</>
-            ) : (
-              <>{title && <h3 className={"col-12 mb-3 h3"}>{title}</h3>}</>
-            )}
-            {subtitle && <p className={"col-12"}>{subtitle}</p>}
-          </div>
+        <div className={cn("", { "py-4": title || subtitle })}>
+          {titleBig ? (
+            <>{title && <h2 className={"col-12 mb-3 h2"}>{title}</h2>}</>
+          ) : (
+            <>{title && <h3 className={"col-12 mb-3 h3"}>{title}</h3>}</>
+          )}
+          {subtitle && <p className={"col-12"}>{subtitle}</p>}
 
           {chartData && chartData.data && chartData.data.length > 0 && (
             <div className="mx-auto position-relative">
