@@ -7,6 +7,15 @@
   padding-inline: 0 !important;
   margin-block: 16px !important;
   color: var(--color-text-secondary, #2f475e) !important;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+
+  &:hover {
+    text-decoration: underline !important;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: 4px !important;
+  }
 
   &::before {
     color: #06c !important;

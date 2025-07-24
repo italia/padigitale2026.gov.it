@@ -396,7 +396,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
                           createSlug(item.titleMisura?.slug ?? index.toString())
                         ] && (
                           <div
-                            className="col-12 text-center py-1"
+                            className="col-12 py-1"
                             role="status"
                             aria-live="polite"
                           >
