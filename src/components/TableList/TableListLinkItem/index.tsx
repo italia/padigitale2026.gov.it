@@ -81,12 +81,12 @@ export function TableListLinkItem({
           aria-label={category ? `Categoria: ${category.label}` : undefined}
         >
           <div className="me-4">
-            <div
+            <h3
               className="fw-semibold text-decoration-underline mb-1"
               style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
             >
               {link?.text}
-            </div>
+            </h3>
 
             {category && (
               <div className="text-secondary text-decoration-none text-uppercase fw-semibold lh-base">

@@ -110,12 +110,12 @@ export function TableListFaq({
                       }
                     >
                       <div className="me-4">
-                        <div
+                        <h3
                           className="fw-semibold text-decoration-underline mb-1 lh-base"
                           style={{ fontSize: "1.125rem", lineHeight: "1.556" }}
                         >
                           {item.title}
-                        </div>
+                        </h3>
 
                         {item.category &&
                           item.category.label === "Misure" &&

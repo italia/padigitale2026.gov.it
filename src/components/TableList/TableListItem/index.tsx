@@ -61,9 +61,9 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
                 : undefined
             }
           >
-            <span style={{ fontSize: "0.875rem", lineHeight: "1.556" }}>
+            <h3 style={{ fontSize: "0.875rem", lineHeight: "1.556" }}>
               {link?.text}
-            </span>
+            </h3>
             {link?.icon && (
               <Icon
                 className="my-0"
