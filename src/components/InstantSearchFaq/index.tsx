@@ -116,8 +116,8 @@ function SearchResults({ isFocused }: { isFocused: boolean }) {
                   aria-label={`Vai alla domanda: ${item.title}`}
                 >
                   <div>
-                    <div
-                      className="fw-bold text-decoration-underline mb-1"
+                    <h3
+                      className="fw-bold text-decoration-underline mb-1 lh-base"
                       style={{ fontSize: "1.125rem" }}
                       dangerouslySetInnerHTML={{
                         __html:
