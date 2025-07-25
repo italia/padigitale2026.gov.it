@@ -74,7 +74,7 @@ export function CardAnnouncement({
       {titolo && (
         <TitleTag
           className={
-            "it-card-title fw-semibold pb-2 lh-sm d-flex justify-content-between h-3"
+            "it-card-title fw-semibold pb-2 lh-sm d-flex justify-content-between h3"
           }
         >
           {href && (

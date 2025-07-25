@@ -157,7 +157,7 @@ export function CardMisura({ props }: { props: CardMisuraRecord }) {
                   >
                     BENEFICIARI
                   </small>
-                  <p className="fw-semibold h-6 mb-0">
+                  <p className="fw-semibold h6 mb-0">
                     {entiBeneficiari.map((ente, idx) => (
                       <span key={idx}>
                         {ente.label}

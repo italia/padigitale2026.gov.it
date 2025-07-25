@@ -64,7 +64,7 @@ export function CardGeneric({
       {title && (
         <TitleTag
           className={cn(
-            "it-card-title fw-semibold pb-3 lh-sm h-3 d-flex justify-content-between",
+            "it-card-title fw-semibold pb-3 lh-sm h3 d-flex justify-content-between",
             {
               "px-0": cardLayout && cardLayout === "borderBottom",
             }
@@ -102,9 +102,7 @@ export function CardGeneric({
         })}
       >
         {description && (
-          <p className="it-card-text h-6 flex-grow-1 pb-4 mb-3">
-            {description}
-          </p>
+          <p className="it-card-text h6 flex-grow-1 pb-4 mb-3">{description}</p>
         )}
         {(label || formattedDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0")}>
