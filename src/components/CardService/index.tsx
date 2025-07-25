@@ -34,9 +34,7 @@ export function CardService({
       )}
       {title && (
         <TitleTag
-          className={
-            "it-card-title fw-bold h-3 pb-3 lh-sm px-0 ps-lg-2 pe-lg-2"
-          }
+          className={"it-card-title fw-bold h3 pb-3 lh-sm px-0 ps-lg-2 pe-lg-2"}
         >
           <span className={cn("service_title")}>{title}</span>
         </TitleTag>
@@ -47,9 +45,7 @@ export function CardService({
         }
       >
         {description && (
-          <p className="it-card-text h-6 flex-grow-1 pb-4 mb-3">
-            {description}
-          </p>
+          <p className="it-card-text h6 flex-grow-1 pb-4 mb-3">{description}</p>
         )}
         {button && (
           <footer

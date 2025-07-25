@@ -60,7 +60,7 @@ export default function CenterHeader({
             >
               {title}
             </h1>
-            <p className="mb-0 h-6 d-none d-lg-block">{subtitle}</p>
+            <p className="mb-0 h6 d-none d-lg-block">{subtitle}</p>
           </div>
         </Link>
         <HeaderRightZone>

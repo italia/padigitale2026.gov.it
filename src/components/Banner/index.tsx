@@ -43,7 +43,7 @@ export function Banner({ props }: { props: BannerRecord }) {
       <div className={cn("container-xxl")}>
         {/* Body */}
         <div className="row h-100 py-4">
-          {title && <h2 className={"col-12 mb-3 h-2 lh-sm"}>{title}</h2>}
+          {title && <h2 className={"col-12 mb-3 h2 lh-sm"}>{title}</h2>}
           {description && (
             <p className={"col-12 font-sans-serif"}>{description}</p>
           )}

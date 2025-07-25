@@ -47,7 +47,7 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
           <span className="me-3">{title}</span>
           <Link
             prefetch={false}
-            className="fw-semibold text-nowrap"
+            className="fw-semibold text-nowrap d-flex align-items-center"
             href={getHref(link)}
             title={getTitle(link)}
             aria-label={
@@ -61,7 +61,10 @@ export function TableListItem({ props }: { props: TableListItemRecord }) {
                 : undefined
             }
           >
-            <h3 style={{ fontSize: "0.875rem", lineHeight: "1.556" }}>
+            <h3
+              className="p-0 m-0"
+              style={{ fontSize: "0.875rem", lineHeight: "1.556" }}
+            >
               {link?.text}
             </h3>
             {link?.icon && (

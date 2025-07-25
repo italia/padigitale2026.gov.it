@@ -130,7 +130,7 @@ export function TableListUpdates({
         <Col>
           <h2
             id={`${id}-title`}
-            className={cn("col-12 h-1 pb-4", {
+            className={cn("col-12 h1 pb-4", {
               "text-center": alignment === "center",
               "visually-hidden": !title || title.length === 0,
             })}
