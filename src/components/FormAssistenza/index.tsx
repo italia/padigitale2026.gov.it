@@ -318,8 +318,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                     1.1 e 1.2 Multimisura (ASL/AO)
                   </option>
                   <option label="1.3.1 ANNCSU">1.3.1 ANNCSU</option>
-                  <option label="1.3.1 Piattaforma Digitale Nazionale Dati">
-                    1.3.1 Piattaforma Digitale Nazionale Dati
+                  <option label="1.3.1 PDND">
+                    1.3.1 PDND
                   </option>
                   <option label="1.4.1 Esperienza dei servizi pubblici">
                     1.4.1 Esperienza dei servizi pubblici
