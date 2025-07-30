@@ -5,7 +5,7 @@ interface UpdateDateProps {
 export function UpdateDate({ date }: UpdateDateProps) {
   return (
     <div className="container-xxl">
-      <p className="my-4 h6 text-secondary">
+      <p className="my-4 text-secondary">
         Aggiornato il{" "}
         <time dateTime={date}>
           {new Intl.DateTimeFormat("it-IT", {
