@@ -34,11 +34,7 @@ fragment NewsFields on NewsRecord {
       title
       description
     }
-    ... on CardsGridRecord {
-      __typename
-      title
-      description
-    }
+
     ... on CardsGridGenericRecord {
       __typename
       sectionFields {

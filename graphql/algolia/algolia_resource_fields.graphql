@@ -34,11 +34,7 @@ fragment ResourceFields on ResourceRecord {
       title
       description
     }
-    ... on CardsGridRecord {
-      __typename
-      title
-      description
-    }
+
     ... on CardsGridGenericRecord {
       __typename
       sectionFields {
