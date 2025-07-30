@@ -57,7 +57,7 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
           onChange={setSelectedId}
           aria-label="Seleziona un progetto per visualizzare il grafico corrispondente"
           aria-describedby="filter-description"
-          className="my-4"
+          className="w-auto mb-4"
         >
           {charts.map((chart) => (
             <option key={chart.id} value={chart.id}>
