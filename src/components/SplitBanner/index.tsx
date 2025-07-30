@@ -56,7 +56,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
       >
         <div className={cn("colonna-testo", "col-12 col-lg-6 px-0")}>
           {/* Body */}
-          <div className="it-hero-text-wrapper container px-4">
+          <div className="it-hero-text-wrapper">
             {title && (
               <h2 className={"neutral-1-color-a9 mb-3 h1 lh-sm"}>{title}</h2>
             )}
