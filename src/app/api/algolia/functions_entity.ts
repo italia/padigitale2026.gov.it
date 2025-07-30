@@ -127,7 +127,6 @@ export async function indexEntity(
       case "HeroRecord":
       case "BannerRecord":
       case "SplitBannerRecord":
-      case "CardsGridRecord":
         content += `${el.title} ${el.description} `;
         break;
 
