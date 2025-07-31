@@ -48,7 +48,7 @@ export function CardResource({
         </TitleTag>
       )}
       <div className="it-card-body px-0 pb-2 d-flex flex-column pt-3 pb-3 border-bottom border-neutral-1-bg-a3">
-        {summary && <p className="it-card-text h6 flex-grow-1">{summary}</p>}
+        {summary && <p className="it-card-text flex-grow-1">{summary}</p>}
         <footer className="it-card-related pb-2">
           {(() => {
             const badge = getBadge(_createdAt, _updatedAt);
