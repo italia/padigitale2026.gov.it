@@ -216,62 +216,18 @@ export function TableListUpdates({
                               </span>
                               {(() => {
                                 const buttonHref = getButtonHref(
-                                  cta as ButtonRecord
+                                  cta as ButtonRecord,
                                 );
-
-                                // Determina il testo del bottone seguendo la stessa logica degli span
-                                let buttonText = "";
-                                if (cta?.href) {
-                                  buttonText = "Vai alla risorsa aggiornata";
-                                } else if (cta?.cmsPage && cta?.text) {
-                                  buttonText = cta.text;
-                                } else if (
-                                  cta?.cmsPage &&
-                                  !cta?.text &&
-                                  cta?.cmsPage?.title
-                                ) {
-                                  buttonText = cta.cmsPage.title;
-                                } else if (
-                                  cta?.cmsPage &&
-                                  !cta?.text &&
-                                  !cta?.cmsPage?.title &&
-                                  cta?.cmsPage?.__typename === "PageRecord"
-                                ) {
-                                  buttonText = "Vai alla pagina aggiornata";
-                                }
 
                                 return buttonHref.length > 0 ? (
                                   <Link
                                     prefetch={false}
                                     className="fw-semibold text-nowrap"
                                     href={buttonHref}
-                                    aria-label={buttonText}
+                                    aria-label={cta?.text || ""}
                                     target={"_self"}
                                   >
-                                    {cta?.href && (
-                                      <span className="small">
-                                        Vai alla risorsa aggiornata
-                                      </span>
-                                    )}
-                                    {cta?.cmsPage && cta?.text && (
-                                      <span className="small">{cta.text}</span>
-                                    )}
-                                    {cta?.cmsPage &&
-                                      !cta?.text &&
-                                      cta?.cmsPage?.title && (
-                                        <span className="small">
-                                          {cta.cmsPage.title}
-                                        </span>
-                                      )}
-                                    {cta?.cmsPage &&
-                                      !cta?.text &&
-                                      !cta?.cmsPage?.title && (
-                                        <span className="small">
-                                          {cta.cmsPage.__typename ===
-                                            "PageRecord" &&
-                                            "Vai alla pagina aggiornata"}
-                                        </span>
-                                      )}
+                                    <span className="small">{cta?.text}</span>
                                     {cta?.icon && (
                                       <Icon
                                         className="my-0"
@@ -289,7 +245,7 @@ export function TableListUpdates({
                           </div>
                         </div>
                       );
-                    }
+                    },
                   )}
                 </div>
               </div>
