@@ -6,19 +6,26 @@
 
 Questo è il repository del progetto PA Digitale 2026, un'applicazione web sviluppata con Next.js e un set completo di strumenti moderni per il frontend.
 
-[English version](README-en.md)
+[↪ English version](README-en.md)
+
+## Argomenti
+
+- [↪ Convenzioni coding](doc/CODING.md)
+- [↪ Procedura di rilascio](doc/RELEASE.md)
+- [↪ Documentazione componenti](doc/COMPONENTS.md)
+- [↪ Creare redirects](doc/REDIRECTS.md)
 
 ## Tecnologie Principali
 
-- [Next.js](https://nextjs.org/) - Framework React per la produzione
-- [DatoCMS](https://www.datocms.com/) - Headless CMS per la gestione dei contenuti
-- [Bootstrap Italia](https://italia.github.io/bootstrap-italia/) - Libreria di componenti UI per la PA
-- [Design React Kit](https://italia.github.io/design-react-kit/) - Componenti React del Design System della PA
-- [Bun](https://bun.sh/) - Runtime JavaScript e gestore pacchetti
+- [🌐 Next.js](https://nextjs.org/) - Framework React per la produzione
+- [🌐 DatoCMS](https://www.datocms.com/) - Headless CMS per la gestione dei contenuti
+- [🌐 Bootstrap Italia](https://italia.github.io/bootstrap-italia/) - Libreria di componenti UI per la PA
+- [🌐 Design React Kit](https://italia.github.io/design-react-kit/) - Componenti React del Design System della PA
+- [🌐 Bun](https://bun.sh/) - Runtime JavaScript e gestore pacchetti
 
 ## Prerequisiti
 
-- [Bun](https://bun.sh/) (raccomandato)
+- [🌐 Bun](https://bun.sh/) (raccomandato)
 - Node.js 18+ (alternativa)
 
 ## Installazione
@@ -54,7 +61,7 @@ Per utilizzare Node.js invece di Bun:
 bun run dev
 ```
 
-L'applicazione sarà disponibile all'indirizzo [http://localhost:3000](http://localhost:3000).
+L'applicazione sarà disponibile all'indirizzo [↪ http://localhost:3000](http://localhost:3000).
 
 ## Build e Produzione
 
@@ -91,6 +98,6 @@ Il progetto richiede diverse variabili d'ambiente per funzionare correttamente. 
 Per contribuire al progetto, assicurati di:
 
 1. Creare un branch per le tue modifiche
-2. Seguire le convenzioni di codice del progetto
+2. Seguire le [↪ convenzioni di codice del progetto](doc/CODING.md)
 3. Testare le modifiche localmente
-4. Inviare una Pull Request con una descrizione dettagliata delle modifiche
+4. Inviare una [↪ pull request](doc/RELEASE.md) (PR) con una descrizione dettagliata delle modifiche
