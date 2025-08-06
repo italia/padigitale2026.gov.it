@@ -37,7 +37,7 @@ export async function POST(request: Request) {
         previewLinks: [
           {
             label: "Preview",
-            url: `${process.env.NEXT_PUBLIC_DOMAIN}/api/draft?slug=${slug}`,
+            url: `https://padigitale2026-gov-it-develop.vercel.app/${slug}`,
           },
         ],
       },
