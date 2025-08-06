@@ -1,5 +1,9 @@
 # Librerie utilizzate nel progetto
 
+[↩ README](../README.md)
+
+Queste sono tutte le librerie degne di menzione utilizzate nel progetto. Per maggior sicurezza, consultare anche il file `package.json`.
+
 | Libreria                                                                                                        | Utilizzo                                                                                                     |
 | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | [🌐 bootstrap-italia](https://www.npmjs.com/package/bootstrap-italia)                                           | Libreria di terze parti che determina tutto il design system.                                                |
@@ -22,5 +26,3 @@
 | [🌐 zod](https://www.npmjs.com/package/zod)                                                                     | Libreria di terze parti per la validazione di dati e tipi.                                                   |
 
 Eventuali altre librerie omesse (Next, React, Vercel) non hanno bisogno di essere documentate in quanto sono librerie standard che sono necessarie al funzionamento del progetto stesso.
-
-[↩ README](../README.md)
