@@ -14,6 +14,7 @@ Questo è il repository del progetto PA Digitale 2026, un'applicazione web svilu
 - [↪ Procedura di rilascio](doc/RELEASE.md)
 - [↪ Documentazione componenti](doc/COMPONENTS.md)
 - [↪ Creare redirects](doc/REDIRECTS.md)
+- [↪ Librerie utilizzate](doc/LIBS.md)
 
 ## Tecnologie Principali
 
