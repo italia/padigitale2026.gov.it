@@ -3,6 +3,7 @@ dotenv.config();
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const token = process.env.DATOCMS_API_TOKEN;
+const environment = process.env.DATOCMS_ENVIRONMENT ?? "main";
 
 const config: CodegenConfig = {
   overwrite: true,
@@ -12,6 +13,7 @@ const config: CodegenConfig = {
         headers: {
           Authorization: `Bearer ${token}`,
           Referer: "codegen",
+          "X-Environment": environment,
         }
       }
     }

@@ -1807,7 +1807,7 @@ export type GuidelineModelFilter = {
   customUpdateDate?: InputMaybe<DateFilter>;
   descrizione?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
-  misura?: InputMaybe<LinkFilter>;
+  misura?: InputMaybe<LinksFilter>;
   title?: InputMaybe<StringFilter>;
 };
 
@@ -1859,7 +1859,7 @@ export type GuidelineRecord = RecordInterface & {
   customUpdateDate?: Maybe<Scalars['Date']['output']>;
   descrizione?: Maybe<Scalars['String']['output']>;
   id: Scalars['ItemId']['output'];
-  misura?: Maybe<MisuraRecord>;
+  misura: Array<MisuraRecord>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -6664,7 +6664,7 @@ export type AllFilteredUpdatesQuery = { __typename?: 'Query', allUpdates: Array<
 export type AllGuidelinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllGuidelinesQuery = { __typename?: 'Query', allGuidelines: Array<{ __typename: 'GuidelineRecord', _createdAt: string, _updatedAt: string, id: string, title?: string | null, descrizione?: string | null, customUpdateDate?: string | null, allegato?: { __typename?: 'FileField', id: string, size: number, filename: string, url: string, format: string } | null, beneficiari: Array<{ __typename?: 'EnteBeneficiarioRecord', label?: string | null, id: string, labelSalesforce?: string | null }>, misura?: { __typename?: 'MisuraRecord', label?: string | null, slug?: string | null, basePath?: string | null, idSalesforce?: string | null, pacchetto?: string | null } | null }>, _allGuidelinesMeta: { __typename?: 'CollectionMetadata', count: number } };
+export type AllGuidelinesQuery = { __typename?: 'Query', allGuidelines: Array<{ __typename: 'GuidelineRecord', _createdAt: string, _updatedAt: string, id: string, title?: string | null, descrizione?: string | null, customUpdateDate?: string | null, allegato?: { __typename?: 'FileField', id: string, size: number, filename: string, url: string, format: string } | null, beneficiari: Array<{ __typename?: 'EnteBeneficiarioRecord', label?: string | null, id: string, labelSalesforce?: string | null }>, misura: Array<{ __typename?: 'MisuraRecord', label?: string | null, slug?: string | null, basePath?: string | null, idSalesforce?: string | null, pacchetto?: string | null }> }>, _allGuidelinesMeta: { __typename?: 'CollectionMetadata', count: number } };
 
 export type AllMisurasQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6861,7 +6861,7 @@ export type GuidelineQueryVariables = Exact<{
 }>;
 
 
-export type GuidelineQuery = { __typename?: 'Query', guideline?: { __typename: 'GuidelineRecord', _createdAt: string, _updatedAt: string, id: string, title?: string | null, descrizione?: string | null, customUpdateDate?: string | null, allegato?: { __typename?: 'FileField', id: string, size: number, filename: string, url: string, format: string } | null, beneficiari: Array<{ __typename?: 'EnteBeneficiarioRecord', label?: string | null, id: string, labelSalesforce?: string | null }>, misura?: { __typename?: 'MisuraRecord', label?: string | null, slug?: string | null, basePath?: string | null, idSalesforce?: string | null, pacchetto?: string | null } | null } | null, _allUpdatesMeta: { __typename?: 'CollectionMetadata', count: number } };
+export type GuidelineQuery = { __typename?: 'Query', guideline?: { __typename: 'GuidelineRecord', _createdAt: string, _updatedAt: string, id: string, title?: string | null, descrizione?: string | null, customUpdateDate?: string | null, allegato?: { __typename?: 'FileField', id: string, size: number, filename: string, url: string, format: string } | null, beneficiari: Array<{ __typename?: 'EnteBeneficiarioRecord', label?: string | null, id: string, labelSalesforce?: string | null }>, misura: Array<{ __typename?: 'MisuraRecord', label?: string | null, slug?: string | null, basePath?: string | null, idSalesforce?: string | null, pacchetto?: string | null }> } | null, _allUpdatesMeta: { __typename?: 'CollectionMetadata', count: number } };
 
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
