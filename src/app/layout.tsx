@@ -122,27 +122,16 @@ export default async function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              window.dev = undefined;
-              if (window.dev === true || !(navigator.doNotTrack === '1' || window.doNotTrack === '1')) {
-                window._paq = window._paq || [];
-                window._paq.push(['enableJSErrorTracking']);
-                window._paq.push(['setTrackerUrl', 'https://ingestion.webanalytics.italia.it//matomo.php']);
-                window._paq.push(['setSiteId', '${
-                  process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "R9pxNNv0Xm"
-                }']);
-                window._paq.push(['enableHeartBeatTimer']);
-                window.start = new Date();
-                (function () {
-                  var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                  g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = '/assets/matomo.js'; s.parentNode.insertBefore(g, s);
-                })();
-                if (window.dev === true) {
-                  console.debug('[Matomo] Tracking initialized');
-                  console.debug('[Matomo] matomoUrl: https://ingestion.webanalytics.italia.it/, siteId: ${
-                    process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "R9pxNNv0Xm"
-                  }');
-                }
-              }
+              var _paq = window._paq = window._paq || [];
+              _paq.push(['trackPageView']);
+              _paq.push(['enableLinkTracking']);
+              (function() {
+                var u = 'https://ingestion.webanalytics.italia.it/';
+                _paq.push(['setTrackerUrl', u+'matomo.php']);
+                _paq.push(['setSiteId', ${process.env.NEXT_PUBLIC_MATOMO_SITE_ID || "2020"}]);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+              })();
             `,
           }}
         />
