@@ -12,7 +12,7 @@ export interface SalesforceFieldMapping {
 // Configurazioni per ambiente
 const fieldMappings: Record<string, SalesforceFieldMapping> = {
   development: {
-    applicant: "00N7Q0000015NGO",
+    applicant: "00N7Q00000I5NG0",
     address: "00N7Q000007qqu1",
     phone: "00N7Q000007qqts",
     subject: "00N7Q000007qqtk",
@@ -22,7 +22,7 @@ const fieldMappings: Record<string, SalesforceFieldMapping> = {
   },
   production: {
     // In produzione potrebbero essere diversi
-    applicant: "00N7Q0000015NGO",
+    applicant: "00N7Q00000I5NG0",
     address: "00N7Q000007qqu1",
     phone: "00N7Q000007qqts",
     subject: "00N7Q000007qqtk",
