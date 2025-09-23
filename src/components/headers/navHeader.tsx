@@ -77,7 +77,7 @@ export default function NavHeader({
         aria-label="Navigazione principale"
       >
         <div className="it-header-navbar-wrapper theme-light-desk">
-          <div className="container-xxl">
+          <div className="container-xxl px-4">
             <div className="row">
               <div className="col-12 px-0">
                 <nav

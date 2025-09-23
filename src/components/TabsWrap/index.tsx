@@ -18,7 +18,7 @@ export function TabsWrap({ props }: { props: TabsWrapRecord }) {
   const { tabs } = props;
 
   return (
-    <div className={cn("container-xxl py-5")}>
+    <div className={cn("container-xxl px-4 py-5")}>
       <TabContainer defaultActiveKey={tabs[0].id}>
         <TabNav className="auto pt-4">
           {tabs.map((tab) => (

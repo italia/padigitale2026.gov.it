@@ -9,7 +9,7 @@ export function LayoutSidebar({ props }: { props: LayoutSidebarRecord }) {
   const { sidebar, content } = props;
 
   return (
-    <div className="container-xxl py-lg-5">
+    <div className="container-xxl px-4 py-lg-5">
       <div className="row">
         <div className="col-12 col-lg-4">
           <div data-bs-toggle="sticky" data-bs-stackable="true">

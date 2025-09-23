@@ -40,7 +40,7 @@ export function Banner({ props }: { props: BannerRecord }) {
         "p-0"
       )}
     >
-      <div className={cn("container-xxl")}>
+      <div className={cn("container-xxl px-4")}>
         {/* Body */}
         <div className="row h-100 py-4">
           {title && <h2 className={"col-12 mb-3 h2 lh-sm"}>{title}</h2>}

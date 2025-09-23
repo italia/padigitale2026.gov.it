@@ -54,7 +54,7 @@ function AnnullaIscrizioneContent() {
   // Pagina di conferma
   if (status === "confirm") {
     return (
-      <div className="container-xxl py-5 my-5 mx-auto">
+      <div className="container-xxl px-4 py-5 my-5 mx-auto">
         <div className="row justify-content-center">
           <div className="col-md-8">
             <div className="alert alert-warning" role="alert">
@@ -90,7 +90,7 @@ function AnnullaIscrizioneContent() {
   // Loading state
   if (status === "loading") {
     return (
-      <div className="container-xxl py-5 my-5 mx-auto">
+      <div className="container-xxl px-4 py-5 my-5 mx-auto">
         <div className="row justify-content-center">
           <div className="col-md-8 text-center">
             <Spinner active small />
@@ -104,7 +104,7 @@ function AnnullaIscrizioneContent() {
 
   // Success/Error state
   return (
-    <div className="container-xxl py-5 my-5 mx-auto">
+    <div className="container-xxl px-4 py-5 my-5 mx-auto">
       <div className="row justify-content-center">
         <div className="col-md-8">
           {status === "success" ? (
@@ -146,7 +146,7 @@ function AnnullaIscrizioneContent() {
 
 function LoadingFallback() {
   return (
-    <div className="container-xxl py-5 my-5 mx-auto">
+    <div className="container-xxl px-4 py-5 my-5 mx-auto">
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
           <Spinner active small />

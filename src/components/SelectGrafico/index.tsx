@@ -40,7 +40,7 @@ export function SelectGrafico({ props }: { props: SelectGraficoRecord }) {
         "p-0"
       )}
     >
-      <div className={cn("container-xxl py-4")}>
+      <div className={cn("container-xxl px-4 py-4")}>
         <div className="py-4">
           {titleBig ? (
             <>{title && <h2 className={"col-12 mb-3 h2"}>{title}</h2>}</>

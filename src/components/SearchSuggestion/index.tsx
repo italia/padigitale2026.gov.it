@@ -28,7 +28,7 @@ export function SearchSuggestion({
 
   return (
     <div
-      className={cn("wrapper", "container-xxl py-4 px-3")}
+      className={cn("wrapper", "container-xxl px-4 py-4 px-3")}
       role="region"
       // aria-labelledby={title ? `${id}-title` : undefined}
     >

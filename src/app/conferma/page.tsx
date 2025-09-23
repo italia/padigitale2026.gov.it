@@ -50,7 +50,7 @@ function ConfermaContent() {
 
   if (status === "loading") {
     return (
-      <div className="container-xxl py-5 my-5 mx-auto">
+      <div className="container-xxl px-4 py-5 my-5 mx-auto">
         <div className="row justify-content-center">
           <div className="col-md-8 text-center">
             <Spinner active small />
@@ -63,7 +63,7 @@ function ConfermaContent() {
   }
 
   return (
-    <div className="container-xxl py-5 my-5 mx-auto">
+    <div className="container-xxl px-4 py-5 my-5 mx-auto">
       <div className="row justify-content-center">
         <div className="col-md-8">
           {status === "success" ? (
@@ -101,7 +101,7 @@ function ConfermaContent() {
 
 function LoadingFallback() {
   return (
-    <div className="container-xxl py-5 my-5 mx-auto">
+    <div className="container-xxl px-4 py-5 my-5 mx-auto">
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
           <Spinner active small />

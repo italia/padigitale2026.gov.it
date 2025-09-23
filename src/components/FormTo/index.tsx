@@ -127,7 +127,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
   // Mostra messaggio di successo
   if (status === "success") {
     return (
-      <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
+      <div className={cn("wrapper", "container-xxl px-4 py-5 my-5 mx-auto")}>
         <h2 className="mb-5">Lascia i tuoi dati per essere contattato</h2>
         <div className="row">
           <div className="col-12 col-md-10">
@@ -147,7 +147,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
 
   return (
     <div
-      className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}
+      className={cn("wrapper", "container-xxl px-4 py-5 my-5 mx-auto")}
       aria-labelledby={id}
     >
       <h2 className="mb-5" id={id}>
