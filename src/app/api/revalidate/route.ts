@@ -19,6 +19,13 @@ export async function POST(request: NextRequest) {
     if (slug) {
       revalidatePath(`/${slug}`);
 
+      // Gestione caso speciale. Dal momento che le notizie sono usate come
+      // reference, se queste vengono pubblicate andrà rivalidata anche la
+      // pagina che le referenzia.
+      if (slug.includes("notizie")) {
+        revalidatePath("/novita");
+      }
+
       return NextResponse.json({
         revalidate: true,
         slug: `/${slug}`,
