@@ -9,6 +9,11 @@ query Faq($slug: String) {
     slug
     customUpdateDate
     nascondiValutazione
+    seo: _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     category {
       label
       slug

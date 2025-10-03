@@ -1,9 +1,10 @@
-import { getFaqData, generateFaqStaticParams } from "@/lib/pageHelpers";
+import { generateFaqStaticParams } from "@/lib/pageHelpers";
 import { ModularContent } from "@/src/components/ModularContent";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
 import { faqWithOption } from "@/lib/datocms";
+import { faq } from "@/lib/datocms";
 
 export async function generateMetadata({
   params,
@@ -36,23 +37,18 @@ export async function generateMetadata({
     const exceptionSlug = `domande-frequenti/${fullSlug}`;
     pageData = await getSupportoData(exceptionSlug);
   } else {
-    // Per le FAQ vere, usa getFaqData
-    pageData = await getFaqData(fullSlug);
+    pageData = await faq(fullSlugForCheck);
+
+    const seo = pageData.faq?.seo;
+    const nextSeo = toNextMetadata(seo as SeoOrFaviconTag[]);
+
+    return nextSeo;
   }
 
-  if (!pageData) {
-    return {
-      title: "FAQ non trovata - PA digitale 2026",
-      description: "La FAQ richiesta non esiste.",
-    };
+  return {
+    title: "FAQ non trovata - PA digitale 2026",
+    description: "La FAQ richiesta non esiste.",
   }
-
-  const { page } = pageData;
-  const seo = page.seo;
-
-  const nextSeo = toNextMetadata(seo as SeoOrFaviconTag[]);
-
-  return nextSeo;
 }
 
 export async function generateStaticParams() {
