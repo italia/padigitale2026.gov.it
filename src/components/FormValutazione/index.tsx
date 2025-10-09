@@ -155,7 +155,7 @@ export function FormValutazione({ id }: { id: string }) {
   return (
     <Section
       wrapperClassName="feedback primary-bg-a1 py-5 px-3 px-lg-0"
-      className={cn("container-xxl px-4", "feedback-section")}
+      className={cn("container-xxl px-md-4", "feedback-section")}
     >
       <Row>
         <Col xs={12} sm={10} md={8} lg={6} className="mx-auto">

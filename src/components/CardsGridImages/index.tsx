@@ -58,7 +58,7 @@ export function CardsGridImages({
       >
         <div
           className={cn({
-            "container-xxl px-4": !hasSidebar,
+            "container-xxl px-md-4": !hasSidebar,
           })}
         >
           <div className={"row"}>

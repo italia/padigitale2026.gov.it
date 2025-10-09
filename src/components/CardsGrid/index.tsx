@@ -363,7 +363,7 @@ export function CardsGrid({
       >
         <div
           className={cn({
-            "container-xxl px-4": !hasSidebar,
+            "container-xxl px-md-4": !hasSidebar,
           })}
         >
           <div className={"row"}>

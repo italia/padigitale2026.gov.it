@@ -4,7 +4,7 @@ interface UpdateDateProps {
 
 export function UpdateDate({ date }: UpdateDateProps) {
   return (
-    <div className="container-xxl px-4">
+    <div className="container-xxl px-md-4">
       <p className="my-4 text-secondary">
         Aggiornato il{" "}
         <time dateTime={date}>

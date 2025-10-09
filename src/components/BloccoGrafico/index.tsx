@@ -167,7 +167,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
       )}
     >
       <div
-        className={cn("container-xxl px-4 py-4 px-0", { "px-4": !bgTransparent })}
+        className={cn("container-xxl px-md-4 py-4 px-0", { "px-4": !bgTransparent })}
       >
         <div className={cn("", { "py-4": title || subtitle })}>
           {titleBig ? (

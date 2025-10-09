@@ -216,7 +216,7 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
   }, [collapseElementOpen, isInitialLoad, isUserClick]);
 
   return (
-    <div className={cn("container-xxl px-4 py-lg-5")}>
+    <div className={cn("container-xxl px-md-4 py-lg-5")}>
       <div className="row my-4">
         <div className="col-12 col-lg-4 py-4">
           <Select

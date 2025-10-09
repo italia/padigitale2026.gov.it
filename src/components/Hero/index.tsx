@@ -44,20 +44,20 @@ export function Hero({ props }: { props: HeroRecord }) {
     <HeroComponent className={cn("wrapper", { "light-theme": lightTheme })}>
       <div
         className={
-          "row container-xxl px-4 px-0 mx-auto position-relative flex-grow-1"
+          "row container-xxl px-md-4 px-0 mx-auto position-relative flex-grow-1"
         }
       >
         <div className={cn("colonna-testo", "col-12 col-md-6 px-0")}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (
             <section
-              className={cn("breadcrumbs-section", "pt-2 px-3 container-xxl px-4")}
+              className={cn("breadcrumbs-section", "pt-2 px-3 container-xxl px-md-4")}
             >
               <Breadcrumbs lightTheme={lightTheme} />
             </section>
           )}
           {/* Body */}
-          <div className="it-hero-text-wrapper container-xxl px-4 px-lg-2 mx-lg-1">
+          <div className="it-hero-text-wrapper container-xxl px-md-4 px-lg-2 mx-lg-1">
             {title && (
               <HeroTitle
                 className={cn({ "neutral-1-color-a9 h1": lightTheme })}

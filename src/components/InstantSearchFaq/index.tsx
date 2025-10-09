@@ -221,7 +221,7 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
               <Configure filters="content_type:faq" />
               <div
                 ref={containerRef}
-                className={"container-xxl px-4 my-5"}
+                className={"container-xxl px-md-4 my-5"}
                 onFocus={() => setIsFocused(true)}
                 onBlur={handleBlur}
               >

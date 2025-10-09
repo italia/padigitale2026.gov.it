@@ -50,7 +50,7 @@ export function SplitBanner({ props }: { props: SplitBannerRecord }) {
       )}
     >
       <div
-        className={cn("row w-100 h-100 mx-auto container-xxl px-4", {
+        className={cn("row w-100 h-100 mx-auto container-xxl px-md-4", {
           "flex-row-reverse": imgLeft,
         })}
       >
