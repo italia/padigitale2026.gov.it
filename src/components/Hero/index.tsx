@@ -57,7 +57,7 @@ export function Hero({ props }: { props: HeroRecord }) {
             </section>
           )}
           {/* Body */}
-          <div className="it-hero-text-wrapper container-xxl px-md-4 px-lg-2 mx-lg-1">
+          <div className="it-hero-text-wrapper">
             {title && (
               <HeroTitle
                 className={cn({ "neutral-1-color-a9 h1": lightTheme })}
