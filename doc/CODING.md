@@ -8,10 +8,6 @@ Questo progetto adotta poche e semplici regole per la collaborazione.
 
 I branch principali di progetto sono i seguenti:
 
-`develop`
-
-Contiene il codice upstream _stabile_ più aggiornato. Questo è il codice rilasciato nell'ambiente di sviluppo Vercel ([🌐 https://padigitale2026-gov-it-develop.vercel.app](https://padigitale2026-gov-it-develop.vercel.app)). Ogni push ricevuto su questo ramo, aggiornerà il sito di sviluppo.
-
 `main`
 
 Contiene il codice promosso nell'ambiente di produzione. Questo è il codice che è rilasciato in [🌐 https://padigitale2026.gov.it](https://padigitale2026.gov.it). Ogni merge request su questo ramo aggiorna il sito di produzione.
