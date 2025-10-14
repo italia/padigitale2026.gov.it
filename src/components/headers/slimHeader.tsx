@@ -19,7 +19,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
     <Header
       theme={theme || ""}
       type="slim"
-      className={"px-0"}
+      className={"px-md-4"}
       role="banner"
       aria-label="Header principale del sito"
     >
