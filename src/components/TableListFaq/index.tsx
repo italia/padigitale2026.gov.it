@@ -139,7 +139,7 @@ export function TableListFaq({
                             badge && (
                               <Badge
                                 className={cn(
-                                  "badge text-capitalize px-3 me-2",
+                                  "badge me-2",
                                   {
                                     "lightgrey-bg-a3 text-primary":
                                       badge === "Nuovo",
