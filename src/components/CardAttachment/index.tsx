@@ -68,7 +68,7 @@ export function CardAttachment({
       )}
       <div className={"it-card-body d-flex flex-column pt-0 pb-0"}>
         {description && (
-          <p className="it-card-text h6 flex-grow-1 pb-4 mb-3">{description}</p>
+          <p className="it-card-text flex-grow-1 pb-4 mb-3">{description}</p>
         )}
         {(label || formattedDate) && (
           <footer className={cn("it-card-related pb-4 pt-0 mt-0 flex-wrap")}>
