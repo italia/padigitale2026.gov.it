@@ -191,7 +191,7 @@ export function CardAnnouncement({
                 {dataDiPubblicazione}
                 {badge && badge !== "In scadenza" && (
                   <Badge
-                    className={cn("text-capitalize px-3 ms-2", {
+                    className={cn("ms-2", {
                       "lightgrey-bg-a3 text-primary": badge === "Nuovo",
                       "lightgrey-bg-a1 neutral-1-color-a9":
                         badge === "Aggiornato",

@@ -101,7 +101,7 @@ export function TableListLinkItem({
               return (
                 badge && (
                   <Badge
-                    className={cn("badge text-capitalize px-3 me-2", {
+                    className={cn("badge me-2", {
                       "lightgrey-bg-a3 text-primary": badge === "Nuovo",
                       "neutral-1-bg-a2 text-dark": badge === "Aggiornato",
                     })}
