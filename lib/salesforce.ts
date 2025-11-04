@@ -100,7 +100,7 @@ export async function getAvvisi(
         startDate: r.outfunds__Start_Date__c,
         endDate: r.outfunds__End_Date__c,
         status: r.outfunds__Status__c,
-        entePromotore: r.Ente_promotore__c,
+        entePromotore: r.Ente_Promotore_CMS__c,
         fondiDisponibili: r.Fondi_disponibili__c,
         fondiDisponibili1: r.Fondi_disponibili_Padre_1__c,
         fondiDisponibili2: r.Fondi_disponibili_Padre_2__c,
