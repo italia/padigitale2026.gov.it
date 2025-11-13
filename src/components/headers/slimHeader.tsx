@@ -38,6 +38,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
                 href="https://innovazione.gov.it/italia-digitale-2026/"
                 title="Italia digitale 2026"
                 className="text-decoration-underline"
+                target="_blank"
               >
                 Italia digitale 2026
               </Link>
@@ -51,6 +52,7 @@ export default function SlimHeader({ theme }: { theme?: "dark" | "light" }) {
                 href="https://www.italiadomani.gov.it/it/home.html"
                 title="Italia domani - PNRR"
                 className="text-decoration-underline"
+                target="_blank"
               >
                 Italia domani - PNRR
               </Link>
