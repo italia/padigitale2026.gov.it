@@ -220,7 +220,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
               </li>
             ))}
             <li className="list-inline-item">
-              <Link href="https://form.agid.gov.it/view/da184c20-b4ae-11f0-a6e4-e7222240b441">
+              <Link href="https://form.agid.gov.it/view/da184c20-b4ae-11f0-a6e4-e7222240b441" target="_blank">
                 Dichiarazione di accessibilità
               </Link>
             </li>
