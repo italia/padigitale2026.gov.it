@@ -38,6 +38,7 @@ export default function Footer({ props }: { props: FooterQuery }) {
             <Row className="clearfix">
               <Col sm={12} className="px-0">
                 <div className="px-3 py-2 py-lg-4 d-lg-flex align-items-center gap-4">
+                  <h4 className="h4 mb-0 text-secondary">Con il contributo di</h4>
                   <div className="d-flex align-items-center mt-4 mb-4 mt-lg-2 mb-lg-2 me-4">
                     <Link
                       prefetch={false}
