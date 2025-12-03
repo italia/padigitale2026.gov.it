@@ -32,7 +32,7 @@ export function CardNews({
       // aria-labelledby={
       //   parentId && title ? `title-${parentId}-${id}` : undefined
       // }
-      className={cn("it-card--news it-card p-0 flex-grow-1", {
+      className={cn("it-card--news it-card p-0 flex-grow-1 border border-neutral-1-bg-a3 rounded", {
         "bg-white rounded border border-neutral-1-bg-a3":
           cardLayout && cardLayout === "bordered",
         "bg-transparent border-bottom border-neutral-1-bg-a3":
