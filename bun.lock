@@ -11,7 +11,7 @@
         "algoliasearch": "^5.26.0",
         "bootstrap-italia": "2.18.3",
         "csrf": "^3.1.0",
-        "dataviz-components": "^0.2.0",
+        "dataviz-components": "0.2.27",
         "datocms-structured-text-to-plain-text": "^5.0.0",
         "design-react-kit": "5.11.0",
         "dotenv": "^16.5.0",
@@ -136,6 +136,14 @@
     "@datocms/cma-client": ["@datocms/cma-client@4.0.1", "", { "dependencies": { "@datocms/rest-client-utils": "^4.0.0", "uuid": "^9.0.1" } }, "sha512-sGT7fRuh5XUao2vm0qzl/S7SguIFS2PMaznTJZ3+WZNs9iLP9VRd8ib9AdwesfS8DhKIFWz1gKhS6YUbdvZ6OQ=="],
 
     "@datocms/rest-client-utils": ["@datocms/rest-client-utils@4.0.0", "", { "dependencies": { "async-scheduler": "^1.4.4" } }, "sha512-BHEo7TjQIqqwOjGOt2Eap1HjPMbWpu9GIgPPAwTI9nbP4PbqKoYZ9kYXAkk+kmlXcqHE8GsoI0zN1Ux6DM3Q8g=="],
+
+    "@dnd-kit/accessibility": ["@dnd-kit/accessibility@3.1.1", "", { "dependencies": { "tslib": "^2.0.0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-2P+YgaXF+gRsIihwwY1gCsQSYnu9Zyj2py8kY5fFvUM1qm2WA2u639R6YNVfU4GWr+ZM5mqEsfHZZLoRONbemw=="],
+
+    "@dnd-kit/core": ["@dnd-kit/core@6.3.1", "", { "dependencies": { "@dnd-kit/accessibility": "^3.1.1", "@dnd-kit/utilities": "^3.2.2", "tslib": "^2.0.0" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-xkGBRQQab4RLwgXxoqETICr6S5JlogafbhNsidmrkVv2YRs5MLwpjoF2qpiGjQt8S9AoxtIV603s0GIUpY5eYQ=="],
+
+    "@dnd-kit/sortable": ["@dnd-kit/sortable@10.0.0", "", { "dependencies": { "@dnd-kit/utilities": "^3.2.2", "tslib": "^2.0.0" }, "peerDependencies": { "@dnd-kit/core": "^6.3.0", "react": ">=16.8.0" } }, "sha512-+xqhmIIzvAYMGfBYYnbKuNicfSsk4RksY2XdmJhT+HAC01nix6fHCztU68jooFiMUB01Ky3F0FyOvhG/BZrWkg=="],
+
+    "@dnd-kit/utilities": ["@dnd-kit/utilities@3.2.2", "", { "dependencies": { "tslib": "^2.0.0" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg=="],
 
     "@edge-runtime/format": ["@edge-runtime/format@2.2.1", "", {}, "sha512-JQTRVuiusQLNNLe2W9tnzBlV/GvSVcozLl4XZHk5swnRZ/v6jp8TqR8P7sqmJsQqblDZ3EztcWmLDbhRje/+8g=="],
 
@@ -949,7 +957,7 @@
 
     "dataloader": ["dataloader@2.2.3", "", {}, "sha512-y2krtASINtPFS1rSDjacrFgn1dcUuoREVabwlOGOe4SdxenREqwjwjElAdwvbGM7kgZz9a3KVicWR7vcz8rnzA=="],
 
-    "dataviz-components": ["dataviz-components@0.2.0", "", { "peerDependencies": { "dayjs": "^1.11.13", "echarts": "^5.6.0", "echarts-for-react": "^3.0.2", "ol": "^10.5.0", "react": "^19.1.0", "react-dom": "^19.1.0", "react-error-boundary": "^6.0.0", "react-markdown": "^10.1.0", "remark-gfm": "^4.0.1" } }, "sha512-qGbDnkrprrm2h/aQtI+/oAg3KfxyqmsHMYJwj7RqbaZ+gVCzu0BJCie0+LLfueu6OIrfaH8sz1V9DCf8mWF2fw=="],
+    "dataviz-components": ["dataviz-components@0.2.27", "", { "peerDependencies": { "@dnd-kit/core": "^6.3.1", "@dnd-kit/sortable": "^10.0.0", "@dnd-kit/utilities": "^3.2.2", "dayjs": "^1.11.13", "echarts": "^5.6.0", "echarts-for-react": "^3.0.2", "ol": "^10.5.0", "react": "^19.1.0", "react-dom": "^19.1.0", "react-error-boundary": "^6.0.0", "react-markdown": "^10.1.0", "remark-gfm": "^4.0.1" } }, "sha512-2AMA3J95GKWtWPp+xbtjkhl2ctDScyl5kZ3DNsX3hn8jkc9T2mlHboXASmHmfeOdm6zC0OWE9O0f3p3AovQXKA=="],
 
     "datocms-listen": ["datocms-listen@0.1.15", "", { "dependencies": { "@0no-co/graphql.web": "^1.0.1" } }, "sha512-0LcdKYW/ilWdyrRzQ+YbkAk4r2dge63vzHtfv19L8pfbfYurQgXP9/ck703QZL//YqBoc0OKBS4BP4WUQ6JDKA=="],
 

@@ -18,7 +18,7 @@
     "algoliasearch": "^5.26.0",
     "bootstrap-italia": "2.18.3",
     "csrf": "^3.1.0",
-    "dataviz-components": "^0.2.0",
+    "dataviz-components": "0.2.27",
     "datocms-structured-text-to-plain-text": "^5.0.0",
     "design-react-kit": "5.11.0",
     "dotenv": "^16.5.0",

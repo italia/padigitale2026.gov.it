@@ -7,6 +7,7 @@ import {
   ChartWrapper,
   KpiItem,
 } from "dataviz-components";
+import "dataviz-components/dist/style.css";
 
 import Link from "next/link";
 import { Icon } from "design-react-kit";
@@ -97,6 +98,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
             config: {
               ...(chart.chartData as ChartDataStructure).config,
               background: "transparent",
+              h: 500
             },
           }
         : null,
