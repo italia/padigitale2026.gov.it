@@ -7,6 +7,7 @@ import {
   ChartWrapper,
   KpiItem,
 } from "dataviz-components";
+import "dataviz-components/dist/style.css";
 
 import Link from "next/link";
 import { Icon } from "design-react-kit";
