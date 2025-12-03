@@ -27,7 +27,7 @@ const searchClient = algoliasearch(algoliaAppId, algoliaApiKey);
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 const cn = classNames.bind(styles);
 
 interface HighlightResult {
@@ -194,15 +194,23 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleBlur = (e: React.FocusEvent) => {
-    // Verifica se il nuovo elemento focus è all'interno del container
-    if (
-      containerRef.current &&
-      !containerRef.current.contains(e.relatedTarget as Node)
-    ) {
-      setIsFocused(false);
-    }
-  };
+  // Chiudi i risultati solo quando si clicca fuori dal componente,
+  // evitando di smontare i link prima che ricevano il click.
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsFocused(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <Section>
@@ -223,7 +231,6 @@ export function InstantSearchFaq({ props }: { props: InstantSearchFaqRecord }) {
                 ref={containerRef}
                 className={"container-xxl my-5"}
                 onFocus={() => setIsFocused(true)}
-                onBlur={handleBlur}
               >
                 <div className={"row"}>
                   <div className={cn("col-12 col-md-7 p-0")}>
