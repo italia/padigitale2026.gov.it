@@ -98,6 +98,7 @@ export function BloccoGrafico({ props }: { props: BloccoGraficoRecord }) {
             config: {
               ...(chart.chartData as ChartDataStructure).config,
               background: "transparent",
+              h: 500
             },
           }
         : null,
