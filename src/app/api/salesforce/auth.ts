@@ -1,3 +1,4 @@
+import { Connection } from "jsforce";
 
 export async function getSalesforceToken() {
   try {
@@ -40,3 +41,11 @@ export async function getSalesforceToken() {
     throw new Error(`Errore di autenticazione Salesforce: ${errorMessage}`);
   }
 }
+
+export const salesforceClient = new Connection({
+  loginUrl: process.env.SF_WEBHOOK_URL,
+  oauth2 : {
+    clientId : process.env.SF_WEBHOOK_CLIENT_ID ?? '',
+    clientSecret : process.env.SF_WEBHOOK_CLIENT_SECRET ?? ''
+  }
+});

@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import Mailgun from "mailgun.js"
 import { NextResponse } from "next/server";
 
 // Tipi e costanti
@@ -35,13 +36,6 @@ export class ApiError extends Error {
         super(message);
         this.name = 'ApiError';
     }
-}
-
-
-// Metodi helper
-
-export function isSuccessStatus(status: number): boolean {
-    return status >= HTTP_STATUS.OK_RANGE_START && status <= HTTP_STATUS.OK_RANGE_END;
 }
 
 export function createErrorResponse(error: Error, status: number = HTTP_STATUS.INTERNAL_SERVER_ERROR) {
@@ -84,3 +78,10 @@ export async function makeApiRequest(method: METHOD, address: string, action: AC
         requestOptions
     );
 };
+
+const mailgun = new Mailgun(FormData);
+export const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY ?? "", url: 'https://api.eu.mailgun.net' })
+
+export const newsletter = 'newsletter@padigitale2026.gov.it'
+
+export const fromAddress = "PA digitale 2026 <no-reply@padigitale2026.gov.it>"

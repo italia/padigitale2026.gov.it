@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { makeApiRequest, ApiResponse, ApiError, isSuccessStatus, createErrorResponse } from "../lib";
+import { mailgunClient, newsletter, ApiResponse, ApiError, createErrorResponse } from "../lib";
+import { salesforceClient } from "../../salesforce/auth";
 
 // GET /api/newsletter/unsubscribe?jwt=...
 
@@ -17,17 +18,13 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
             throw new ApiError("address or uuid not specified", 400);
         }
 
-        const response = await makeApiRequest("PATCH", address, "unsubscribe", uuid);
-        const data = await response.json() as ApiResponse;
+        await salesforceClient.login(process.env.SF_WEBHOOK_USERNAME ?? '', process.env.SF_WEBHOOK_PASSWORD ?? '')
 
-        if (!isSuccessStatus(response.status)) {
-            throw new ApiError(
-                `API request failed: ${data.message || 'Unknown error'}`,
-                response.status
-            );
-        }
+        await salesforceClient.sobject('Contact').find({UUID__c: uuid}).update({isActive__c: false})
 
-        return NextResponse.json(data);
+        await mailgunClient.lists.members.destroyMember(newsletter, `${address}.${uuid}`)
+
+        return NextResponse.json({message: "ok"});
     } catch (error) {
         if (error instanceof ApiError) {
             return createErrorResponse(error, error.statusCode);

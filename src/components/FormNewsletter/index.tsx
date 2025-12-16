@@ -28,9 +28,8 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
 
-  const shouldShowTipoEnte =
-    formState.rappresento === "pubblica-amministrazione";
-  const shouldShowNomeStruttura = formState.rappresento === "altro";
+  const shouldShowTipoEnte = formState.rappresento === "public-administration";
+  const shouldShowNomeStruttura = formState.rappresento === "other";
 
   // Logica per abilitare il bottone
   const isFormValid = () => {
@@ -166,10 +165,10 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
                 >
                   <option label="Scegli una voce dall'elenco"></option>
                   <option label="Pubblica amministrazione">
-                    pubblica-amministrazione
+                    public-administration
                   </option>
                   <option label="Fornitore IT">fornitore-it</option>
-                  <option label="Altro">altro</option>
+                  <option label="Altro">other</option>
                 </Select>
               </Col>
             </Row>
@@ -225,15 +224,15 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
                 >
                   <option label="Scegli una voce dall'elenco"></option>
                   <option label="Dirigente dell'amministrazione">
-                    dirigente-dell-amministrazione
+                    dirigente-administration
                   </option>
                   <option label="Dirigente sistemi IT dell'amministrazione">
-                    dirigente-sistemi-it-dell-amministrazione
+                    dirigente-it-administration
                   </option>
                   <option label="Dipendente dell'amministrazione">
-                    dipendente-dell-amministrazione
+                    dipendente-administration
                   </option>
-                  <option label="Altro">altro</option>
+                  <option label="Altro">other</option>
                 </Select>
               </Row>
             )}
