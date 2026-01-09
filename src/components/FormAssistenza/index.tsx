@@ -342,6 +342,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   <option label="2.2.3 Digitalizzazione SUAP e SUE">
                     2.2.3 Digitalizzazione delle procedure SUAP e SUE
                   </option>
+                  <option label="2.3.2 SIGP">
+                    2.3.2 SIGP
+                  </option>
                 </Select>
               </Col>
             </Row>
