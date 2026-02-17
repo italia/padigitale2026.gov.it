@@ -26,9 +26,6 @@ export function Timeline({ props }: { props: TimelineRecord }) {
             <h2 id={id} className="mb-3">
               Le evoluzioni di PA digitale
             </h2>
-            <p className="mb-0">
-              Testo che spiega cosa stiamo facendo per avanzamenti futuri
-            </p>
           </Col>
         </Row>
         <Row>
