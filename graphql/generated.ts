@@ -1609,7 +1609,7 @@ export type FileFilter = {
   notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
 };
 
-export type FooterModelLinkColonna1Field = FaqRecord | NewsRecord | PageRecord | ResourceRecord | SupportoRecord;
+export type FooterModelLinkColonna1Field = DatiRecord | FaqRecord | NewsRecord | PageRecord | ResourceRecord | SupportoRecord;
 
 export type FooterModelLinkColonna2Field = FaqRecord | NewsRecord | PageRecord | ResourceRecord | SupportoRecord;
 
@@ -6256,6 +6256,7 @@ export type UploadFilter = {
   mimeType?: InputMaybe<UploadMimeTypeFilter>;
   notes?: InputMaybe<UploadNotesFilter>;
   orientation?: InputMaybe<OrientationFilter>;
+  path?: InputMaybe<UploadPathFilter>;
   resolution?: InputMaybe<ResolutionFilter>;
   size?: InputMaybe<UploadSizeFilter>;
   smartTags?: InputMaybe<UploadTagsFilter>;
@@ -6369,6 +6370,18 @@ export enum UploadOrientation {
   Portrait = 'portrait',
   Square = 'square'
 }
+
+/** Specifies how to filter by path */
+export type UploadPathFilter = {
+  /** Search the asset with the specified path */
+  eq?: InputMaybe<Scalars['String']['input']>;
+  /** Search assets with the specified paths */
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Exclude the asset with the specified path */
+  neq?: InputMaybe<Scalars['String']['input']>;
+  /** Search assets that do not have the specified paths */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
 
 /** Specifies how to filter by size */
 export type UploadSizeFilter = {
@@ -6720,7 +6733,7 @@ export type FaqQuery = { __typename?: 'Query', faq?: { __typename?: 'FaqRecord',
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FooterQuery = { __typename?: 'Query', footer?: { __typename?: 'FooterRecord', title?: string | null, titleColonna1?: string | null, titleColonna2?: string | null, titleColonna3?: string | null, linkColonna1: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }>, linkColonna2: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }>, linkColonna3: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }>, linkNewsletter?: { __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null } | null, linkUtili: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }> } | null };
+export type FooterQuery = { __typename?: 'Query', footer?: { __typename?: 'FooterRecord', title?: string | null, titleColonna1?: string | null, titleColonna2?: string | null, titleColonna3?: string | null, linkColonna1: Array<{ __typename?: 'DatiRecord' } | { __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }>, linkColonna2: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }>, linkColonna3: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }>, linkNewsletter?: { __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null } | null, linkUtili: Array<{ __typename?: 'FaqRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'NewsRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'PageRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'ResourceRecord', id: string, slug?: string | null, title?: string | null } | { __typename?: 'SupportoRecord', id: string, slug?: string | null, title?: string | null }> } | null };
 
 export type CardsGridFieldsetFragmentFragment = { __typename: 'CardsGridFieldsetRecord', id: string, title?: string | null, titleHtmlTag?: string | null, description?: string | null, alignment?: string | null, columns?: string | null, number?: number | null, singleCardsTitleTag?: string | null, backgroundColor?: string | null, button?: { __typename: 'ButtonRecord', id: string, href?: string | null, target?: string | null, text?: string | null, icon?: string | null, cmsPage?: { __typename: 'DatiRecord', _createdAt: string, _updatedAt: string, title?: string | null, slug?: string | null, id: string } | { __typename: 'FaqRecord', _createdAt: string, _updatedAt: string, title?: string | null, slug?: string | null, id: string } | { __typename: 'NewsRecord', id: string, _createdAt: string, _updatedAt: string, title?: string | null, slug?: string | null } | { __typename: 'PageRecord', _createdAt: string, _updatedAt: string, title?: string | null, slug?: string | null, id: string } | { __typename: 'ResourceRecord', _createdAt: string, _updatedAt: string, title?: string | null, slug?: string | null, id: string } | { __typename: 'SupportoRecord', _createdAt: string, _updatedAt: string, title?: string | null, slug?: string | null, id: string } | null } | null };
 
