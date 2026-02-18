@@ -28,6 +28,11 @@ query Footer {
         slug
         title
       }
+      ... on DatiRecord {
+        id
+        slug
+        title
+      }
     }
     titleColonna2
     linkColonna2 {
