@@ -305,7 +305,7 @@ function Filters({
   if (uniqueContentTypes.length === 0) return null;
 
   return (
-    <section className="container-xxl">
+    <section className="container-xxl px-md-4">
       <fieldset>
         <legend className="px-0">Filtra per:</legend>
         <Form className="px-0" style={{ marginLeft: "-4px" }}>
@@ -403,7 +403,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
   const currentHits = filteredHits?.slice(startIndex, endIndex);
 
   return (
-    <div className={cn("container-xxl")}>
+    <div className={cn("container-xxl px-md-4")}>
       <div className={cn("row")}>
         <div className={cn("col-12")}>
           <p
@@ -629,7 +629,7 @@ export function HeroSearch({ props }: { props: HeroSearchRecord }) {
     >
       <Configure hitsPerPage={1000} />
       <HeroComponent className={cn("wrapper")}>
-        <div className={"container-xxl position-relative"}>
+        <div className={"container-xxl px-md-4 position-relative"}>
           <div className={"row"}>
             {!hideBreadcrumbs && (
               <section className={cn("pt-2 col-12")}>

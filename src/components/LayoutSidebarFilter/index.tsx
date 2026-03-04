@@ -114,7 +114,7 @@ export function LayoutSidebarFilter({
   }, [value]);
 
   return (
-    <div className="container-xxl py-lg-5">
+    <div className="container-xxl px-md-4 py-lg-5">
       <div className="row" style={{ marginTop: "64px", marginBottom: "48px" }}>
         <div className="col-12 col-lg-4">
           <Select

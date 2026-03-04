@@ -104,7 +104,7 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
   // Mostra messaggio di successo
   if (status === "success") {
     return (
-      <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")}>
+      <div className={cn("wrapper", "container-xxl px-md-4 py-5 my-5 mx-auto")}>
         <div className="row">
           <div className="col-12 col-md-10">
             <div className="alert alert-success" role="alert">
@@ -122,7 +122,7 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
   }
 
   return (
-    <div className={cn("wrapper", "container-xxl py-5 my-5 mx-auto")} id={id}>
+    <div className={cn("wrapper", "container-xxl px-md-4 py-5 my-5 mx-auto")} id={id}>
       <div className="row">
         <div className="col-12 col-md-10">
           <p className="text-muted">I campi con asterisco sono obbligatori</p>

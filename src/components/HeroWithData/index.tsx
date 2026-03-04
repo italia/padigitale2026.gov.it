@@ -45,7 +45,7 @@ export function HeroWithData({ props }: { props: DataHeroRecord }) {
 
   return (
     <HeroComponent className={cn("wrapper")}>
-      <div className={"container-xxl position-relative"}>
+      <div className={"container-xxl px-md-4 position-relative"}>
         <div className={"row"}>
           {/* Breadcrumbs */}
           {!hideBreadcrumbs && (

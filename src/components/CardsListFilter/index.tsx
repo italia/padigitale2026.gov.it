@@ -98,7 +98,7 @@ export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
   }, []);
 
   return (
-    <div className={cn("container-xxl py-lg-5")}>
+    <div className={cn("container-xxl px-md-4 py-lg-5")}>
       <div className="row my-4">
         <div className="col-12 col-lg-6 py-4">
           <Select

@@ -121,7 +121,7 @@ export function TableListUpdates({
     <div
       id={id}
       className={cn("pb-5", {
-        "container-xxl container-fluid": !hasSidebar,
+        "container-xxl px-md-4 container-fluid": !hasSidebar,
       })}
       role="region"
       aria-labelledby={`${id}-title`}
