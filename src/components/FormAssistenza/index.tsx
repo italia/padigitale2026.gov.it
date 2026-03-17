@@ -290,6 +290,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   <option label="Processo di adesione e monitoraggio">
                     Processo di adesione e monitoraggio
                   </option>
+                  <option label="Open source">
+                    Open source
+                  </option>
                   <option label="Altro">Altro</option>
                 </Select>
               </Col>
