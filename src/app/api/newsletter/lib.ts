@@ -1,5 +1,4 @@
 import { jwtDecode } from "jwt-decode";
-import Mailgun from "mailgun.js"
 import { NextResponse } from "next/server";
 
 // Tipi e costanti
@@ -78,10 +77,3 @@ export async function makeApiRequest(method: METHOD, address: string, action: AC
         requestOptions
     );
 };
-
-const mailgun = new Mailgun(FormData);
-export const mailgunClient = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY ?? "", url: 'https://api.eu.mailgun.net' })
-
-export const newsletter = 'newsletter@padigitale2026.gov.it'
-
-export const fromAddress = "PA digitale 2026 <no-reply@padigitale2026.gov.it>"
