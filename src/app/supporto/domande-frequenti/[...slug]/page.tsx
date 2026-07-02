@@ -6,6 +6,19 @@ import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
 import { faqWithOption } from "@/lib/datocms";
 import { faq } from "@/lib/datocms";
 
+// Lista delle eccezioni che devono essere gestite come supporto
+const supportoFaqExceptions = [
+  "supporto/domande-frequenti/misure-e-avvisi",
+  "supporto/domande-frequenti/utilizzo-della-piattaforma",
+  "supporto/domande-frequenti/piani-di-migrazione",
+  "supporto/domande-frequenti/fondo-innovazione",
+  "supporto/domande-frequenti/generali",
+  "supporto/domande-frequenti/classificazione-dati-e-servizi",
+  "supporto/domande-frequenti/rendicontazione",
+  "supporto/domande-frequenti/progetti",
+  "supporto/domande-frequenti/questionari",
+];
+
 export async function generateMetadata({
   params,
 }: {
@@ -13,18 +26,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = slug.join("/");
-
-  // Lista delle eccezioni che devono essere gestite come supporto
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-    "supporto/domande-frequenti/progetti",
-  ];
 
   // Costruisci il slug completo per il controllo delle eccezioni
   const fullSlugForCheck = `supporto/domande-frequenti/${fullSlug}`;
@@ -62,18 +63,6 @@ export default async function FaqPage({
 }) {
   const { slug } = await params;
   const fullSlug = slug.join("/");
-
-  // Lista delle eccezioni che devono essere gestite come supporto
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-    "supporto/domande-frequenti/progetti",
-  ];
 
   // Costruisci il slug completo per il controllo delle eccezioni
   const fullSlugForCheck = `supporto/domande-frequenti/${fullSlug}`;
