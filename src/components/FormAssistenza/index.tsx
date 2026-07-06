@@ -293,6 +293,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   <option label="Open source">
                     Open source
                   </option>
+                  <option label="Adempimenti e questionari">
+                    Adempimenti e questionari
+                  </option>
                   <option label="Altro">Altro</option>
                 </Select>
               </Col>
