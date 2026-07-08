@@ -44,7 +44,6 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
       formState.subject,
       formState.object,
       formState.description,
-      formState.notice,
     ];
 
     // Controlla che tutti i campi obbligatori siano compilati
@@ -302,9 +301,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
               <Col md="6">
                 <Select
                   id="notice-select"
-                  label="Avviso*"
+                  label="Avviso"
                   value={formState.notice}
-                  required
                   onChange={(value) => {
                     setFormState({
                       ...formState,
