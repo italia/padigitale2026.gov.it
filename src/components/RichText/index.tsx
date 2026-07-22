@@ -46,6 +46,7 @@ type BlockContext = {
         color?: string;
         text?: string;
         href?: string;
+        target?: string;
         icon?: string;
         cmsPage?: {
           slug?: string;
@@ -93,6 +94,8 @@ export function RichText({ props }: { props: RichTextRecord }) {
             key={JSON.stringify(node.url)}
             href={node.url}
             className={isExternal ? "external-link" : ""}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
           >
             {children}
             {isExternal && (
@@ -139,6 +142,8 @@ export function RichText({ props }: { props: RichTextRecord }) {
             key={record.id}
             className="fw-bold"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
+            target={record.target || "_self"}
+            rel={record.target === "_blank" ? "noopener noreferrer" : undefined}
           >
             {record.text}
             {record.icon && (
@@ -160,6 +165,8 @@ export function RichText({ props }: { props: RichTextRecord }) {
             key={record.id}
             className="btn btn-sm btn-outline-primary btn-mini mt-2"
             href={record.href || `/${record.cmsPage?.slug || ""}`}
+            target={record.target || "_self"}
+            rel={record.target === "_blank" ? "noopener noreferrer" : undefined}
           >
             {record.text}
             {record.icon && (
