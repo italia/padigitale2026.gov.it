@@ -284,6 +284,9 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   <option label="Implementazione e sviluppo progetto">
                     Implementazione e sviluppo progetto
                   </option>
+                  <option label="Adempimenti e questionari">
+                    Adempimenti e questionari
+                  </option>
                   <option label="Malfunzionamento piattaforma">
                     Malfunzionamento piattaforma
                   </option>

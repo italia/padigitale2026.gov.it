@@ -4,6 +4,19 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SeoOrFaviconTag, toNextMetadata } from "react-datocms";
 
+// Gestione delle eccezioni per supporto
+const supportoFaqExceptions = [
+  "supporto/domande-frequenti/misure-e-avvisi",
+  "supporto/domande-frequenti/utilizzo-della-piattaforma",
+  "supporto/domande-frequenti/piani-di-migrazione",
+  "supporto/domande-frequenti/fondo-innovazione",
+  "supporto/domande-frequenti/generali",
+  "supporto/domande-frequenti/classificazione-dati-e-servizi",
+  "supporto/domande-frequenti/rendicontazione",
+  "supporto/domande-frequenti/progetti",
+  "supporto/domande-frequenti/questionari",
+];
+
 export async function generateMetadata({
   params,
 }: {
@@ -11,18 +24,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = slug.join("/");
-
-  // Gestione delle eccezioni per supporto
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-    "supporto/domande-frequenti/progetti",
-  ];
 
   let pageData;
 
@@ -59,18 +60,6 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const fullSlug = slug.join("/");
-
-  // Gestione delle eccezioni
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-    "supporto/domande-frequenti/progetti",
-  ];
 
   // Se è un'eccezione, usa getSupportoData
   if (supportoFaqExceptions.includes(fullSlug)) {

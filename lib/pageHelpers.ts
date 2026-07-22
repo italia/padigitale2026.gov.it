@@ -78,6 +78,19 @@ export async function getResourceData(slug: string): Promise<{ page: PageRecord 
   return { page };
 }
 
+// Lista delle eccezioni che devono essere gestite come supporto
+const supportoFaqExceptions = [
+  "supporto/domande-frequenti/misure-e-avvisi",
+  "supporto/domande-frequenti/utilizzo-della-piattaforma",
+  "supporto/domande-frequenti/piani-di-migrazione",
+  "supporto/domande-frequenti/fondo-innovazione",
+  "supporto/domande-frequenti/generali",
+  "supporto/domande-frequenti/classificazione-dati-e-servizi",
+  "supporto/domande-frequenti/rendicontazione",
+  "supporto/domande-frequenti/progetti",
+  "supporto/domande-frequenti/questionari",
+];
+
 // Helper per il supporto
 export async function getSupportoData(slug: string): Promise<{ page: PageRecord } | null> {
   const supportos = (await getAllSupportos()) as AllSupportosQuery;
@@ -105,18 +118,6 @@ export async function getDatiData(slug: string): Promise<{ page: PageRecord } | 
 // Funzione per generare parametri statici specifici per le FAQ
 export async function generateFaqStaticParams() {
   const faqs = (await getAllFaqsSlug()) as AllFaqsQuery;
-  
-  // Lista delle eccezioni che devono essere gestite come supporto
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-    "supporto/domande-frequenti/progetti",
-  ];
 
   return faqs.allFaqs
     .filter((faq) => faq.slug && !supportoFaqExceptions.includes(faq.slug))
@@ -223,18 +224,6 @@ export async function generateAllStaticParams() {
     getAllNews() as Promise<AllNewsQuery>,
     getAllResources() as Promise<AllResourcesQuery>,
   ]);
-
-  // Lista delle eccezioni che devono essere gestite come supporto
-  const supportoFaqExceptions = [
-    "supporto/domande-frequenti/misure-e-avvisi",
-    "supporto/domande-frequenti/utilizzo-della-piattaforma",
-    "supporto/domande-frequenti/piani-di-migrazione",
-    "supporto/domande-frequenti/fondo-innovazione",
-    "supporto/domande-frequenti/generali",
-    "supporto/domande-frequenti/classificazione-dati-e-servizi",
-    "supporto/domande-frequenti/rendicontazione",
-    "supporto/domande-frequenti/progetti",
-  ];
 
   const params = [
     // Pagine normali (escludendo la homepage e altre pagine speciali)
