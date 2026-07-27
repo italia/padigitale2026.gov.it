@@ -133,7 +133,7 @@ export function CardsListFilter({ props }: { props: CardsListFilterRecord }) {
             {statusMessageBeneficiario}
           </div>
         </div>
-        <div className="col-12 col-lg-6 py-4">
+        <div className="col-12 col-lg-6 py-4 d-none">
           <Select
             id="select-promotore"
             label="Ente promotore"
