@@ -11,12 +11,15 @@ import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3";
+import { z } from "zod";
 
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 const cn = classNames.bind(styles);
 
 type FormStatus = "idle" | "loading" | "success" | "error";
+
+const EMAIL_SCHEMA = z.string().email();
 
 function FormToContent({ props }: { props: FormToRecord }) {
   const { id } = props;
@@ -32,6 +35,8 @@ function FormToContent({ props }: { props: FormToRecord }) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const isEmailValid = EMAIL_SCHEMA.safeParse(formState.address).success;
+  const showEmailError = formState.address.length > 0 && !isEmailValid;
 
   // Logica per abilitare il bottone
   const isFormValid = () => {
@@ -52,7 +57,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
     // Controlla che la descrizione non superi i 300 caratteri
     const descriptionValid = formState.description.length <= 300;
 
-    return allFieldsFilled && descriptionValid;
+    return allFieldsFilled && isEmailValid && descriptionValid;
   };
 
   const handleSubmit = async () => {
@@ -207,6 +212,13 @@ function FormToContent({ props }: { props: FormToRecord }) {
                   type="email"
                   value={formState.address}
                   required
+                  valid={formState.address.length > 0 ? isEmailValid : undefined}
+                  validationText={
+                    showEmailError
+                      ? "Inserisci un indirizzo email valido"
+                      : undefined
+                  }
+                  aria-invalid={showEmailError}
                   onChange={(e) => {
                     setFormState({
                       ...formState,

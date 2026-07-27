@@ -5,12 +5,15 @@ import { Button, Input, Select, Form } from "design-react-kit";
 import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
+import { z } from "zod";
 
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 const cn = classNames.bind(styles);
 
 type FormStatus = "idle" | "loading" | "success" | "error";
+
+const EMAIL_SCHEMA = z.string().email();
 
 export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
   const { id } = props;
@@ -27,6 +30,8 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
 
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const isEmailValid = EMAIL_SCHEMA.safeParse(formState.email).success;
+  const showEmailError = formState.email.length > 0 && !isEmailValid;
 
   const shouldShowTipoEnte = formState.rappresento === "public-administration";
   const shouldShowNomeStruttura = formState.rappresento === "other";
@@ -47,7 +52,10 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
       requiredFields.push(formState.inQuanto);
     }
 
-    return requiredFields.every((field) => field && field.length > 0);
+    return (
+      requiredFields.every((field) => field && field.length > 0) &&
+      isEmailValid
+    );
   };
 
   const handleSubmit = async () => {
@@ -141,7 +149,13 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
                   type="email"
                   value={formState.email}
                   required
-                  // validationText="Inserisci un'email valida"
+                  valid={formState.email.length > 0 ? isEmailValid : undefined}
+                  validationText={
+                    showEmailError
+                      ? "Inserisci un indirizzo email valido"
+                      : undefined
+                  }
+                  aria-invalid={showEmailError}
                   onChange={(e) => {
                     setFormState({
                       ...formState,

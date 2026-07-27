@@ -9,6 +9,7 @@ import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { z } from "zod";
 import useRecaptcha from "./utils";
 
 import classNames from "classnames/bind";
@@ -19,6 +20,7 @@ type FormStatus = "idle" | "loading" | "success" | "error";
 
 const OBJECT_MAX_LENGTH = 150;
 const DESCRIPTION_MAX_LENGTH = 32000;
+const EMAIL_SCHEMA = z.string().email();
 
 function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
   const { id } = props;
@@ -35,6 +37,8 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const isEmailValid = EMAIL_SCHEMA.safeParse(formState.address).success;
+  const showEmailError = formState.address.length > 0 && !isEmailValid;
 
   // Logica per abilitare il bottone
   const isFormValid = () => {
@@ -58,7 +62,13 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
     // Controlla che Richiesta non superi i DESCRIPTION_MAX_LENGTH caratteri
     const descriptionValid = formState.description.length <= DESCRIPTION_MAX_LENGTH;
 
-    return allFieldsFilled && descriptionValid && objectValid && captchaToken;
+    return (
+      allFieldsFilled &&
+      isEmailValid &&
+      descriptionValid &&
+      objectValid &&
+      captchaToken
+    );
   };
 
   const handleSubmit = async () => {
@@ -239,6 +249,13 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   type="email"
                   value={formState.address}
                   required
+                  valid={formState.address.length > 0 ? isEmailValid : undefined}
+                  validationText={
+                    showEmailError
+                      ? "Inserisci un indirizzo email valido"
+                      : undefined
+                  }
+                  aria-invalid={showEmailError}
                   onChange={(e) => {
                     setFormState({
                       ...formState,
