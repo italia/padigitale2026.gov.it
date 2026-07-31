@@ -4,7 +4,7 @@ import { FormAssistanceRecord } from "@/graphql/generated";
 import { mapFormDataToSalesforce } from "./salesforce-field-mapping";
 
 import Link from "next/link";
-import { Button, Icon, Input, Select, TextArea, Form } from "design-react-kit";
+import { Button, Input, Select, TextArea, Form } from "design-react-kit";
 import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
@@ -257,12 +257,6 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   }
                   wrapperClassName={cn("email-validation")}
                   aria-invalid={showEmailError}
-                  hasIconLeft={showEmailError}
-                  iconLeft={
-                    showEmailError ? (
-                      <Icon icon="it-error" color="danger" size="sm" />
-                    ) : undefined
-                  }
                   onChange={(e) => {
                     setFormState({
                       ...formState,
