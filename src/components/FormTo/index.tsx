@@ -3,7 +3,7 @@
 import { FormToRecord } from "@/graphql/generated";
 
 import Link from "next/link";
-import { Button, Input, Select, TextArea, Form } from "design-react-kit";
+import { Button, Icon, Input, Select, TextArea, Form } from "design-react-kit";
 import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
@@ -212,13 +212,20 @@ function FormToContent({ props }: { props: FormToRecord }) {
                   type="email"
                   value={formState.address}
                   required
-                  valid={formState.address.length > 0 ? isEmailValid : undefined}
+                  valid={showEmailError ? false : undefined}
                   validationText={
                     showEmailError
-                      ? "Inserisci un indirizzo email valido"
+                      ? "Formato email non valido"
                       : undefined
                   }
+                  wrapperClassName={cn("email-validation")}
                   aria-invalid={showEmailError}
+                  hasIconLeft={showEmailError}
+                  iconLeft={
+                    showEmailError ? (
+                      <Icon icon="it-error" color="danger" size="sm" />
+                    ) : undefined
+                  }
                   onChange={(e) => {
                     setFormState({
                       ...formState,

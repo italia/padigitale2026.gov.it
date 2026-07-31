@@ -1,2 +1,8 @@
 // .wrapper {
 // }
+
+.email-validation {
+  :global(.invalid-feedback) {
+    font-weight: 700;
+  }
+}
