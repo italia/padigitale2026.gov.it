@@ -20,6 +20,11 @@ const cn = classNames.bind(styles);
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 const EMAIL_SCHEMA = z.string().email();
+const PHONE_SCHEMA = z.string().trim().refine((value) => {
+  const digits = value.replace(/\D/g, "");
+
+  return /^\+?[\d\s()./-]+$/.test(value) && digits.length >= 6 && digits.length <= 15;
+});
 
 function FormToContent({ props }: { props: FormToRecord }) {
   const { id } = props;
@@ -37,6 +42,8 @@ function FormToContent({ props }: { props: FormToRecord }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const isEmailValid = EMAIL_SCHEMA.safeParse(formState.address).success;
   const showEmailError = formState.address.length > 0 && !isEmailValid;
+  const isPhoneValid = PHONE_SCHEMA.safeParse(formState.phone).success;
+  const showPhoneError = formState.phone.length > 0 && !isPhoneValid;
 
   // Logica per abilitare il bottone
   const isFormValid = () => {
@@ -57,7 +64,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
     // Controlla che la descrizione non superi i 300 caratteri
     const descriptionValid = formState.description.length <= 300;
 
-    return allFieldsFilled && isEmailValid && descriptionValid;
+    return allFieldsFilled && isEmailValid && isPhoneValid && descriptionValid;
   };
 
   const handleSubmit = async () => {
@@ -218,7 +225,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
                       ? "Formato email non valido"
                       : undefined
                   }
-                  wrapperClassName={cn("email-validation")}
+                  wrapperClassName={cn("field-validation")}
                   aria-invalid={showEmailError}
                   onChange={(e) => {
                     setFormState({
@@ -233,9 +240,17 @@ function FormToContent({ props }: { props: FormToRecord }) {
                   id="phone"
                   name="phone"
                   label="Contatto telefonico*"
-                  type="text"
+                  type="tel"
                   value={formState.phone}
                   required
+                  valid={showPhoneError ? false : undefined}
+                  validationText={
+                    showPhoneError
+                      ? "Formato numero di telefono non valido"
+                      : undefined
+                  }
+                  wrapperClassName={cn("field-validation")}
+                  aria-invalid={showPhoneError}
                   onChange={(e) => {
                     setFormState({
                       ...formState,

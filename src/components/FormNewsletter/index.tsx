@@ -155,7 +155,7 @@ export function FormNewsletter({ props }: { props: FormNewsletterRecord }) {
                       ? "Formato email non valido"
                       : undefined
                   }
-                  wrapperClassName={cn("email-validation")}
+                  wrapperClassName={cn("field-validation")}
                   aria-invalid={showEmailError}
                   onChange={(e) => {
                     setFormState({
