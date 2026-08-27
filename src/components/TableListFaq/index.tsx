@@ -45,14 +45,14 @@ export function TableListFaq({
       // aria-labelledby={`${id}-title`}
     >
       {title && (
-        <h2
+        <h3
           id={`${id}-title`}
           className={cn("col-12 h1 pb-4", {
             "text-center": alignment === "center",
           })}
         >
           {title}
-        </h2>
+        </h3>
       )}
       <div
         role="list"
