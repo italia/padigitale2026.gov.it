@@ -334,7 +334,7 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   <option label="Altro">Altro</option>
                 </Select>
               </Col>
-              <Col md="6">
+              <Col md="6" className="mt-5 mt-md-0">
                 <Select
                   id="notice-select"
                   label="Avviso*"
