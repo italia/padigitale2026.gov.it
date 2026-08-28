@@ -9,6 +9,7 @@ import { Row } from "design-react-kit";
 import { Col } from "design-react-kit";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { z } from "zod";
 import useRecaptcha from "./utils";
 
 import classNames from "classnames/bind";
@@ -19,6 +20,12 @@ type FormStatus = "idle" | "loading" | "success" | "error";
 
 const OBJECT_MAX_LENGTH = 150;
 const DESCRIPTION_MAX_LENGTH = 32000;
+const EMAIL_SCHEMA = z.string().email();
+const PHONE_SCHEMA = z.string().trim().refine((value) => {
+  const digits = value.replace(/\D/g, "");
+
+  return /^\+?[\d\s()./-]+$/.test(value) && digits.length >= 6 && digits.length <= 15;
+});
 
 function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
   const { id } = props;
@@ -35,6 +42,11 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
 
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const isEmailValid = EMAIL_SCHEMA.safeParse(formState.address).success;
+  const showEmailError = formState.address.length > 0 && !isEmailValid;
+  const isPhoneValid =
+    formState.phone.length === 0 || PHONE_SCHEMA.safeParse(formState.phone).success;
+  const showPhoneError = formState.phone.length > 0 && !isPhoneValid;
 
   // Logica per abilitare il bottone
   const isFormValid = () => {
@@ -58,7 +70,14 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
     // Controlla che Richiesta non superi i DESCRIPTION_MAX_LENGTH caratteri
     const descriptionValid = formState.description.length <= DESCRIPTION_MAX_LENGTH;
 
-    return allFieldsFilled && descriptionValid && objectValid && captchaToken;
+    return (
+      allFieldsFilled &&
+      isEmailValid &&
+      isPhoneValid &&
+      descriptionValid &&
+      objectValid &&
+      captchaToken
+    );
   };
 
   const handleSubmit = async () => {
@@ -239,6 +258,14 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   type="email"
                   value={formState.address}
                   required
+                  valid={showEmailError ? false : undefined}
+                  validationText={
+                    showEmailError
+                      ? "Formato email non valido"
+                      : undefined
+                  }
+                  wrapperClassName={cn("field-validation")}
+                  aria-invalid={showEmailError}
                   onChange={(e) => {
                     setFormState({
                       ...formState,
@@ -253,8 +280,16 @@ function FormAssistenzaContent({ props }: { props: FormAssistanceRecord }) {
                   name="phone"
                   label="Telefono"
                   placeholder="Inserisci un numero di telefono"
-                  type="text"
+                  type="tel"
                   value={formState.phone}
+                  valid={showPhoneError ? false : undefined}
+                  validationText={
+                    showPhoneError
+                      ? "Formato numero di telefono non valido"
+                      : undefined
+                  }
+                  wrapperClassName={cn("field-validation")}
+                  aria-invalid={showPhoneError}
                   onChange={(e) => {
                     setFormState({
                       ...formState,

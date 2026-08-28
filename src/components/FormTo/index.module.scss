@@ -1,2 +1,11 @@
 // .wrapper {
 // }
+
+.field-validation {
+  :global(.invalid-feedback) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    font-weight: 700;
+  }
+}
