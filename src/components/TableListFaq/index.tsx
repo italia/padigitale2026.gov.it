@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaqRecord, TableListFaqRecord } from "@/graphql/generated";
 import { Badge } from "design-react-kit";
 import { Icon } from "design-react-kit";
+import { usePageContentType } from "@/src/contexts/PageContentTypeContext";
 
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -15,6 +16,9 @@ export function TableListFaq({
   noPadding?: boolean;
 }) {
   const { title, alignment, questionsRef, id } = props;
+  const pageContentType = usePageContentType();
+  const isSupportPage = pageContentType === "supporto";
+  const TitleTag = isSupportPage ? "h3" : "h2";
 
   const getBadge = (item: FaqRecord) => {
     const createdAt = item._createdAt;
@@ -45,14 +49,18 @@ export function TableListFaq({
       // aria-labelledby={`${id}-title`}
     >
       {title && (
-        <h3
+        <TitleTag
           id={`${id}-title`}
-          className={cn("col-12 h1 pb-4", {
-            "text-center": alignment === "center",
-          })}
+          className={cn(
+            "col-12 pb-4",
+            isSupportPage ? "h3" : "h1",
+            {
+              "text-center": alignment === "center",
+            }
+          )}
         >
           {title}
-        </h3>
+        </TitleTag>
       )}
       <div
         role="list"
