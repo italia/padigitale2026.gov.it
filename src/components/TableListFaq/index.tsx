@@ -19,6 +19,8 @@ export function TableListFaq({
   const pageContentType = usePageContentType();
   const isSupportPage = pageContentType === "supporto";
   const TitleTag = isSupportPage ? "h3" : "h2";
+  const isNestedSupportSubsection =
+    isSupportPage && noPadding && Boolean(title);
 
   const getBadge = (item: FaqRecord) => {
     const createdAt = item._createdAt;
@@ -44,18 +46,24 @@ export function TableListFaq({
 
   return (
     <div
-      className={cn("container-xxl px-md-4", { "my-5": !noPadding })}
+      className={cn("container-xxl", {
+        "my-5 px-md-4": !noPadding,
+        "px-0": noPadding,
+        "mt-4": isNestedSupportSubsection,
+      })}
       role="region"
       // aria-labelledby={`${id}-title`}
     >
       {title && (
-        <div className="row">
+        <div className={cn("row", { "m-0": noPadding })}>
           <TitleTag
             id={`${id}-title`}
             className={cn(
-              "col-12 pb-4",
+              "col-12",
               isSupportPage ? "h3" : "h1",
               {
+                "mb-4 pb-0": isNestedSupportSubsection,
+                "pb-4": !isNestedSupportSubsection,
                 "text-center": alignment === "center",
                 "px-0": noPadding,
               }
@@ -68,7 +76,11 @@ export function TableListFaq({
       <div
         role="list"
         aria-label="Lista domande frequenti"
-        className={cn("row py-2")}
+        className={cn("row", {
+          "py-0": isNestedSupportSubsection,
+          "py-2": !isNestedSupportSubsection,
+          "m-0": noPadding,
+        })}
       >
         {!questionsRef ||
         !Array.isArray(questionsRef) ||
