@@ -346,7 +346,7 @@ function FormToContent({ props }: { props: FormToRecord }) {
 export function FormTo({ props }: { props: FormToRecord }) {
   return (
     <GoogleReCaptchaProvider
-      reCaptchaKey="6Ldj-g4eAAAAAN0ee9NiyA28zbF6TD8cjjFxaOX0"
+      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
       scriptProps={{
         async: true,
         defer: true,
