@@ -49,18 +49,21 @@ export function TableListFaq({
       // aria-labelledby={`${id}-title`}
     >
       {title && (
-        <TitleTag
-          id={`${id}-title`}
-          className={cn(
-            "col-12 pb-4",
-            isSupportPage ? "h3" : "h1",
-            {
-              "text-center": alignment === "center",
-            }
-          )}
-        >
-          {title}
-        </TitleTag>
+        <div className="row">
+          <TitleTag
+            id={`${id}-title`}
+            className={cn(
+              "col-12 pb-4",
+              isSupportPage ? "h3" : "h1",
+              {
+                "text-center": alignment === "center",
+                "px-0": noPadding,
+              }
+            )}
+          >
+            {title}
+          </TitleTag>
+        </div>
       )}
       <div
         role="list"
