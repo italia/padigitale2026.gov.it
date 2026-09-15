@@ -69,16 +69,20 @@ import { Timeline } from "@/src/components/Timeline";
 import { Immagine } from "@/src/components/Immagine";
 import { SelectGrafico } from "@/src/components/SelectGrafico";
 import FragmentRedirect from "./FragmentRedirect";
+import {
+  PageContentType,
+  PageContentTypeProvider,
+} from "@/src/contexts/PageContentTypeContext";
 
 export function ModularContent({
   content,
   pageContentType,
 }: {
   content: PageQuery;
-  pageContentType: "page" | "faq" | "news" | "resource" | "supporto" | "dati";
+  pageContentType: PageContentType;
 }) {
   return (
-    <>
+    <PageContentTypeProvider value={pageContentType}>
       <FragmentRedirect />
       {/* 
         FAQ pages ALWAYS have a HeroWithData as first element in the body 
@@ -227,6 +231,6 @@ export function ModularContent({
       {content.page?.nascondiValutazione === false && content.page?.id && (
         <FormValutazione id={content.page?.id} />
       )}
-    </>
+    </PageContentTypeProvider>
   );
 }
