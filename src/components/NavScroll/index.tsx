@@ -22,7 +22,14 @@ type DASTValue = {
   document: DASTDocument;
 };
 
-const renderNavList = (items: DASTNode[]) => {
+type NavSubsection = {
+  id: string;
+  title: string;
+};
+
+type NavSubsections = Record<string, NavSubsection[]>;
+
+const renderNavList = (items: DASTNode[], subsections: NavSubsections) => {
   return (
     <ul className="link-list">
       {items.map((item, index) => {
@@ -36,6 +43,10 @@ const renderNavList = (items: DASTNode[]) => {
             const link = linkItem.children?.[0];
             const text = link?.children?.[0]?.value;
             const url = link?.url;
+            const sectionId = url?.startsWith("#") ? url.slice(1) : undefined;
+            const sectionSubsections = sectionId
+              ? subsections[sectionId] || []
+              : [];
 
             if (text && url) {
               return (
@@ -43,12 +54,38 @@ const renderNavList = (items: DASTNode[]) => {
                   <a className="nav-link" href={url}>
                     <span>{text}</span>
                   </a>
+                  {sectionSubsections.length > 0 && (
+                    <ul className="link-list ps-3">
+                      {sectionSubsections.map((subsection) => (
+                        <li key={subsection.id} className="nav-item">
+                          {/* NavScroll usa offsetTop relativo per .nav-link: qui serve l'anchor nativo. */}
+                          <a
+                            className="it-heading-link fw-semibold"
+                            href={`#${subsection.id}`}
+                            onClick={(event) => {
+                              const collapsible = event.currentTarget.closest(
+                                ".navbar-collapsable.expanded",
+                              );
+                              collapsible
+                                ?.querySelector<HTMLAnchorElement>(
+                                  ".it-back-button",
+                                )
+                                ?.click();
+                            }}
+                          >
+                            <span>{subsection.title}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {item.children?.find((child) => child.type === "list") && (
                     <ul className="link-list">
                       <li>
                         {renderNavList(
                           item.children.find((child) => child.type === "list")
-                            ?.children || []
+                            ?.children || [],
+                          subsections,
                         )}
                       </li>
                     </ul>
@@ -64,7 +101,13 @@ const renderNavList = (items: DASTNode[]) => {
   );
 };
 
-export function NavScroll({ props }: { props: NavScrollRecord }) {
+export function NavScroll({
+  props,
+  subsections = {},
+}: {
+  props: NavScrollRecord;
+  subsections?: NavSubsections;
+}) {
   const { title, content } = props;
   const [isClient, setIsClient] = useState(false);
 
@@ -135,7 +178,7 @@ export function NavScroll({ props }: { props: NavScrollRecord }) {
               ></div>
             </div>
             <div role={"navigation"} aria-label={"Navigazione contenuti"}>
-              {renderNavList(navItems)}
+              {renderNavList(navItems, subsections)}
             </div>
           </div>
         </div>
