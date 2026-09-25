@@ -62,6 +62,7 @@ import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 import BootstrapInit from "@/src/components/BootstrapInit";
 import BootstrapScript from "@/src/components/BootstrapScript";
+import AgentforceMessaging from "@/src/components/AgentforceMessaging";
 import { PagesProvider } from "@/src/contexts/PagesContext";
 
 export const metadata: Metadata = {
@@ -115,6 +116,7 @@ export default async function RootLayout({
         </PagesProvider>
         <BootstrapInit />
         <BootstrapScript />
+        <AgentforceMessaging />
 
         {/* Script Matomo */}
         <Script
