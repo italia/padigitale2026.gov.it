@@ -37,6 +37,11 @@ export async function generateMetadata({
     const { getSupportoData } = await import("@/lib/pageHelpers");
     const exceptionSlug = `domande-frequenti/${fullSlug}`;
     pageData = await getSupportoData(exceptionSlug);
+
+    if (pageData) {
+      const seo = pageData.page.seo;
+      return toNextMetadata(seo as SeoOrFaviconTag[]);
+    }
   } else {
     pageData = await faq(fullSlugForCheck);
 
