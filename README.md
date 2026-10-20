@@ -13,6 +13,7 @@ Questo è il repository del progetto PA Digitale 2026, un'applicazione web svilu
 - [↪ Convenzioni coding](doc/CODING.md)
 - [↪ Procedura di rilascio](doc/RELEASE.md)
 - [↪ Documentazione componenti](doc/COMPONENTS.md)
+- [↪ Configurazione chatbot Agentforce](doc/AGENTFORCE.md)
 - [↪ Creare redirects](doc/REDIRECTS.md)
 - [↪ Librerie utilizzate](doc/LIBS.md)
 

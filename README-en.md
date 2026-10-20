@@ -84,6 +84,12 @@ The project requires several environment variables to function properly. A templ
 - Salesforce
 - Other integrated services
 
+For the Agentforce chatbot environment variables and production values, see
+[Agentforce configuration (Italian)](doc/AGENTFORCE.md). The `.env.dist` template
+contains the testing environment values. Set `NEXT_PUBLIC_AGENTFORCE_*` before
+building and rebuild after changes; the chatbot is disabled if any required
+variable is missing.
+
 ## Contributing
 
 To contribute to the project, make sure to:
