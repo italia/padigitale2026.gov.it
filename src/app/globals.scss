@@ -238,3 +238,20 @@ $utilities: (
 .input-group {
   z-index: 1;
 }
+
+// Keep the Agentforce launcher 16px above the visible Bootstrap Italia BackToTop.
+// Clearance = BackToTop's bottom offset + its height + the gap.
+body:has(.back-to-top.back-to-top-show) {
+  .embeddedMessagingConversationButtonWrapper,
+  .embedded-messaging > .embeddedMessagingFrame.isMinimized {
+    --eswButtonBottom: calc(16px + 40px + 16px);
+
+    @include media-breakpoint-up(md) {
+      --eswButtonBottom: calc(16px + 56px + 16px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      --eswButtonBottom: calc(32px + 56px + 16px);
+    }
+  }
+}
