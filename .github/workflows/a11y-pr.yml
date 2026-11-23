@@ -1,0 +1,60 @@
+name: A11y (PR preview)
+
+on: deployment_status
+
+concurrency:
+  group: a11y-pr-${{ github.event.deployment.sha }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  axe:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Preview'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.deployment.sha }}
+
+      - name: A11y scan
+        id: scan
+        uses: ./.github/actions/a11y-scan
+        with:
+          base-url: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+          suite: templates
+          # Comma-separated axe impacts that make the check fail, e.g.
+          # "critical,serious". Empty = report only, never fail on violations.
+          fail-on: ""
+
+      - name: Comment on PR
+        if: always()
+        env:
+          SUMMARY: ${{ steps.scan.outputs.summary-path }}
+          SHA: ${{ github.event.deployment.sha }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f "$SUMMARY" ] || exit 0
+          marker='<!-- a11y-axe-report -->'
+          run_url="$GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "$marker"
+            cat "$SUMMARY"
+            echo
+            echo "[Workflow run and full report artifact]($run_url) — commit \`${SHA:0:7}\`"
+          } > "$RUNNER_TEMP/comment.md"
+          prs=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '.[].number')
+          for pr in $prs; do
+            id=$(gh api "repos/$REPO/issues/$pr/comments" --paginate \
+              --jq ".[] | select(.body | contains(\"$marker\")) | .id" | head -n1)
+            if [ -n "$id" ]; then
+              gh api -X PATCH "repos/$REPO/issues/comments/$id" -F body=@"$RUNNER_TEMP/comment.md" >/dev/null
+            else
+              gh api -X POST "repos/$REPO/issues/$pr/comments" -F body=@"$RUNNER_TEMP/comment.md" >/dev/null
+            fi
+          done

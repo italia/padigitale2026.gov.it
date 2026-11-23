@@ -1,0 +1,67 @@
+name: A11y (weekly full scan)
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Base URL to scan
+        required: false
+        default: https://padigitale2026.gov.it
+
+concurrency:
+  group: a11y-weekly
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: A11y scan
+        id: scan
+        uses: ./.github/actions/a11y-scan
+        with:
+          base-url: ${{ inputs.base_url || 'https://padigitale2026.gov.it' }}
+          suite: full
+          # Report only: never fail on violations (see a11y/README.md).
+          fail-on: ""
+          retention-days: "30"
+
+      - name: Create or update issue
+        if: always()
+        env:
+          SUMMARY: ${{ steps.scan.outputs.summary-path }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f "$SUMMARY" ] || exit 0
+          title="Weekly accessibility report"
+          # Hidden marker identifying the report issue, independent of its
+          # title and labels (same approach as the PR comment).
+          marker='<!-- a11y-weekly-report -->'
+          run_url="$GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID"
+          gh label create a11y --force --color 1d76db \
+            --description "Accessibility reports" --repo "$REPO"
+          {
+            echo "$marker"
+            cat "$SUMMARY"
+            echo
+            echo "[Workflow run and full report artifact]($run_url)"
+          } > "$RUNNER_TEMP/issue.md"
+          # The issues endpoint also returns PRs: skip them.
+          number=$(gh api "repos/$REPO/issues?state=open&per_page=100" --paginate \
+            --jq ".[] | select(.pull_request == null) | select(.body // \"\" | contains(\"$marker\")) | .number" \
+            | head -n1)
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --repo "$REPO" --add-label a11y --body-file "$RUNNER_TEMP/issue.md"
+          else
+            gh issue create --repo "$REPO" --title "$title" --label a11y --body-file "$RUNNER_TEMP/issue.md"
+          fi
