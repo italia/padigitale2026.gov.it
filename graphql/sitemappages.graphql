@@ -1,5 +1,40 @@
 query SitemapPages {
-  allPages (first: 100) {
+  allPages(first: 5000) {
+    slug
+    _updatedAt
+  }
+}
+
+query SitemapNews {
+  allNews(first: 5000) {
+    slug
+    _updatedAt
+  }
+}
+
+query SitemapSupportos {
+  allSupportos(first: 5000) {
+    slug
+    _updatedAt
+  }
+}
+
+query SitemapFaqs {
+  allFaqs(first: 5000) {
+    slug
+    _updatedAt
+  }
+}
+
+query SitemapResources {
+  allResources(first: 5000) {
+    slug
+    _updatedAt
+  }
+}
+
+query SitemapDatis {
+  allDatis(first: 5000) {
     slug
     _updatedAt
   }

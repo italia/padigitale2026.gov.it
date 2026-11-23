@@ -19,6 +19,11 @@ import {
   NewsDocument,
   ResourceDocument,
   SitemapPagesDocument,
+  SitemapNewsDocument,
+  SitemapSupportosDocument,
+  SitemapFaqsDocument,
+  SitemapResourcesDocument,
+  SitemapDatisDocument,
   PageQueryVariables,
   FooterDocument,
   HeaderDocument,
@@ -401,6 +406,30 @@ export const getHeader = unstable_cache(
   }
 );
 
+export type SitemapRecord = { slug?: string | null; _updatedAt: string };
+
+// Each collection is fetched with its own auto-paginated query, because
+// executeQueryWithAutoPagination does not support multiple selections.
+async function fetchAllSitemapRecords(): Promise<SitemapRecord[]> {
+  const options = getOptions(`fn_name:getSitemapPages`);
+  const [pages, news, supportos, faqs, resources, datis] = await Promise.all([
+    executeQueryWithAutoPagination(SitemapPagesDocument, options),
+    executeQueryWithAutoPagination(SitemapNewsDocument, options),
+    executeQueryWithAutoPagination(SitemapSupportosDocument, options),
+    executeQueryWithAutoPagination(SitemapFaqsDocument, options),
+    executeQueryWithAutoPagination(SitemapResourcesDocument, options),
+    executeQueryWithAutoPagination(SitemapDatisDocument, options),
+  ]);
+  return [
+    ...pages.allPages,
+    ...news.allNews,
+    ...supportos.allSupportos,
+    ...faqs.allFaqs,
+    ...resources.allResources,
+    ...datis.allDatis,
+  ];
+}
+
 export const getSitemapPages = unstable_cache(
   async () => {
     await sendPostToBetterStack({
@@ -410,10 +439,7 @@ export const getSitemapPages = unstable_cache(
         function: "getSitemapPages"
       }
     });
-    return await executeQueryWithAutoPagination(
-      SitemapPagesDocument,
-      getOptions(`fn_name:getSitemapPages`)
-    );
+    return await fetchAllSitemapRecords();
   },
   ['getSitemapPages'],
   {
@@ -1003,10 +1029,7 @@ export async function getSitemapPagesWithOption(useCache: boolean = true) {
         useCache: false
       }
     });
-    return await executeQueryWithAutoPagination(
-      SitemapPagesDocument,
-      getOptions(`fn_name:getSitemapPages`)
-    );
+    return await fetchAllSitemapRecords();
   }
 }
 
