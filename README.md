@@ -28,7 +28,7 @@ Questo è il repository del progetto PA Digitale 2026, un'applicazione web svilu
 ## Prerequisiti
 
 - [🌐 Bun](https://bun.sh/) (raccomandato)
-- Node.js 18+ (alternativa)
+- Node.js 24 (per eseguire gli script con Node.js e per Lighthouse CI)
 
 ## Installazione
 

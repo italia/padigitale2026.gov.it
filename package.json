@@ -42,7 +42,7 @@
     "zod": "3.25.76"
   },
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
@@ -52,7 +52,8 @@
     "@graphql-codegen/typescript-operations": "^4.6.0",
     "@graphql-codegen/typescript-resolvers": "^4.5.0",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@types/node": "22.14.0",
+    "@lhci/cli": "0.16.1",
+    "@types/node": "24.19.4",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "classnames": "^2.5.1",
@@ -62,6 +63,6 @@
     "typescript": "5.8.3"
   },
   "volta": {
-    "node": "22.17.1"
+    "node": "24.22.3"
   }
 }

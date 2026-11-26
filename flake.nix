@@ -18,7 +18,7 @@
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.bun
-            pkgs.nodejs
+            pkgs.nodejs_24
           ];
         };
         formatter = pkgs.alejandra;

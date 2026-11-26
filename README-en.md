@@ -17,7 +17,7 @@ This is the repository of the PA Digitale 2026 project, a web application develo
 ## Prerequisites
 
 - [Bun](https://bun.sh/) (recommended)
-- Node.js 18+ (alternative)
+- Node.js 24 (for running scripts with Node.js and for Lighthouse CI)
 
 ## Installation
 
