@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Collapse, Header, HeaderToggler, Icon, Nav } from "design-react-kit";
 import { NavItem, NavLink } from "reactstrap";
 import type { HeaderQuery } from "@/graphql/generated";
+import { useBreakpoint } from "@/src/hooks/useViewport";
 
 export default function NavHeader({
   theme,
@@ -14,9 +15,11 @@ export default function NavHeader({
 }) {
   const [openNav, setOpenNav] = useState(false);
   const pathname = usePathname();
-  const toggle = () => {
-    setOpenNav(!openNav);
-  };
+  const isDesktop = useBreakpoint("lg");
+
+  useEffect(() => {
+    if (isDesktop) setOpenNav(false);
+  }, [isDesktop]);
 
   const mainLinks = props.header?.mainLinks || [];
   const secondaryLinks = props.header?.secondaryLinks || [];
@@ -86,18 +89,19 @@ export default function NavHeader({
                 >
                   <HeaderToggler
                     aria-controls="nav1"
-                    aria-expanded="false"
                     aria-label="Toggle navigation"
-                    onClick={() => toggle()}
+                    isOpen={openNav}
+                    onClick={() => setOpenNav((open) => !open)}
                     className="p-4"
                   >
                     <Icon icon="it-burger" />
                   </HeaderToggler>
                   <Collapse
+                    id="nav1"
                     isOpen={openNav}
                     header
                     navbar
-                    onOverlayClick={() => toggle()}
+                    onOverlayClick={() => setOpenNav(false)}
                   >
                     <div
                       className="menu-wrapper"

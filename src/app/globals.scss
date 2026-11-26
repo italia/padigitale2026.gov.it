@@ -36,7 +36,6 @@ import bootstrap for custom responsive utilities
 @import "bootstrap-italia/src/scss/utilities/focus";
 @import "bootstrap-italia/src/scss/utilities/icons";
 @import "bootstrap-italia/src/scss/utilities/colors";
-@import "bootstrap-italia/src/scss/utilities/text-colors";
 // ------------------------------
 
 // Nav & Header
@@ -160,6 +159,14 @@ import bootstrap for custom responsive utilities
 article.it-card {
   --bs-it-card-p-color: #{$neutral-1-a9};
   --bs-it-card-color: #{$neutral-1-a9};
+
+  // Match the site's paragraph typography on larger screens.
+  @include media-breakpoint-up(sm) {
+    .it-card-body .it-card-text {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+  }
 }
 
 //html,
@@ -217,6 +224,19 @@ $utilities: (
 );
 
 @import "bootstrap-italia/src/scss/base/utilities/api";
+
+// Preserve the existing secondary text color for labels and chart captions.
+.text-secondary {
+  color: $secondary !important;
+}
+
+// Preserve the desktop header's transition into the content below it.
+@include media-breakpoint-up(lg) {
+  .it-header-wrapper .it-header-navbar-wrapper.theme-light-desk {
+    border-bottom: 0;
+    box-shadow: $dropdown-box-shadow;
+  }
+}
 
 .it-grid-list-wrapper .grid-row {
   margin-left: -8px;
