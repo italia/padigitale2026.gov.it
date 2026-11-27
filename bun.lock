@@ -11,7 +11,7 @@
         "algoliasearch": "5.65.0",
         "bootstrap-italia": "2.18.3",
         "csrf": "3.1.0",
-        "dataviz-components": "0.2.27",
+        "dataviz-components": "0.3.21",
         "datocms-structured-text-to-plain-text": "6.0.0",
         "design-react-kit": "5.11.0",
         "dotenv": "16.6.1",
@@ -800,7 +800,7 @@
 
     "dataloader": ["dataloader@2.2.3", "", {}, "sha512-y2krtASINtPFS1rSDjacrFgn1dcUuoREVabwlOGOe4SdxenREqwjwjElAdwvbGM7kgZz9a3KVicWR7vcz8rnzA=="],
 
-    "dataviz-components": ["dataviz-components@0.2.27", "", { "peerDependencies": { "@dnd-kit/core": "^6.3.1", "@dnd-kit/sortable": "^10.0.0", "@dnd-kit/utilities": "^3.2.2", "dayjs": "^1.11.13", "echarts": "^5.6.0", "echarts-for-react": "^3.0.2", "ol": "^10.5.0", "react": "^19.1.0", "react-dom": "^19.1.0", "react-error-boundary": "^6.0.0", "react-markdown": "^10.1.0", "remark-gfm": "^4.0.1" } }, "sha512-2AMA3J95GKWtWPp+xbtjkhl2ctDScyl5kZ3DNsX3hn8jkc9T2mlHboXASmHmfeOdm6zC0OWE9O0f3p3AovQXKA=="],
+    "dataviz-components": ["dataviz-components@0.3.21", "", { "peerDependencies": { "@dnd-kit/core": "^6.3.1", "@dnd-kit/sortable": "^10.0.0", "@dnd-kit/utilities": "^3.2.2", "dayjs": "^1.11.13", "echarts": "^5.6.0", "echarts-for-react": "^3.0.2", "ol": "^10.5.0", "react": "^19.1.0", "react-dom": "^19.1.0", "react-error-boundary": "^6.0.0", "react-markdown": "^10.1.0", "remark-gfm": "^4.0.1" } }, "sha512-IYiyEc58HfsuW3GcPgJWMZekVPikiyID9YFwGAT9MdWBveZSZ45XtYv6uo6glBE4cAG9Kve50F4g1ihWO3k1zw=="],
 
     "datocms-listen": ["datocms-listen@1.0.4", "", { "dependencies": { "@0no-co/graphql.web": "^1.0.1", "@datocms/cda-client": "^0.3.1" } }, "sha512-HshE1We9s+8uhAn0yEd/sffdj2rk0WzIQAU71D/ylzsNPfv0jgD1yaUbc8jU70/b25iX/mjI3TDga5OH9onqCg=="],
 
