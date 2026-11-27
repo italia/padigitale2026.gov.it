@@ -5,23 +5,6 @@ import { Col, Container, Row, Section } from "design-react-kit";
 import { useEffect, useState, useRef } from "react";
 import { Spinner } from "design-react-kit";
 
-// Interfaccia per il tipo bootstrap
-interface BootstrapVideoPlayer {
-  setYouTubeVideo: (url: string) => void;
-}
-
-interface Bootstrap {
-  VideoPlayer: {
-    getOrCreateInstance: (element: HTMLVideoElement) => BootstrapVideoPlayer;
-  };
-}
-
-declare global {
-  interface Window {
-    bootstrap?: Bootstrap;
-  }
-}
-
 export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
   const { id, videoSources, poster, transcription, transcriptionLabel } = props;
   const [isClient, setIsClient] = useState(false);
