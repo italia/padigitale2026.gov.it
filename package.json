@@ -5,15 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/copy-bootstrap.js && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "biome check --formatter-enabled=false --assist-enabled=false",
     "format": "biome format --write",
     "codegen": "graphql-codegen --config codegen.ts",
     "a11y:templates": "cd a11y && rm -rf reports && playwright test tests/templates.spec.ts",
     "a11y:full": "cd a11y && rm -rf reports && playwright test tests/full.spec.ts --project=desktop",
-    "a11y:report": "cd a11y && node lib/report.ts",
-    "postinstall": "node scripts/copy-bootstrap.js"
+    "a11y:report": "cd a11y && node lib/report.ts"
   },
   "dependencies": {
     "@datocms/cda-client": "0.3.2",

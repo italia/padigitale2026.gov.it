@@ -1,8 +1,9 @@
 "use client";
 
-import { NavScrollRecord } from "@/graphql/generated";
+import type { NavScrollRecord } from "@/graphql/generated";
+import { NavScroll as BootstrapNavScroll, Sticky } from "bootstrap-italia";
 import { Icon } from "design-react-kit";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type DASTNode = {
   type: string;
@@ -109,10 +110,28 @@ export function NavScroll({
   subsections?: NavSubsections;
 }) {
   const { title, content } = props;
-  const [isClient, setIsClient] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    setIsClient(true);
+    const element = navRef.current;
+    if (!element) return;
+
+    let navScroll: BootstrapNavScroll | undefined;
+    let sticky: Sticky | undefined;
+
+    // The plugin attaches native listeners to the links. Initialize once React
+    // has committed the DOM, including when effects are replayed in development.
+    const frame = requestAnimationFrame(() => {
+      navScroll = BootstrapNavScroll.getOrCreateInstance(element);
+      const sidebar = element.closest<HTMLElement>('[data-bs-toggle="sticky"]');
+      if (sidebar) sticky = Sticky.getOrCreateInstance(sidebar);
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      navScroll?.dispose();
+      sticky?.dispose();
+    };
   }, []);
 
   const navItems =
@@ -121,7 +140,7 @@ export function NavScroll({
   return (
     <nav
       className="navbar it-navscroll-wrapper navbar-expand-lg it-bottom-navscroll it-right-side"
-      data-bs-navscroll
+      ref={navRef}
       role="navigation"
       aria-label="Navigazione contenuti"
     >
@@ -146,10 +165,10 @@ export function NavScroll({
         <div
           className="progress-bar it-navscroll-progressbar"
           role="progressbar"
-          aria-valuenow={isClient ? 0 : 0}
+          aria-valuenow={0}
           aria-valuemin={0}
           aria-valuemax={100}
-          style={{ width: isClient ? "0%" : "0%" }}
+          style={{ width: "0%" }}
         ></div>
       </div>
       <div className="navbar-collapsable" id="navbarNav">
@@ -171,10 +190,10 @@ export function NavScroll({
               <div
                 className="progress-bar it-navscroll-progressbar"
                 role="progressbar"
-                aria-valuenow={isClient ? 0 : 0}
+                aria-valuenow={0}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                style={{ width: isClient ? "0%" : "0%" }}
+                style={{ width: "0%" }}
               ></div>
             </div>
             <div role={"navigation"} aria-label={"Navigazione contenuti"}>

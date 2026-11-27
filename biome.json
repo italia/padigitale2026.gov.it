@@ -14,8 +14,7 @@
       "!dist",
       "!build",
       "!graphql/generated.ts",
-      "!public/assets/matomo.js",
-      "!public/bootstrap-italia.bundle.min.js"
+      "!public/assets/matomo.js"
     ]
   },
   "formatter": {

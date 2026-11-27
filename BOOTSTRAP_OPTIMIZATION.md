@@ -17,7 +17,7 @@ Questo documento descrive le ottimizzazioni implementate per migliorare le perfo
 ### 3. Performance
 
 - **Prima**: Caricamento sincrono e inizializzazione immediata
-- **Dopo**: Caricamento lazy e debouncing delle inizializzazioni multiple
+- **Dopo**: Import dei plugin tramite Next.js e inizializzazione al montaggio
 
 ## Modifiche implementate
 
@@ -37,21 +37,20 @@ Questo documento descrive le ottimizzazioni implementate per migliorare le perfo
 ### 3. Configurazione centralizzata
 
 - File `bootstrap-config.ts` con impostazioni di default
-- Funzioni utility per verificare il caricamento di Bootstrap
 - Debouncing per ottimizzare le performance
 
-### 4. Caricamento script ottimizzato
+### 4. Import dei plugin nei componenti
 
-- Strategia `lazyOnload` per il caricamento dello script
-- Evento personalizzato `bootstrap-loaded` per sincronizzazione
-- Gestione asincrona dell'inizializzazione
+- Next.js include i plugin importati da `bootstrap-italia` nei chunk JavaScript
+- `NavScroll` inizializza la navigazione e la sidebar sticky al montaggio
+- `VideoPlayer` inizializza il player e collega il consenso YouTube
 
 ## Vantaggi
 
 ### Performance
 
 - Riduzione del tempo di caricamento iniziale
-- Inizializzazione lazy dei componenti
+- Inizializzazione al montaggio dei componenti
 - Debouncing per evitare inizializzazioni multiple
 
 ### Stabilità
@@ -70,7 +69,7 @@ Questo documento descrive le ottimizzazioni implementate per migliorare le perfo
 
 ### Inizializzazione automatica
 
-I componenti vengono inizializzati automaticamente dal `BootstrapInit` nel layout principale.
+`BootstrapInit` nel layout principale inizializza tooltip, popover e collapse. La navigazione e il player video gestiscono le rispettive istanze nei componenti React.
 
 ### Inizializzazione manuale
 
@@ -121,7 +120,7 @@ Per verificare che le ottimizzazioni funzionino:
 ### Componenti non inizializzati
 
 1. Verificare che l'elemento abbia l'attributo `data-bs-toggle` corretto
-2. Controllare che Bootstrap sia caricato (`isBootstrapLoaded()`)
+2. Verificare che il componente importi e inizializzi il plugin
 3. Verificare che non ci siano errori nella console
 
 ### Errori di idratazione

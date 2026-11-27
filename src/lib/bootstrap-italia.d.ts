@@ -1,18 +1,15 @@
-import type * as BootstrapItalia from "bootstrap-italia";
+import "bootstrap-italia";
 
-interface BootstrapVideoPlayer {
-  setYouTubeVideo: (url: string) => void;
+declare module "bootstrap-italia" {
+  // Bootstrap Italia 2.18.3 exports this plugin at runtime without a declaration.
+  export class AcceptOverlay {
+    constructor(element: HTMLElement, options: { service: string });
+    dispose(): void;
+  }
 }
 
-interface BootstrapBundle
-  extends Pick<typeof BootstrapItalia, "Collapse" | "Popover" | "Tooltip"> {
-  VideoPlayer: {
-    getOrCreateInstance: (element: HTMLVideoElement) => BootstrapVideoPlayer;
-  };
-}
-
-declare global {
-  interface Window {
-    bootstrap?: BootstrapBundle;
+declare module "bootstrap-italia/types/plugins/sticky" {
+  export namespace Sticky {
+    function getOrCreateInstance(element: HTMLElement): Sticky;
   }
 }

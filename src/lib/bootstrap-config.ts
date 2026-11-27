@@ -44,44 +44,8 @@ export const BOOTSTRAP_CONFIG = {
   performance: {
     // Debounce per le inizializzazioni multiple
     debounceMs: 100,
-    // Timeout per l'attesa del caricamento di Bootstrap
-    bootstrapTimeoutMs: 5000,
-    // Abilita il lazy loading dei componenti
-    lazyLoading: true,
   },
 };
-
-// Funzione per verificare se Bootstrap è caricato
-export function isBootstrapLoaded(): boolean {
-  return typeof window !== "undefined" && 
-         typeof window.bootstrap !== "undefined" && 
-         window.bootstrap !== null;
-}
-
-// Funzione per attendere il caricamento di Bootstrap
-export function waitForBootstrap(timeoutMs: number = BOOTSTRAP_CONFIG.performance.bootstrapTimeoutMs): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (isBootstrapLoaded()) {
-      resolve();
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      reject(new Error('Bootstrap non caricato entro il timeout'));
-    }, timeoutMs);
-
-    const checkBootstrap = () => {
-      if (isBootstrapLoaded()) {
-        clearTimeout(timeout);
-        resolve();
-      } else {
-        requestAnimationFrame(checkBootstrap);
-      }
-    };
-
-    checkBootstrap();
-  });
-}
 
 // Funzione per debounce
 export function debounce<T extends (...args: unknown[]) => unknown>(
@@ -93,4 +57,4 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
     clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
   };
-} 
+}
