@@ -25,4 +25,4 @@ Queste sono tutte le librerie degne di menzione utilizzate nel progetto. Per mag
 | [🌐 redis](https://www.npmjs.com/package/redis)                                                                 | Libreria di terze parti per NodeJS per connessione a DB chiave-valore Redis.                                 |
 | [🌐 zod](https://www.npmjs.com/package/zod)                                                                     | Libreria di terze parti per la validazione di dati e tipi.                                                   |
 
-Eventuali altre librerie omesse (Next, React, Vercel) non hanno bisogno di essere documentate in quanto sono librerie standard che sono necessarie al funzionamento del progetto stesso.
+Next.js e React sono le librerie di base del progetto.
