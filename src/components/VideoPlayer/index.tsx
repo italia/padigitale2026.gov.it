@@ -1,20 +1,86 @@
 "use client";
 
-import { VideoPlayerRecord } from "@/graphql/generated";
-import { Col, Container, Row, Section } from "design-react-kit";
-import { useEffect, useState, useRef } from "react";
-import { Spinner } from "design-react-kit";
+import type { VideoPlayerRecord } from "@/graphql/generated";
+import {
+  AcceptOverlay,
+  VideoPlayer as BootstrapVideoPlayer,
+} from "bootstrap-italia";
+import { Col, Container, Row, Section, Spinner } from "design-react-kit";
+import { useEffect, useRef, useState } from "react";
 
 export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
   const { id, videoSources, poster, transcription, transcriptionLabel } = props;
   const [isClient, setIsClient] = useState(false);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const accordionRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
+  const instanceRef = useRef<BootstrapVideoPlayer>(null);
+  const consentRef = useRef<HTMLButtonElement>(null);
+  const youtubeUrl = videoSources?.find(
+    ({ sourceSrc }) =>
+      sourceSrc?.includes("youtube.com") ||
+      sourceSrc?.includes("youtu.be") ||
+      sourceSrc?.includes("youtube-nocookie.com"),
+  )?.sourceSrc;
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    const container = playerRef.current;
+    if (!isClient || !container) return;
+
+    // Video.js owns the video element and removes it when the player is disposed.
+    const video = document.createElement("video");
+    video.id = `vid-${id}`;
+    video.controls = true;
+
+    if (youtubeUrl) {
+      video.width = 640;
+      video.height = 264;
+    } else {
+      video.poster = poster?.url || "";
+      for (const source of videoSources || []) {
+        const element = document.createElement("source");
+        element.src = source.sourceSrc || "";
+        element.type = source.sourceType || "";
+        video.appendChild(element);
+      }
+    }
+
+    container.appendChild(video);
+    const instance = new BootstrapVideoPlayer(video);
+    const player = instance.player;
+    instanceRef.current = instance;
+
+    return () => {
+      instanceRef.current = null;
+      instance.dispose();
+      player.dispose();
+    };
+  }, [id, isClient, poster?.url, videoSources, youtubeUrl]);
+
+  useEffect(() => {
+    const button = consentRef.current;
+    if (!isClient || !button || !youtubeUrl) return;
+
+    let consent: AcceptOverlay | undefined;
+    const loadYouTubeVideo = () =>
+      instanceRef.current?.setYouTubeVideo(youtubeUrl);
+
+    // Keep the overlay's native click listener out of React's effect replay.
+    const frame = requestAnimationFrame(() => {
+      consent = new AcceptOverlay(button, { service: "youtube.com" });
+      button.addEventListener("click", loadYouTubeVideo);
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      button.removeEventListener("click", loadYouTubeVideo);
+      consent?.dispose();
+    };
+  }, [isClient, youtubeUrl]);
 
   const handleAccordionClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -23,46 +89,10 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
     setIsAccordionOpen(!isAccordionOpen);
   };
 
-  // Funzione per rilevare se le sorgenti video contengono link YouTube
-  const hasYouTubeSource = () => {
-    return videoSources?.some(
-      (source) =>
-        source.sourceSrc?.includes("youtube.com") ||
-        source.sourceSrc?.includes("youtu.be") ||
-        source.sourceSrc?.includes("youtube-nocookie.com")
-    );
-  };
-
-  // Funzione per ottenere il primo link YouTube dalle sorgenti
-  const getYouTubeUrl = () => {
-    return (
-      videoSources?.find(
-        (source) =>
-          source.sourceSrc?.includes("youtube.com") ||
-          source.sourceSrc?.includes("youtu.be") ||
-          source.sourceSrc?.includes("youtube-nocookie.com")
-      )?.sourceSrc || ""
-    );
-  };
-
-  // Funzione per caricare il video YouTube
-  const loadYouTubeVideo = (videoUrl: string) => {
-    if (videoRef.current && window.bootstrap) {
-      const video = window.bootstrap.VideoPlayer.getOrCreateInstance(
-        videoRef.current
-      );
-      if (video && video.setYouTubeVideo) {
-        video.setYouTubeVideo(videoUrl);
-      }
-    }
-  };
-
   // Renderizza il player YouTube con overlay di consenso
   const renderYouTubePlayer = () => {
-    const youtubeUrl = getYouTubeUrl();
-
     return (
-      <div className="acceptoverlayable">
+      <div className="acceptoverlayable" key={youtubeUrl}>
         <div className="acceptoverlay acceptoverlay-primary fade show">
           <div className="acceptoverlay-inner">
             <div className="acceptoverlay-icon">
@@ -82,8 +112,7 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
               <button
                 type="button"
                 className="btn btn-primary"
-                data-bs-accept-from="youtube.com"
-                onClick={() => loadYouTubeVideo(youtubeUrl)}
+                ref={consentRef}
               >
                 Accetta
               </button>
@@ -101,15 +130,7 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
           </div>
         </div>
         <div>
-          <video
-            controls
-            data-bs-video
-            ref={videoRef}
-            id={`vid-${id}`}
-            className="video-js"
-            width="640"
-            height="264"
-          ></video>
+          <div ref={playerRef} />
           {transcriptionLabel && transcription && (
             <div className="vjs-transcription accordion" ref={accordionRef}>
               <div className="accordion-item">
@@ -150,22 +171,7 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
   const renderStandardPlayer = () => {
     return (
       <>
-        <video
-          data-bs-video
-          poster={poster?.url || ""}
-          data-setup='{
-            "controls": true,
-            "fluid": true
-          }'
-        >
-          {videoSources?.map((source) => (
-            <source
-              key={source.sourceSrc}
-              src={source.sourceSrc || ""}
-              type={source.sourceType || ""}
-            />
-          )) || []}
-        </video>
+        <div ref={playerRef} />
         {transcriptionLabel && transcription && (
           <div className="vjs-transcription accordion" ref={accordionRef}>
             <div className="accordion-item">
@@ -211,7 +217,7 @@ export function VideoPlayer({ props }: { props: VideoPlayerRecord }) {
         <Row>
           <Col>
             {isClient ? (
-              hasYouTubeSource() ? (
+              youtubeUrl ? (
                 renderYouTubePlayer()
               ) : (
                 renderStandardPlayer()

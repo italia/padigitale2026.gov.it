@@ -1,5 +1,6 @@
 "use client";
 
+import { Collapse, Popover, Tooltip } from "bootstrap-italia";
 import { useEffect, useRef } from "react";
 
 export default function BootstrapInit() {
@@ -7,13 +8,7 @@ export default function BootstrapInit() {
 
   useEffect(() => {
     const initBootstrap = () => {
-      if (
-        typeof window !== "undefined" &&
-        window.bootstrap &&
-        !initializedRef.current
-      ) {
-        const bootstrap = window.bootstrap;
-
+      if (!initializedRef.current) {
         // Inizializza solo i componenti che sono effettivamente presenti nel DOM
         // e che non sono già stati inizializzati da Bootstrap Italia
 
@@ -26,9 +21,9 @@ export default function BootstrapInit() {
             try {
               // Verifica se il tooltip è già inizializzato
               const existingTooltip =
-                bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+                Tooltip.getInstance(tooltipTriggerEl);
               if (!existingTooltip) {
-                new bootstrap.Tooltip(tooltipTriggerEl);
+                new Tooltip(tooltipTriggerEl);
                 tooltipTriggerEl.setAttribute("data-bs-initialized", "true");
               }
             } catch (error) {
@@ -46,9 +41,9 @@ export default function BootstrapInit() {
             try {
               // Verifica se il popover è già inizializzato
               const existingPopover =
-                bootstrap.Popover.getInstance(popoverTriggerEl);
+                Popover.getInstance(popoverTriggerEl);
               if (!existingPopover) {
-                new bootstrap.Popover(popoverTriggerEl);
+                new Popover(popoverTriggerEl);
                 popoverTriggerEl.setAttribute("data-bs-initialized", "true");
               }
             } catch (error) {
@@ -66,9 +61,9 @@ export default function BootstrapInit() {
             try {
               // Verifica se il collapse è già inizializzato
               const existingCollapse =
-                bootstrap.Collapse.getInstance(collapseTriggerEl);
+                Collapse.getInstance(collapseTriggerEl);
               if (!existingCollapse) {
-                new bootstrap.Collapse(collapseTriggerEl, { toggle: false });
+                new Collapse(collapseTriggerEl, { toggle: false });
                 collapseTriggerEl.setAttribute("data-bs-initialized", "true");
               }
             } catch (error) {
@@ -111,9 +106,6 @@ export default function BootstrapInit() {
       window.addEventListener("load", initBootstrap);
     }
 
-    // Ascolta l'evento di caricamento di Bootstrap
-    window.addEventListener("bootstrap-loaded", initBootstrap);
-
     // Avvia l'osservatore per i mutamenti del DOM
     observer.observe(document.body, {
       childList: true,
@@ -123,20 +115,19 @@ export default function BootstrapInit() {
     // Cleanup
     return () => {
       window.removeEventListener("load", initBootstrap);
-      window.removeEventListener("bootstrap-loaded", initBootstrap);
       observer.disconnect();
 
       // Cleanup dei componenti Bootstrap se necessario
-      if (typeof window !== "undefined" && window.bootstrap) {
-        const bootstrap = window.bootstrap;
-
+      if (initializedRef.current) {
+        initializedRef.current = false;
         // Disinizializza tooltip
         document
           .querySelectorAll('[data-bs-toggle="tooltip"]')
           .forEach((el) => {
-            const tooltip = bootstrap.Tooltip.getInstance(el);
+            const tooltip = Tooltip.getInstance(el);
             if (tooltip) {
               tooltip.dispose();
+              el.removeAttribute("data-bs-initialized");
             }
           });
 
@@ -144,9 +135,10 @@ export default function BootstrapInit() {
         document
           .querySelectorAll('[data-bs-toggle="popover"]')
           .forEach((el) => {
-            const popover = bootstrap.Popover.getInstance(el);
+            const popover = Popover.getInstance(el);
             if (popover) {
               popover.dispose();
+              el.removeAttribute("data-bs-initialized");
             }
           });
       }

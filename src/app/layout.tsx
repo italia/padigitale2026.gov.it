@@ -60,7 +60,6 @@ import type {
 import Header from "@/src/components/header";
 import Footer from "@/src/components/footer";
 import BootstrapInit from "@/src/components/BootstrapInit";
-import BootstrapScript from "@/src/components/BootstrapScript";
 import AgentforceMessaging from "@/src/components/AgentforceMessaging";
 import { PagesProvider } from "@/src/contexts/PagesContext";
 
@@ -114,7 +113,6 @@ export default async function RootLayout({
           <Footer props={footerProps} />
         </PagesProvider>
         <BootstrapInit />
-        <BootstrapScript />
         <AgentforceMessaging />
 
         {/* Script Matomo */}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Collapse, Popover, Tooltip } from "bootstrap-italia";
 import { useEffect, useRef } from "react";
 
 interface BootstrapInstance {
@@ -15,11 +16,9 @@ export function useBootstrap() {
     componentType: 'tooltip' | 'popover' | 'collapse',
     options?: Record<string, unknown>
   ) => {
-    if (typeof window === "undefined" || !window.bootstrap) {
+    if (typeof window === "undefined") {
       return null;
     }
-
-    const bootstrap = window.bootstrap;
     
     try {
       // Verifica se il componente è già inizializzato
@@ -27,13 +26,13 @@ export function useBootstrap() {
       
       switch (componentType) {
         case 'tooltip':
-          existingInstance = bootstrap.Tooltip.getInstance(element);
+          existingInstance = Tooltip.getInstance(element);
           break;
         case 'popover':
-          existingInstance = bootstrap.Popover.getInstance(element);
+          existingInstance = Popover.getInstance(element);
           break;
         case 'collapse':
-          existingInstance = bootstrap.Collapse.getInstance(element);
+          existingInstance = Collapse.getInstance(element);
           break;
       }
 
@@ -46,13 +45,13 @@ export function useBootstrap() {
       
       switch (componentType) {
         case 'tooltip':
-          instance = new bootstrap.Tooltip(element, options);
+          instance = new Tooltip(element, options);
           break;
         case 'popover':
-          instance = new bootstrap.Popover(element, options);
+          instance = new Popover(element, options);
           break;
         case 'collapse':
-          instance = new bootstrap.Collapse(element, options);
+          instance = new Collapse(element, options);
           break;
         default:
           return null;
@@ -72,24 +71,22 @@ export function useBootstrap() {
   };
 
   const disposeComponent = (element: Element, componentType: 'tooltip' | 'popover' | 'collapse') => {
-    if (typeof window === "undefined" || !window.bootstrap) {
+    if (typeof window === "undefined") {
       return;
     }
-
-    const bootstrap = window.bootstrap;
     
     try {
       let instance: BootstrapInstance | null = null;
       
       switch (componentType) {
         case 'tooltip':
-          instance = bootstrap.Tooltip.getInstance(element);
+          instance = Tooltip.getInstance(element);
           break;
         case 'popover':
-          instance = bootstrap.Popover.getInstance(element);
+          instance = Popover.getInstance(element);
           break;
         case 'collapse':
-          instance = bootstrap.Collapse.getInstance(element);
+          instance = Collapse.getInstance(element);
           break;
       }
 
@@ -124,4 +121,4 @@ export function useBootstrap() {
     initComponent,
     disposeComponent
   };
-} 
+}
