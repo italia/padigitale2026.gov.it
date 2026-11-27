@@ -25,7 +25,7 @@
     "dataviz-components": "0.3.21",
     "datocms-structured-text-to-plain-text": "6.0.0",
     "design-react-kit": "5.11.0",
-    "dotenv": "16.6.1",
+    "dotenv": "18.0.10",
     "graphql": "16.15.0",
     "iron-session": "8.0.4",
     "jose": "6.2.18",
