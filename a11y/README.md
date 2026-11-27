@@ -1,6 +1,6 @@
 # Accessibility checks (axe-core + Playwright)
 
-Standalone package (own `package-lock.json`): it does not need the app's `bun install`.
+The accessibility suite shares the app's Bun installation and lockfile.
 
 ## What runs where
 
@@ -15,16 +15,20 @@ Third-party scripts (Matomo, reCAPTCHA, Salesforce Agentforce) are blocked and t
 
 ## Run locally
 
+Run these commands from the repository root with Bun and Node.js 24. If you previously ran
+`npm ci` in `a11y/`, remove the old `a11y/node_modules` so Playwright uses the root installation.
+
 ```sh
-cd a11y
-npm ci
-npx playwright install chromium
-BASE_URL=https://padigitale2026.gov.it npm run test:templates
-BASE_URL=https://padigitale2026.gov.it A11Y_MAX_PAGES=15 npm run test:full   # debug: limit pages
-npm run report   # -> reports/summary.md, reports/results.json
+bun install --frozen-lockfile
+bun run playwright install chromium
+BASE_URL=https://padigitale2026.gov.it bun run a11y:templates
+BASE_URL=https://padigitale2026.gov.it A11Y_MAX_PAGES=15 bun run a11y:full # Limit the scan to 15 pages
+BASE_URL=https://padigitale2026.gov.it bun run a11y:report
 ```
 
-Env: `BASE_URL` (required), `A11Y_WORKERS` (default 4), `A11Y_MAX_PAGES` (debug), `A11Y_FAIL_ON`.
+The report is written to `a11y/reports/summary.md` and `a11y/reports/results.json`.
+The scans require `BASE_URL`. Use `A11Y_WORKERS` to set concurrency (default 4),
+`A11Y_MAX_PAGES` to limit the full scan, and `A11Y_FAIL_ON` to set blocking impacts.
 
 On NixOS use the nixpkgs browsers (matches the pinned Playwright 1.64.1):
 
@@ -35,7 +39,6 @@ export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
 
 ## Enabling blocking
 
-Tests never fail on violations; the gate is `npm run report`, which exits non-zero only if a
-violation has an impact listed in `A11Y_FAIL_ON` (e.g. `critical,serious`). It is empty in both
-workflows (report only). To block PRs, set `fail-on: "critical,serious"` on the `a11y-scan` step
-in `a11y-pr.yml`.
+`bun run a11y:report` exits non-zero when a violation has an impact listed in `A11Y_FAIL_ON`
+(e.g. `critical,serious`). Both workflows use report-only mode by default. To block PRs,
+set `fail-on: "critical,serious"` on the `a11y-scan` step in `a11y-pr.yml`.

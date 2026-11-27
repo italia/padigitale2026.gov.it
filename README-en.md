@@ -72,6 +72,7 @@ bun run start
 
 - `bun run lint` - Run code linting
 - `bun run codegen` - Generate GraphQL types
+- `bun run a11y:templates` - Run [accessibility checks](a11y/README.md) on representative pages
 
 ## Configuration
 
