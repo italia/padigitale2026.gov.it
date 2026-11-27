@@ -1,7 +1,10 @@
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   sassOptions: {
+    // Resolve the Splide source styles used by Bootstrap Italia’s carousel.
+    loadPaths: [fileURLToPath(new URL("./node_modules/", import.meta.url))],
     // Bootstrap Italia 2 still requires Sass imports from the application stylesheets.
     quietDeps: true,
     silenceDeprecations: ["import"],
