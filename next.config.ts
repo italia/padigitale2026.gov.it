@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  sassOptions: {
+    // Bootstrap Italia 2 still requires Sass imports from the application stylesheets.
+    quietDeps: true,
+    silenceDeprecations: ["import"],
+  },
+
   env: {
     DATOCMS_API_TOKEN: process.env.DATOCMS_API_TOKEN,
     DATOCMS_ENVIRONMENT: process.env.DATOCMS_ENVIRONMENT,

@@ -1,3 +1,5 @@
+@use "sass:map";
+
 /**
 import bootstrap for custom responsive utilities
  */
@@ -187,36 +189,36 @@ body {
 //map of just necessary utilities
 $utilities: (
   "border":
-    map-merge(
-      map-get($utilities, "border"),
+    map.merge(
+      map.get($utilities, "border"),
       (
         responsive: true,
       )
     ),
   "border-top":
-    map-merge(
-      map-get($utilities, "border-top"),
+    map.merge(
+      map.get($utilities, "border-top"),
       (
         responsive: true,
       )
     ),
   "border-end":
-    map-merge(
-      map-get($utilities, "border-end"),
+    map.merge(
+      map.get($utilities, "border-end"),
       (
         responsive: true,
       )
     ),
   "border-bottom":
-    map-merge(
-      map-get($utilities, "border-bottom"),
+    map.merge(
+      map.get($utilities, "border-bottom"),
       (
         responsive: true,
       )
     ),
   "border-start":
-    map-merge(
-      map-get($utilities, "border-start"),
+    map.merge(
+      map.get($utilities, "border-start"),
       (
         responsive: true,
       )
