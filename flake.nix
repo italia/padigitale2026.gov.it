@@ -17,6 +17,7 @@
       in {
         devShells.default = pkgs.mkShell {
           packages = [
+            pkgs.biome
             pkgs.bun
             pkgs.nodejs_24
           ];

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.9/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!build",
+      "!graphql/generated.ts",
+      "!public/assets/matomo.js",
+      "!public/bootstrap-italia.bundle.min.js"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "error"
+      }
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noNoninteractiveElementToInteractiveRole": "warn",
+            "noRedundantRoles": "warn",
+            "noStaticElementInteractions": "warn",
+            "noSvgWithoutTitle": "warn",
+            "useAriaPropsSupportedByRole": "warn",
+            "useButtonType": "warn",
+            "useMediaCaption": "warn",
+            "useSemanticElements": "warn",
+            "useValidAnchor": "warn"
+          },
+          "correctness": {
+            "noSwitchDeclarations": "warn"
+          },
+          "security": {
+            "noDangerouslySetInnerHtml": "warn"
+          },
+          "suspicious": {
+            "noArrayIndexKey": "warn",
+            "noDoubleEquals": "warn",
+            "noImplicitAnyLet": "warn",
+            "useIterableCallbackReturn": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["public/**/*.svg"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/components/StepperAccordion/index.module.scss"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnknownFunction": {
+              "level": "error",
+              "options": {
+                "ignore": ["url-friendly-color"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

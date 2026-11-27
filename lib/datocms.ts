@@ -1323,7 +1323,7 @@ export async function getAlgoliaFaq(id: string) {
 export async function sendPostToBetterStack(data: {
   message: string;
   level?: 'info' | 'warning' | 'error';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: Log metadata can contain arbitrary values.
   metadata?: Record<string, any>;
 }) {
   // Get Better Stack configuration from environment variables

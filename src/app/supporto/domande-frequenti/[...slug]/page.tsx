@@ -85,7 +85,7 @@ export default async function FaqPage({
 
     return (
       <>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        {/* biome-ignore lint/suspicious/noExplicitAny: ModularContent accepts multiple DatoCMS content types. */}
         <ModularContent content={{ page } as any} pageContentType="supporto" />
       </>
     );
@@ -100,7 +100,7 @@ export default async function FaqPage({
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      {/* biome-ignore lint/suspicious/noExplicitAny: ModularContent accepts multiple DatoCMS content types. */}
       <ModularContent content={{ page: faq } as any} pageContentType="faq" />
     </>
   );

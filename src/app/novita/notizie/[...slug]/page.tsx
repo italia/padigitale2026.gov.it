@@ -49,7 +49,7 @@ export default async function NewsPage({
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      {/* biome-ignore lint/suspicious/noExplicitAny: ModularContent accepts multiple DatoCMS content types. */}
       <ModularContent content={{ page } as any} pageContentType="news" />
     </>
   );

@@ -7,11 +7,11 @@ const version = 'v57.0';
 // Funzione helper per il logging con BetterStack
 async function logToBetterStack(
   functionName: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: Salesforce requests and responses have endpoint-specific shapes.
   payload: any,
   response: Response,
   responseText: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: Salesforce requests and responses have endpoint-specific shapes.
   responseData: any
 ) {
   await sendPostToBetterStack({

@@ -70,7 +70,8 @@ bun run start
 
 ## Other Useful Commands
 
-- `bun run lint` - Run code linting
+- `bun run lint` - Lint code with Biome
+- `bun run format` - Format code with Biome
 - `bun run codegen` - Generate GraphQL types
 - `bun run a11y:templates` - Run [accessibility checks](a11y/README.md) on representative pages
 

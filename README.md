@@ -81,7 +81,8 @@ bun run start
 
 ## Altri Comandi Utili
 
-- `bun run lint` - Esegue il linting del codice
+- `bun run lint` - Esegue il linting del codice con Biome
+- `bun run format` - Formatta il codice con Biome
 - `bun run codegen` - Genera i tipi GraphQL
 - `bun run a11y:templates` - Esegue i [controlli di accessibilità](a11y/README.md) sulle pagine rappresentative del sito
 

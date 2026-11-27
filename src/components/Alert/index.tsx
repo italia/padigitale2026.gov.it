@@ -10,7 +10,7 @@ export function Alert({ props }: { props: AlertRecord }) {
       {testo && (
         <StructuredText
           key={JSON.stringify(testo)}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // biome-ignore lint/suspicious/noExplicitAny: The rich-text renderer accepts several DatoCMS record types.
           data={testo as any}
         />
       )}

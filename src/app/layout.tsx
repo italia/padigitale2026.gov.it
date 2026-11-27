@@ -140,7 +140,7 @@ export default async function RootLayout({
 
         {/* Noscript fallback */}
         <noscript>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* biome-ignore lint/performance/noImgElement: Matomo's tracking pixel must work without JavaScript. */}
           <img
             src="https://ingestion.webanalytics.italia.it//matomo.php?idsite=${process.env.NEXT_PUBLIC_MATOMO_SITE_ID || 'R9pxNNv0Xm'}&rec=1&url=https://padigitale2026.gov.it/"
             style={{ border: 0 }}

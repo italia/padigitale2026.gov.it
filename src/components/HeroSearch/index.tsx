@@ -345,7 +345,7 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
     }
   }, []);
 
-  // Resetta la paginazione quando cambiano i filtri
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Reset pagination when the selected filters change.
   useEffect(() => {
     if (mounted && currentPage > 1) {
       setCurrentPage(1);
@@ -355,7 +355,6 @@ function SearchResults({ selectedFilters }: { selectedFilters: string[] }) {
         scroll: false,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilters, mounted, router]);
 
   // Aggiorna l'URL quando cambia la pagina

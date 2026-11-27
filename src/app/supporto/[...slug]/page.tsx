@@ -15,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = slug.join("/");
-  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+  // biome-ignore lint/suspicious/noExplicitAny: This route serves several DatoCMS content types.
   let pageData: any = {}
 
   if (fullSlug === "domande-frequenti") {
@@ -49,7 +49,7 @@ export default async function SupportoPage({
   params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+  // biome-ignore lint/suspicious/noExplicitAny: This route serves several DatoCMS content types.
   let pageData: any = {}
   const fullSlug = slug.join("/");
 
@@ -65,7 +65,7 @@ export default async function SupportoPage({
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      {/* biome-ignore lint/suspicious/noExplicitAny: ModularContent accepts multiple DatoCMS content types. */}
       <ModularContent content={{ page } as any} pageContentType="supporto" />
     </>
   );

@@ -273,7 +273,7 @@ export function RichText({ props }: { props: RichTextRecord }) {
             {content && (
               <StructuredText
                 key={JSON.stringify(content)}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                // biome-ignore lint/suspicious/noExplicitAny: The rich-text renderer accepts several DatoCMS record types.
                 data={content as any}
                 renderBlock={renderBlock}
                 customNodeRules={customNodeRules}

@@ -186,10 +186,9 @@ export function AccordionsFilter({ props }: { props: AccordionsFilterRecord }) {
     updateVisibleCards();
   };
 
-  // Update visible cards state on component mount
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Initialize visible cards once on mount.
   useEffect(() => {
     updateVisibleCards();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Scroll automatico all'apertura di un accordion
