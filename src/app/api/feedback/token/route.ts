@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getIronSession } from "iron-session";
+import { getIronSession, type SessionOptions } from "iron-session";
 import { NextRequest, NextResponse } from "next/server";
 import { SessionData } from "../types";
 import Tokens from "csrf";
@@ -8,7 +8,7 @@ if (!process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET must be set.");
 }
 
-const sessionOptions = {
+const sessionOptions: SessionOptions = {
   password: process.env.SESSION_SECRET,
   cookieName: "session",
   cookieOptions: {

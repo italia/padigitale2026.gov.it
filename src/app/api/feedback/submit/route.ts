@@ -122,10 +122,11 @@ export async function POST(request: NextRequest) {
   // Fallisce se il CSRF token:
   // 1. non è presente
   // 2. non combacia con quello in sessione
-  // 3. non è valido.
+  // 3. non può essere verificato con il secret della sessione.
   if (
     !csrf_token ||
     csrf_token != session.csrf_token ||
+    !secret ||
     !tokens.verify(secret, csrf_token)
   ) {
     return NextResponse.json(
