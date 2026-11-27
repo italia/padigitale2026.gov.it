@@ -16,7 +16,7 @@
     "postinstall": "node scripts/copy-bootstrap.js"
   },
   "dependencies": {
-    "@datocms/cda-client": "0.2.10",
+    "@datocms/cda-client": "0.3.2",
     "@datocms/cma-client": "4.0.2",
     "@types/react-google-recaptcha": "2.1.9",
     "algoliasearch": "5.65.0",

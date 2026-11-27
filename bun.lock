@@ -5,7 +5,7 @@
     "": {
       "name": "next-starter-designkit",
       "dependencies": {
-        "@datocms/cda-client": "0.2.10",
+        "@datocms/cda-client": "0.3.2",
         "@datocms/cma-client": "4.0.2",
         "@types/react-google-recaptcha": "2.1.9",
         "algoliasearch": "5.65.0",
@@ -144,7 +144,7 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.6.9", "", { "os": "win32", "cpu": "x64" }, "sha512-mwarNc4GEg5JknsRaJDyJDFr4kICD7snsGM8yYFOoIHimSU1ekWNbcZ44QDa6/30fUZC9077wbBpXE8fp03aug=="],
 
-    "@datocms/cda-client": ["@datocms/cda-client@0.2.10", "", { "dependencies": { "@0no-co/graphql.web": "^1.0.11" } }, "sha512-uj5M4t0ifwlxBRFdgqnt1Sb4A8RNkv1e6sYa6gP6Bh+oGQwhtnGnvyNazA4KpLhqrO2UAw3dbKB5WltcB5JeAg=="],
+    "@datocms/cda-client": ["@datocms/cda-client@0.3.2", "", { "dependencies": { "@0no-co/graphql.web": "^1.0.11" } }, "sha512-4lxe00OsUyc9sq9kBhT4RTFwTZoRnlPChIrYRwv1aR+Sd3UhPfKPaxknM9uRi8ntqwPAb5A28zaF8z7ahASBVg=="],
 
     "@datocms/cma-client": ["@datocms/cma-client@4.0.2", "", { "dependencies": { "@datocms/rest-client-utils": "^4.0.2", "uuid": "^9.0.1" } }, "sha512-AhtI7hGZxjHcScE+Wkk01BFgkiL+tNft0oMDyuKlVEKF0zRCqRHipwf8lwfO5zQP4XFQ6Qn4Fh/B8oF30q/BIA=="],
 
@@ -1943,8 +1943,6 @@
     "cliui/wrap-ansi": ["wrap-ansi@9.0.2", "", { "dependencies": { "ansi-styles": "^6.2.1", "string-width": "^7.0.0", "strip-ansi": "^7.1.0" } }, "sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww=="],
 
     "compression/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="],
-
-    "datocms-listen/@datocms/cda-client": ["@datocms/cda-client@0.3.2", "", { "dependencies": { "@0no-co/graphql.web": "^1.0.11" } }, "sha512-4lxe00OsUyc9sq9kBhT4RTFwTZoRnlPChIrYRwv1aR+Sd3UhPfKPaxknM9uRi8ntqwPAb5A28zaF8z7ahASBVg=="],
 
     "datocms-structured-text-utils/array-flatten": ["array-flatten@3.0.0", "", {}, "sha512-zPMVc3ZYlGLNk4mpK1NzP2wg0ml9t7fUgDsayR5Y5rSzxQilzR9FGu/EH2jQOcKSAeAfWeylyW8juy3OkWRvNA=="],
 
