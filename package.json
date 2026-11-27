@@ -46,7 +46,7 @@
     "zod": "4.6.7"
   },
   "engines": {
-    "node": "24.x"
+    "node": "26.x"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
@@ -59,7 +59,7 @@
     "@graphql-typed-document-node/core": "3.2.0",
     "@lhci/cli": "0.16.1",
     "@playwright/test": "1.64.1",
-    "@types/node": "24.19.4",
+    "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "classnames": "2.5.1",
@@ -67,6 +67,6 @@
     "typescript": "5.8.3"
   },
   "volta": {
-    "node": "24.22.3"
+    "node": "26.13.1"
   }
 }
